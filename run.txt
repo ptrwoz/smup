@@ -1,0 +1,22 @@
+# to run app
+python manage.py runserver 8080
+#
+python manage.py startapp
+#
+python manage.py inspectdb > models.py
+#
+python manage.py migrate auth
+python manage.py migrate
+#
+python manage.py createsuperuser
+#
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'system',
+        'USER': 'admin',
+        'PASSWORD': 'Qwerty123!',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
