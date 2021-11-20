@@ -5,6 +5,8 @@ python manage.py startapp
 #
 python manage.py inspectdb > models.py
 #
+python manage.py makemigrations app
+#
 python manage.py migrate auth
 python manage.py migrate
 #
