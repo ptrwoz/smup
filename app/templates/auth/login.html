@@ -1,31 +1,14 @@
-{% extends "base_generic.html" %}
-{% block content %}
-  {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
-  {% endif %}
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-{% endblock %}
+<form id="loginPage" method="post">{% csrf_token %}
+	<div id="inputs">
+		<input class="inp1" type="text" name='username' placeholder="Login"/>
+		<input class="inp1" type="password" name='password' placeholder="Password" />
+	</div>
+	<div id="button">
+		<button id="submit" href="" class="w3-button w3-black w3-padding-large w3-large w3-margin-top"> Zaloguj </button>
+	</div>
+	{% for message in messages %}
+	<div class="mess-main">
+		<strong>{{ message }}</strong>
+	</div>
+	{% endfor %}
+</form>

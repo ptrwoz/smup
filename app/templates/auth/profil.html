@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% block content %}
+        {% if logged == "yes" %}
+            <a>Welcome:</a>
+            <a> {{userData.label}} </a>
+            <a> {{userData.email}} </a>
+            <a> {{userData.idemployeeType}} </a>
+            <a> {{userData.unit}} </a>
+            <a href="logout">logout</a>
+        {% else %}
+            <a>Please Login</a>
+            <a href="login">login</a>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

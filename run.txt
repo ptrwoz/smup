@@ -3,7 +3,7 @@ python manage.py runserver 8080
 #
 python manage.py startapp
 #
-python manage.py inspectdb > models.py
+python manage.py inspectdb > app/models.py
 #
 python manage.py makemigrations app
 #
