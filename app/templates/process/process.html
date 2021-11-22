@@ -7,10 +7,14 @@
 <body>
     {% block content %}
         {% if logged == "yes" %}
+            <a>{{current_datetime}}</a>
             <a>Welcome:</a>
             <a> {{userLabel}} </a>
             <a href="profil">profil</a>
             <a href="logout">logout</a>
+            {% for process in processData %}
+                <li><a>{{ process }}</a></li>
+            {% endfor %}
         {% else %}
             <a>Please Login</a>
             <a href="login">login</a>

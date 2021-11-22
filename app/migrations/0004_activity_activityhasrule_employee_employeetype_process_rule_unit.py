@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                 ('tip', models.TextField(blank=True, null=True)),
             ],
             options={
-                'db_table': 'process',
+                'db_table': 'activity',
                 'managed': False,
             },
         ),

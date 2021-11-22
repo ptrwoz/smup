@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                 ('tip', models.TextField(blank=True, null=True)),
             ],
             options={
-                'db_table': 'process',
+                'db_table': 'activity',
                 'managed': False,
             },
         ),
@@ -67,7 +67,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(blank=True, max_length=45, null=True)),
             ],
             options={
-                'db_table': 'role',
+                'db_table': 'rule',
                 'managed': False,
             },
         ),

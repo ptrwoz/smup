@@ -13,24 +13,16 @@ class Activity(models.Model):
     timeconsuming = models.DateTimeField(db_column='timeConsuming')  # Field name made lowercase.
     timeadd = models.DateTimeField(db_column='timeAdd')  # Field name made lowercase.
     timefrom = models.DateTimeField(db_column='timeFrom', blank=True, null=True)  # Field name made lowercase.
-    timeto = models.CharField(db_column='timeTo', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    timeto = models.DateTimeField(db_column='timeTo', blank=True, null=True)  # Field name made lowercase.
     idemployee = models.ForeignKey('Employee', models.DO_NOTHING, db_column='idEmployee')  # Field name made lowercase.
     idprocess = models.ForeignKey('Process', models.DO_NOTHING, db_column='idProcess')  # Field name made lowercase.
-
+    name = models.CharField(max_length=45, blank=True, null=True)
+    def __str__(self):
+        return str(self.idactivity) + " " + str(self.idemployee) + " " + str(self.idprocess)
     class Meta:
         managed = False
         db_table = 'activity'
         unique_together = (('idactivity', 'timeconsuming'),)
-
-
-class ActivityHasRule(models.Model):
-    activity_idactivity = models.OneToOneField(Activity, models.DO_NOTHING, db_column='Activity_idActivity', primary_key=True)  # Field name made lowercase.
-    rule_idrule = models.ForeignKey('Rule', models.DO_NOTHING, db_column='Rule_idRule')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'activity_has_rule'
-        unique_together = (('activity_idactivity', 'rule_idrule'),)
 
 
 class AuthGroup(models.Model):
@@ -163,7 +155,8 @@ class Employee(models.Model):
 class Employeetype(models.Model):
     idemployee_type = models.AutoField(db_column='idEmployee Type', primary_key=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     name = models.CharField(unique=True, max_length=64)
-
+    def __str__(self):
+        return str(self.name)
     class Meta:
         managed = False
         db_table = 'employeetype'
@@ -175,6 +168,8 @@ class Process(models.Model):
     tip = models.TextField(blank=True, null=True)
     idsubprocess = models.ForeignKey('self', models.DO_NOTHING, db_column='idSubProcess', blank=True, null=True)  # Field name made lowercase.
 
+    def __str__(self):
+        return str(self.idprocess) + " " + str(self.name)
     class Meta:
         managed = False
         db_table = 'process'
@@ -185,10 +180,21 @@ class Rule(models.Model):
     timefrom = models.DateTimeField(db_column='timeFrom')  # Field name made lowercase.
     timeto = models.DateTimeField(db_column='timeTo')  # Field name made lowercase.
     employee_idemployee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='Employee_idEmployee')  # Field name made lowercase.
-
+    def __str__(self):
+        return str(self.idrule) + " " + str(self.employee_idemployee)
     class Meta:
         managed = False
         db_table = 'rule'
+
+
+class RuleHasProcess(models.Model):
+    rule_idrule = models.OneToOneField(Rule, models.DO_NOTHING, db_column='rule_idRule', primary_key=True)  # Field name made lowercase.
+    process_idprocess = models.ForeignKey(Process, models.DO_NOTHING, db_column='process_idProcess')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'rule_has_process'
+        unique_together = (('rule_idrule', 'process_idprocess'),)
 
 
 class Unit(models.Model):

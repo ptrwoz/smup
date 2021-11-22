@@ -2,8 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from app.models import Employee
-
-def profilUser(request):
+from app.models import Process
+'''def processViewProcessing(processData):
+    for p in processData:
+        if
+    return processData'''
+def processView(request):
     context = dict()
     if request.user.is_authenticated:
         context['logged'] = 'yes'
@@ -17,28 +21,10 @@ def profilUser(request):
         else:
             userData.label = userData
         context['userData'] = userData
-        return render(request, 'auth/profil.html', context)
+        processData = Process.objects.all()
+        #viewProcessData = processViewProcessing(processData)
+        #context['processData'] = viewProcessData
+        return render(request, 'process/process.html', context)
     else:
         context['logged'] = 'no'
         return redirect('home')
-
-def logoutUser(request):
-    logout(request)
-    return redirect('home')
-
-def loginPage(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                messages.info(request, 'Login activity error!')
-
-        context = {}
-        return render(request, "auth/login.html", context)
