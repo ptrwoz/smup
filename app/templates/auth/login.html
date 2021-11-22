@@ -1,4 +1,3 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,6 @@
     <meta name="description" content="">
     <meta name="author" content="Piotr Wozniak">
 	<meta name="theme-color" content="#7952b3">
-	<meta name="theme-color" content="#7952b3">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
@@ -19,19 +17,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="{% static 'css/signin.css' %}" />
 	<style>
-		  .bd-placeholder-img {
-			font-size: 1.125rem;
-			text-anchor: middle;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			user-select: none;
-		  }
 
-		  @media (min-width: 768px) {
-			.bd-placeholder-img-lg {
-			  font-size: 3.5rem;
-			}
-		  }
 	</style>
 </head>
 <body class="text-center">
@@ -39,12 +25,12 @@
     {% block content %}
 	<form id="loginPage"  method="post">{% csrf_token %}
 		<div id="inputs" class="form-control">
-			<h1 class="h3 mb-3 fw-normal">Zaloguj się do systemu</h1>
+			<h1 class="h3 mb-3 fw-normal">Zaloguj się System SMUP</h1>
 			<input class="form-control" type="text" name='username' placeholder="Login"/>
 			<input class="form-control" type="password" name='password' placeholder="Hasło" />
 		</div>
 		<div >
-			<button class="w-100 btn btn-lg btn-primary" id="submit" href="">Zaloguj</button>
+			<button class="w-100 btn btn-lg btn-success" id="submit" href="">Zaloguj</button>
 		</div>
 		{% for message in messages %}
 		<div class="alert alert-danger">

@@ -13,7 +13,7 @@ def home(request):
             context['account'] = str(employee[0].idemployeetype.name)
         else:
             context['userLabel'] = userData
-            context['account'] = 'null'
+            context['account'] = 'GUEST'
     else:
-        context['account'] = 'null'
+        context['account'] = 'GUEST'
     return render(request, 'main/home.html', context)
