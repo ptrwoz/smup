@@ -66,7 +66,8 @@ class AuthUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
-
+    def __str__(self):
+        return str(self.username)
     class Meta:
         managed = False
         db_table = 'auth_user'
@@ -143,10 +144,11 @@ class Employee(models.Model):
     idemployee = models.AutoField(db_column='idEmployee', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=256, blank=True, null=True)
     surname = models.CharField(max_length=256, blank=True, null=True)
-    idunit = models.ForeignKey('Unit', models.DO_NOTHING, db_column='idUnit')  # Field name made lowercase.
+    idunit = models.ForeignKey('unit', models.DO_NOTHING, db_column='idUnit')  # Field name made lowercase.
     idemployeetype = models.ForeignKey('Employeetype', models.DO_NOTHING, db_column='idEmployeeType')  # Field name made lowercase.
     auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-
+    def __str__(self):
+        return str(self.idemployee) + " " + str(self.name) + " " + str(self.surname) + " " +  str(self.idemployeetype.name)
     class Meta:
         managed = False
         db_table = 'employee'
@@ -200,7 +202,8 @@ class RuleHasProcess(models.Model):
 class Unit(models.Model):
     idunit = models.AutoField(db_column='idUnit', primary_key=True)  # Field name made lowercase.
     name = models.CharField(unique=True, max_length=256)
-
+    def __str__(self):
+        return str(self.idunit) + " - " + str(self.name)
     class Meta:
         managed = False
         db_table = 'unit'

@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Unit',
+            name='unit',
             fields=[
                 ('idunit', models.AutoField(db_column='idUnit', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=256, unique=True)),

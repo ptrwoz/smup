@@ -56,6 +56,6 @@ class Migration(migrations.Migration):
             name='Role',
         ),
         migrations.DeleteModel(
-            name='Unit',
+            name='unit',
         ),
     ]

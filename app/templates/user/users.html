@@ -42,9 +42,43 @@
             {% endif %}
         </nav>
     </div>
+
     <section class="text-center container form-control">
         <div class="d-grid gap-2">
-
+            {% if account == "GUEST" %}
+                <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
+            {% else %}
+                <h1 class="fw-light">Użytkownicy:</h1>
+                <p class="lead text-muted"></p>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Imię</th>
+                      <th scope="col">Nazwisko</th>
+                      <th scope="col">Jednostka</th>
+                      <th scope="col">Rola</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for employee in employeesData%}
+                        <tr>
+                          <th scope="row">{{employee.idemployee}}</th>
+                          <td>{{employee.name}}</td>
+                          <td>{{employee.surname}}</td>
+                            <td>{{employee.idunit.name}}</td>
+                          <td>{{employee.idemployeetype.name}}</td>
+                          <td>
+                              <a class="btn btn-primary" href="../user/{{employee.idemployee}}">Edytuj</a>
+                              <a class="btn btn-danger" href="../user/delete/{{employee.idemployee}}">Usuń</a>
+                          </td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <a class="btn btn-success" href="../user/-1">Dodaj</a>
+            {% endif %}
         </div>
     </section>
     {% endblock %}

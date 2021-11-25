@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from ..models import *
+from app.models import *
 
 
 def home(request):
@@ -16,4 +16,5 @@ def home(request):
             context['account'] = 'GUEST'
     else:
         context['account'] = 'GUEST'
+        return render(request, 'main/home.html', context)
     return render(request, 'main/home.html', context)
