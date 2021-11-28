@@ -7,7 +7,7 @@ import pandas as pd
 from django.http import HttpResponse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from ..models import *
+from app.models import *
 from django import forms
 from datetime import datetime
 
@@ -66,11 +66,11 @@ def xlsxViewUnits(request):
         else:
             context['userLabel'] = userData
             context['account'] = 'GUEST'
-        return render(request, 'data/excelImport.html', context)
+        return render(request, 'data/importExport.html', context)
     else:
         context['account'] = 'GUEST'
         return render(request, 'main/home.html', context)
-    return redirect('data/excelImport.html')
+    return redirect('data/importExport.html')
 
 def generateExcelgenerateExcel(request):
     path = './%s_Report.xlsx'

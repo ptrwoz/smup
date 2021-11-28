@@ -48,34 +48,14 @@
             {% if account == "GUEST" %}
                 <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-                <h1 class="fw-light">Wybierz opcję systemu:</h1>
+                <h1 class="fw-light">Wybierz opcję Export/Import:</h1>
                 <p class="lead text-muted"></p>
                 <p>
-                    <a href="activities" class="btn btn-secondary btn-lgblock block">Aktywności</a>
-                </p>
-                {% if account == "MANAGER" or account == "PROCESS MANAGER" or account == "ADMIN" %}
-                    <p>
-                        <a href="users" class="btn btn-warning btn-lg btn-block block">Użytkownicy</a>
-                    </p>
-                    <p>
-                        <a href="rules" class="btn btn btn btn-dark btn-lg btn-block block">Reguły aktywności pracowników</a>
-                    </p>
-                {% endif %}
-                {% if account == "PROCESS MANAGER" or account == "ADMIN"%}
-                    <p>
-                        <a href="processes" class="btn btn-primary btn-lg btn-block block">Procesy</a>
-                    </p>
-                    <p>
-                        <a href="units" class="btn btn-primary btn-lg btn-block block">Jednostki</a>
-                    </p>
-                {% endif %}
-                {% if account == "ADMIN" %}
-                    <p>
-                        <a href="admin/" class="btn btn btn btn-danger btn-lg btn-block block">Administracja</a>
-                    </p>
-                {% endif %}
-                <p>
-                    <a href="importExport" class="btn btn-secondary btn-lg btn-block block">Export/Import danych</a>
+                    Wczytaj dane:
+                    <a href="#" class="btn btn-secondary btn-lg btn-block block">Import</a>
+                <p/>
+                <p> Pobierz dane:
+                    <a href="#" class="btn btn-secondary btn-lg btn-block block">Export</a>
                 <p/>
             {% endif %}
         </div>

@@ -1,79 +1,106 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.db.models import Q
-from app.models import Employee
-from app.models import Process
-from app.models import RuleHasProcess
-import datetime
+from django.shortcuts import render, redirect
+from app.models import Employee, Unit, Employeetype
+from app.view.auth.auth import authUser, UserData
 
-class UserData:
-    name = ""
-    surname = ""
-    pass
 
-def userView(request, id):
-    context = dict()
-    foreignUserData = UserData()
-    if request.user.is_authenticated:
-        userData = request.user
-        employee = Employee.objects.filter(auth_user=userData.id)
-        role = employee[0].idemployeetype.name
-        if employee.exists() :
-            context['userLabel'] = employee[0].name + " " + employee[0].surname
-            context['account'] = str(employee[0].idemployeetype.name)
-            if id != "":
-                try:
-                    foreignUser = Employee.objects.filter(idunit=int(id))
-                    if len(foreignUser) >= 1:
-                        foreignUserData.name = foreignUser[0].name
-                        foreignUserData.idunit = foreignUser[0].idunit
-                        context['unitData'] = foreignUserData
-                        context['userData'] = userData
-                        return render(request, 'user/user.html', context)
-                    elif int(id) == -1:
-                        context['unitData'] = foreignUserData
-                        context['userData'] = userData
-                        return render(request, 'user/user.html', context)
-                    else:
-                        return redirect('../')
-                except:
-                    return redirect('../')
-                else:
-                    return render(request, 'unit/units.html', context)
-            else:
-                return render(request, 'user/user.html', context)
+def getEmployeeToEdit(id, userId, userRole):
+    e = Employee.objects.filter(idemployee=int(id))
+    if (len(e) > 0):
+        e = e[0]
+        if userRole == 'ADMIN' and e.idemployee != userId:
+            return e
+        elif userRole == 'PROCESS MANAGER' and (e.idemployeetype.name == 'MANAGER' or e.idemployeetype.name == 'USER'):
+            return e
+        elif userRole == 'MANAGER' and (e.idemployeetype.name == 'USER'):
+            return e
         else:
-            context['userLabel'] = userData
-            context['account'] = 'GUEST'
-            return redirect('../main/home.html')
+            return None
     else:
-        context['account'] = 'GUEST'
-        return redirect('main/home.html')
-        #return render(request, 'main/home.html', context)
-    #return render(request, 'unit/unit.html', context)
-    return redirect('main/home.html')
+        return None
 
-def usersView(request):
-    context = dict()
-    if request.user.is_authenticated:
-        userData = request.user
-        employee = Employee.objects.filter(auth_user=userData.id)
-        role = employee[0].idemployeetype.name
-        if employee.exists():
-            context['userLabel'] = employee[0].name + " " + employee[0].surname
-            context['account'] = str(role)
-            if(role == 'ADMIN'):
-                employeesData = Employee.objects.filter(~Q(auth_user=userData.id))
-            elif(role == 'PROCESS MANAGER'):
-                employeesData = Employee.objects.filter(Q(idemployeetype__name='MANAGER' or 'USER'))
-            elif (role == 'MANAGER'):
-                employeesData = Employee.objects.filter(idemployeetype__name='USER')
-            context['employeesData'] = employeesData
+#
+#
+#
+def viewUser(request, context, id):
+    units = Unit.objects.all()
+    context['units'] = units
+    roles = Employeetype.objects.all()
+    context['roles'] = roles
+    if id == 0:
+        context['user'] = UserData()
+        return render(request, 'user/user.html', context)
+    elif len(id) == 0:
+        context['user'] = UserData()
+        return render(request, 'user/user.html', context)
+    elif len(id) > 0 and id.isnumeric():
+        e = getEmployeeToEdit(id, context['userData'].id, context['account'])
+        if e is not None:
+            e.login = e.auth_user.username
+            e.auth_user = None
+            e.password = ""
+            context['user'] = e
+            return render(request, 'user/user.html', context)
         else:
-            context['userLabel'] = userData
-            context['account'] = 'GUEST'
+            return redirect('users')
+    else:
+        return redirect('users')
+
+#
+#   user save function
+#
+def saveUser(request, context, id):
+    name = request.POST.get('userName')
+    surname = request.POST.get('userSurname')
+    unit = request.POST.get('unitValue')
+    employeeType = request.POST.get('roleValue')
+    e = Employee()
+    e.name = name
+    e.surname = surname
+    u = Unit()
+    u.name = unit
+    e.idunit = u
+    et = Employeetype()
+    et.name = employeeType
+    e.idemployeetype = et
+    # au = AuthUser()
+    try:
+        e.save()
+        messages.info(request, 'Zapisano')
+        return render(request, 'user/user.html', context)
+    except:
+        messages.info(request, 'Błąd zapisu')
+        return viewUser(request, context, id)
+#
+#   main operation user function
+#
+def userView(request, id = 0):
+    context = authUser(request)
+    if context['account'] != 'GUEST':
+        #save and update
+        if request.method == 'POST':
+            return saveUser(request, context, id)
+        elif request.method == 'DELETE':
+            return redirect('home')
+        #view user
+        else:
+            return viewUser(request, context, id)
+    else:
+        return redirect('home')
+#
+#   main view users function
+#
+def usersView(request):
+    context = authUser(request)
+    if context['account'] != 'GUEST':
+        if (context['account'] == 'ADMIN'):
+            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id))
+        elif (context['account'] == 'PROCESS MANAGER'):
+            employeesData = Employee.objects.filter(Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER'))
+        elif (context['account'] == 'MANAGER'):
+            employeesData = Employee.objects.filter(idemployeetype__name='USER')
+        context['employeesData'] = employeesData
         return render(request, 'user/users.html', context)
     else:
-        context['account'] = 'GUEST'
         return redirect('home')

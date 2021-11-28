@@ -1,41 +1,26 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from app.models import Employee
-
-class UserData:
-    name = ""
-    surname = ""
-    pass
-
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from app.view.auth.auth import authUser
 
 def profilUser(request):
-    context = dict()
-    userData = UserData()
-    if request.user.is_authenticated:
-        userName = request.user
-        employee = Employee.objects.filter(auth_user=userName.id)
-        if employee.exists():
-            context['userLabel'] = employee[0].name + " " + employee[0].surname
-            context['account'] = str(employee[0].idemployeetype.name)
-            userData.name = str(employee[0].name)
-            userData.surname = str(employee[0].surname)
-            context['userData'] = userData
-        else:
-            context['userLabel'] = userName
-            context['account'] = 'GUEST'
+    context = authUser(request)
+    if context['account'] != 'GUEST':
+        return render(request, 'auth/profil.html', context)
     else:
-        context['account'] = 'GUEST'
-    return render(request, 'auth/profil.html', context)
+        return redirect('home')
 
 def logoutUser(request):
-    logout(request)
-    return redirect('home')
-
-def loginPage(request):
-    if request.user.is_authenticated:
+    context = authUser(request)
+    if context['account'] != 'GUEST':
+        logout(request)
         return redirect('home')
     else:
+        return redirect('home')
+
+def loginPage(request):
+    context = authUser(request)
+    if context['account'] == 'GUEST':
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -45,6 +30,9 @@ def loginPage(request):
                 return redirect('home')
             else:
                 messages.info(request, 'Błędne logowanie!')
+                return render(request, "auth/login.html", context)
+        else:
+            return render(request, "auth/login.html", context)
+    else:
+        return redirect('home')
 
-        context = {}
-        return render(request, "auth/login.html", context)

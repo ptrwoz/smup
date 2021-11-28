@@ -55,23 +55,42 @@
             <p class="lead text-muted"></p>
             {% endif %}
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
-                <form id="viewUnit" method="post"> {% csrf_token %}
-                    <div class="form-group row">
-                        <label for="text" class="col-sm-2 col-form-label">Nazwa jednostki:</label>
-                        <div class="col-sm-10">
-                            <input type="text"  class="form-control" type="text" name='unitName' placeholder="Nazwa" id="unitName" value="{{unitData.name}}">
-                        </div>
+            <form id="viewUnit" method="post"> {% csrf_token %}
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Nazwa jednostki:</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" type="text" name='unitName' placeholder="Nazwa" id="unitName" value="{{unitData.name}}">
                     </div>
+                </div>
+                <div>
+                    <p></p>
                     <div>
-                        <p></p>
-                        <button class="w-100 btn btn-lg btn-success" id="submit">Zapisz</button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Czy na pewno chcesz wykonać operację?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                                        <button type="submit" class="btn btn-success">Tak</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-100 btn btn-lg btn-success">Zapisz</button>
                     </div>
-                    {% for message in messages %}
-                    <div class="alert alert-danger">
-                        <strong>{{message}}</strong>
-                    </div>
-                    {% endfor %}
-                </form>
+                </div>
+                {% for message in messages %}
+                <div class="alert alert-danger">
+                    <strong>{{message}}</strong>
+                </div>
+                {% endfor %}
+            </form>
             {% endif %}
         </div>
     </section>

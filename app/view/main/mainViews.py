@@ -1,20 +1,7 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
-from app.models import *
+from django.shortcuts import render
+from app.view.auth.auth import authUser
 
 
 def home(request):
-    context = dict()
-    if request.user.is_authenticated:
-        userData = request.user
-        employee = Employee.objects.filter(auth_user=userData.id)
-        if employee.exists():
-            context['userLabel'] = employee[0].name + " " + employee[0].surname
-            context['account'] = str(employee[0].idemployeetype.name)
-        else:
-            context['userLabel'] = userData
-            context['account'] = 'GUEST'
-    else:
-        context['account'] = 'GUEST'
-        return render(request, 'main/home.html', context)
+    context = authUser(request)
     return render(request, 'main/home.html', context)

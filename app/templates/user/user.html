@@ -19,16 +19,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
     <style>
-
+        .row {
+            margin-bottom: 10px;
+        }
     </style>
     <script>
-        if (confirm('Are you sure you want to save this thing into the database?')) {
-          // Save it!
-          console.log('Thing was saved to the database.');
-        } else {
-          // Do nothing!
-          console.log('Thing was not saved to the database.');
-        }
+
     </script>
 </head>
 <body class="text-center">
@@ -57,32 +53,93 @@
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-            <h1 class="fw-light">Dodaj jednostkę:</h1>
+            <h1 class="fw-light">Dodaj użytkownika:</h1>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
-                <form id="unitPage"  method="post"> {% csrf_token %}
-                    <div class="form-group row">
-                        <label for="text" class="col-sm-2 col-form-label">Nazwa jednostki:</label>
-                        <div class="col-sm-10">
-                            <input type="text"  class="form-control" type="text" name='unitName' placeholder="Nazwa" id="unitName" value="{{unitData.name}}">
+            <form id="userPage" id="submit" method="post"> {% csrf_token %}
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Login:</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" type="text" name='userName' placeholder="Login" id="userLogin" value="{{user.login}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Hasło:</label>
+                    <div class="col-sm-10">
+                        <input type="password"  class="form-control" name='userPassword' placeholder="Password" id="userPassword" value="{{user.password}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Hasło (powtórz):</label>
+                    <div class="col-sm-10">
+                        <input type="password"  class="form-control" name='userPassword2' placeholder="Password" id="userPassword2" value="{{user.password}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Imię:</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" type="text" name='userName' placeholder="Imię" id="userName" value="{{user.name}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Nazwisko:</label>
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control" type="text" name='userSurname' placeholder="Nazwisko" id="userSurname" value="{{user.surname}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Jednostka:</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" name="unitValue" aria-label="Default select example">
+                            {% for u in units %}
+                            <option value="{{u.name}}"{% if u.name == user.idunit.name %} selected{% endif %}>{{u.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Typ konta:</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" name="roleValue" aria-label="Default select example">
+                            {% for r in roles %}
+                            <option value="{{r.name}}"{% if r.name == user.idemployeetype.name %} selected{% endif %}>{{r.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Czy na pewno chcesz wykonać operację?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                                    <button type="submit" class="btn btn-success">Tak</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-100 btn btn-lg btn-success">Zapisz</button>
+                </div>
+                <div>
+                    <p></p>
+                </div>
+                {% for message in messages %}
+                <div class="alert alert-danger">
+                    <strong>{{message}}</strong>
+                </div>
+                {% endfor %}
 
-                    <div>
-                        <button class="w-100 btn btn-lg btn-success" id="submit">Zapisz</button>
-                    </div>
-                    <div>
-                        <p></p>
-                    </div>
-                    {% for message in messages %}
-                    <div class="alert alert-danger">
-                        <strong>{{message}}</strong>
-                    </div>
-                    {% endfor %}
-                </form>
-            {% endif %}
+                {% endif %}
+                {% endif %}
+            </form>
         </div>
-
     </section>
 
     {% endblock %}

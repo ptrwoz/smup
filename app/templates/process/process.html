@@ -18,7 +18,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
     <style>
-
+        // Treeview Initialization
+        $(document).ready(function() {
+          $('.treeview').mdbTreeview();
+        });
     </style>
 </head>
 <body class="text-center">
@@ -50,36 +53,55 @@
             {% else %}
                 <h1 class="fw-light">Procesy:</h1>
                 <p class="lead text-muted"></p>
+                {% if account == "ADMIN" or "PROCESS MANAGER"%}
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Proces</th>
-                      <th scope="col">Nazwisko</th>
-                      <th scope="col">Jednostka</th>
-                      <th scope="col">Rola</th>
+                      <!--<th scope="col">#</th>-->
+                      <th scope="col">Numer</th>
+                      <th scope="col">Nazwa</th>
+                      <th scope="col">Opis</th>
                       <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for employee in employeesData%}
+                    {% for process in processData%}
                         <tr>
-                          <th scope="row">{{employee.idemployee}}</th>
-                          <td>{{employee.name}}</td>
-                          <td>{{employee.surname}}</td>
-                            <td>{{employee.idunit.name}}</td>
-                          <td>{{employee.idemployeetype.name}}</td>
+                          <td></td>
+                          <td>{{process.name}}</td>
                           <td>
-                              <a class="btn btn-primary" href="../user/{{employee.idemployee}}">Edytuj</a>
-                              <a class="btn btn-danger" href="../user/delete/{{employee.idemployee}}">Usuń</a>
+                                <div>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Czy na pewno chcesz wykonać operację?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
+                                                <a type="button" data-method="delete" class="btn btn-success" href="../units/{{unit.idunit}}">Tak</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="btn btn-primary" data-method="post" href="../units/{{unit.idunit}}">Edytuj</a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Usuń</a>
                           </td>
                         </tr>
                     {% endfor %}
                   </tbody>
                 </table>
-                <a class="btn btn-success" href="../user/-1">Dodaj</a>
+                <a class="btn btn-success" href="../units/">Dodaj</a>
+                <a class="btn btn-secondary" href="../">Wróć</a>
+                {% endif %}
             {% endif %}
         </div>
+
     </section>
     {% endblock %}
 </main>

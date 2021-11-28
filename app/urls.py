@@ -3,25 +3,37 @@ from app.view.auth import authViews
 from app.view.main import mainViews
 from django.urls import path
 from app.view.process import processViews
+from app.view.rule import ruleViews
 from app.view.unit import unitViews
+
 from app.view.user import userViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from app.xlsxmanager import Exporter
+from app.view.data import eporter, importExportView
 
 urlpatterns = [
-    path('login', authViews.loginPage, name='login'),
-    path('logout', authViews.logoutUser, name='logout'),
-    path('profil', authViews.profilUser, name='profil'),
-    path('activities', activityViews.activityView, name='activities'),
+    path('login', authViews.loginPage, name='login'), #ok
+    path('logout', authViews.logoutUser, name='logout'), #ok
+    path('profil', authViews.profilUser, name='profil'), #ok
+    path('export_import', eporter.exportFile, name='export'),
     path('users', userViews.usersView, name='users'),
-    path('user/<str:id>', userViews.userView, name='users'),
-    path('process', processViews.processView, name='process'),
+    path('user/<str:id>', userViews.userView, name='user'),
+    path('user', userViews.userView, name='user'),
+    path('units', unitViews.unitsView, name='units'),
+    path('unit', unitViews.unitView, name='unit'),
+    path('unit/<str:id>', unitViews.unitView, name='unit'),
+
+    path('rules', ruleViews.rulesView, name='rules'),
+    path('activities', activityViews.activityView, name='activities'),
+
+    path('processes', processViews.processView, name='processes'),
     #path('units/<str:field>;<str:sort>', unitViews.viewUnits, name='units'),
-    path('units', unitViews.viewUnits, name='units'),
-    path('units/<str:id>', unitViews.viewUnit, name='unit'),
-    path('excelTest', Exporter.generateExcelgenerateExcel, name='excelTest'),
-    path('xlsxViewUnits', Exporter.xlsxViewUnits, name='xlsxViewUnits'),
-    path('export', Exporter.exportFile, name='export'),
+
+    path('excelTest', eporter.generateExcelgenerateExcel, name='excelTest'),
+    path('xlsxViewUnits', eporter.xlsxViewUnits, name='xlsxViewUnits'),
+
+
+    path('importExport', importExportView.importExportPage, name='importExport'),
+
     path('', mainViews.home, name='home'),
 ]
 urlpatterns += staticfiles_urlpatterns()

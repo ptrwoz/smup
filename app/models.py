@@ -10,15 +10,12 @@ from django.db import models
 
 class Activity(models.Model):
     idactivity = models.AutoField(db_column='idActivity', primary_key=True)  # Field name made lowercase.
-    timeconsuming = models.DateTimeField(db_column='timeConsuming')  # Field name made lowercase.
+    timeconsuming = models.FloatField(db_column='timeConsuming')  # Field name made lowercase.
     timeadd = models.DateTimeField(db_column='timeAdd')  # Field name made lowercase.
-    timefrom = models.DateTimeField(db_column='timeFrom', blank=True, null=True)  # Field name made lowercase.
-    timeto = models.DateTimeField(db_column='timeTo', blank=True, null=True)  # Field name made lowercase.
-    idemployee = models.ForeignKey('Employee', models.DO_NOTHING, db_column='idEmployee')  # Field name made lowercase.
-    idprocess = models.ForeignKey('Process', models.DO_NOTHING, db_column='idProcess')  # Field name made lowercase.
-    name = models.CharField(max_length=45, blank=True, null=True)
-    def __str__(self):
-        return str(self.idactivity) + " " + str(self.idemployee) + " " + str(self.idprocess)
+    timefrom = models.DateField(db_column='timeFrom', blank=True, null=True)  # Field name made lowercase.
+    timeto = models.DateField(db_column='timeTo', blank=True, null=True)  # Field name made lowercase.
+    rule_has_process_id_rule_has_process = models.ForeignKey('RuleHasProcess', models.DO_NOTHING, db_column='rule_has_process_id_rule_has_process')
+
     class Meta:
         managed = False
         db_table = 'activity'
@@ -66,8 +63,7 @@ class AuthUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
-    def __str__(self):
-        return str(self.username)
+
     class Meta:
         managed = False
         db_table = 'auth_user'
@@ -93,6 +89,15 @@ class AuthUserUserPermissions(models.Model):
         managed = False
         db_table = 'auth_user_user_permissions'
         unique_together = (('user', 'permission'),)
+
+
+class DataType(models.Model):
+    iddata_type = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'data_type'
 
 
 class DjangoAdminLog(models.Model):
@@ -144,11 +149,10 @@ class Employee(models.Model):
     idemployee = models.AutoField(db_column='idEmployee', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=256, blank=True, null=True)
     surname = models.CharField(max_length=256, blank=True, null=True)
-    idunit = models.ForeignKey('unit', models.DO_NOTHING, db_column='idUnit')  # Field name made lowercase.
+    idunit = models.ForeignKey('Unit', models.DO_NOTHING, db_column='idUnit')  # Field name made lowercase.
     idemployeetype = models.ForeignKey('Employeetype', models.DO_NOTHING, db_column='idEmployeeType')  # Field name made lowercase.
     auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    def __str__(self):
-        return str(self.idemployee) + " " + str(self.name) + " " + str(self.surname) + " " +  str(self.idemployeetype.name)
+
     class Meta:
         managed = False
         db_table = 'employee'
@@ -157,8 +161,7 @@ class Employee(models.Model):
 class Employeetype(models.Model):
     idemployee_type = models.AutoField(db_column='idEmployee Type', primary_key=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     name = models.CharField(unique=True, max_length=64)
-    def __str__(self):
-        return str(self.name)
+
     class Meta:
         managed = False
         db_table = 'employeetype'
@@ -170,40 +173,48 @@ class Process(models.Model):
     tip = models.TextField(blank=True, null=True)
     idsubprocess = models.ForeignKey('self', models.DO_NOTHING, db_column='idSubProcess', blank=True, null=True)  # Field name made lowercase.
 
-    def __str__(self):
-        return str(self.idprocess) + " " + str(self.name)
     class Meta:
         managed = False
         db_table = 'process'
 
 
 class Rule(models.Model):
-    idrule = models.IntegerField(db_column='idRule', primary_key=True)  # Field name made lowercase.
-    timefrom = models.DateTimeField(db_column='timeFrom')  # Field name made lowercase.
-    timeto = models.DateTimeField(db_column='timeTo')  # Field name made lowercase.
+    idrule = models.AutoField(db_column='idRule', primary_key=True)  # Field name made lowercase.
+    timefrom = models.DateField(db_column='timeFrom')  # Field name made lowercase.
+    timeto = models.DateField(db_column='timeTo')  # Field name made lowercase.
     employee_idemployee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='Employee_idEmployee')  # Field name made lowercase.
-    def __str__(self):
-        return str(self.idrule) + " " + str(self.employee_idemployee)
+    maxconsuming = models.FloatField(db_column='maxConsuming', blank=True, null=True)  # Field name made lowercase.
+    time_range_idtime_range = models.ForeignKey('TimeRange', models.DO_NOTHING, db_column='time_range_idtime_range')
+    data_type_iddata_type = models.ForeignKey(DataType, models.DO_NOTHING, db_column='data_type_iddata_type')
+
     class Meta:
         managed = False
         db_table = 'rule'
 
 
 class RuleHasProcess(models.Model):
-    rule_idrule = models.OneToOneField(Rule, models.DO_NOTHING, db_column='rule_idRule', primary_key=True)  # Field name made lowercase.
+    rule_idrule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_idRule')  # Field name made lowercase.
     process_idprocess = models.ForeignKey(Process, models.DO_NOTHING, db_column='process_idProcess')  # Field name made lowercase.
+    id_rule_has_process = models.IntegerField(primary_key=True)
 
     class Meta:
         managed = False
         db_table = 'rule_has_process'
-        unique_together = (('rule_idrule', 'process_idprocess'),)
+
+
+class TimeRange(models.Model):
+    idtime_range = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'time_range'
 
 
 class Unit(models.Model):
     idunit = models.AutoField(db_column='idUnit', primary_key=True)  # Field name made lowercase.
     name = models.CharField(unique=True, max_length=256)
-    def __str__(self):
-        return str(self.idunit) + " - " + str(self.name)
+
     class Meta:
         managed = False
         db_table = 'unit'
