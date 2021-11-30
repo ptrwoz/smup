@@ -1,24 +1,26 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from app.models import Employee
+from app.models import Employee, Rule
 from app.models import Process
 from app.models import RuleHasProcess
 import datetime
+from app.view.auth.auth import authUser
+
 
 def activityView(request):
-
-    context = dict()
-    if request.user.is_authenticated:
-        userData = request.user
-        employee = Employee.objects.filter(auth_user=userData.id)
-        if employee.exists():
-            context['userLabel'] = employee[0].name + " " + employee[0].surname
-            context['account'] = str(employee[0].idemployeetype.name)
+    context = authUser(request)
+    if context['account'] != 'GUEST':
+        # save and update
+        if request.method == 'POST':
+            print()
+            #return saveUser(request, context, id)
+        elif request.method == 'DELETE':
+            return redirect('home')
+        # view user
         else:
-            context['userLabel'] = userData
-            context['account'] = 'GUEST'
-        return render(request, 'activity/activity.html', context)
+            rules = Rule.objects.filter(employee_idemployee = context['userData'].id)
+            context['rules'] = rules
+            return render(request, 'activity/activities.html', context)
     else:
-        context['account'] = 'GUEST'
         return redirect('home')

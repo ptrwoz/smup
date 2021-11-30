@@ -22,9 +22,14 @@ urlpatterns = [
     path('unit', unitViews.unitView, name='unit'),
     path('unit/<str:id>', unitViews.unitView, name='unit'),
 
+    path('rule', ruleViews.ruleView, name='rule'),
+    path('rule/<str:id>', ruleViews.ruleView, name='rule'),
     path('rules', ruleViews.rulesView, name='rules'),
+
     path('activities', activityViews.activityView, name='activities'),
 
+
+    path('process', processViews.processView, name='process'),
     path('processes', processViews.processView, name='processes'),
     #path('units/<str:field>;<str:sort>', unitViews.viewUnits, name='units'),
 

@@ -53,26 +53,26 @@
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-            <h1 class="fw-light">Dodaj użytkownika:</h1>
+            <h1 class="fw-light">Dodaj regułę:</h1>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
             <form id="userPage" id="submit" method="post"> {% csrf_token %}
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Login:</label>
+                    <label for="text" class="col-sm-2 col-form-label">Nazwa:</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" type="text" name='userLogin' placeholder="Login" id="userLogin" value="{{user.login}}">
+                        <input type="text"  class="form-control" type="text" name='ruleName' placeholder="Nazwa" id="ruleName" value="{{rule.name}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Hasło:</label>
+                    <label for="text" class="col-sm-2 col-form-label">Wartość maksymalna:</label>
                     <div class="col-sm-10">
-                        <input type="password"  class="form-control" name='userPassword' autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  placeholder="Password" id="userPassword" value="{{user.password}}" readonly onfocus="this.removeAttribute('readonly');">
+                        <input type="text"  class="form-control" name='userMaxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Hasło (powtórz):</label>
                     <div class="col-sm-10">
-                        <input type="password"  class="form-control" name='userPassword2' autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  placeholder="Password" id="userPassword2" value="{{user.password}}"  readonly onfocus="this.removeAttribute('readonly');">
+                        <input type="password"  class="form-control" name='userPassword2' placeholder="Password" id="userPassword2" value="{{user.password}}">
                     </div>
                 </div>
                 <div class="form-group row">

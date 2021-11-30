@@ -9,9 +9,13 @@ from app.view.auth.auth import authUser
 def processView(request):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER':
-        #userData = context['userData']
-        processData = Process.objects.all()
-        context['processData'] = processData
-        return render(request, 'process/process.html', context)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            print()
+        else:
+            #userData = context['userData']
+            processData = Process.objects.all()
+            context['processData'] = processData
+            return render(request, 'process/process.html', context)
     else:
         return redirect('home')

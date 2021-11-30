@@ -5,7 +5,11 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from datetime import datetime
+
 from django.db import models
+
+from system_project import settings
 
 
 class Activity(models.Model):
@@ -62,7 +66,7 @@ class AuthUser(models.Model):
     email = models.CharField(max_length=254)
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
-    date_joined = models.DateTimeField()
+    date_joined = models.DateTimeField(default=datetime.now)
 
     class Meta:
         managed = False
@@ -179,11 +183,13 @@ class Process(models.Model):
 
 
 class Rule(models.Model):
+    DATE_INPUT_FORMATS = ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d')
     idrule = models.AutoField(db_column='idRule', primary_key=True)  # Field name made lowercase.
+    name = models.CharField(max_length=45, blank=True, null=True)
+    max = models.FloatField(blank=True, null=True)
     timefrom = models.DateField(db_column='timeFrom')  # Field name made lowercase.
     timeto = models.DateField(db_column='timeTo')  # Field name made lowercase.
     employee_idemployee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='Employee_idEmployee')  # Field name made lowercase.
-    maxconsuming = models.FloatField(db_column='maxConsuming', blank=True, null=True)  # Field name made lowercase.
     time_range_idtime_range = models.ForeignKey('TimeRange', models.DO_NOTHING, db_column='time_range_idtime_range')
     data_type_iddata_type = models.ForeignKey(DataType, models.DO_NOTHING, db_column='data_type_iddata_type')
 

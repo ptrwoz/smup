@@ -55,13 +55,23 @@
                     <tr>
                       <!--<th scope="col">#</th>-->
                       <th scope="col">Name</th>
-                      <th scope="col">Operations</th>
+                      <th scope="col">Wartość maksymalna</th>
+                      <th scope="col">Informacja</th>
+                       <th scope="col">Jednostka</th>
+                      <th scope="col">Okres</th>
+                      <th scope="col">Pracownik</th>
+
                     </tr>
                   </thead>
                   <tbody>
                     {% for rule in rules%}
                         <tr>
                           <td>{{rule.name}}</td>
+                          <td>{{rule.max|floatformat:0}}</td>
+                          <td>{{rule.data_type_iddata_type.name}}</td>
+                          <td>{{rule.time_range_idtime_range.name}}</td>
+                          <td>{{rule.timefrom|date:'d-m-Y'}} - {{rule.timeto|date:'d-m-Y'}}</td>
+                          <td>{{rule.employee_idemployee.name}}  {{rule.employee_idemployee.surname}}</td>
                           <td>
                                 <div>
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
