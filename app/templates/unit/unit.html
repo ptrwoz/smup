@@ -51,7 +51,7 @@
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-            <h1 class="fw-light">Dodaj jednostkę:</h1>
+            <h1 class="fw-light">Jednostka:</h1>
             <p class="lead text-muted"></p>
             {% endif %}
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
@@ -82,7 +82,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-100 btn btn-lg btn-success">Zapisz</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-success">Zapisz</button>
+                        <a class="btn btn-secondary btn-lg" href="../units">Wróć</a>
                     </div>
                 </div>
                 {% for message in messages %}

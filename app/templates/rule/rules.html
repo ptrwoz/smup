@@ -47,14 +47,14 @@
             {% if account == "GUEST" %}
                 <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-                <h1 class="fw-light">Jednostki:</h1>
+                <h1 class="fw-light">Reguły:</h1>
                 <p class="lead text-muted"></p>
                 {% if account == "ADMIN" or "PROCESS MANAGER"%}
                 <table class="table table-striped">
                   <thead>
                     <tr>
                       <!--<th scope="col">#</th>-->
-                      <th scope="col">Name</th>
+                      <th scope="col">Nazwa</th>
                       <th scope="col">Wartość maksymalna</th>
                       <th scope="col">Informacja</th>
                        <th scope="col">Jednostka</th>
@@ -67,7 +67,7 @@
                     {% for rule in rules%}
                         <tr>
                           <td>{{rule.name}}</td>
-                          <td>{{rule.max|floatformat:0}}</td>
+                          <td>{{rule.max|floatformat:2}}</td>
                           <td>{{rule.data_type_iddata_type.name}}</td>
                           <td>{{rule.time_range_idtime_range.name}}</td>
                           <td>{{rule.timefrom|date:'d-m-Y'}} - {{rule.timeto|date:'d-m-Y'}}</td>
@@ -99,8 +99,10 @@
                     {% endfor %}
                   </tbody>
                 </table>
-                <a class="btn btn-success" href="../rule/">Dodaj</a>
-                <a class="btn btn-secondary" href="../">Wróć</a>
+                <form>
+                    <a class="btn btn-success btn-lg" href="../rule/">Dodaj</a>
+                    <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
+                </form>
                 {% endif %}
             {% endif %}
         </div>

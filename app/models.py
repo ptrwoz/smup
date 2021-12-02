@@ -5,11 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from datetime import datetime
-
 from django.db import models
-
-from system_project import settings
 
 
 class Activity(models.Model):
@@ -66,8 +62,9 @@ class AuthUser(models.Model):
     email = models.CharField(max_length=254)
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
-    date_joined = models.DateTimeField(default=datetime.now)
-
+    date_joined = models.DateTimeField()
+    def __str__(self):
+        return str(self.username)
     class Meta:
         managed = False
         db_table = 'auth_user'
@@ -165,7 +162,8 @@ class Employee(models.Model):
 class Employeetype(models.Model):
     idemployee_type = models.AutoField(db_column='idEmployee Type', primary_key=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     name = models.CharField(unique=True, max_length=64)
-
+    def __str__(self):
+        return str(self.name)
     class Meta:
         managed = False
         db_table = 'employeetype'
@@ -175,15 +173,16 @@ class Process(models.Model):
     idprocess = models.AutoField(db_column='idProcess', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=256)
     tip = models.TextField(blank=True, null=True)
-    idsubprocess = models.ForeignKey('self', models.DO_NOTHING, db_column='idSubProcess', blank=True, null=True)  # Field name made lowercase.
-
+    idmainprocess = models.ForeignKey('self', models.DO_NOTHING, db_column='idMainProcess', blank=True, null=True)  # Field name made lowercase.
+    idsubprocess = models.IntegerField(db_column='idSubProcess')  # Field name made lowercase.
+    def __str__(self):
+        return str(self.name)
     class Meta:
         managed = False
         db_table = 'process'
 
 
 class Rule(models.Model):
-    DATE_INPUT_FORMATS = ('%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d')
     idrule = models.AutoField(db_column='idRule', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=45, blank=True, null=True)
     max = models.FloatField(blank=True, null=True)
@@ -220,7 +219,8 @@ class TimeRange(models.Model):
 class Unit(models.Model):
     idunit = models.AutoField(db_column='idUnit', primary_key=True)  # Field name made lowercase.
     name = models.CharField(unique=True, max_length=256)
-
+    def __str__(self):
+        return str(self.name)
     class Meta:
         managed = False
         db_table = 'unit'

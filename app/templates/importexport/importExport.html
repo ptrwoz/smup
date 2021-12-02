@@ -50,16 +50,32 @@
             {% else %}
                 <h1 class="fw-light">Wybierz opcję Export/Import:</h1>
                 <p class="lead text-muted"></p>
+                <form action="import" enctype="multipart/form-data"  method="post" id="import">
+                {% csrf_token %}
                 <p>
                     Wczytaj dane:
-                    <a href="#" class="btn btn-secondary btn-lg btn-block block">Import</a>
+                        <input class="btn" id="files" type="file" name="myfile" multiple="multiple" file-accept="xlsx" />
+
+                    <p><input class="btn btn-secondary btn-lg block" type="submit" name="submit" value="Upload" /></p>
                 <p/>
+                </form>
                 <p> Pobierz dane:
-                    <a href="#" class="btn btn-secondary btn-lg btn-block block">Export</a>
+                    <p>
+                        <a href="export" class="btn btn-primary btn-lg block">Export</a>
+                    </p>
                 <p/>
+                <div>
+                {% for message in messages %}
+                <div class="alert alert-danger">
+                    <strong>{{message}}</strong>
+                </div>
+                {% endfor %}
+                </div>
             {% endif %}
         </div>
-
+        <form>
+            <a class="btn btn-secondary btn-lg btn-block" href="../">Wróć</a>
+        </form>
     </section>
 
     {% endblock %}

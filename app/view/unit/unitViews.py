@@ -10,9 +10,36 @@ class UnitData:
     pass
 
 def deleteUnit(request, context, id):
-    print()
+    u = Unit.objects.filter(idunit=id)
+    if len(u) > 0:
+        try:
+            us = u[0].delete()
+            print()
+        except:
+            context["errorMessages"] = 1
+            messages.info(request, 'Błąd usunięcia')
+            return redirect('units')
+    context["errorMessages"] = 0
+    messages.info(request, 'Usunięto dane')
+    return redirect('units')
 def saveUnit(request, context, id):
-    print()
+    unitName = request.POST.get('unitName')
+    u = Unit()
+    u.name = unitName
+    try:
+        us = Unit.objects.filter(idunit=id)
+        if len(us) > 0:
+            us = us[0]
+            us.name = unitName
+            us.save()
+        else:
+            u.save()
+        context['unitData'] = u
+        return redirect('unit/' + str(u.idunit))
+    except:
+        messages.info(request, 'Błąd dodania')
+        return render(request, 'unit/unit.html', context)
+
 def viewUnit(request, context, id):
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if len(id) == 0:
@@ -32,17 +59,16 @@ def viewUnit(request, context, id):
         return redirect('home')
 
 
-def unitView(request, id):
+def unitView(request, id = '', delete = ''):
     context = authUser(request)
     if request.method == 'POST':
-        return print()
-    elif request.method == 'DELETE':
+        return saveUnit(request, context, id)
+    elif delete == 'delete':
         return deleteUnit(request, context, id)
-        print()
     else:
         return viewUnit(request, context, id)
 
-def unitsView(request, field = 'name',sort = '0'):
+def unitsView(request, field = 'name',sort = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if (field == 'name' and sort == "0"):
