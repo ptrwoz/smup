@@ -5,6 +5,9 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from app.models import Employee, Unit, Employeetype, AuthUser
 from app.view.auth.auth import authUser, UserData
+from app.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS
+from app.view.static.urls import REDIRECT_HOME_URL, RENDER_USER_URL, REDIRECT_USERS_URL
+
 
 def password_check(passwd):
     SpecialSym = ['$', '@', '#', '%']
@@ -51,46 +54,9 @@ def getEmployeeToEdit(id, userId, userRole):
     else:
         return None
 
-#
-#
-#
-def viewUser(request, context, id):
-    units = Unit.objects.all()
-    context['units'] = units
-    roles = Employeetype.objects.all()
-    context['roles'] = roles
-    if id == 0:
-        context['user'] = UserData()
-        return render(request, 'user/user.html', context)
-    elif len(id) == 0:
-        context['user'] = UserData()
-        return render(request, 'user/user.html', context)
-    elif len(id) > 0 and id.isnumeric():
-        e = getEmployeeToEdit(id, context['userData'].id, context['account'])
-        if e is not None:
-            e.login = e.auth_user.username
-            e.auth_user = None
-            e.password = ""
-            context['user'] = e
-            return render(request, 'user/user.html', context)
-        else:
-            return redirect('users')
-    else:
-        return redirect('users')
 
-'''def createAuthUser(username, password):
-    if username and password:
-        u, created = User.objects.get_or_create(userName, userMail)
-        if created:
-        else:
-    # user was retrieved
-    else:'''
 
-# request was empty
-#
-#   user save function
-#
-def saveUser(request, context, id):
+def checkUserFromForm(request):
     name = request.POST.get('userName')
     surname = request.POST.get('userSurname')
     unit = request.POST.get('unitValue')
@@ -98,59 +64,120 @@ def saveUser(request, context, id):
     login = request.POST.get('userLogin')
     password = request.POST.get('userPassword')
     password2 = request.POST.get('userPassword2')
-    if (password != password2):
-        messages.info(request, 'Hasła sa różne')
-        return viewUser(request, context, id)
+    #
+    u = UserData()
+    u.name = name
+    u.surname = surname
+    u.password = ''
+    u.login = login
+    u.unit = unit
+    u.role = employeeType
+    #
+    if len(name) <= 2 and len(surname) <= 2 and len(login) <= 2 and len(password) < 4:
+        return None, None, u
+    if password != password2:
+        return None, None, u
     e = Employee()
     e.name = name
     e.surname = surname
-    u = Unit.objects.filter(name = unit)
+    u = Unit.objects.filter(name=unit)
     if len(u) > 0:
         e.idunit = u[0]
     else:
         messages.info(request, 'Błędna jednostka')
-        return viewUser(request, context, id)
-    et = Employeetype.objects.filter(name = employeeType)
+        return None, None, u
+    et = Employeetype.objects.filter(name=employeeType)
     if len(et) > 0:
         e.idemployeetype = et[0]
+        authUser = AuthUser()
+        authUser.username = login
+        authUser.email = login
+        authUser.password = password
+        authUser.is_superuser = False
+        authUser.is_staff = False
+        authUser.is_active = True
+        authUser.date_joined = datetime.now()
     else:
+        return None, None, u
+    return e, authUser, u
+
+#def deleteUser(request, context, id):
+
+
+def updateUser(request, context, id):
+
+    '''else:
         messages.info(request, 'Błędny typ konta')
-        return viewUser(request, context, id)
-    authUser = AuthUser()
-    authUser.username = login
-    authUser.email = login
-    authUser.password = password
-    authUser.is_superuser = False
-    authUser.is_staff = False
-    authUser.is_active = True
-    authUser.date_joined = datetime.now()
-    authUser.save()
-    # au = AuthUser()
-    #try:
-    authUser.save()
-    e.auth_user = authUser
-    e.save()
-    messages.info(request, 'Zapisano')
-    return render(request, 'user/user.html', context)
-    #except:
-        #messages.info(request, 'Błąd zapisu')
-        #return viewUser(request, context, id)
+        return viewUser(request, context, id)'''
+# request was empty
+#
+#   user save function
+#
+def saveUser(request, context, id):
+    e, authUser, u = checkUserFromForm(request)
+    if e is None:
+        context['user'] = u
+        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+        return viewUser(request, context, id, u)
+    try:
+        authUser.save()
+        e.auth_user = authUser
+        e.save()
+        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+        return render(request, RENDER_USER_URL, context)
+    except:
+        authUser.delete()
+        e.delete()
+        context['user'] = u
+        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='error')
+        return render(request, RENDER_USER_URL, context)
 #
 #   main operation user function
 #
-def userView(request, id = 0):
+def viewUser(request, context, id = '', u = ''):
+    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
+        units = Unit.objects.all()
+        context['units'] = units
+        roles = Employeetype.objects.all()
+        context['roles'] = roles
+        if id == '':
+            if u == '':
+                context['user'] = UserData()
+            else:
+                context['user'] = u
+            return render(request, RENDER_USER_URL, context)
+        elif len(id) > 0 and id.isnumeric():
+            e = getEmployeeToEdit(id, context['userData'].id, context['account'])
+            if e is not None:
+                e.login = e.auth_user.username
+                e.auth_user = None
+                e.password = ""
+                context['user'] = e
+                return render(request, RENDER_USER_URL, context)
+            else:
+                return redirect(REDIRECT_USERS_URL)
+        else:
+            return redirect(REDIRECT_USERS_URL)
+    else:
+        return redirect(REDIRECT_HOME_URL)
+
+def userView(request, id = '', delete = ''):
     context = authUser(request)
-    if context['account'] != 'GUEST':
+    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         #save and update
         if request.method == 'POST':
-            return saveUser(request, context, id)
-        elif request.method == 'DELETE':
-            return redirect('home')
-        #view user
+            if len(id) > 0 and delete == '':
+                return updateUser(request, context, id)
+            elif len(id) > 0 and delete == 'delete':
+                return saveUser(request, context, id)
+            elif delete == 'delete':
+                return redirect(REDIRECT_HOME_URL)
+            else:
+                return saveUser(request, context, id)
         else:
             return viewUser(request, context, id)
     else:
-        return redirect('home')
+        return redirect(REDIRECT_HOME_URL)
 #
 #   main view users function
 #
@@ -166,4 +193,4 @@ def usersView(request):
         context['employeesData'] = employeesData
         return render(request, 'user/users.html', context)
     else:
-        return redirect('home')
+        return redirect(REDIRECT_HOME_URL)

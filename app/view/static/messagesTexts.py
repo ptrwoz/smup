@@ -1,0 +1,7 @@
+MESSAGES_ADD_ERROR = 'Błąd dodania'
+MESSAGES_ADD_SUCCESS = ''
+
+MESSAGES_OPERATION_SUCCESS = 'Sukces operacji'
+MESSAGES_OPERATION_ERROR = 'Błąd operacji'
+MESSAGES_NO_DATA = 'Brak danych'
+MESSAGES_DATA_EXISTS = 'Dana już istnieje'

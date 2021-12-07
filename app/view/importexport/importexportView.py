@@ -1,19 +1,12 @@
 import os
 from datetime import datetime
-from datetime import timedelta
-
-import numpy as np
 import pandas as pd
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.http import HttpResponse
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from openpyxl import load_workbook
-
 from app.models import *
-from django import forms
-from datetime import datetime
 
 def color(row):
     return ['background-color: red'] * len(row)
@@ -46,7 +39,7 @@ def exportDataBase(id, anonymization = False):
     return path
 
 def importFile(request):
-    files = request.FILES['myfile'] # this is my file
+    files = request.FILES['myfile']
     now = datetime.now()
     current_time = now.strftime("%m_%d_%Y_%H_%M_%S_%f")
     path = './temp/temp_in/data_%s.xlsx' % str(current_time)
@@ -81,4 +74,4 @@ def importexportView(request):
     else:
         context['account'] = 'GUEST'
         return render(request, 'main/home.html', context)
-    return redirect('importexport/importExport.html')
+    return redirect('importExport')

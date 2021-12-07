@@ -1,6 +1,5 @@
 from app.view.activity import activityViews
 from app.view.auth import authViews
-from app.view.data import eporter
 from app.view.importexport import importexportView
 from app.view.main import mainViews
 from django.urls import path
@@ -19,8 +18,10 @@ urlpatterns = [
 
     path('users', userViews.usersView, name='users'),
     path('user/<str:id>', userViews.userView, name='user'),
+    path('user/<str:id>/<str:delete>', userViews.userView, name='user'),
     path('user', userViews.userView, name='user'),
-    #
+    # ok
+    path('units/<str:field>/<str:sort>', unitViews.unitsView, name='units'),
     path('units', unitViews.unitsView, name='units'),
     path('unit', unitViews.unitView, name='unit'),
     path('unit/<str:id>', unitViews.unitView, name='unit'),
@@ -36,7 +37,7 @@ urlpatterns = [
     path('process', processViews.processView, name='process'),
     path('processes', processViews.processView, name='processes'),
 
-    path('importexport', eporter.xlsxViewUnits, name='importexport'),
+    #path('importexport', eporter.xlsxViewUnits, name='importexport'),
     path('export', importexportView.exportFile, name='export'),
     path('import', importexportView.importFile, name='import'),
     path('importExport', importexportView.importexportView, name='importExport'),

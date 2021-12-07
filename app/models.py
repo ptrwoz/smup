@@ -153,7 +153,8 @@ class Employee(models.Model):
     idunit = models.ForeignKey('Unit', models.DO_NOTHING, db_column='idUnit')  # Field name made lowercase.
     idemployeetype = models.ForeignKey('Employeetype', models.DO_NOTHING, db_column='idEmployeeType')  # Field name made lowercase.
     auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-
+    def __str__(self):
+        return str(self.auth_user.username) + " " + str(self.name) + " " + str(self.surname)
     class Meta:
         managed = False
         db_table = 'employee'

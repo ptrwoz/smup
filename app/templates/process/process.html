@@ -17,16 +17,82 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
-        // Treeview Initialization
-        $(document).ready(function() {
-          $('.treeview').mdbTreeview();
-        });
-        .left {
-          text-align: left;
-          margin-left: 1em;
-        }
     </style>
+    <script>
+        function deleteProcess() {
+            trElement = $(event.target).parent().parent('tr')
+            nextTrElement = $(event.target).parent().parent('tr').next();
+            lastTrElement = $(event.target).parent().parent('tr').last()
+            //console.log()
+            if (nextTrElement[0]  === undefined) {
+                $(event.target).parent().parent().remove();
+                console.log('delete')
+            } else {
+                thisId = trElement[0].cells[0].children[0].value;
+                nextId = nextTrElement[0].cells[0].children[0].value;
+                if(nextId.indexOf(thisId) == -1) {
+                    console.log('delete')
+                    $(event.target).parent().parent().remove();
+                } else {
+                    alert('Nie można usunąć elementu')
+                }
+            }
+
+        }
+        //function stepString(()
+        function addSubProcess() {
+            var newElementId = getLasId() + 1;
+            trElement = $(event.target).parent().parent('tr')
+            thisId = trElement[0].cells[0].children[0].value;
+            newElementId = newElementId.toString();
+            var intLastId = thisId + '1';
+                htmlText = "<tr id='" + newElementId + "'><td><input class='form-control' name=id='" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
+                    + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
+                    + "<td><textarea name='text_" + newElementId + "' cols='40' class='form-control' rows='1' class='vLargeTextField' id='id_tip'>{{process.tip}}</textarea></td>"
+                    + "<td><a class='btn btn-primary' onclick='addSubProcess()'>Dodaj</a>"
+                    + " <a onclick='deleteProcess()' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Usuń</a></td>"
+                    + "</tr>"
+            trElement.after(htmlText)
+            
+        }
+        function getLasId() {
+            var newElementId = $("#mainProcessTabel tr");
+            var idArray = new Array(newElementId.length - 1)
+            for (var i = 1; i < newElementId.length; i++) {
+               idArray[i - 1] = parseInt(newElementId[i].id);
+            }
+            return Math.max.apply(Math,idArray);
+        }
+        function addMainProcess() {
+            var newElementId = getLasId() + 1;
+            newElementId = newElementId.toString();
+            var lastId = $('#mainProcessTabel tr:last-child td input').val()
+            if (lastId === undefined) {
+                var intLastId = 1;
+                htmlText = "<tr id='" + newElementId + "'><td>"
+                    + "<input class='form-control' name='id_" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
+                    + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
+                    + "<td><textarea name='text_" + newElementId + "' cols='40' class='form-control' rows='1' class='vLargeTextField' id='id_tip'>{{process.tip}}</textarea></td>"
+                    + "<td><a class='btn btn-primary' onclick='addSubProcess()'>Dodaj</a>"
+                    + " <a onclick='deleteProcess()' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Usuń</a></td>"
+                    + "</tr>"
+                $(mainProcessTabel).find('tbody').append(htmlText);
+            } else {
+                lastId = lastId.split('.')[0]
+                var intLastId = parseInt(lastId) + 1;
+                htmlText = "<tr id='" + newElementId + "'><td>"
+                    + "<input class='form-control' name='id_" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
+                    + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
+                    + "<td><textarea name='text_" + newElementId + "' cols='40' class='form-control' rows='1' class='vLargeTextField' id='id_tip'>{{process.tip}}</textarea></td>"
+                    + "<td><a class='btn btn-primary' onclick='addSubProcess()'>Dodaj</a>"
+                    + " <a onclick='deleteProcess()' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Usuń</a></td>"
+                    + "</tr>"
+                $(mainProcessTabel).find('tbody').append(htmlText);
+            }
+        }
+    </script>
 </head>
 <body class="text-center">
 <main class="form-signin">
@@ -51,7 +117,7 @@
     </div>
 
     <section class="text-center container form-control">
-        <div class="d-grid gap-2">
+        <div >
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
@@ -59,53 +125,67 @@
                 <h1 class="fw-light">Procesy:</h1>
                 <p class="lead text-muted"></p>
                 {% if account == "ADMIN" or "PROCESS MANAGER"%}
-                <table class="table table-striped">
+                <table id="mainProcessTabel" class="table table-striped">
                     <thead>
                     <tr>
                         <!--<th scope="col">#</th>-->
                         <th scope="col">Numer</th>
                         <th scope="col">Nazwa</th>
-                        <th scope="col"></th>
+                        <th scope="col">Komentarz</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for process in processData%}
-                    <tr>
-                        <td class="left">{{process.no}}</td>
-                        <!--<div>
-                          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-                                          Czy na pewno chcesz wykonać operację?
-                                      </div>
-                                      <div class="modal-footer">
-                                          <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                          <a type="button" data-method="delete" class="btn btn-success" href="../units/{{unit.idunit}}">Tak</a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>-->
-                        <td><input type="text"  class="form-control" name='name' placeholder="Nazwa" id="name" value="{{process.name}}"></td>
-                        <td><a class="btn btn-primary" data-method="post" href="../units/{{unit.idunit}}">Dodaj</a>
-                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Usuń</a></td>
+                    <tr id="{{process.id}}">
+                        <td>
+                            <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
+                        </td>
+                        <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' placeholder="Nazwa" id="name" value="{{process.name}}"></td>
+                        <td><textarea name="text_{{process.id}}" cols="40" class="form-control" rows="1" class="vLargeTextField" id="id_tip">{{process.tip}}</textarea></td>
+                        <td><a class="btn btn-primary" onclick="addSubProcess()">Dodaj</a>
+                            <a onclick="deleteProcess()" class="btn btn-danger">Usuń</a></td>
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-                <form>
-                    <a class="btn btn-primary btn-lg btn-block">Dodaj proces</a>
-                    <button type="submit" class="btn btn-success btn-lg btn-block">Zapisz</button>
-                    <a class="btn btn-secondary btn-lg btn-block" href="../">Wróć</a>
-                </form>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div>Czy na pewno chcesz wykonać operację?</div>
+                                <div>UWAGA:</div>
+                                <a></a>
+                            </div>
+                            <form action="../process" method="post">
+                                {% csrf_token %}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                                    <button type="submit" class="btn btn-success">Tak</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% for message in messages %}
+                {% if 'error' in message.extra_tags %}
+                <div class="alert alert-danger">
+                    <strong>{{message}}</strong>
+                </div>
+                {% elif 'info' in message.extra_tags %}
+                <div class="alert alert-success">
+                    <strong>{{message}}</strong>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <a id="mainProcessButton" class="btn btn-primary btn-lg" onclick="addMainProcess()">Dodaj proces</a>
+                <button type="submit" class="btn btn-success btn-lg" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#exampleModal">Zapisz</button>
+                <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
             </form>
-
             {% endif %}
             {% endif %}
         </div>

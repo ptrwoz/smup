@@ -2,8 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from app.view.auth.auth import authUser
-from app.view.static.urls import RENDER_PROFIL_URL, REDIRECT_HOME_URL
-
+from app.view.static.urls import RENDER_PROFIL_URL, REDIRECT_HOME_URL, RENDER_LOGIN_URL
 
 def profilUser(request):
     context = authUser(request)
@@ -29,12 +28,12 @@ def loginPage(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect(REDIRECT_HOME_URL)
             else:
                 messages.info(request, 'Błędne logowanie!')
-                return render(request, "auth/login.html", context)
+                return render(request, RENDER_LOGIN_URL, context)
         else:
-            return render(request, "auth/login.html", context)
+            return render(request, RENDER_LOGIN_URL, context)
     else:
         return redirect('home')
 

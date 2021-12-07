@@ -4,5 +4,12 @@
 RENDER_HOME_URL = 'main/home.html'
 RENDER_ACTIVITY_URL = 'activity/activities.html'
 RENDER_PROFIL_URL = 'auth/profil.html'
+RENDER_LOGIN_URL = 'auth/login.html'
+RENDER_UNITS_URL = 'unit/units.html'
+RENDER_UNIT_URL = 'unit/unit.html'
+#
+RENDER_USER_URL = 'user/user.html'
 #
 REDIRECT_HOME_URL = 'home'
+REDIRECT_UNITS_URL = 'units'
+REDIRECT_USERS_URL = 'users'

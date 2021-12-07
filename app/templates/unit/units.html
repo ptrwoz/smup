@@ -54,7 +54,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <!--<th scope="col">#</th>-->
                     <th scope="col">Nazwa</th>
                     <th scope="col"></th>
                 </tr>
@@ -62,11 +61,10 @@
                 <tbody>
                 {% for unit in units%}
                 <tr>
-                    <!--<th scope="row">{{unit.idunit}}</th>-->
                     <td>{{unit.name}}</td>
                     <td>
                         <div>
-                            <div class="modal fade" id="exampleModal{{unit.idunit}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modal{{unit.idunit}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -76,32 +74,34 @@
                                         <div class="modal-body">
                                             Czy na pewno chcesz wykonać operację?
                                         </div>
-                                        <div class="modal-footer">
-                                            <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                            <a type="button" data-method="delete" class="btn btn-success" href="../unit/{{unit.idunit}}/delete">Tak</a>
-                                        </div>
+                                        <form action="../unit/{{unit.idunit}}/delete" method="post">
+                                            {% csrf_token %}
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                                                <button type="input"  class="btn btn-success">Tak</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-primary" data-method="post" href="../unit/{{unit.idunit}}">Edytuj</a>
-                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{unit.idunit}}">Usuń</a>
+                        <a class="btn btn-primary" href="../unit/{{unit.idunit}}">Edytuj</a>
+                        <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#modal{{unit.idunit}}">Usuń</a>
                     </td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
             {% for message in messages %}
-                {% if errorMessages == 1 %}
+                {% if 'error' in message.extra_tags %}
                     <div class="alert alert-danger">
                         <strong>{{message}}</strong>
                     </div>
-                {% else %}
+                {% elif 'info' in message.extra_tags %}
                     <div class="alert alert-success">
                         <strong>{{message}}</strong>
                     </div>
                 {% endif %}
-
             {% endfor %}
             <form>
                 <a class="btn btn-success btn-lg" href="../unit">Dodaj</a>
@@ -110,9 +110,7 @@
             {% endif %}
             {% endif %}
         </div>
-
     </section>
-
     {% endblock %}
 </main>
 </body>
