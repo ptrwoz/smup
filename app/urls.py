@@ -18,7 +18,8 @@ urlpatterns = [
 
     path('users', userViews.usersView, name='users'),
     path('user/<str:id>', userViews.userView, name='user'),
-    path('user/<str:id>/<str:delete>', userViews.userView, name='user'),
+    path('user/<str:id>/<str:operation>', userViews.userView, name='user'),
+    path('user/<str:id>/<str:operation>', userViews.userView, name='user'),
     path('user', userViews.userView, name='user'),
     # ok
     path('units/<str:field>/<str:sort>', unitViews.unitsView, name='units'),

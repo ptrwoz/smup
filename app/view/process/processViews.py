@@ -15,10 +15,10 @@ def initChapterNo(processData):
     id = 0
     for p in processData:
         sp = p
-        no = '.' + str(sp.idsubprocess)
+        no = '.' + str(sp.idnumber)
         sp = sp.idmainprocess
         while sp is not None:
-            no = no + '.' + str(sp.idsubprocess)
+            no = no + '.' + str(sp.idnumber)
             sp = sp.idmainprocess_id
         p.no = no[::-1]
         id = id +1
@@ -41,7 +41,7 @@ def processView(request):
                 name = request.POST.get('name_' + str(i))
                 tip = request.POST.get('text_' + str(i))
                 if id is None:
-                    continue
+                    break
                 else:
                     p = ProcessData(id, name, tip)
                     rawProcesses.append(p)

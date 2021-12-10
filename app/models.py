@@ -63,8 +63,7 @@ class AuthUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
-    def __str__(self):
-        return str(self.username)
+
     class Meta:
         managed = False
         db_table = 'auth_user'
@@ -153,8 +152,8 @@ class Employee(models.Model):
     idunit = models.ForeignKey('Unit', models.DO_NOTHING, db_column='idUnit')  # Field name made lowercase.
     idemployeetype = models.ForeignKey('Employeetype', models.DO_NOTHING, db_column='idEmployeeType')  # Field name made lowercase.
     auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
-    def __str__(self):
-        return str(self.auth_user.username) + " " + str(self.name) + " " + str(self.surname)
+    isactive = models.IntegerField(db_column='isActive', blank=True, null=True)  # Field name made lowercase.
+
     class Meta:
         managed = False
         db_table = 'employee'
@@ -163,8 +162,7 @@ class Employee(models.Model):
 class Employeetype(models.Model):
     idemployee_type = models.AutoField(db_column='idEmployee Type', primary_key=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     name = models.CharField(unique=True, max_length=64)
-    def __str__(self):
-        return str(self.name)
+
     class Meta:
         managed = False
         db_table = 'employeetype'
@@ -174,10 +172,9 @@ class Process(models.Model):
     idprocess = models.AutoField(db_column='idProcess', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=256)
     tip = models.TextField(blank=True, null=True)
+    idnumber = models.IntegerField(db_column='idNumber')  # Field name made lowercase.
     idmainprocess = models.ForeignKey('self', models.DO_NOTHING, db_column='idMainProcess', blank=True, null=True)  # Field name made lowercase.
-    idsubprocess = models.IntegerField(db_column='idSubProcess')  # Field name made lowercase.
-    def __str__(self):
-        return str(self.name)
+
     class Meta:
         managed = False
         db_table = 'process'
@@ -220,8 +217,7 @@ class TimeRange(models.Model):
 class Unit(models.Model):
     idunit = models.AutoField(db_column='idUnit', primary_key=True)  # Field name made lowercase.
     name = models.CharField(unique=True, max_length=256)
-    def __str__(self):
-        return str(self.name)
+
     class Meta:
         managed = False
         db_table = 'unit'

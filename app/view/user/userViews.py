@@ -54,8 +54,6 @@ def getEmployeeToEdit(id, userId, userRole):
     else:
         return None
 
-
-
 def checkUserFromForm(request):
     name = request.POST.get('userName')
     surname = request.POST.get('userSurname')
@@ -101,15 +99,46 @@ def checkUserFromForm(request):
         return None, None, u
     return e, authUser, u
 
-#def deleteUser(request, context, id):
-
+def deleteUser(request, context, id):
+    try:
+        er = Employee.objects.filter(idemployee=int(id))
+        if er.exists():
+            a = er[0].auth_user
+            er.delete()
+            a.delete()
+            messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+            return redirect(REDIRECT_USERS_URL)
+        else:
+            messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+            return redirect(REDIRECT_USERS_URL)
+    except:
+        #authUser.delete()
+        #e.delete()
+        #context['user'] = u
+        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='error')
+        return redirect(REDIRECT_USERS_URL)
 
 def updateUser(request, context, id):
-
-    '''else:
-        messages.info(request, 'Błędny typ konta')
-        return viewUser(request, context, id)'''
-# request was empty
+    e, authUser, u = checkUserFromForm(request)
+    if e is None:
+        context['user'] = u
+        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+        return viewUser(request, context, id, u)
+    try:
+        er = Employee.objects.filter(idemployee=int(id))
+        authUser.id = er[0].auth_user.id
+        authUser.save()
+        e.auth_user = authUser
+        e.save()
+        context['user'] = u
+        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+        return render(request, RENDER_USER_URL, context)
+    except:
+        #authUser.delete()
+        #e.delete()
+        context['user'] = u
+        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='error')
+        return render(request, RENDER_USER_URL, context)
 #
 #   user save function
 #
@@ -161,21 +190,40 @@ def viewUser(request, context, id = '', u = ''):
     else:
         return redirect(REDIRECT_HOME_URL)
 
-def userView(request, id = '', delete = ''):
+def userActive(request, id = ''):
+    context = authUser(request)
+    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
+        if len(id) > 0:
+            e = getEmployeeToEdit(id, context['userData'].id, context['account'])
+            if e is not None:
+                if e.isactive == 1:
+                    e.isactive = 0
+                else:
+                    e.isactive = 1
+                e.save()
+                return redirect(REDIRECT_USERS_URL)
+            else:
+                return redirect(REDIRECT_USERS_URL)
+    else:
+        return redirect(REDIRECT_HOME_URL)
+def userView(request, id = '', operation = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         #save and update
         if request.method == 'POST':
-            if len(id) > 0 and delete == '':
+            if len(id) > 0 and operation == '':
                 return updateUser(request, context, id)
-            elif len(id) > 0 and delete == 'delete':
-                return saveUser(request, context, id)
-            elif delete == 'delete':
-                return redirect(REDIRECT_HOME_URL)
+            elif len(id) > 0 and operation == 'delete':
+                return deleteUser(request, context, id)
+            #elif operation == 'delete':
+            #    return redirect(REDIRECT_HOME_URL)
             else:
                 return saveUser(request, context, id)
         else:
-            return viewUser(request, context, id)
+            if operation == 'active':
+                return userActive(request, id)
+            else:
+                return viewUser(request, context, id)
     else:
         return redirect(REDIRECT_HOME_URL)
 #

@@ -20,8 +20,21 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
     </style>
-    <script>
+    <script type="text/javascript">
+
+
+        function styleRows(elements) {
+            for (var i = 1; i < elements.length; i++) {
+                ii = elements[i].children[0].children[0].value.split('.').length
+                elements[i].children[0].children[0].style.float = 'right'
+                elements[i].children[0].children[0].style.width = (100 - ((ii - 2) * 9))  + '%'
+                if (ii == 2)
+                    elements[i].children[0].children[0].style.fontWeight = 'bold'
+            }
+        }
+
         function deleteProcess() {
+            console.log('delete start')
             trElement = $(event.target).parent().parent('tr')
             nextTrElement = $(event.target).parent().parent('tr').next();
             lastTrElement = $(event.target).parent().parent('tr').last()
@@ -34,20 +47,51 @@
                 nextId = nextTrElement[0].cells[0].children[0].value;
                 if(nextId.indexOf(thisId) == -1) {
                     console.log('delete')
-                    $(event.target).parent().parent().remove();
+                    deleteElement = $(event.target).parent().parent()
+                    refreshNextIds(deleteElement)
+                    deleteElement.remove();
+
                 } else {
-                    alert('Nie można usunąć elementu')
+                    console.log('error')
+                    alert('Nie można usunąć elementu (istnieje podproces)')
                 }
             }
-
+            styleRows($('#mainProcessTabel tr'))
         }
-        //function stepString(()
+        function getSubProcess(processRow) {
+            i = 1;
+            nextTrElement = processRow;
+            mainId = processRow[0].cells[0].children[0].value;
+            //console.log(mainId)
+            while(nextTrElement.next().length > 0) {
+                nextTrElement = nextTrElement.next()
+                anotherId = nextTrElement[0].cells[0].children[0].value
+                if (anotherId.indexOf(mainId) != 0) {
+                    break;
+                } else {
+                    //console.log(anotherId);
+                    i++;
+                }
+            }
+            return i;
+        }
         function addSubProcess() {
             var newElementId = getLasId() + 1;
+            var realId = 1;
             trElement = $(event.target).parent().parent('tr')
             thisId = trElement[0].cells[0].children[0].value;
             newElementId = newElementId.toString();
-            var intLastId = thisId + '1';
+            //console.log(trElement.next()[0].cells[0].children[0].value)
+            subElements = getSubProcess(trElement);
+            ii = trElement[0].children[0].children[0].value.split('.').length + 1;
+            for (var i = 1; i < subElements; i++) {
+                trElement = trElement.next()
+                if (trElement[0].children[0].children[0].value.split('.').length == ii)
+                    realId++
+                //console.log(trElement[0].children[0].children[0].value)
+
+            }
+            var intLastId = thisId + realId.toString();
                 htmlText = "<tr id='" + newElementId + "'><td><input class='form-control' name=id='" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
                     + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
                     + "<td><textarea name='text_" + newElementId + "' cols='40' class='form-control' rows='1' class='vLargeTextField' id='id_tip'>{{process.tip}}</textarea></td>"
@@ -55,6 +99,7 @@
                     + " <a onclick='deleteProcess()' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Usuń</a></td>"
                     + "</tr>"
             trElement.after(htmlText)
+            styleRows($('#mainProcessTabel tr'))
             
         }
         function getLasId() {
@@ -65,36 +110,57 @@
             }
             return Math.max.apply(Math,idArray);
         }
+
+        function refreshNextIds(cProcess) {
+            idArray = cProcess[0].children[0].children[0].value.split('.');
+            lastId = parseInt(idArray[idArray.length - 2]);
+            while(cProcess.next().length > 0 && idArray.length <= cProcess.next()[0].children[0].children[0].value.length) {
+                cProcess = cProcess.next()
+                subIdArray = cProcess[0].children[0].children[0].value.split('.')
+                newId = '';
+                for (var i = 0; i < subIdArray.length - 1; i++) {
+                    if (i == idArray.length - 2) {
+                        newId += (parseInt(subIdArray[i]) - 1) + '.';
+                    } else
+                        newId += subIdArray[i] + '.';
+                }
+                newId + lastId;
+                lastId++;
+                cProcess[0].children[0].children[0].value = newId;
+            }
+            //console.log(cProcess)
+            //console.log(nProcess)
+        }
+
+        function addRow(intLastId, newElementId) {
+            htmlText = "<tr id='" + newElementId + "'><td>"
+                    + "<input class='form-control' name='id_" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
+                    + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
+                    + "<td><textarea name='text_" + newElementId + "' cols='40' class='form-control' rows='1' class='vLargeTextField' id='id_tip'>{{process.tip}}</textarea></td>"
+                    + "<td><a class='btn btn-primary' onclick='addSubProcess()'>Dodaj</a>"
+                    + " <a onclick='deleteProcess()' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Usuń</a></td>"
+                    + "</tr>"
+            return htmlText;
+        }
         function addMainProcess() {
             var newElementId = getLasId() + 1;
             newElementId = newElementId.toString();
             var lastId = $('#mainProcessTabel tr:last-child td input').val()
             if (lastId === undefined) {
                 var intLastId = 1;
-                htmlText = "<tr id='" + newElementId + "'><td>"
-                    + "<input class='form-control' name='id_" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
-                    + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
-                    + "<td><textarea name='text_" + newElementId + "' cols='40' class='form-control' rows='1' class='vLargeTextField' id='id_tip'>{{process.tip}}</textarea></td>"
-                    + "<td><a class='btn btn-primary' onclick='addSubProcess()'>Dodaj</a>"
-                    + " <a onclick='deleteProcess()' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Usuń</a></td>"
-                    + "</tr>"
+                htmlText = addRow(intLastId, newElementId);
                 $(mainProcessTabel).find('tbody').append(htmlText);
             } else {
                 lastId = lastId.split('.')[0]
                 var intLastId = parseInt(lastId) + 1;
-                htmlText = "<tr id='" + newElementId + "'><td>"
-                    + "<input class='form-control' name='id_" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
-                    + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
-                    + "<td><textarea name='text_" + newElementId + "' cols='40' class='form-control' rows='1' class='vLargeTextField' id='id_tip'>{{process.tip}}</textarea></td>"
-                    + "<td><a class='btn btn-primary' onclick='addSubProcess()'>Dodaj</a>"
-                    + " <a onclick='deleteProcess()' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Usuń</a></td>"
-                    + "</tr>"
+                htmlText = addRow(intLastId, newElementId);
                 $(mainProcessTabel).find('tbody').append(htmlText);
             }
+            styleRows($('#mainProcessTabel tr'))
         }
     </script>
 </head>
-<body class="text-center">
+<body class="text-center" onload="styleRows($('#mainProcessTabel tr'))">
 <main class="form-signin">
     {% csrf_token %}
     {% block content %}
@@ -149,7 +215,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -183,7 +249,7 @@
                 {% endif %}
                 {% endfor %}
                 <a id="mainProcessButton" class="btn btn-primary btn-lg" onclick="addMainProcess()">Dodaj proces</a>
-                <button type="submit" class="btn btn-success btn-lg" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#exampleModal">Zapisz</button>
+                <button type="submit" class="btn btn-success btn-lg" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#saveModal">Zapisz</button>
                 <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
             </form>
             {% endif %}

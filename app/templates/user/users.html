@@ -97,6 +97,11 @@
                                 </div>
                             </div>
                         </div>
+                        {% if employee.isactive == False %}
+                            <a href="../user/{{employee.idemployee}}/active" class="btn btn-success">Atywuj</a>
+                        {% else %}
+                            <a href="../user/{{employee.idemployee}}/active" class="btn btn-danger" >Deaktywuj</a>
+                        {% endif %}
                         <a class="btn btn-primary" href="../user/{{employee.idemployee}}">Edytuj</a>
                         <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#exampleModal{{employee.idemployee}}">Usuń</a>
                     </td>
