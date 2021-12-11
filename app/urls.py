@@ -19,7 +19,6 @@ urlpatterns = [
     path('users', userViews.usersView, name='users'),
     path('user/<str:id>', userViews.userView, name='user'),
     path('user/<str:id>/<str:operation>', userViews.userView, name='user'),
-    path('user/<str:id>/<str:operation>', userViews.userView, name='user'),
     path('user', userViews.userView, name='user'),
     # ok
     path('units/<str:field>/<str:sort>', unitViews.unitsView, name='units'),
@@ -27,13 +26,14 @@ urlpatterns = [
     path('unit', unitViews.unitView, name='unit'),
     path('unit/<str:id>', unitViews.unitView, name='unit'),
     path('unit/<str:id>/<str:delete>', unitViews.unitView, name='unit'),
-    #
-    path('rule', ruleViews.ruleView, name='rule'),
-    path('rule/<str:id>', ruleViews.ruleView, name='rule'),
-    path('rules', ruleViews.rulesView, name='rules'),
+    #rules urls
+    path('rules', ruleViews.rulesView, name='units'), #view all
+    path('rule', ruleViews.ruleView, name='rule'), #view new rule
+    path('rule/<str:id>', ruleViews.ruleView, name='rule'), #view existed rule
+    path('rule/<str:id>/<str:operation>', ruleViews.ruleView, name='rule'), #update, delete rule by operation
 
-    path('activities', activityViews.activityView, name='activities'),
-
+    #path('activities', activityViews.activitiesView, name='activities'),
+    #path('activities', activityViews.activityView, name='activities'),
 
     path('process', processViews.processView, name='process'),
     path('processes', processViews.processView, name='processes'),

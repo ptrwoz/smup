@@ -21,8 +21,6 @@
     <style>
     </style>
     <script type="text/javascript">
-
-
         function styleRows(elements) {
             for (var i = 1; i < elements.length; i++) {
                 ii = elements[i].children[0].children[0].value.split('.').length
@@ -92,12 +90,14 @@
 
             }
             var intLastId = thisId + realId.toString();
-                htmlText = "<tr id='" + newElementId + "'><td><input class='form-control' name=id='" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
+            htmlText = createNewRow(intLastId, newElementId);
+                /*htmlText = "<tr id='" + newElementId + "'><td><input class='form-control' name='id_" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
+                    + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
                     + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
                     + "<td><textarea name='text_" + newElementId + "' cols='40' class='form-control' rows='1' class='vLargeTextField' id='id_tip'>{{process.tip}}</textarea></td>"
                     + "<td><a class='btn btn-primary' onclick='addSubProcess()'>Dodaj</a>"
                     + " <a onclick='deleteProcess()' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#exampleModal'>Usuń</a></td>"
-                    + "</tr>"
+                    + "</tr>"*/
             trElement.after(htmlText)
             styleRows($('#mainProcessTabel tr'))
             
@@ -132,7 +132,7 @@
             //console.log(nProcess)
         }
 
-        function addRow(intLastId, newElementId) {
+        function createNewRow(intLastId, newElementId) {
             htmlText = "<tr id='" + newElementId + "'><td>"
                     + "<input class='form-control' name='id_" + newElementId + "' readonly='readonly' value='" + intLastId.toString() +".'></input></td>"
                     + "<td><input name='name_" + newElementId + "' type='text' class='form-control' name='name' placeholder='Nazwa' id='name' value='{{process.name}}'></td>"
@@ -148,12 +148,12 @@
             var lastId = $('#mainProcessTabel tr:last-child td input').val()
             if (lastId === undefined) {
                 var intLastId = 1;
-                htmlText = addRow(intLastId, newElementId);
+                htmlText = createNewRow(intLastId, newElementId);
                 $(mainProcessTabel).find('tbody').append(htmlText);
             } else {
                 lastId = lastId.split('.')[0]
                 var intLastId = parseInt(lastId) + 1;
-                htmlText = addRow(intLastId, newElementId);
+                htmlText = createNewRow(intLastId, newElementId);
                 $(mainProcessTabel).find('tbody').append(htmlText);
             }
             styleRows($('#mainProcessTabel tr'))

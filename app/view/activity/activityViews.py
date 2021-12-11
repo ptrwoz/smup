@@ -3,7 +3,9 @@ from app.models import Employee, Rule
 from app.view.auth.auth import authUser
 from app.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL
 
-
+def activities(request):
+    context = authUser(request)
+    return render(request, RENDER_ACTIVITY_URL, context)
 def activityView(request):
     context = authUser(request)
     if context['account'] != 'GUEST':

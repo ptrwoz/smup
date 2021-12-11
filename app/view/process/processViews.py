@@ -10,6 +10,14 @@ class ProcessData:
         self.id = id
         self.name = name
         self.tip = tip
+def initAvailableProcess(processData):
+    for p in processData:
+        ap = Process.objects.filter(idmainprocess=p.idprocess)
+        if  len(ap) == 0:
+            p.available = True
+        else:
+            p.available = False
+    return processData
 
 def initChapterNo(processData):
     id = 0
@@ -30,6 +38,7 @@ def initChapterNo(processData):
         for j in range(100):
             id = 
             name = request.POST.get('name_1.')'''
+
 def processView(request):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER':

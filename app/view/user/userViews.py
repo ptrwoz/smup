@@ -206,6 +206,7 @@ def userActive(request, id = ''):
                 return redirect(REDIRECT_USERS_URL)
     else:
         return redirect(REDIRECT_HOME_URL)
+
 def userView(request, id = '', operation = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':

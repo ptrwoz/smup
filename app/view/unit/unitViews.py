@@ -17,9 +17,9 @@ def deleteUnit(request, context, id):
             us = u[0].delete()
         except:
             messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-            return redirect(REDIRECT_UNITS_URL)
+            return redirect('../'+REDIRECT_UNITS_URL)
     messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
-    return redirect(REDIRECT_UNITS_URL)
+    return redirect('../'+REDIRECT_UNITS_URL)
 
 #
 #   update Unit
@@ -40,7 +40,7 @@ def updateUnit(request, context, id):
             u.name = unitName
             u.save()
             messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
-            return redirect(REDIRECT_UNITS_URL)
+            return redirect('../'+REDIRECT_UNITS_URL)
         except:
             messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
             return render(request, RENDER_UNIT_URL, context)
@@ -60,7 +60,7 @@ def saveUnit(request, context, id):
     try:
         u.save()
         messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
-        return redirect(REDIRECT_UNITS_URL)
+        return redirect('../'+REDIRECT_UNITS_URL)
     except:
         context['unitData'] = u
         if len(Unit.objects.filter(name=unitName)) > 0:
@@ -74,19 +74,19 @@ def saveUnit(request, context, id):
 #
 def viewUnit(request, context, id = ''):
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        if len(id) == 0:
+        if id == '':
             context['unitData'] = UnitData()
             return render(request, RENDER_UNIT_URL, context)
-        elif len(id) > 0 and id.isnumeric():
+        elif id.isnumeric():
             u = Unit.objects.filter(idunit=int(id))
-            if len(u) > 0:
+            if u.exists():
                 u = u[0]
                 context['unitData'] = u
                 return render(request, RENDER_UNIT_URL, context)
             else:
-                return redirect(REDIRECT_UNITS_URL)
+                return redirect('../'+REDIRECT_UNITS_URL)
         else:
-            return render(request, RENDER_UNITS_URL, context)
+            return redirect('../'+REDIRECT_UNITS_URL)
     else:
         return redirect(REDIRECT_HOME_URL)
 

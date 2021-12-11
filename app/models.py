@@ -189,6 +189,7 @@ class Rule(models.Model):
     employee_idemployee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='Employee_idEmployee')  # Field name made lowercase.
     time_range_idtime_range = models.ForeignKey('TimeRange', models.DO_NOTHING, db_column='time_range_idtime_range')
     data_type_iddata_type = models.ForeignKey(DataType, models.DO_NOTHING, db_column='data_type_iddata_type')
+    isactive = models.IntegerField(db_column='isActive', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False

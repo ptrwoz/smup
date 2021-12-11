@@ -18,14 +18,44 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
         .row {
             margin-bottom: 10px;
         }
+        .picker {
+          display: inline;
+          border: 1px solid lightgray;
+          padding : 4px;
+        }
+        input {
+          border: 0;
+        }
     </style>
     <script>
-
+        $(function() {
+          $("#fromperiod").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onClose: function(selectedDate) {
+              $("#toperiod").datepicker("option", "minDate", selectedDate);
+            }
+          });
+          $("#toperiod").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onClose: function(selectedDate) {
+              $("#fromperiod").datepicker("option", "maxDate", selectedDate);
+            }
+          });
+        });
     </script>
+    <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 </head>
 <body class="text-center">
 <main class="form-signin">
@@ -66,43 +96,54 @@
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Wartość maksymalna:</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" name='userMaxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
+                        <input type="number" class="form-control" name='userMaxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Hasło (powtórz):</label>
-                    <div class="col-sm-10">
-                        <input type="password"  class="form-control" name='userPassword2' placeholder="Password" id="userPassword2" value="{{user.password}}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Imię:</label>
-                    <div class="col-sm-10">
-                        <input type="text"  class="form-control" type="text" name='userName' placeholder="Imię" id="userName" value="{{user.name}}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Nazwisko:</label>
-                    <div class="col-sm-10">
-                        <input type="text"  class="form-control" type="text" name='userSurname' placeholder="Nazwisko" id="userSurname" value="{{user.surname}}">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Jednostka:</label>
+                    <label for="text" class="col-sm-2 col-form-label">Informacja:</label>
                     <div class="col-sm-10">
                         <select class="form-select" name="unitValue" aria-label="Default select example">
-                            {% for u in units %}
-                            <option value="{{u.name}}"{% if u.name == user.idunit.name %} selected{% endif %}>{{u.name}}</option>
+                            {% for d in dataType %}
+                            <option value="{{d.iddata_type}}">{{d.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Typ konta:</label>
+                    <label for="text" class="col-sm-2 col-form-label">Jednostka czasu:</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" name="unitValue" aria-label="Default select example">
+                            {% for t in timeRange %}
+                            <option value="{{t.idtime_range}}">{{t.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Przedział czasowy:</label>
+                    <div class="col-sm-10">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="form-control" class='picker'>
+                                        <label for="fromperiod">Od: </label>
+                                        <input type="text" id="fromperiod" name="from">
+                                        <label for="toperiod"> Do: </label>
+                                        <input type="text" id="toperiod" name="to">
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="text" class="col-sm-2 col-form-label">Pracownik:</label>
                     <div class="col-sm-10">
                         <select class="form-select" name="roleValue" aria-label="Default select example">
-                            {% for r in roles %}
-                            <option value="{{r.name}}"{% if r.name == user.idemployeetype.name %} selected{% endif %}>{{r.name}}</option>
+                            {% for e in employeesData %}
+                            <option value="{{e.idemployee}}">{{e.name}} {{e.surname}} [{{e.idunit.name}}]</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -125,6 +166,32 @@
                             </div>
                         </div>
                     </div>
+                    <table id="mainProcessTabel" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <!--<th scope="col">#</th>-->
+                            <th style="width:  4.33%" scope="col">Uwzględnij</th>
+                            <th style="width: 16.66%" scope="col">Numer</th>
+                            <th scope="col">Nazwa</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for process in processData%}
+                        <tr id="{{process.id}}">
+                            <td>
+                                {% if process.available %}
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
+                            </td>
+                            <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-100 btn btn-lg btn-success">Zapisz</button>
                 </div>
                 <div>

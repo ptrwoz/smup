@@ -100,7 +100,12 @@
                   </tbody>
                 </table>
                 <form>
-                    <a class="btn btn-success btn-lg" href="../rule/">Dodaj</a>
+                    {% if employee.isactive == False %}
+                    <a href="../user/{{employee.idemployee}}/active" class="btn btn-success">Atywuj</a>
+                    {% else %}
+                    <a href="../user/{{employee.idemployee}}/active" class="btn btn-danger" >Deaktywuj</a>
+                    {% endif %}
+                    <a class="btn btn-success btn-lg" href="../rule">Dodaj</a>
                     <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
                 </form>
                 {% endif %}
