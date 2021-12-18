@@ -37,6 +37,7 @@
           $("#fromperiod").datepicker({
             defaultDate: "+1w",
             changeMonth: true,
+            dateFormat: "yy-mm-dd",
             numberOfMonths: 1,
             onClose: function(selectedDate) {
               $("#toperiod").datepicker("option", "minDate", selectedDate);
@@ -45,6 +46,7 @@
           $("#toperiod").datepicker({
             defaultDate: "+1w",
             changeMonth: true,
+            dateFormat: "yy-mm-dd",
             numberOfMonths: 1,
             onClose: function(selectedDate) {
               $("#fromperiod").datepicker("option", "maxDate", selectedDate);
@@ -96,13 +98,13 @@
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Wartość maksymalna:</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name='userMaxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
+                        <input type="number" class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Informacja:</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="unitValue" aria-label="Default select example">
+                        <select class="form-select" name="dataType" aria-label="Default select example">
                             {% for d in dataType %}
                             <option value="{{d.iddata_type}}">{{d.name}}</option>
                             {% endfor %}
@@ -112,7 +114,7 @@
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Jednostka czasu:</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="unitValue" aria-label="Default select example">
+                        <select class="form-select" name="timeRange" aria-label="Default select example">
                             {% for t in timeRange %}
                             <option value="{{t.idtime_range}}">{{t.name}}</option>
                             {% endfor %}
@@ -128,9 +130,9 @@
                                 <td>
                                     <div class="form-control" class='picker'>
                                         <label for="fromperiod">Od: </label>
-                                        <input type="text" id="fromperiod" name="from">
+                                        <input type="text" id="fromperiod" name="timeFrom">
                                         <label for="toperiod"> Do: </label>
-                                        <input type="text" id="toperiod" name="to">
+                                        <input type="text" id="toperiod" name="timeTo">
                                     </div>
                                 </td>
                             </tr>
@@ -180,7 +182,7 @@
                         <tr id="{{process.id}}">
                             <td>
                                 {% if process.available %}
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                    <input class="form-check-input" name="check_{{process.idprocess}}" type="checkbox" value="" id="flexCheckChecked">
                                 {% endif %}
                             </td>
                             <td>

@@ -10,21 +10,24 @@ from app.view.static.urls import REDIRECT_HOME_URL, RENDER_UNITS_URL, REDIRECT_U
 #
 # delete Unit
 #
-def deleteUnit(request, context, id):
-    u = Unit.objects.filter(idunit=id)
-    if len(u) > 0:
+def deleteUnit(request, context, id=''):
+    users = Unit.objects.filter(idunit=id)
+    if users.exists():
         try:
-            us = u[0].delete()
+            users[0].delete()
+            messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+            return redirect('../'+REDIRECT_UNITS_URL)
         except:
             messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
             return redirect('../'+REDIRECT_UNITS_URL)
-    messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
-    return redirect('../'+REDIRECT_UNITS_URL)
+    else:
+        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+        return redirect('../'+REDIRECT_UNITS_URL)
 
 #
 #   update Unit
 #
-def updateUnit(request, context, id):
+def updateUnit(request, context, id=''):
     u = Unit.objects.filter(idunit=id)
     unitName = request.POST.get('unitName')
     if len(u) > 0:
@@ -50,38 +53,44 @@ def updateUnit(request, context, id):
 #
 #   save Unit
 #
-def saveUnit(request, context, id):
-    unitName = request.POST.get('unitName')
-    u = Unit()
-    u.name = unitName
-    if len(unitName) == 0:
-        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-        return render(request, RENDER_UNIT_URL, context)
-    try:
-        u.save()
-        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
-        return redirect('../'+REDIRECT_UNITS_URL)
-    except:
-        context['unitData'] = u
-        if len(Unit.objects.filter(name=unitName)) > 0:
-            messages.info(request, MESSAGES_DATA_EXISTS, extra_tags='error')
+def saveUnit(request, context):
+    context = authUser(request)
+    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
+        unitName = request.POST.get('unitName')
+        newUnit = Unit()
+        newUnit.name = unitName
+        if len(unitName) == 0:
+            messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
             return render(request, RENDER_UNIT_URL, context)
-        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-        return render(request, RENDER_UNIT_URL, context)
+        try:
+            newUnit.save()
+            messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+            return redirect('../'+REDIRECT_UNITS_URL)
 
+        except:
+            context['unitData'] = newUnit
+            if len(Unit.objects.filter(name=unitName)) > 0:
+                messages.info(request, MESSAGES_DATA_EXISTS, extra_tags='error')
+                return render(request, RENDER_UNIT_URL, context)
+
+            messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+            return render(request, RENDER_UNIT_URL, context)
+    else:
+        return redirect(REDIRECT_HOME_URL)
 #
 #   view Unit
 #
-def viewUnit(request, context, id = ''):
+def viewUnit(request, context, id=''):
+    context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if id == '':
             context['unitData'] = UnitData()
             return render(request, RENDER_UNIT_URL, context)
         elif id.isnumeric():
-            u = Unit.objects.filter(idunit=int(id))
-            if u.exists():
-                u = u[0]
-                context['unitData'] = u
+            units = Unit.objects.filter(idunit=int(id))
+            if units.exists():
+                unit = units[0]
+                context['unitData'] = unit
                 return render(request, RENDER_UNIT_URL, context)
             else:
                 return redirect('../'+REDIRECT_UNITS_URL)
@@ -93,17 +102,21 @@ def viewUnit(request, context, id = ''):
 #
 #   main function
 #
-def unitView(request, id='', delete=''):
+def unitManager(request, id='', operation=''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if request.method == 'POST':
-            if len(id) > 0 and delete == '':
+            #update
+            if len(id) > 0 and operation == '':
                 return updateUnit(request, context, id)
-            elif len(id) > 0 and delete == 'delete':
+            #delete
+            elif len(id) > 0 and operation == 'delete':
                 return deleteUnit(request, context, id)
+            #save - new unit
             else:
-                return saveUnit(request, context, id)
+                return saveUnit(request, context)
         else:
+            #view
             return viewUnit(request, context, id)
     else:
         return redirect(REDIRECT_HOME_URL)

@@ -92,6 +92,11 @@
                                     </div>
                                 </div>
                             </div>
+                            {% if rule.isactive == 0 %}
+                                <a href="../rule/{{rule.idrule}}/active" class="btn btn-success">Atywuj</a>
+                            {% else %}
+                                <a href="../rule/{{rule.idrule}}/active" class="btn btn-danger" >Deaktywuj</a>
+                            {% endif %}
                             <a class="btn btn-primary" data-method="post" href="../rule/{{rule.idrule}}">Edytuj</a>
                             <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Usuń</a>
                           </td>
@@ -100,11 +105,6 @@
                   </tbody>
                 </table>
                 <form>
-                    {% if employee.isactive == False %}
-                    <a href="../user/{{employee.idemployee}}/active" class="btn btn-success">Atywuj</a>
-                    {% else %}
-                    <a href="../user/{{employee.idemployee}}/active" class="btn btn-danger" >Deaktywuj</a>
-                    {% endif %}
                     <a class="btn btn-success btn-lg" href="../rule">Dodaj</a>
                     <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
                 </form>

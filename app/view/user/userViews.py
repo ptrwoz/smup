@@ -1,12 +1,15 @@
 from datetime import datetime
-
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from app.models import Employee, Unit, Employeetype, AuthUser
 from app.view.auth.auth import authUser, UserData
-from app.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS
-from app.view.static.urls import REDIRECT_HOME_URL, RENDER_USER_URL, REDIRECT_USERS_URL
+from app.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, \
+    MESSAGES_DIFFPASSWORD_ERROR, MESSAGES_UNIT_ERROR, MESSAGES_ROLE_ERROR, MESSAGES_DUPLICATEUSER_ERROR, \
+    MESSAGES_PASSWORD_ERROR
+from app.view.static.urls import REDIRECT_HOME_URL, RENDER_USER_URL, REDIRECT_USERS_URL, REDIRECT_USER_URL, \
+    RENDER_USERS_URL
 
 
 def password_check(passwd):
@@ -71,19 +74,21 @@ def checkUserFromForm(request):
     u.unit = unit
     u.role = employeeType
     #
-    if len(name) <= 2 and len(surname) <= 2 and len(login) <= 2 and len(password) < 4:
-        return None, None, u
-    if password != password2:
-        return None, None, u
+    if len(name) <= 2 or len(surname) <= 2 or len(login) <= 2 or len(password) < 4:
+        return None, None, u, MESSAGES_DATA_ERROR
+    if password != password2 or (len(password) == 0 and len(password2)):
+        return None, None, u, MESSAGES_DIFFPASSWORD_ERROR
+    if password_check(password) or (len(password) == 0 and len(password2)):
+        return None, None, u, MESSAGES_PASSWORD_ERROR
     e = Employee()
     e.name = name
     e.surname = surname
+    e.isactive = 1
     u = Unit.objects.filter(name=unit)
     if len(u) > 0:
         e.idunit = u[0]
     else:
-        messages.info(request, 'Błędna jednostka')
-        return None, None, u
+        return None, None, u, MESSAGES_UNIT_ERROR
     et = Employeetype.objects.filter(name=employeeType)
     if len(et) > 0:
         e.idemployeetype = et[0]
@@ -96,139 +101,179 @@ def checkUserFromForm(request):
         authUser.is_active = True
         authUser.date_joined = datetime.now()
     else:
-        return None, None, u
-    return e, authUser, u
-
+        return None, None, u, MESSAGES_ROLE_ERROR
+    return e, authUser, u, None
+#
+#   user delete function
+#
 def deleteUser(request, context, id):
     try:
         er = Employee.objects.filter(idemployee=int(id))
         if er.exists():
-            a = er[0].auth_user
-            er.delete()
-            a.delete()
+            au = User.objects.filter(username=er[0].auth_user.username)
+            if au.exists():
+                er[0].delete()
+                au[0].delete()
+
             messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
             return redirect(REDIRECT_USERS_URL)
         else:
             messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
             return redirect(REDIRECT_USERS_URL)
     except:
-        #authUser.delete()
-        #e.delete()
-        #context['user'] = u
-        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='error')
+        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
         return redirect(REDIRECT_USERS_URL)
-
+#
+#   user update function
+#
 def updateUser(request, context, id):
-    e, authUser, u = checkUserFromForm(request)
+    e, authUser, u, MESSAGE = checkUserFromForm(request)
     if e is None:
         context['user'] = u
-        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+        messages.info(request, MESSAGE, extra_tags='error')
         return viewUser(request, context, id, u)
     try:
         er = Employee.objects.filter(idemployee=int(id))
-        authUser.id = er[0].auth_user.id
-        authUser.save()
-        e.auth_user = authUser
-        e.save()
-        context['user'] = u
-        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
-        return render(request, RENDER_USER_URL, context)
+        if er.exists():
+            au = User.objects.filter(username=er[0].auth_user.username)
+            if au.exists():
+                au[0].set_password(authUser.password)
+                au[0].username = authUser.username
+                au[0].save()
+                er[0].name = e.name
+                er[0].surname = e.surname
+                er[0].idunit = e.idunit
+                er[0].idemployeetype = e.idemployeetype
+                er[0].isactive = e.isactive
+                er[0].save()
+                messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+                return redirect(REDIRECT_USERS_URL)
+            else:
+                context['user'] = u
+                messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='error')
+                return render(request, RENDER_USER_URL, context)
+        else:
+            context['user'] = u
+            messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='error')
+            return render(request, RENDER_USER_URL, context)
     except:
-        #authUser.delete()
-        #e.delete()
         context['user'] = u
         messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='error')
         return render(request, RENDER_USER_URL, context)
 #
 #   user save function
 #
-def saveUser(request, context, id):
-    e, authUser, u = checkUserFromForm(request)
+def saveUser(request, context, id =''):
+    e, authUser, u, MESSAGE = checkUserFromForm(request)
     if e is None:
         context['user'] = u
-        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-        return viewUser(request, context, id, u)
-    try:
-        authUser.save()
-        e.auth_user = authUser
-        e.save()
-        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+        messages.info(request, MESSAGE, extra_tags='error')
+        units = Unit.objects.all()
+        context['units'] = units
+        roles = Employeetype.objects.all()
+        context['roles'] = roles
         return render(request, RENDER_USER_URL, context)
+    try:
+        au = AuthUser.objects.filter(username=authUser.username)
+        if au.exists():
+            messages.info(request, MESSAGES_DUPLICATEUSER_ERROR, extra_tags='error')
+            return render(request, RENDER_USER_URL, context)
+        user = User.objects.create_user(username=authUser.username,
+                                        email=authUser.username,
+                                        password=authUser.password)
+        au = AuthUser.objects.filter(username=user.username)
+        if au.exists():
+            e.auth_user = au[0]
+            e.save()
+            messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+            return redirect(REDIRECT_USERS_URL)
+        else:
+            messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+            return render(request, RENDER_USER_URL, context)
     except:
-        authUser.delete()
-        e.delete()
         context['user'] = u
-        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='error')
+        units = Unit.objects.all()
+        context['units'] = units
+        roles = Employeetype.objects.all()
+        context['roles'] = roles
+        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
         return render(request, RENDER_USER_URL, context)
 #
 #   main operation user function
 #
-def viewUser(request, context, id = '', u = ''):
+def viewUser(request, context, id = 0, u = 0):
+    context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         units = Unit.objects.all()
         context['units'] = units
         roles = Employeetype.objects.all()
         context['roles'] = roles
         if id == '':
-            if u == '':
+            if u == 0:
                 context['user'] = UserData()
             else:
                 context['user'] = u
             return render(request, RENDER_USER_URL, context)
-        elif len(id) > 0 and id.isnumeric():
-            e = getEmployeeToEdit(id, context['userData'].id, context['account'])
-            if e is not None:
-                e.login = e.auth_user.username
-                e.auth_user = None
-                e.password = ""
-                context['user'] = e
+        elif id.isnumeric():
+            employee = getEmployeeToEdit(id, context['userData'].id, context['account'])
+            if employee is not None:
+                employee.login = employee.auth_user.username
+                employee.auth_user = None
+                employee.password = ""
+                context['user'] = employee
                 return render(request, RENDER_USER_URL, context)
             else:
-                return redirect(REDIRECT_USERS_URL)
+                return redirect(REDIRECT_USER_URL)
         else:
-            return redirect(REDIRECT_USERS_URL)
+            return redirect(REDIRECT_USER_URL)
     else:
         return redirect(REDIRECT_HOME_URL)
-
+#
+#   user change active
+#
 def userActive(request, id = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if len(id) > 0:
-            e = getEmployeeToEdit(id, context['userData'].id, context['account'])
-            if e is not None:
-                if e.isactive == 1:
-                    e.isactive = 0
+            employee = getEmployeeToEdit(id, context['userData'].id, context['account'])
+            if employee is not None:
+                if employee.isactive == 1:
+                    employee.isactive = 0
                 else:
-                    e.isactive = 1
-                e.save()
+                    employee.isactive = 1
+                employee.save()
                 return redirect(REDIRECT_USERS_URL)
             else:
                 return redirect(REDIRECT_USERS_URL)
     else:
         return redirect(REDIRECT_HOME_URL)
-
-def userView(request, id = '', operation = ''):
+#
+#   main function
+#
+def userManager(request, id = '', operation = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        #save and update
         if request.method == 'POST':
+            #update
             if len(id) > 0 and operation == '':
                 return updateUser(request, context, id)
+            #delete
             elif len(id) > 0 and operation == 'delete':
                 return deleteUser(request, context, id)
-            #elif operation == 'delete':
-            #    return redirect(REDIRECT_HOME_URL)
             else:
+                # save - new unit
                 return saveUser(request, context, id)
         else:
+            #active
             if operation == 'active':
                 return userActive(request, id)
+            #view
             else:
                 return viewUser(request, context, id)
     else:
         return redirect(REDIRECT_HOME_URL)
 #
-#   main view users function
+#   view users
 #
 def usersView(request):
     context = authUser(request)
@@ -240,6 +285,6 @@ def usersView(request):
         elif (context['account'] == 'MANAGER'):
             employeesData = Employee.objects.filter(idemployeetype__name='USER')
         context['employeesData'] = employeesData
-        return render(request, 'user/users.html', context)
+        return render(request, RENDER_USERS_URL, context)
     else:
         return redirect(REDIRECT_HOME_URL)

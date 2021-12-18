@@ -15,22 +15,22 @@ urlpatterns = [
     path('login', authViews.loginPage, name='login'), #ok
     path('logout', authViews.logoutUser, name='logout'), #ok
     path('profil', authViews.profilUser, name='profil'), #ok
-
+    #
     path('users', userViews.usersView, name='users'),
-    path('user/<str:id>', userViews.userView, name='user'),
-    path('user/<str:id>/<str:operation>', userViews.userView, name='user'),
-    path('user', userViews.userView, name='user'),
+    path('user/<str:id>', userViews.userManager, name='user'),
+    path('user/<str:id>/<str:operation>', userViews.userManager, name='user'),
+    path('user', userViews.userManager, name='user'),
     # ok
     path('units/<str:field>/<str:sort>', unitViews.unitsView, name='units'),
     path('units', unitViews.unitsView, name='units'),
-    path('unit', unitViews.unitView, name='unit'),
-    path('unit/<str:id>', unitViews.unitView, name='unit'),
-    path('unit/<str:id>/<str:delete>', unitViews.unitView, name='unit'),
+    path('unit', unitViews.unitManager, name='unit'),
+    path('unit/<str:id>', unitViews.unitManager, name='unit'),
+    path('unit/<str:id>/<str:operation>', unitViews.unitManager, name='unit'),
     #rules urls
-    path('rules', ruleViews.rulesView, name='units'), #view all
-    path('rule', ruleViews.ruleView, name='rule'), #view new rule
-    path('rule/<str:id>', ruleViews.ruleView, name='rule'), #view existed rule
-    path('rule/<str:id>/<str:operation>', ruleViews.ruleView, name='rule'), #update, delete rule by operation
+    path('rules', ruleViews.rulesView, name='rules'), #view all
+    path('rule', ruleViews.ruleManager, name='rule'), #view new rule
+    path('rule/<str:id>', ruleViews.ruleManager, name='rule'), #view existed rule
+    path('rule/<str:id>/<str:operation>', ruleViews.ruleManager, name='rule'), #update, delete rule by operation
 
     #path('activities', activityViews.activitiesView, name='activities'),
     #path('activities', activityViews.activityView, name='activities'),
