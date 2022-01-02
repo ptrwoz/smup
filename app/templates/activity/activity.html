@@ -35,66 +35,51 @@
                 <a class="btn btn-success " href="login">Zaloguj się</a>
             </div>
             {% else %}
-                <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
-                <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
-                <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
-                <a class="btn  btn-success" href="logout">logout</a>
+            <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
+            <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
+            <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
+            <a class="btn  btn-success" href="logout">logout</a>
             {% endif %}
         </nav>
     </div>
     <section class="text-center container form-control">
         <div class="d-grid gap-2">
             {% if account == "GUEST" %}
-                <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
+            <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-                <h1 class="fw-light">Aktywności:</h1>
-                <p class="lead text-muted"></p>
-                {% if account == "ADMIN" or "PROCESS MANAGER"%}
-                <table class="table table-striped">
-                  <thead>
+            <h1 class="fw-light">Aktywności:</h1>
+            <p class="lead text-muted"></p>
+            {% if account == "ADMIN" or "PROCESS MANAGER"%}
+            <div class="scrollTable">
+                <table id="mainProcessTabel" class="table">
+                    <thead>
                     <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">Informacja</th>
-                      <th scope="col">Jednostka</th>
-                      <th scope="col">Termin</th>
-                      <th scope="col"></th>
+                        <!--<th scope="col">#</th>-->
+                        <th style="width:  4.33%" scope="col"></th>
+                        <th style="width: 16.66%" scope="col">Numer</th>
+                        <th scope="col">Nazwa</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {% for rule in rules%}
-                        <tr>
-                          <td>{{rule.name}}</td>
-                          <td>{{rule.time_range_idtime_range.name}}</td>
-                          <td>{{rule.data_type_iddata_type.name}}</td>
-                          <td>{{rule.timefrom|date:'d-m-Y'}} - {{rule.timeto|date:'d-m-Y'}}</td>
-                          <td>
-                                <div>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Czy na pewno chcesz wykonać operację?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                                <a type="button" data-method="delete" class="btn btn-success" href="../units/{{unit.idunit}}">Tak</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="btn btn-primary" data-method="post" href="../units/{{activity.idactivity}}">Wypełnij</a>
-                          </td>
-                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for process in processData%}
+                    <tr id="{{process.id}}">
+                        <td>
+                            {% if process.available %}
+                            <input class="form-check-input" name="check_{{process.idprocess}}" type="checkbox" value="" id="flexCheckChecked">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
+                        </td>
+                        <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
+
+                    </tr>
                     {% endfor %}
-                  </tbody>
+                    </tbody>
                 </table>
-                <a class="btn btn-secondary" href="../">Wróć</a>
-                {% endif %}
+            </div>
+            <a class="btn btn-secondary" href="../">Wróć</a>
+            {% endif %}
             {% endif %}
         </div>
     </section>

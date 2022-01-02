@@ -5,7 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from passlib.handlers.pbkdf2 import pbkdf2_sha256
 
+from app.models import Employee
 from app.view.auth.auth import authUser
+from app.view.static.messagesTexts import MESSAGES_LOGIN_ERROR
 from app.view.static.urls import RENDER_PROFIL_URL, REDIRECT_HOME_URL, RENDER_LOGIN_URL
 
 def profilUser(request):
@@ -31,13 +33,19 @@ def loginPage(request):
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
-                return redirect(REDIRECT_HOME_URL)
+                employee = Employee.objects.filter(auth_user=user.id)
+                if employee.exists():
+                    if employee[0].isactive:
+                        login(request, user)
+                        return redirect(REDIRECT_HOME_URL)
+                    else:
+                        messages.info(request, MESSAGES_LOGIN_ERROR)
+                        return render(request, RENDER_LOGIN_URL, context)
             else:
-                messages.info(request, 'Błędne logowanie!')
+                messages.info(request, MESSAGES_LOGIN_ERROR)
                 return render(request, RENDER_LOGIN_URL, context)
         else:
             return render(request, RENDER_LOGIN_URL, context)
     else:
-        return redirect('home')
+        return redirect(REDIRECT_HOME_URL)
 

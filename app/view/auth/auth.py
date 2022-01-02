@@ -1,15 +1,5 @@
 from app.models import Employee
-
-
-class UserData:
-    id = ""
-    name = ""
-    surname = ""
-    login = ""
-    password = ""
-    unit = ""
-    role = ""
-    pass
+from app.view.static.dataModels import UserData
 
 
 def authUser(request):

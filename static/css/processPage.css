@@ -1,0 +1,35 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  background-color: #f5f5f5;
+}
+.block {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.firstRow {
+    background-color: #b4c1c6
+}
+
+.secondRow {
+    background-color: #d4d6d5
+}
+
+.thirdRow {
+    background-color: #ffffff
+}
+
+.subRow {
+    background-color: #ffffff
+}
+.newRow {
+    background-color:  #ffffff
+}

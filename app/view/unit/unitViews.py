@@ -4,44 +4,62 @@ from app.models import *
 from app.view.auth.auth import authUser
 from app.view.static.dataModels import UnitData
 from app.view.static.messagesTexts import MESSAGES_ADD_ERROR, MESSAGES_NO_DATA, MESSAGES_OPERATION_SUCCESS, \
-    MESSAGES_DATA_EXISTS, MESSAGES_OPERATION_ERROR
+    MESSAGES_DATA_EXISTS, MESSAGES_OPERATION_ERROR, MESSAGES_USERINUNIT_ERROR, MESSAGES_DATA_ERROR
 from app.view.static.urls import REDIRECT_HOME_URL, RENDER_UNITS_URL, REDIRECT_UNITS_URL, RENDER_UNIT_URL
 
 #
 # delete Unit
 #
 def deleteUnit(request, context, id=''):
-    users = Unit.objects.filter(idunit=id)
-    if users.exists():
+    units = Unit.objects.filter(idunit=id)
+    if units.exists():
         try:
-            users[0].delete()
+            unitEmployeers = Employee.objects.filter(idunit=id)
+            unit = units[0]
+            if unitEmployeers.exists():
+                messages.info(request, MESSAGES_USERINUNIT_ERROR, extra_tags='error')
+                return redirect('../' + REDIRECT_UNITS_URL)
+            unit.delete()
             messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
             return redirect('../'+REDIRECT_UNITS_URL)
         except:
             messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
             return redirect('../'+REDIRECT_UNITS_URL)
     else:
-        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
         return redirect('../'+REDIRECT_UNITS_URL)
 
+def checkUnitFromForm(request):
+    unitName = request.POST.get('unitName')
+    if len(unitName) == 0:
+        unit = Unit()
+        unit.name = unitName
+        return None, MESSAGES_DATA_ERROR
+    else:
+        unit = Unit()
+        unit.name = unitName
+        return unit, None
 #
 #   update Unit
 #
 def updateUnit(request, context, id=''):
-    u = Unit.objects.filter(idunit=id)
-    unitName = request.POST.get('unitName')
-    if len(u) > 0:
-        u = u[0]
-        context['unitData'] = u
-        if len(unitName) == 0:
+    newUnit, mess = checkUnitFromForm(request)
+    if newUnit == None:
+        messages.info(request, mess, extra_tags='error')
+        return render(request, RENDER_UNIT_URL, context)
+    units = Unit.objects.filter(idunit=id)
+    if units.exists():
+        unit = units[0]
+        context['unitData'] = unit
+        if len(Unit.objects.filter(name=newUnit.name)) > 0:
             messages.info(request, MESSAGES_NO_DATA, extra_tags='error')
             return render(request, RENDER_UNIT_URL, context)
-        if len(Unit.objects.filter(name=unitName)) > 0:
+        if Unit.objects.filter(name=newUnit.name).exists():
             messages.info(request, MESSAGES_DATA_EXISTS, extra_tags='error')
             return render(request, RENDER_UNIT_URL, context)
         try:
-            u.name = unitName
-            u.save()
+            unit.name = newUnit.name
+            unit.save()
             messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
             return redirect('../'+REDIRECT_UNITS_URL)
         except:
@@ -56,20 +74,19 @@ def updateUnit(request, context, id=''):
 def saveUnit(request, context):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        unitName = request.POST.get('unitName')
-        newUnit = Unit()
-        newUnit.name = unitName
-        if len(unitName) == 0:
-            messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+        unit, mess = checkUnitFromForm(request)
+        if unit is None:
+            messages.info(request, mess, extra_tags='error')
             return render(request, RENDER_UNIT_URL, context)
+        newUnit = Unit()
+        newUnit.name = unit.name
         try:
             newUnit.save()
             messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
             return redirect('../'+REDIRECT_UNITS_URL)
-
         except:
             context['unitData'] = newUnit
-            if len(Unit.objects.filter(name=unitName)) > 0:
+            if len(Unit.objects.filter(name=unit.name)) > 0:
                 messages.info(request, MESSAGES_DATA_EXISTS, extra_tags='error')
                 return render(request, RENDER_UNIT_URL, context)
 

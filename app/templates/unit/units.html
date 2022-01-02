@@ -43,7 +43,7 @@
             {% endif %}
         </nav>
     </div>
-    <section class="text-center container form-control">
+    <section class="text-center form-control">
         <div class="d-grid gap-2">
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
@@ -51,6 +51,17 @@
             <h1 class="fw-light">Jednostki:</h1>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
+            {% for message in messages %}
+                {% if 'error' in message.extra_tags %}
+                    <div class="alert alert-danger">
+                        <strong>{{message}}</strong>
+                    </div>
+                {% elif 'info' in message.extra_tags %}
+                    <div class="alert alert-success">
+                        <strong>{{message}}</strong>
+                    </div>
+                {% endif %}
+            {% endfor %}
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -92,17 +103,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-            {% for message in messages %}
-                {% if 'error' in message.extra_tags %}
-                    <div class="alert alert-danger">
-                        <strong>{{message}}</strong>
-                    </div>
-                {% elif 'info' in message.extra_tags %}
-                    <div class="alert alert-success">
-                        <strong>{{message}}</strong>
-                    </div>
-                {% endif %}
-            {% endfor %}
             <form>
                 <a class="btn btn-success btn-lg" href="../unit">Dodaj</a>
                 <a class="btn btn-secondary btn-lg" href="../">Wróć</a>

@@ -2,7 +2,8 @@
 #  pages
 #
 RENDER_HOME_URL = 'main/home.html'
-RENDER_ACTIVITY_URL = 'activity/activities.html'
+RENDER_ACTIVITY_URL = 'activity/activity.html'
+RENDER_ACTIVITIES_URL = 'activity/activities.html'
 RENDER_PROFIL_URL = 'auth/profil.html'
 RENDER_LOGIN_URL = 'auth/login.html'
 RENDER_UNITS_URL = 'unit/units.html'
@@ -12,6 +13,7 @@ RENDER_RULES_URL = 'rule/rules.html'
 RENDER_USER_URL = 'user/user.html'
 RENDER_USERS_URL = 'user/users.html'
 #
+REDIRECT_ACTIVITIES_URL = 'activities'
 REDIRECT_HOME_URL = 'home'
 REDIRECT_UNITS_URL = 'units'
 REDIRECT_USERS_URL = 'users'

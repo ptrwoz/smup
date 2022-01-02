@@ -74,7 +74,7 @@ def checkUserFromForm(request):
     u.unit = unit
     u.role = employeeType
     #
-    if len(name) <= 2 or len(surname) <= 2 or len(login) <= 2 or len(password) < 4:
+    if len(name) <= 2 or len(surname) <= 2 or len(login) <= 2:
         return None, None, u, MESSAGES_DATA_ERROR
     if password != password2 or (len(password) == 0 and len(password2)):
         return None, None, u, MESSAGES_DIFFPASSWORD_ERROR
@@ -137,15 +137,19 @@ def updateUser(request, context, id):
         if er.exists():
             au = User.objects.filter(username=er[0].auth_user.username)
             if au.exists():
-                au[0].set_password(authUser.password)
-                au[0].username = authUser.username
-                au[0].save()
-                er[0].name = e.name
-                er[0].surname = e.surname
-                er[0].idunit = e.idunit
-                er[0].idemployeetype = e.idemployeetype
-                er[0].isactive = e.isactive
-                er[0].save()
+                aut = au[0]
+                if len(authUser.password) > 0:
+                    aut.set_password(authUser.password)
+                aut.username = authUser.username
+                aut.save()
+                emp = er[0]
+                emp.name = e.name
+                emp.surname = e.surname
+                emp.idunit = e.idunit
+                emp.idemployeetype = e.idemployeetype
+                emp.isactive = e.isactive
+                emp.save()
+
                 messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
                 return redirect(REDIRECT_USERS_URL)
             else:
@@ -176,6 +180,7 @@ def saveUser(request, context, id =''):
     try:
         au = AuthUser.objects.filter(username=authUser.username)
         if au.exists():
+            context['user'] = None
             messages.info(request, MESSAGES_DUPLICATEUSER_ERROR, extra_tags='error')
             return render(request, RENDER_USER_URL, context)
         user = User.objects.create_user(username=authUser.username,
@@ -279,7 +284,7 @@ def usersView(request):
     context = authUser(request)
     if context['account'] != 'GUEST':
         if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id))
+            employeesData = Employee.objects.filter(~Q(idemployee=context['userData'].id))
         elif (context['account'] == 'PROCESS MANAGER'):
             employeesData = Employee.objects.filter(Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER'))
         elif (context['account'] == 'MANAGER'):

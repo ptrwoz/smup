@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from openpyxl import load_workbook
 from app.models import *
+from app.view.process.processViews import initChapterNo, sortDataByChapterNo
+
 
 def color(row):
     return ['background-color: red'] * len(row)
@@ -14,11 +16,16 @@ def color(row):
 def createEmployeeSheet(employee):
     process = Process.objects.all()
     processData = []
+    processNo = []
+    process = initChapterNo(process)
+    process, idx2 = sortDataByChapterNo(process)
     for p in process:
         processData.append(p.name)
-    df1 = pd.DataFrame({'Process': processData})
-    df1.set_index('Process', inplace=True)
-    df1.style.apply(color, axis=1)
+        processNo.append(p.no)
+    df1 = pd.DataFrame({'No': processNo, 'Process': processData })
+
+    #df1.set_index('Process', inplace=True)
+    #df1.style.apply(color, axis=1)
     return df1
 
 def exportDataBase(id, anonymization = False):
@@ -29,9 +36,9 @@ def exportDataBase(id, anonymization = False):
     for e in employees:
         sheet_name = ""
         if anonymization:
-            sheet_name = 'Employee_' + str(no)
+            sheet_name = 'Employee_' + str(no) + ' Unit_'
         else:
-            sheet_name = e.name + " " + e.surname
+            sheet_name = e.name + " " + e.surname + ' Unit_'
         df1 = createEmployeeSheet(e)
         df1.to_excel(writer, sheet_name=sheet_name)
         no = no + 1

@@ -1,5 +1,6 @@
 MESSAGES_ADD_ERROR = 'Błąd dodania'
 MESSAGES_ADD_SUCCESS = ''
+MESSAGES_LOGIN_ERROR = 'Błędne logowanie!'
 
 MESSAGES_OPERATION_SUCCESS = 'Sukces operacji'
 MESSAGES_OPERATION_ERROR = 'Błąd operacji'
@@ -10,4 +11,6 @@ MESSAGES_DATA_ERROR = 'Błędne dane'
 MESSAGES_DIFFPASSWORD_ERROR = 'Podane hasła nie są różne'
 MESSAGES_PASSWORD_ERROR = 'Niepoprawne hasło'
 MESSAGES_UNIT_ERROR = 'Błędna jednostka'
+MESSAGES_USERINUNIT_ERROR = 'Błąd. Jednostka ma przypisanego użytkownika'
+MESSAGES_ACTIVITYINRULE_ERROR = 'Błąd. Reguła ma przypisane aktywności'
 MESSAGES_ROLE_ERROR = 'Błędna rola'

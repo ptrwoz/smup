@@ -199,7 +199,7 @@ class Rule(models.Model):
 class RuleHasProcess(models.Model):
     rule_idrule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_idRule')  # Field name made lowercase.
     process_idprocess = models.ForeignKey(Process, models.DO_NOTHING, db_column='process_idProcess')  # Field name made lowercase.
-    id_rule_has_process = models.IntegerField(primary_key=True)
+    id_rule_has_process = models.AutoField(db_column='id_rule_has_process', primary_key=True)  # Field name made lowercase.
 
     class Meta:
         managed = False

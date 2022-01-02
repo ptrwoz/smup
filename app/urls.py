@@ -32,8 +32,8 @@ urlpatterns = [
     path('rule/<str:id>', ruleViews.ruleManager, name='rule'), #view existed rule
     path('rule/<str:id>/<str:operation>', ruleViews.ruleManager, name='rule'), #update, delete rule by operation
 
-    #path('activities', activityViews.activitiesView, name='activities'),
-    #path('activities', activityViews.activityView, name='activities'),
+    path('activities', activityViews.activitiesView, name='activities'),
+    path('activity/<str:id>', activityViews.activitiesManager, name='activities'),
 
     path('process', processViews.processView, name='process'),
     path('processes', processViews.processView, name='processes'),

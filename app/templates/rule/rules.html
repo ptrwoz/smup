@@ -42,7 +42,7 @@
             {% endif %}
         </nav>
     </div>
-    <section class="text-center container form-control">
+    <section class="text-center form-control">
         <div class="d-grid gap-2">
             {% if account == "GUEST" %}
                 <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
@@ -74,7 +74,7 @@
                           <td>{{rule.employee_idemployee.name}}  {{rule.employee_idemployee.surname}}</td>
                           <td>
                                 <div>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="exampleModal{{rules.idrule}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                                <a type="button" data-method="delete" class="btn btn-success" href="../rule/{{rule.idrule}}">Tak</a>
+                                                <a type="button" data-method="delete" class="btn btn-success" href="../rule/{{rule.idrule}}/delete">Tak</a>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                                 <a href="../rule/{{rule.idrule}}/active" class="btn btn-danger" >Deaktywuj</a>
                             {% endif %}
                             <a class="btn btn-primary" data-method="post" href="../rule/{{rule.idrule}}">Edytuj</a>
-                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Usuń</a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{rules.idrule}}" >Usuń</a>
                           </td>
                         </tr>
                     {% endfor %}

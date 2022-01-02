@@ -1,24 +1,59 @@
 from django.shortcuts import render, redirect
-from app.models import Employee, Rule
+from app.models import Employee, Rule, AuthUser, RuleHasProcess
 from app.view.auth.auth import authUser
-from app.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL
+from app.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, \
+    RENDER_RULE_URL
+from datetime import date
+from django.db.models import Q
+from app.view.user.userViews import getEmployeeToEdit
 
-def activities(request):
+def updateActivities(request, context, id=''):
+    return render(request, RENDER_ACTIVITY_URL, context)
+
+def viewActivity(request, context, id=''):
     context = authUser(request)
+    if id == '':
+        return redirect(REDIRECT_ACTIVITIES_URL)
+    elif id.isnumeric():
+        rules = Rule.objects.filter(idrule=int(id))
+        if rules.exists():
+            processData = []
+            ruleHasProcess = RuleHasProcess.objects.filter(rule_idrule=rules[0].idrule)
+            for r in ruleHasProcess:
+                processData.append(r.process_idprocess)
+            context['processData'] = processData
+        else:
+            return redirect(REDIRECT_ACTIVITIES_URL)
     return render(request, RENDER_ACTIVITY_URL, context)
 
 #
 #   main function
 #
-def unitManager(request, id='', operation=''):
+def activitiesManager(request, id='', operation=''):
     context = authUser(request)
     if context['account'] != 'GUEST':
         if request.method == 'POST':
             if len(id) > 0 and operation == '':
-                print()
+                return updateActivities(request, context, id)
                 #return updateActive(request, context, id)
+        else:
+            return viewActivity(request, context, id)
 
-def activityView(request):
+
+def activitiesView(request, field='name', sort='0'):
+    context = authUser(request)
+    if context['account'] != 'GUEST':
+        #id = AuthUser.objects.filter()
+        today = date.today()
+        todayDate = today.strftime("%Y-%m-%d")
+        rules = Rule.objects.filter(Q(employee_idemployee_id=context['userData'].id) & Q(timeto__lte=todayDate))
+
+        context['rules'] = rules
+        return render(request, RENDER_ACTIVITIES_URL, context)
+    else:
+        return redirect(REDIRECT_HOME_URL)
+
+'''def activityView(request):
     context = authUser(request)
     if context['account'] != 'GUEST':
         # save and update
@@ -32,4 +67,4 @@ def activityView(request):
             context['rules'] = rules
             return render(request, RENDER_ACTIVITY_URL, context)
     else:
-        return redirect(REDIRECT_HOME_URL)
+        return redirect(REDIRECT_HOME_URL)'''

@@ -18,32 +18,55 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/rulePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
-        .row {
-            margin-bottom: 10px;
-        }
-        .picker {
-          display: inline;
-          border: 1px solid lightgray;
-          padding : 4px;
-        }
-        input {
-          border: 0;
-        }
+
     </style>
     <script>
+        $(document).ready(function() {
+            $("#checkall").on('click', function(event) {
+                /*$("table > tbody > tr").each(function () {
+                var this = $(this);
+                    alert(this.find(".FieldNameID").text() + "  " + this.find(".OperatorID").text());
+                });*/
+            });
+        });
+        function styleRows(elements) {
+            for (var i = 1; i < elements.length; i++) {
+                ii = elements[i].children[1].children[0].value.split('.').length
+                if (ii == 2) {
+                    elements[i].className = "firstRow";
+                }
+                else if (ii == 3) {
+                    elements[i].className = "secondRow";
+                }
+                else if (ii == 4) {
+                    elements[i].className = "thirdRow";
+                }
+                else {
+                    elements[i].className = "subRow";
+                }
+                elements[i].children[1].children[0].style.float = 'right'
+                elements[i].children[1].children[0].style.width = (100 - ((ii - 2) * 9))  + '%'
+                if (ii == 2)
+                    elements[i].children[1].children[0].style.fontWeight = 'bold'
+            }
+        }
         $(function() {
-          $("#fromperiod").datepicker({
-            defaultDate: "+1w",
+          var $datepickerFrom = $("#fromperiod").datepicker({
             changeMonth: true,
             dateFormat: "yy-mm-dd",
             numberOfMonths: 1,
+            defaultDate: null,
             onClose: function(selectedDate) {
               $("#toperiod").datepicker("option", "minDate", selectedDate);
             }
           });
-          $("#toperiod").datepicker({
+          $datepickerFrom.datepicker('setDate', new Date());
+
+          var $datepickerTo = $("#toperiod").datepicker({
             defaultDate: "+1w",
             changeMonth: true,
             dateFormat: "yy-mm-dd",
@@ -52,6 +75,7 @@
               $("#fromperiod").datepicker("option", "maxDate", selectedDate);
             }
           });
+          $datepickerTo.datepicker('setDate', new Date());
         });
     </script>
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
@@ -59,7 +83,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 </head>
-<body class="text-center">
+<body class="text-center" onload="styleRows($('#mainProcessTabel tr'))">
 <main class="form-signin">
     {% csrf_token %}
     {% block content %}
@@ -80,7 +104,7 @@
             {% endif %}
         </nav>
     </div>
-    <section class="text-center container form-control">
+    <section class="text-center form-control">
         <div class="d-grid gap-2">
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
@@ -88,7 +112,18 @@
             <h1 class="fw-light">Dodaj regułę:</h1>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
-            <form id="userPage" id="submit" method="post"> {% csrf_token %}
+            {% for message in messages %}
+            {% if 'error' in message.extra_tags %}
+            <div class="alert alert-danger">
+                <strong>{{message}}</strong>
+            </div>
+            {% elif 'info' in message.extra_tags %}
+            <div class="alert alert-success">
+                <strong>{{message}}</strong>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <form id="rulePage" id="submit" method="post"> {% csrf_token %}
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Nazwa:</label>
                     <div class="col-sm-10">
@@ -130,9 +165,9 @@
                                 <td>
                                     <div class="form-control" class='picker'>
                                         <label for="fromperiod">Od: </label>
-                                        <input type="text" id="fromperiod" name="timeFrom">
+                                        <input type="text" id="fromperiod" name="timeFrom" value="{{rule.timefrom}}">
                                         <label for="toperiod"> Do: </label>
-                                        <input type="text" id="toperiod" name="timeTo">
+                                        <input type="text" id="toperiod" name="timeTo" value="{{rule.timeto}}">
                                     </div>
                                 </td>
                             </tr>
@@ -168,43 +203,39 @@
                             </div>
                         </div>
                     </div>
-                    <table id="mainProcessTabel" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <!--<th scope="col">#</th>-->
-                            <th style="width:  4.33%" scope="col">Uwzględnij</th>
-                            <th style="width: 16.66%" scope="col">Numer</th>
-                            <th scope="col">Nazwa</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for process in processData%}
-                        <tr id="{{process.id}}">
-                            <td>
-                                {% if process.available %}
-                                    <input class="form-check-input" name="check_{{process.idprocess}}" type="checkbox" value="" id="flexCheckChecked">
-                                {% endif %}
-                            </td>
-                            <td>
-                                <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
-                            </td>
-                            <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
+                    <div class="scrollTable">
+                        <table id="mainProcessTabel" class="table">
+                            <thead>
+                            <tr>
+                                <!--<th scope="col">#</th>-->
+                                <th style="width:  4.33%" scope="col"><input id="checkall" class="form-check-input" type="checkbox" value="" ></th>
+                                <th style="width: 16.66%" scope="col">Numer</th>
+                                <th scope="col">Nazwa</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for process in processData%}
+                            <tr id="{{process.id}}">
+                                <td>
+                                    {% if process.available %}
+                                    <input class="form-check-input" name="check_{{process.idprocess}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
+                                </td>
+                                <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
 
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-100 btn btn-lg btn-success">Zapisz</button>
                 </div>
                 <div>
                     <p></p>
                 </div>
-                {% for message in messages %}
-                <div class="alert alert-danger">
-                    <strong>{{message}}</strong>
-                </div>
-                {% endfor %}
-
                 {% endif %}
                 {% endif %}
             </form>
