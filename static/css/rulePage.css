@@ -1,15 +1,18 @@
-    div.scrollTable {
-        height: 300px;
-        overflow: auto;
-    }
-    .row {
-        margin-bottom: 10px;
-    }
-    .picker {
-        display: inline;
-        border: 1px solid lightgray;
-        padding : 4px;
-    }
-    input {
-        border: 0;
-    }
+div.scrollTable {
+    height: 400px;
+    overflow: auto;
+}
+.row {
+    margin-bottom: 10px;
+}
+.picker {
+    display: inline;
+    border: 1px solid lightgray;
+    padding : 4px;
+}
+input {
+    border: 0;
+}
+.row {
+    margin-bottom: 10px;
+}

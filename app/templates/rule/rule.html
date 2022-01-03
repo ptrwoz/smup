@@ -33,6 +33,26 @@
                 });*/
             });
         });
+        function checkAllEmployee() {
+          value = false;
+          $('#mainEmployeeTabel input[type=checkbox]').each(function (i, ob) {
+              if (i == 0)
+                value = $(this).prop("checked");
+              else {
+                $(this).prop("checked", value);
+             }
+          });
+        }
+        function checkAllProcess() {
+          value = false;
+          $('#mainProcessTabel input[type=checkbox]').each(function (i, ob) {
+              if (i == 0)
+                value = $(this).prop("checked");
+              else {
+                $(this).prop("checked", value);
+             }
+          });
+        }
         function styleRows(elements) {
             for (var i = 1; i < elements.length; i++) {
                 ii = elements[i].children[1].children[0].value.split('.').length
@@ -125,19 +145,19 @@
             {% endfor %}
             <form id="rulePage" id="submit" method="post"> {% csrf_token %}
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Nazwa:</label>
+                    <label class="col-sm-2 col-form-label">Nazwa:</label>
                     <div class="col-sm-10">
                         <input type="text"  class="form-control" type="text" name='ruleName' placeholder="Nazwa" id="ruleName" value="{{rule.name}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Wartość maksymalna:</label>
+                    <label class="col-sm-2 col-form-label">Wartość maksymalna:</label>
                     <div class="col-sm-10">
                         <input type="number" class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Informacja:</label>
+                    <label class="col-sm-2 col-form-label">Informacja:</label>
                     <div class="col-sm-10">
                         <select class="form-select" name="dataType" aria-label="Default select example">
                             {% for d in dataType %}
@@ -147,7 +167,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Jednostka czasu:</label>
+                    <label class="col-sm-2 col-form-label">Jednostka czasu:</label>
                     <div class="col-sm-10">
                         <select class="form-select" name="timeRange" aria-label="Default select example">
                             {% for t in timeRange %}
@@ -157,7 +177,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Przedział czasowy:</label>
+                    <label class="col-sm-2 col-form-label">Przedział czasowy:</label>
                     <div class="col-sm-10">
                         <table>
                             <tbody>
@@ -173,16 +193,6 @@
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Pracownik:</label>
-                    <div class="col-sm-10">
-                        <select class="form-select" name="roleValue" aria-label="Default select example">
-                            {% for e in employeesData %}
-                            <option value="{{e.idemployee}}">{{e.name}} {{e.surname}} [{{e.idunit.name}}]</option>
-                            {% endfor %}
-                        </select>
                     </div>
                 </div>
                 <div>
@@ -203,35 +213,70 @@
                             </div>
                         </div>
                     </div>
-                    <div class="scrollTable">
-                        <table id="mainProcessTabel" class="table">
+                    <div>
+                        <h4>Pracownicy:</h4>
+                        <div class="scrollTable">
+                        <table id="mainEmployeeTabel" class="table table-striped">
                             <thead>
                             <tr>
-                                <!--<th scope="col">#</th>-->
-                                <th style="width:  4.33%" scope="col"><input id="checkall" class="form-check-input" type="checkbox" value="" ></th>
-                                <th style="width: 16.66%" scope="col">Numer</th>
-                                <th scope="col">Nazwa</th>
+                                <th style="width:  4.33%" scope="col">
+                                    <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" value="" ></th>
+                                <th scope="col">Imię</th>
+                                <th scope="col">Nazwisko</th>
+                                <th scope="col">Jednostka</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for process in processData%}
-                            <tr id="{{process.id}}">
+                            {% for employee in employeesData %}
+                            <tr>
+                                <!--<th scope="row">{{employee.idemployee}}</th>-->
                                 <td>
-                                    {% if process.available %}
-                                    <input class="form-check-input" name="check_{{process.idprocess}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
-                                </td>
-                                <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
-
-                            </tr>
+                                    <input class="form-check-input" name="check_{{employee.idemployee}}" type="checkbox" value="" {% if process.check %} checked {% endif %}></td>
+                                <td>{{employee.name}}</td>
+                                <td>{{employee.surname}}</td>
+                                <td>{{employee.idunit.name}}</td>
                             {% endfor %}
                             </tbody>
                         </table>
+                        </div>
                     </div>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="w-100 btn btn-lg btn-success">Zapisz</button>
+                    <div>
+                        <h4>Procesy:</h4>
+                        <div class="scrollTable">
+                            <table id="mainProcessTabel" class="table">
+                                <thead>
+                                <tr>
+                                    <!--<th scope="col">#</th>-->
+                                    <th style="width:  4.33%" scope="col">
+                                        <input onclick="checkAllProcess()" class="form-check-input" type="checkbox" value="" ></th>
+                                    <th style="width: 16.66%" scope="col">Numer</th>
+                                    <th scope="col">Nazwa</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for process in processData%}
+                                <tr id="{{process.id}}">
+                                    <td>
+                                        {% if process.available %}
+                                        <input class="form-check-input" name="check_{{process.idprocess}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
+                                    </td>
+                                    <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <form>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success btn-lg">Zapisz</button>
+                        <a class="btn btn-secondary btn-lg" href="../rules">Wróć</a>
+                    </form>
+
                 </div>
                 <div>
                     <p></p>

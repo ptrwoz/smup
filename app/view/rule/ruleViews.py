@@ -12,17 +12,34 @@ from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
+def initForm(request, context):
+    if (context['account'] == 'ADMIN'):
+        employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
+    elif (context['account'] == 'PROCESS MANAGER'):
+        employeesData = Employee.objects.filter(
+            Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
+    elif (context['account'] == 'MANAGER'):
+        employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
+    context['employeesData'] = employeesData
+    context['dataType'] = DataType.objects.all()
+    context['timeRange'] = TimeRange.objects.all()
+    processes = Process.objects.all()
+    processData = initChapterNo(processes)
+    processData = initAvailableProcess(processData)
+    processData, prs = sortDataByChapterNo(processData)
+    context['processData'] = processData
+    return context, processData, processes, prs
 
 def viewRule(request, context, id=''):
     context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id))
+        '''if (context['account'] == 'ADMIN'):
+            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
         elif (context['account'] == 'PROCESS MANAGER'):
             employeesData = Employee.objects.filter(
-                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER'))
+                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
         elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER')
+            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
         context['employeesData'] = employeesData
         context['dataType'] = DataType.objects.all()
         context['timeRange'] = TimeRange.objects.all()
@@ -30,9 +47,10 @@ def viewRule(request, context, id=''):
         processData = initChapterNo(processData)
         processData = initAvailableProcess(processData)
         processData, prs = sortDataByChapterNo(processData)
+        context['processData'] = processData'''
+        context, processData, processes, prs = initForm(request, context)
         if checkChaptersNo(prs) == False:
             return viewRule(request, context, id)
-        context['processData'] = processData
         if id == '':
             return render(request, RENDER_RULE_URL, context)
         elif id.isnumeric():
@@ -98,20 +116,23 @@ def saveRule(request, context, id =''):
     rule, me = checkRuleFromForm(request)
     if me != None:
         messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-        if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id))
+        '''if (context['account'] == 'ADMIN'):
+            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
         elif (context['account'] == 'PROCESS MANAGER'):
             employeesData = Employee.objects.filter(
-                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER'))
+                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
         elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER')
+            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
         context['employeesData'] = employeesData
         context['dataType'] = DataType.objects.all()
         context['timeRange'] = TimeRange.objects.all()
         processData = Process.objects.all()
         processData = initChapterNo(processData)
         processData = initAvailableProcess(processData)
-        processData, prs = sortDataByChapterNo(processData)
+        processData, prs = sortDataByChapterNo(processData)'''
+
+        context, processData, processes, prs = initForm(request, context)
+
         for p in processData:
             value = request.POST.get('check_' + str(p.idprocess))
             if value is not None:
@@ -122,13 +143,13 @@ def saveRule(request, context, id =''):
         context['rule'] = rule
         return render(request, RENDER_RULE_URL, context)
     else:
-        if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id))
+        '''if (context['account'] == 'ADMIN'):
+            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
         elif (context['account'] == 'PROCESS MANAGER'):
             employeesData = Employee.objects.filter(
-                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER'))
+                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
         elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER')
+            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
         context['employeesData'] = employeesData
         context['dataType'] = DataType.objects.all()
         context['timeRange'] = TimeRange.objects.all()
@@ -136,8 +157,11 @@ def saveRule(request, context, id =''):
         processData = initChapterNo(processData)
         processData = initAvailableProcess(processData)
         processData, prs = sortDataByChapterNo(processData)
-        context['processData'] = processData
-        processes = Process.objects.all()
+        context['processData'] = processData'''
+
+        context, processData, processes, prs = initForm(request, context)
+        #processes = Process.objects.all()
+
         try:
             flag = False
             for p in processes:
@@ -182,13 +206,13 @@ def updateRule(request, context, id=''):
         context['rule'] = rule
         return render(request, RENDER_RULE_URL, context)
     else:
-        if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id))
+        '''if (context['account'] == 'ADMIN'):
+            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
         elif (context['account'] == 'PROCESS MANAGER'):
             employeesData = Employee.objects.filter(
-                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER'))
+                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
         elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER')
+            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
         context['employeesData'] = employeesData
         context['dataType'] = DataType.objects.all()
         context['timeRange'] = TimeRange.objects.all()
@@ -197,7 +221,8 @@ def updateRule(request, context, id=''):
         processData = initAvailableProcess(processData)
         processData, prs = sortDataByChapterNo(processData)
         context['processData'] = processData
-        processes = Process.objects.all()
+        processes = Process.objects.all()'''
+        context, processData, processes, prs = initForm(request, context)
         try:
             flag = False
             for p in processes:

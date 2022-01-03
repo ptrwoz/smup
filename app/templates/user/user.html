@@ -19,12 +19,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
     <style>
-        .row {
-            margin-bottom: 10px;
-        }
+
+
     </style>
     <script>
-
+        function showPassword() {
+          var x1 = document.getElementById("userPassword");
+          var x2 = document.getElementById("userPassword2");
+          if (x1.type === "password") {
+            x1.type = "text";
+            x2.type = "text";
+          } else {
+            x1.type = "password";
+            x2.type = "password";
+          }
+        }
     </script>
 </head>
 <body class="text-center">
@@ -56,6 +65,17 @@
             <h1 class="fw-light">Dodaj użytkownika:</h1>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
+            {% for message in messages %}
+            {% if 'error' in message.extra_tags %}
+            <div class="alert alert-danger">
+                <strong>{{message}}</strong>
+            </div>
+            {% elif 'info' in message.extra_tags %}
+            <div class="alert alert-success">
+                <strong>{{message}}</strong>
+            </div>
+            {% endif %}
+            {% endfor %}
             <form id="userPage" id="submit" method="post"> {% csrf_token %}
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Login:</label>
@@ -66,13 +86,23 @@
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Hasło:</label>
                     <div class="col-sm-10">
-                        <input type="password"  class="form-control" name='userPassword' autocomplete="off" placeholder="Password" id="userPassword" value="{{user.password}}" readonly onfocus="this.removeAttribute('readonly');">
+                        <div class="input-group flex-nowrap">
+                            <input type="password" class="form-control" name='userPassword' autocomplete="off" placeholder="Password" id="userPassword" value="{{user.password}}" readonly onfocus="this.removeAttribute('readonly');">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Hasło (powtórz):</label>
                     <div class="col-sm-10">
-                        <input type="password"  class="form-control" name='userPassword2' autocomplete="off" placeholder="Password" id="userPassword2" value="{{user.password}}"  readonly onfocus="this.removeAttribute('readonly');">
+                        <div class="input-group flex-nowrap">
+                                <input type="password" class="form-control rounded-right" name='userPassword2' autocomplete="off" placeholder="Password" id="userPassword2" value="{{user.password}}"  readonly onfocus="this.removeAttribute('readonly');">
+                                <span class="input-group-text" id="basic-addon2" onclick="showPassword()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
+                                    </svg>
+                                </span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -131,18 +161,6 @@
                 <div>
                     <p></p>
                 </div>
-                {% for message in messages %}
-                    {% if 'error' in message.extra_tags %}
-                        <div class="alert alert-danger">
-                            <strong>{{message}}</strong>
-                        </div>
-                    {% elif 'info' in message.extra_tags %}
-                        <div class="alert alert-success">
-                            <strong>{{message}}</strong>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-
                 {% endif %}
                 {% endif %}
             </form>

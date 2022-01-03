@@ -186,7 +186,6 @@ class Rule(models.Model):
     max = models.FloatField(blank=True, null=True)
     timefrom = models.DateField(db_column='timeFrom')  # Field name made lowercase.
     timeto = models.DateField(db_column='timeTo')  # Field name made lowercase.
-    employee_idemployee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='Employee_idEmployee')  # Field name made lowercase.
     time_range_idtime_range = models.ForeignKey('TimeRange', models.DO_NOTHING, db_column='time_range_idtime_range')
     data_type_iddata_type = models.ForeignKey(DataType, models.DO_NOTHING, db_column='data_type_iddata_type')
     isactive = models.IntegerField(db_column='isActive', blank=True, null=True)  # Field name made lowercase.
@@ -196,10 +195,20 @@ class Rule(models.Model):
         db_table = 'rule'
 
 
+class RuleHasEmployee(models.Model):
+    rule_idrule = models.OneToOneField(Rule, models.DO_NOTHING, db_column='rule_idRule', primary_key=True)  # Field name made lowercase.
+    employee_idemployee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='employee_idEmployee')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'rule_has_employee'
+        unique_together = (('rule_idrule', 'employee_idemployee'),)
+
+
 class RuleHasProcess(models.Model):
     rule_idrule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_idRule')  # Field name made lowercase.
     process_idprocess = models.ForeignKey(Process, models.DO_NOTHING, db_column='process_idProcess')  # Field name made lowercase.
-    id_rule_has_process = models.AutoField(db_column='id_rule_has_process', primary_key=True)  # Field name made lowercase.
+    id_rule_has_process = models.IntegerField(primary_key=True)
 
     class Meta:
         managed = False
