@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from app.models import Employee, Rule, AuthUser, RuleHasProcess
+from app.models import Employee, Rule, AuthUser, RuleHasProcess, RuleHasEmployee
 from app.view.auth.auth import authUser
 from app.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, \
     RENDER_RULE_URL
@@ -18,7 +18,7 @@ def viewActivity(request, context, id=''):
         rules = Rule.objects.filter(idrule=int(id))
         if rules.exists():
             processData = []
-            ruleHasProcess = RuleHasProcess.objects.filter(rule_idrule=rules[0].idrule)
+            ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rules[0].idrule)
             for r in ruleHasProcess:
                 processData.append(r.process_idprocess)
             context['processData'] = processData
@@ -46,8 +46,12 @@ def activitiesView(request, field='name', sort='0'):
         #id = AuthUser.objects.filter()
         today = date.today()
         todayDate = today.strftime("%Y-%m-%d")
-        rules = Rule.objects.filter(Q(employee_idemployee_id=context['userData'].id) & Q(timeto__lte=todayDate))
-
+        ruleHasEmployees = RuleHasEmployee.objects.filter(Q(employee_id_employee=context['userData'].id))
+        rules = []
+        for ruleHasEmployee in ruleHasEmployees:
+            rules.append(ruleHasEmployee.rule_id_rule)
+            #= Rule.objects.filter(Q(employee_id_employee_id=context['userData'].id))
+    # & Q(timeto__lte=todayDate)
         context['rules'] = rules
         return render(request, RENDER_ACTIVITIES_URL, context)
     else:

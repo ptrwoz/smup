@@ -55,6 +55,11 @@
             <p class="lead text-muted"></p>
             {% endif %}
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
+            {% for message in messages %}
+            <div class="alert alert-danger">
+                <strong>{{message}}</strong>
+            </div>
+            {% endfor %}
             <form id="viewUnit" method="post"> {% csrf_token %}
                 <div class="form-group row">
                     <label for="text" class="col-sm-2 col-form-label">Nazwa jednostki:</label>
@@ -86,12 +91,6 @@
                         <a class="btn btn-secondary btn-lg" href="../units">Wróć</a>
                     </div>
                 </div>
-                <p></p>
-                {% for message in messages %}
-                <div class="alert alert-danger">
-                    <strong>{{message}}</strong>
-                </div>
-                {% endfor %}
             </form>
             {% endif %}
         </div>

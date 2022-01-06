@@ -66,7 +66,7 @@
                           <td>{{rule.name}}</td>
                           <td>{{rule.time_range_idtime_range.name}}</td>
                           <td>{{rule.data_type_iddata_type.name}}</td>
-                          <td>{{rule.timefrom|date:'d-m-Y'}} - {{rule.timeto|date:'d-m-Y'}}</td>
+                          <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
                           <td>
                                 <div>
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -81,13 +81,13 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                                <a type="button" data-method="delete" class="btn btn-success" href="../units/{{unit.idunit}}">Tak</a>
+                                                <a type="button" data-method="delete" class="btn btn-success" href="../units/{{unit.id_unit}}">Tak</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn btn-primary" data-method="post" href="../activity/{{rule.idrule}}">Wypełnij</a>
+                            <a class="btn btn-primary" data-method="post" href="../activity/{{rule.id_rule}}">Wypełnij</a>
                           </td>
                         </tr>
                     {% endfor %}

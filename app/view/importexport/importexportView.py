@@ -73,7 +73,7 @@ def importexportView(request):
         employee = Employee.objects.filter(auth_user=userData.id)
         if employee.exists():
             context['userLabel'] = employee[0].name + " " + employee[0].surname
-            context['account'] = str(employee[0].idemployeetype.name)
+            context['account'] = str(employee[0].id_employeetype.name)
         else:
             context['userLabel'] = userData
             context['account'] = 'GUEST'

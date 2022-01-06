@@ -11,14 +11,14 @@ from app.view.static.urls import REDIRECT_HOME_URL, RENDER_UNITS_URL, REDIRECT_U
 # delete Unit
 #
 def deleteUnit(request, context, id=''):
-    units = Unit.objects.filter(idunit=id)
+    units = Unit.objects.filter(id_unit=id)
     if units.exists():
+        unit = units[0]
+        unitEmployeers = Employee.objects.filter(id_unit=id)
+        if unitEmployeers.exists():
+            messages.info(request, MESSAGES_USERINUNIT_ERROR, extra_tags='error')
+            return redirect('../' + REDIRECT_UNITS_URL)
         try:
-            unitEmployeers = Employee.objects.filter(idunit=id)
-            unit = units[0]
-            if unitEmployeers.exists():
-                messages.info(request, MESSAGES_USERINUNIT_ERROR, extra_tags='error')
-                return redirect('../' + REDIRECT_UNITS_URL)
             unit.delete()
             messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
             return redirect('../'+REDIRECT_UNITS_URL)
@@ -47,12 +47,12 @@ def updateUnit(request, context, id=''):
     if newUnit == None:
         messages.info(request, mess, extra_tags='error')
         return render(request, RENDER_UNIT_URL, context)
-    units = Unit.objects.filter(idunit=id)
+    units = Unit.objects.filter(id_unit=id)
     if units.exists():
         unit = units[0]
         context['unitData'] = unit
         if len(Unit.objects.filter(name=newUnit.name)) > 0:
-            messages.info(request, MESSAGES_NO_DATA, extra_tags='error')
+            messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
             return render(request, RENDER_UNIT_URL, context)
         if Unit.objects.filter(name=newUnit.name).exists():
             messages.info(request, MESSAGES_DATA_EXISTS, extra_tags='error')
@@ -104,7 +104,7 @@ def viewUnit(request, context, id=''):
             context['unitData'] = UnitData()
             return render(request, RENDER_UNIT_URL, context)
         elif id.isnumeric():
-            units = Unit.objects.filter(idunit=int(id))
+            units = Unit.objects.filter(id_unit=int(id))
             if units.exists():
                 unit = units[0]
                 context['unitData'] = unit
@@ -137,6 +137,11 @@ def unitManager(request, id='', operation=''):
             return viewUnit(request, context, id)
     else:
         return redirect(REDIRECT_HOME_URL)
+
+def countUnitEmployees(units):
+    for u in units:
+        u.countEmployees = len(Employee.objects.filter(id_unit = u.id_unit))
+    return units
 #
 #   view units
 #
@@ -147,6 +152,7 @@ def unitsView(request, field='name', sort='0'):
             units = Unit.objects.all().order_by('name')
         else:
             units = Unit.objects.all().order_by('-name')
+        units = countUnitEmployees(units)
         context['units'] = units
         return render(request, RENDER_UNITS_URL, context)
     else:

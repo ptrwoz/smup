@@ -19,8 +19,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
     <style>
-
-
+        .row {
+            margin-bottom: 10px;
+        }
     </style>
     <script>
         function showPassword() {
@@ -53,7 +54,7 @@
             <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
             <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
             <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
-            <a class="btn  btn-success" href="logout">logout</a>
+            <a class="btn  btn-success" href="logout">Wyloguj</a>
             {% endif %}
         </nav>
     </div>
@@ -122,7 +123,7 @@
                     <div class="col-sm-10">
                         <select class="form-select" name="unitValue" aria-label="Default select example">
                             {% for u in units %}
-                            <option value="{{u.name}}"{% if u.name == user.idunit.name %} selected{% endif %}>{{u.name}}</option>
+                            <option value="{{u.name}}"{% if u.name == user.id_unit.name %} selected{% endif %}>{{u.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -132,7 +133,7 @@
                     <div class="col-sm-10">
                         <select class="form-select" name="roleValue" aria-label="Default select example">
                             {% for r in roles %}
-                            <option value="{{r.name}}"{% if r.name == user.idemployeetype.name %} selected{% endif %}>{{r.name}}</option>
+                            <option value="{{r.name}}"{% if r.name == user.id_employeetype.name %} selected{% endif %}>{{r.name}}</option>
                             {% endfor %}
                         </select>
                     </div>

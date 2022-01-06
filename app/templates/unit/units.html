@@ -66,16 +66,18 @@
                 <thead>
                 <tr>
                     <th scope="col">Nazwa</th>
-                    <th scope="col"></th>
+                    <th scope="col">Liczba pracowników</th>
+                    <th scope="col">Operacje</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for unit in units%}
                 <tr>
                     <td>{{unit.name}}</td>
+                    <td>{{unit.countEmployees}}</td>
                     <td>
                         <div>
-                            <div class="modal fade" id="modal{{unit.idunit}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                            <div class="modal fade" id="modal{{unit.id_unit}}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -85,7 +87,7 @@
                                         <div class="modal-body">
                                             Czy na pewno chcesz wykonać operację?
                                         </div>
-                                        <form action="../unit/{{unit.idunit}}/delete" method="post">
+                                        <form action="../unit/{{unit.id_unit}}/delete" method="post">
                                             {% csrf_token %}
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
@@ -96,8 +98,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-primary" href="../unit/{{unit.idunit}}">Edytuj</a>
-                        <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#modal{{unit.idunit}}">Usuń</a>
+                        <a class="btn btn-primary" href="../unit/{{unit.id_unit}}">Edytuj</a>
+                        <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#modal{{unit.id_unit}}">Usuń</a>
                     </td>
                 </tr>
                 {% endfor %}

@@ -202,19 +202,19 @@
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-            {% for message in messages %}
-            {% if 'error' in message.extra_tags %}
-            <div class="alert alert-danger">
-                <strong>{{message}}</strong>
-            </div>
-            {% elif 'info' in message.extra_tags %}
-            <div class="alert alert-success">
-                <strong>{{message}}</strong>
-            </div>
-            {% endif %}
-            {% endfor %}
             <form id="viewProcess" method="post"> {% csrf_token %}
                 <h1 class="fw-light">Procesy:</h1>
+                {% for message in messages %}
+                {% if 'error' in message.extra_tags %}
+                <div class="alert alert-danger">
+                    <strong>{{message}}</strong>
+                </div>
+                {% elif 'info' in message.extra_tags %}
+                <div class="alert alert-success">
+                    <strong>{{message}}</strong>
+                </div>
+                {% endif %}
+                {% endfor %}
                 <p class="lead text-muted"></p>
                 {% if account == "ADMIN" or "PROCESS MANAGER"%}
                 <table id="mainProcessTabel" class="table">

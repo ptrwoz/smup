@@ -41,14 +41,14 @@ def password_check(passwd):
     return val
 
 def getEmployeeToEdit(id, userId, userRole):
-    e = Employee.objects.filter(idemployee=int(id))
+    e = Employee.objects.filter(id_employee=int(id))
     if (len(e) > 0):
         e = e[0]
-        if userRole == 'ADMIN' and e.idemployee != userId:
+        if userRole == 'ADMIN' and e.id_employee != userId:
             return e
-        elif userRole == 'PROCESS MANAGER' and (e.idemployeetype.name == 'MANAGER' or e.idemployeetype.name == 'USER'):
+        elif userRole == 'PROCESS MANAGER' and (e.id_employeetype.name == 'MANAGER' or e.id_employeetype.name == 'USER'):
             return e
-        elif userRole == 'MANAGER' and (e.idemployeetype.name == 'USER'):
+        elif userRole == 'MANAGER' and (e.id_employeetype.name == 'USER'):
             return e
         else:
             return None
@@ -69,10 +69,10 @@ def checkUserFromForm(request, isUpdated):
     u.surname = surname
     u.password = ''
     u.login = login
-    u.idunit = Unit()
-    u.idunit.name = unit
-    u.idemployeetype = Employeetype()
-    u.idemployeetype.name = employeeType
+    u.id_unit = Unit()
+    u.id_unit.name = unit
+    u.id_employeetype = Employeetype()
+    u.id_employeetype.name = employeeType
     #
     if len(name) <= 2 or len(surname) <= 2 or len(login) <= 2:
         return None, None, u, MESSAGES_DATA_ERROR
@@ -85,15 +85,15 @@ def checkUserFromForm(request, isUpdated):
     e = Employee()
     e.name = name
     e.surname = surname
-    e.isactive = 1
-    u = Unit.objects.filter(name=unit)
-    if u.exists():
-        e.idunit = u[0]
+    #e.isactive = 1
+    units = Unit.objects.filter(name=unit)
+    if units.exists():
+        e.id_unit = units[0]
     else:
         return None, None, u, MESSAGES_UNIT_ERROR
     et = Employeetype.objects.filter(name=employeeType)
     if et.exists():
-        e.idemployeetype = et[0]
+        e.id_employeetype = et[0]
         authUser = AuthUser()
         authUser.username = login
         authUser.email = login
@@ -110,7 +110,7 @@ def checkUserFromForm(request, isUpdated):
 #
 def deleteUser(request, context, id):
     try:
-        er = Employee.objects.filter(idemployee=int(id))
+        er = Employee.objects.filter(id_employee=int(id))
         if er.exists():
             au = User.objects.filter(username=er[0].auth_user.username)
             if au.exists():
@@ -135,7 +135,7 @@ def updateUser(request, context, id):
         messages.info(request, MESSAGE, extra_tags='error')
         return viewUser(request, context, id, u)
     try:
-        er = Employee.objects.filter(idemployee=int(id))
+        er = Employee.objects.filter(id_employee=int(id))
         if er.exists():
             au = User.objects.filter(username=er[0].auth_user.username)
             if au.exists():
@@ -147,9 +147,9 @@ def updateUser(request, context, id):
                 emp = er[0]
                 emp.name = e.name
                 emp.surname = e.surname
-                emp.idunit = e.idunit
-                emp.idemployeetype = e.idemployeetype
-                emp.isactive = e.isactive
+                emp.id_unit = e.id_unit
+                emp.id_employeetype = e.id_employeetype
+                #emp.isactive = e.isactive
                 emp.save()
 
                 messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
@@ -243,16 +243,17 @@ def viewUser(request, context, id = 0, u = 0):
 #   user change active
 #
 def userActive(request, id = ''):
-    context = authUser(request)
+    context  = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if len(id) > 0:
             employee = getEmployeeToEdit(id, context['userData'].id, context['account'])
-            if employee is not None:
-                if employee.isactive == 1:
-                    employee.isactive = 0
+            if employee is not None :
+                auth = employee.auth_user
+                if auth.is_active == 1:
+                    auth.is_active = 0
                 else:
-                    employee.isactive = 1
-                employee.save()
+                    auth.is_active = 1
+                auth.save()
                 return redirect(REDIRECT_USERS_URL)
             else:
                 return redirect(REDIRECT_USERS_URL)
@@ -284,18 +285,25 @@ def userManager(request, id = '', operation = ''):
     else:
         return redirect(REDIRECT_HOME_URL)
 #
+#   reduce susers password
+#
+def employeesDataReduce(employeesData):
+    for e in employeesData:
+        e.auth_user.password = ''
+    return employeesData
+#
 #   view users
 #
 def usersView(request):
     context = authUser(request)
     if context['account'] != 'GUEST':
         if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(idemployee=context['userData'].id)).order_by('surname', 'name')
+            employeesData = Employee.objects.filter(~Q(id_employee=context['userData'].id)).order_by('surname', 'name')
         elif (context['account'] == 'PROCESS MANAGER'):
-            employeesData = Employee.objects.filter(Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
+            employeesData = Employee.objects.filter(Q(id_employeetype__name='USER') | Q(id_employeetype__name='MANAGER')).order_by('surname', 'name')
         elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
-        context['employeesData'] = employeesData
+            employeesData = Employee.objects.filter(id_employeetype__name='USER').order_by('surname', 'name')
+        context['employeesData'] = employeesDataReduce(employeesData)
         return render(request, RENDER_USERS_URL, context)
     else:
         return redirect(REDIRECT_HOME_URL)

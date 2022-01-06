@@ -20,7 +20,7 @@ class ProcessData:
         self.tip = tip
 def initAvailableProcess(processData):
     for p in processData:
-        ap = Process.objects.filter(idmainprocess=p.idprocess)
+        ap = Process.objects.filter(id_mainprocess=p.id_process)
         if  len(ap) == 0:
             p.available = True
         else:
@@ -36,23 +36,25 @@ def sortDataByChapterNo(processData):
     for i in nIdx:
         processes.append(processData[idx.index(i)])
     return processes, nIdx
+
 def getChapterNoFromProcess(process):
     no = ''
     while True:
-        no = no + '.' + str(process.idnumber)[::-1]
-        process = process.idmainprocess
+        no = no + '.' + str(process.id_number)[::-1]
+        process = process.id_mainprocess
         if process == None:
             break;
     return no[::-1]
+
 def initChapterNo(processData):
     id = 0
     for p in processData:
         sp = p
-        no = '.' + str(sp.idnumber)[::-1]
-        sp = sp.idmainprocess
+        no = '.' + str(sp.id_number)[::-1]
+        sp = sp.id_mainprocess
         while sp is not None:
-            no = no + '.' + str(sp.idnumber)
-            sp = sp.idmainprocess
+            no = no + '.' + str(sp.id_number)
+            sp = sp.id_mainprocess
         p.no = no[::-1]
         id = id +1
         p.id = id
@@ -70,10 +72,7 @@ def getRawProcceses(request):
             if len(id) == 0 or len(name) == 0:
                 processError = True
     return rawProcesses, (not processError)
-'''def initLevelChaptersNo(processData):
-    for p in processData:
-        p.level = len(p.no.split('.')) - 1
-    return processData'''
+
 def checkChaptersNo(idx):
     try:
         if len(idx) >0 and idx[0]!= '1.':
@@ -128,10 +127,10 @@ def saveProcess(request, context):
             ii = ii + 1
         if not changeFlag:
             np = Process()
-            np.idnumber = prs[i].no.split('.')[-2]
+            np.id_number = prs[i].no.split('.')[-2]
             np.tip = prs[i].tip
             np.name = prs[i].name
-            np.idmainprocess = partner
+            np.id_mainprocess = partner
             np.save()
             processes = Process.objects.all()
         i = i + 1

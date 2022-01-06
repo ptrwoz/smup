@@ -120,7 +120,7 @@
             <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
             <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
             <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
-            <a class="btn  btn-success" href="logout">logout</a>
+            <a class="btn  btn-success" href="../logout">Wyloguj</a>
             {% endif %}
         </nav>
     </div>
@@ -161,7 +161,7 @@
                     <div class="col-sm-10">
                         <select class="form-select" name="dataType" aria-label="Default select example">
                             {% for d in dataType %}
-                            <option value="{{d.iddata_type}}">{{d.name}}</option>
+                            <option value="{{d.id_data_type}}">{{d.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -171,7 +171,7 @@
                     <div class="col-sm-10">
                         <select class="form-select" name="timeRange" aria-label="Default select example">
                             {% for t in timeRange %}
-                            <option value="{{t.idtime_range}}">{{t.name}}</option>
+                            <option value="{{t.id_time_range}}">{{t.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -229,12 +229,11 @@
                             <tbody>
                             {% for employee in employeesData %}
                             <tr>
-                                <!--<th scope="row">{{employee.idemployee}}</th>-->
                                 <td>
-                                    <input class="form-check-input" name="check_{{employee.idemployee}}" type="checkbox" value="" {% if process.check %} checked {% endif %}></td>
+                                    <input class="form-check-input" name="check_employee_{{employee.id_employee}}" type="checkbox" value="" {% if employee.check %} checked {% endif %}></td>
                                 <td>{{employee.name}}</td>
                                 <td>{{employee.surname}}</td>
-                                <td>{{employee.idunit.name}}</td>
+                                <td>{{employee.id_unit.name}}</td>
                             {% endfor %}
                             </tbody>
                         </table>
@@ -258,7 +257,7 @@
                                 <tr id="{{process.id}}">
                                     <td>
                                         {% if process.available %}
-                                        <input class="form-check-input" name="check_{{process.idprocess}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
+                                        <input class="form-check-input" name="check_process_{{process.id_process}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
                                         {% endif %}
                                     </td>
                                     <td>

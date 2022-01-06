@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from app.models import Rule, TimeRange, DataType, Employee, Process, RuleHasProcess, Activity
+from app.models import Rule, TimeRange, DataType, Employee, Process, RuleHasProcess, Activity, RuleHasEmployee
 from app.view.auth.auth import authUser
 from app.view.process.processViews import initChapterNo, initAvailableProcess, checkChaptersNo, sortDataByChapterNo
 from app.view.static.dataModels import RuleData
@@ -12,14 +12,32 @@ from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-def initForm(request, context):
+def checkProcessInputs(request, processes, tag = 'check_process_'):
+    flag = False
+    for p in processes:
+        value = request.POST.get(tag + str(p.id_process))
+        if value is not None:
+            flag = True
+            break
+    return flag
+
+def checkEmployeeInputs(request, employees, tag = 'check_employee_'):
+    flag = False
+    for e in employees:
+        value = request.POST.get(tag + str(e.id_employee))
+        if value is not None:
+            flag = True
+            break
+    return flag
+
+def initForm(request, context, id=''):
     if (context['account'] == 'ADMIN'):
-        employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
+        employeesData = Employee.objects.all().order_by('surname', 'name')
     elif (context['account'] == 'PROCESS MANAGER'):
-        employeesData = Employee.objects.filter(
-            Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
+        employeesData = Employee.objects.filter(Q(auth_user=context['userData'].id) |
+            Q(id_employeetype__name='USER') | Q(id_employeetype__name='MANAGER')).order_by('surname', 'name')
     elif (context['account'] == 'MANAGER'):
-        employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
+        employeesData = Employee.objects.filter(Q(auth_user__id=context['userData'].id) | Q(id_employeetype__name='USER')).order_by('surname', 'name')
     context['employeesData'] = employeesData
     context['dataType'] = DataType.objects.all()
     context['timeRange'] = TimeRange.objects.all()
@@ -28,38 +46,31 @@ def initForm(request, context):
     processData = initAvailableProcess(processData)
     processData, prs = sortDataByChapterNo(processData)
     context['processData'] = processData
-    return context, processData, processes, prs
+    return context, processData, processes, prs, employeesData
 
 def viewRule(request, context, id=''):
     context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        '''if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
-        elif (context['account'] == 'PROCESS MANAGER'):
-            employeesData = Employee.objects.filter(
-                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
-        elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
-        context['employeesData'] = employeesData
-        context['dataType'] = DataType.objects.all()
-        context['timeRange'] = TimeRange.objects.all()
-        processData = Process.objects.all()
-        processData = initChapterNo(processData)
-        processData = initAvailableProcess(processData)
-        processData, prs = sortDataByChapterNo(processData)
-        context['processData'] = processData'''
-        context, processData, processes, prs = initForm(request, context)
-        if checkChaptersNo(prs) == False:
+        context, processData, processes, prs, employeesData = initForm(request, context, id)
+        if not checkChaptersNo(prs):
             return viewRule(request, context, id)
         if id == '':
             return render(request, RENDER_RULE_URL, context)
         elif id.isnumeric():
+            for e in employeesData:
+                if RuleHasEmployee.objects.filter(rule_id_rule=int(id), employee_id_employee=e.id_employee).exists():
+                    e.check = 1
+                else:
+                    e.check = 0
+        if id == '':
+            return render(request, RENDER_RULE_URL, context)
+        elif id.isnumeric():
             for p in processData:
-                if RuleHasProcess.objects.filter(rule_idrule=int(id), process_idprocess=p.idprocess).exists():
+                if RuleHasProcess.objects.filter(rule_id_rule=int(id), process_id_process=p.id_process).exists():
                     p.check = 1
                 else:
                     p.check = 0
-            rules = Rule.objects.filter(idrule=int(id))
+            rules = Rule.objects.filter(id_rule=int(id))
             if rules.exists():
                 rule = rules[0]
                 context['rule'] = rule
@@ -70,10 +81,10 @@ def viewRule(request, context, id=''):
         return redirect(REDIRECT_HOME_URL)
 
 def deleteRule(request, context, id=''):
-    rules = Rule.objects.filter(idrule=id)
+    rules = Rule.objects.filter(id_rule=id)
     if rules.exists():
         try:
-            ruleHasProcessSet = RuleHasProcess.objects.filter(rule_idrule=rules[0].idrule)
+            ruleHasProcessSet = RuleHasProcess.objects.filter(rule_id_rule=rules[0].id_rule)
             for ruleHasProcess in ruleHasProcessSet:
                 activities = Activity.objects.filter(rule_has_process_id_rule_has_process=ruleHasProcess.id_rule_has_process)
                 if(len(activities) > 0):
@@ -81,6 +92,10 @@ def deleteRule(request, context, id=''):
                     return redirect(REDIRECT_RULES_URL)
             for ruleHasProcess in ruleHasProcessSet:
                 ruleHasProcess.delete()
+
+            ruleHasEmployeeSet = RuleHasEmployee.objects.filter(rule_id_rule=rules[0].id_rule)
+            for ruleHasEmployee in ruleHasEmployeeSet:
+                ruleHasEmployee.delete()
             rules[0].delete()
             messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
             return redirect(REDIRECT_RULES_URL)
@@ -95,91 +110,85 @@ def checkRuleFromForm(request, rule = Rule()):
     timeRange = request.POST.get('timeRange')
     timeFrom = request.POST.get('timeFrom')
     timeTo = request.POST.get('timeTo')
-    roleValue = request.POST.get('roleValue')
     #rule = Rule()
     rule.name = name
     rule.max = maxValue
-    rule.timefrom = timeFrom
-    rule.timeto = timeTo
-    rule.data_type_iddata_type = DataType.objects.filter(iddata_type = int(dataType))[0]
-    rule.time_range_idtime_range = TimeRange.objects.filter(idtime_range = int(timeRange))[0]
-    rule.employee_idemployee = Employee.objects.filter(idemployee = int(roleValue))[0]
+    rule.time_from = timeFrom
+    rule.time_to = timeTo
+    rule.is_active = True
+    rule.data_type_id = int(dataType)#DataType.objects.filter(id_data_type = int(dataType))[0]
+    rule.time_range_id = int(timeRange)#TimeRange.objects.filter(id_time_range = int(timeRange))[0]
+    #rule.employee_idemployee = Employee.objects.filter(idemployee = int(roleValue))[0]
 
-    if len(name) <= 2 or len(dataType) == 0 or len(timeRange) == 0 or len(timeFrom) < 10 or len(timeTo) <= 10 or len(roleValue) == 2:
+    if len(name) <= 2 or len(dataType) == 0 or len(timeRange) == 0 or len(timeFrom) < 10 or len(timeTo) < 10:
         return rule, MESSAGES_DATA_ERROR
-    if not maxValue.isnumeric():
+    if maxValue.isnumeric():
         if int(maxValue) < 0:
             return rule, MESSAGES_DATA_ERROR
+    else:
+        return rule, MESSAGES_DATA_ERROR
     return rule, None
 
 def saveRule(request, context, id =''):
     rule, me = checkRuleFromForm(request)
     if me != None:
         messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-        '''if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
-        elif (context['account'] == 'PROCESS MANAGER'):
-            employeesData = Employee.objects.filter(
-                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
-        elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
-        context['employeesData'] = employeesData
-        context['dataType'] = DataType.objects.all()
-        context['timeRange'] = TimeRange.objects.all()
-        processData = Process.objects.all()
-        processData = initChapterNo(processData)
-        processData = initAvailableProcess(processData)
-        processData, prs = sortDataByChapterNo(processData)'''
-
-        context, processData, processes, prs = initForm(request, context)
+        context, processData, processes, prs, employeesData = initForm(request, context)
 
         for p in processData:
-            value = request.POST.get('check_' + str(p.idprocess))
+            value = request.POST.get('check_process_' + str(p.id_process))
             if value is not None:
                 p.check = 1
             else:
                 p.check = 0
+        for e in employeesData:
+            value = request.POST.get('check_process_' + str(e.id_employee))
+            if value is not None:
+                e.check = 1
+            else:
+                e.check = 0
+
+        context['employeesData'] = employeesData
         context['processData'] = processData
         context['rule'] = rule
         return render(request, RENDER_RULE_URL, context)
     else:
-        '''if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
-        elif (context['account'] == 'PROCESS MANAGER'):
-            employeesData = Employee.objects.filter(
-                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
-        elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
-        context['employeesData'] = employeesData
-        context['dataType'] = DataType.objects.all()
-        context['timeRange'] = TimeRange.objects.all()
-        processData = Process.objects.all()
-        processData = initChapterNo(processData)
-        processData = initAvailableProcess(processData)
-        processData, prs = sortDataByChapterNo(processData)
-        context['processData'] = processData'''
-
-        context, processData, processes, prs = initForm(request, context)
-        #processes = Process.objects.all()
-
+        context, processData, processes, prs, employeesData = initForm(request, context)
         try:
-            flag = False
-            for p in processes:
-                value = request.POST.get('check_'+ str(p.idprocess))
-                if value is not None:
-                    flag = True
-                    break
-            if flag:
+            flag1 = checkProcessInputs(request, processData)
+            flag2 = checkEmployeeInputs(request, employeesData)
+            if flag1 and flag2:
                 rule.save()
                 for p in processes:
-                    value = request.POST.get('check_'+ str(p.idprocess))
+                    value = request.POST.get('check_process_'+ str(p.id_process))
                     if value is not None:
                         ruleHasProcess = RuleHasProcess()
-                        ruleHasProcess.process_idprocess = p
-                        ruleHasProcess.rule_idrule = rule
-                        ruleHasProcess.id_rule_has_process = None
+                        ruleHasProcess.process_id_process = p
+                        ruleHasProcess.rule_id_rule = rule
+                        #ruleHasProcess.id_rule_has_process = None
                         ruleHasProcess.save()
-        except:
+                for e in employeesData:
+                    value = request.POST.get('check_employee_' + str(e.id_employee))
+                    if value is not None:
+                        ruleHasEmployee = RuleHasEmployee()
+                        ruleHasEmployee.rule_id_rule = rule
+                        ruleHasEmployee.employee_id_employee = e
+                        ruleHasEmployee.save()
+            else:
+                messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+                context, processData, processes, prs, employees = initForm(request, context)
+                for p in processData:
+                    value = request.POST.get('check_process_' + str(p.id_process))
+                    if value is not None:
+                        p.check = 1
+                        p.check = 1
+                    else:
+                        p.check = 0
+
+                context['processData'] = processData
+                context['rule'] = rule
+                return render(request, RENDER_RULE_URL, context)
+        except e:
             rule.delete()
     return redirect(REDIRECT_RULES_URL)
 
@@ -206,40 +215,27 @@ def updateRule(request, context, id=''):
         context['rule'] = rule
         return render(request, RENDER_RULE_URL, context)
     else:
-        '''if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(auth_user=context['userData'].id)).order_by('surname', 'name')
-        elif (context['account'] == 'PROCESS MANAGER'):
-            employeesData = Employee.objects.filter(
-                Q(idemployeetype__name='USER') | Q(idemployeetype__name='MANAGER')).order_by('surname', 'name')
-        elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(idemployeetype__name='USER').order_by('surname', 'name')
-        context['employeesData'] = employeesData
-        context['dataType'] = DataType.objects.all()
-        context['timeRange'] = TimeRange.objects.all()
-        processData = Process.objects.all()
-        processData = initChapterNo(processData)
-        processData = initAvailableProcess(processData)
-        processData, prs = sortDataByChapterNo(processData)
-        context['processData'] = processData
-        processes = Process.objects.all()'''
-        context, processData, processes, prs = initForm(request, context)
+        context, processData, processes, prs, employeesData = initForm(request, context)
         try:
-            flag = False
-            for p in processes:
-                value = request.POST.get('check_' + str(p.idprocess))
-                if value is not None:
-                    flag = True
-                    break
-            if flag:
+            flag1 = checkProcessInputs(request, processData)
+            flag2 = checkEmployeeInputs(request, employeesData)
+            if flag1 and flag2:
                 rule.save()
                 for p in processes:
-                    value = request.POST.get('check_' + str(p.idprocess))
+                    value = request.POST.get('check_process_' + str(p.idprocess))
                     if value is not None:
                         ruleHasProcess = RuleHasProcess()
                         ruleHasProcess.process_idprocess = p
                         ruleHasProcess.rule_idrule = rule
-                        ruleHasProcess.id_rule_has_process = None
+                        #ruleHasProcess.id_rule_has_process = None
                         ruleHasProcess.save()
+                for e in employeesData:
+                    value = request.POST.get('check_employee_' + str(e.idemployee))
+                    if value is not None:
+                        ruleHasEmployee = RuleHasEmployee()
+                        ruleHasEmployee.rule_idrule = rule
+                        ruleHasEmployee.employee_idemployee = e
+                        ruleHasEmployee.save()
         except:
             rule.delete()
     return redirect(REDIRECT_RULES_URL)
@@ -279,13 +275,13 @@ def ruleActive(request, id=''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if len(id) > 0:
-            rules = Rule.objects.filter(idrule=int(id))
+            rules = Rule.objects.filter(id_rule=int(id))
             if rules is not None:
                 r = rules[0]
-                if r.isactive == 1:
-                    r.isactive = 0
+                if r.is_active == 1:
+                    r.is_active = 0
                 else:
-                    r.isactive = 1
+                    r.is_active = 1
                 r.save()
                 return redirect(REDIRECT_RULES_URL)
             else:

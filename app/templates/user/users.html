@@ -38,7 +38,7 @@
             <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
             <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
             <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
-            <a class="btn  btn-success" href="logout">logout</a>
+            <a class="btn  btn-success" href="logout">Wyloguj</a>
             {% endif %}
         </nav>
     </div>
@@ -71,21 +71,21 @@
                     <th scope="col">Nazwisko</th>
                     <th scope="col">Jednostka</th>
                     <th scope="col">Rola</th>
-                    <th scope="col"></th>
+                    <th scope="col">Operacje</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for employee in employeesData %}
                 <tr>
-                    <!--<th scope="row">{{employee.idemployee}}</th>-->
+                    <!--<th scope="row">{{employee.id_employee}}</th>-->
                     <td>{{employee.auth_user.username}}</td>
                     <td>{{employee.name}}</td>
                     <td>{{employee.surname}}</td>
-                    <td>{{employee.idunit.name}}</td>
-                    <td>{{employee.idemployeetype.name}}</td>
+                    <td>{{employee.id_unit.name}}</td>
+                    <td>{{employee.id_employeetype.name}}</td>
                     <td>
                         <div>
-                            <div class="modal fade" id="exampleModal{{employee.idemployee}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal{{employee.id_employee}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -97,7 +97,7 @@
                                             <div>UWAGA:</div>
                                             <a>Wykonanie operacji usuniecia użytkownika spowoduje usunięcie wszyskich jego danych.</a>
                                         </div>
-                                        <form action="../user/{{employee.idemployee}}/delete" method="post">
+                                        <form action="../user/{{employee.id_employee}}/delete" method="post">
                                             {% csrf_token %}
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
@@ -108,13 +108,13 @@
                                 </div>
                             </div>
                         </div>
-                        {% if employee.isactive == 0 %}
-                        <a href="../user/{{employee.idemployee}}/active" class="btn btn-success">Atywuj</a>
+                        {% if employee.auth_user.is_active == 0 %}
+                        <a href="../user/{{employee.id_employee}}/active" class="btn btn-success">Atywuj</a>
                         {% else %}
-                        <a href="../user/{{employee.idemployee}}/active" class="btn btn-danger" >Deaktywuj</a>
+                        <a href="../user/{{employee.id_employee}}/active" class="btn btn-danger" >Deaktywuj</a>
                         {% endif %}
-                        <a class="btn btn-primary" href="../user/{{employee.idemployee}}">Edytuj</a>
-                        <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#exampleModal{{employee.idemployee}}">Usuń</a>
+                        <a class="btn btn-primary" href="../user/{{employee.id_employee}}">Edytuj</a>
+                        <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#exampleModal{{employee.id_employee}}">Usuń</a>
                     </td>
                 </tr>
                 {% endfor %}
