@@ -25,37 +25,9 @@
 
     </style>
     <script>
-        $(document).ready(function() {
-            $("#checkall").on('click', function(event) {
-                /*$("table > tbody > tr").each(function () {
-                var this = $(this);
-                    alert(this.find(".FieldNameID").text() + "  " + this.find(".OperatorID").text());
-                });*/
-            });
-        });
-        function checkAllEmployee() {
-          value = false;
-          $('#mainEmployeeTabel input[type=checkbox]').each(function (i, ob) {
-              if (i == 0)
-                value = $(this).prop("checked");
-              else {
-                $(this).prop("checked", value);
-             }
-          });
-        }
-        function checkAllProcess() {
-          value = false;
-          $('#mainProcessTabel input[type=checkbox]').each(function (i, ob) {
-              if (i == 0)
-                value = $(this).prop("checked");
-              else {
-                $(this).prop("checked", value);
-             }
-          });
-        }
         function styleRows(elements) {
             for (var i = 1; i < elements.length; i++) {
-                ii = elements[i].children[1].children[0].value.split('.').length
+                ii = elements[i].children[0].children[0].value.split('.').length
                 if (ii == 2) {
                     elements[i].className = "firstRow";
                 }
@@ -68,41 +40,12 @@
                 else {
                     elements[i].className = "subRow";
                 }
-                elements[i].children[1].children[0].style.float = 'right'
-                elements[i].children[1].children[0].style.width = (100 - ((ii - 2) * 9))  + '%'
+                elements[i].children[0].children[0].style.float = 'right'
+                elements[i].children[0].children[0].style.width = (100 - ((ii - 2) * 9))  + '%'
                 if (ii == 2)
-                    elements[i].children[1].children[0].style.fontWeight = 'bold'
+                    elements[i].children[0].children[0].style.fontWeight = 'bold'
             }
         }
-        $(function() {
-          var $datepickerFrom = $("#fromperiod").datepicker({
-            //changeMonth: true,
-            dateFormat: "yy-mm-dd",
-            //numberOfMonths: 1,
-            //defaultDate: null,
-            onClose: function(selectedDate) {
-              $("#toperiod").datepicker("option", "minDate", selectedDate);
-            }
-          });
-          fromperiod = $('#fromperiod').val()
-          if (fromperiod.length == 0) {
-            $datepickerFrom.datepicker('setDate', new Date());
-          }
-
-          var $datepickerTo = $("#toperiod").datepicker({
-            //defaultDate: "+1w",
-            //changeMonth: true,
-            dateFormat: "yy-mm-dd",
-            //numberOfMonths: 1,
-            onClose: function(selectedDate) {
-              $("#fromperiod").datepicker("option", "maxDate", selectedDate);
-            }
-          });
-          toperiod = $('#toperiod').val()
-          if (toperiod.length == 0) {
-            $datepickerTo.datepicker('setDate', new Date());
-          }
-        });
     </script>
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -124,7 +67,7 @@
             </div>
             {% else %}
             <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
-            <a class="me-3 py-2 text-success text-decoration-none" href="../profil">{{userLabel}}</a>
+            <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
             <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
             <a class="btn  btn-success" href="../logout">Wyloguj</a>
             {% endif %}
@@ -135,7 +78,7 @@
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-            <h1 class="fw-light">Dodaj regułę:</h1>
+            <h1 class="fw-light">Reguła:</h1>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
             {% for message in messages %}
@@ -153,21 +96,21 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nazwa:</label>
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control" type="text" name='ruleName' placeholder="Nazwa" id="ruleName" value="{{rule.name}}">
+                        <input readonly class="form-control-plaintext"  class="form-control" type="text" name='ruleName' placeholder="Nazwa" id="ruleName" value="{{rule.name}}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Wartość maksymalna:</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
+                        <input readonly class="form-control-plaintext" type="text" class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Informacja:</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="dataType" aria-label="Default select example">
+                        <select disabled class="form-control-plaintext" type="text" name="dataType" aria-label="Default select example">
                             {% for d in dataType %}
-                            <option {% if d.id_data_type == rule.data_type.id_data_type %} selected{% endif %} value="{{d.id_data_type}}">{{d.name}}</option>
+                            <option value="{{d.id_data_type}}">{{d.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -175,9 +118,9 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Jednostka czasu:</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="timeRange" aria-label="Default select example">
+                        <select disabled class="form-control-plaintext" name="timeRange" aria-label="Default select example">
                             {% for t in timeRange %}
-                            <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="{{t.id_time_range}}">{{t.name}}</option>
+                            <option value="{{t.id_time_range}}">{{t.name}}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -189,11 +132,11 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <div class="form-control" class='picker'>
+                                    <div class="form-control-plaintext" class='picker'>
                                         <label for="fromperiod">Od: </label>
-                                        <input type="text" id="fromperiod" name="timeFrom" value="{{rule.time_from}}">
+                                        <input disabled type="text" id="fromperiod" name="timeFrom" value="{{rule.timefrom}}">
                                         <label for="toperiod"> Do: </label>
-                                        <input type="text" id="toperiod" name="timeTo" value="{{rule.time_to}}">
+                                        <input disabled type="text" id="toperiod" name="timeTo" value="{{rule.timeto}}">
                                     </div>
                                 </td>
                             </tr>
@@ -221,12 +164,12 @@
                     </div>
                     <div>
                         <h4>Pracownicy:</h4>
-                        <div>
+                        <div class="scrollTable">
                         <table id="mainEmployeeTabel" class="table table-striped">
                             <thead>
                             <tr>
-                                <th style="width:  4.33%" scope="col">
-                                    <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" value="" ></th>
+                                <!--<th style="width:  4.33%" scope="col">
+                                    <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" value="" ></th>-->
                                 <th scope="col">Imię</th>
                                 <th scope="col">Nazwisko</th>
                                 <th scope="col">Jednostka</th>
@@ -235,8 +178,8 @@
                             <tbody>
                             {% for employee in employeesData %}
                             <tr>
-                                <td>
-                                    <input class="form-check-input" name="check_employee_{{employee.id_employee}}" type="checkbox" value="" {% if employee.check %} checked {% endif %}></td>
+                                <!--<td>
+                                    <input class="form-check-input" name="check_employee_{{employee.id_employee}}" type="checkbox" value="" {% if employee.check %} checked {% endif %}></td>-->
                                 <td>{{employee.name}}</td>
                                 <td>{{employee.surname}}</td>
                                 <td>{{employee.id_unit.name}}</td>
@@ -252,8 +195,8 @@
                                 <thead>
                                 <tr>
                                     <!--<th scope="col">#</th>-->
-                                    <th style="width:  4.33%" scope="col">
-                                        <input onclick="checkAllProcess()" class="form-check-input" type="checkbox" value="" ></th>
+                                    <!--<th style="width:  4.33%" scope="col">
+                                        <input onclick="checkAllProcess()" class="form-check-input" type="checkbox" value="" ></th>-->
                                     <th style="width: 16.66%" scope="col">Numer</th>
                                     <th scope="col">Nazwa</th>
                                 </tr>
@@ -261,11 +204,11 @@
                                 <tbody>
                                 {% for process in processData%}
                                 <tr id="{{process.id}}">
-                                    <td>
+                                    <!--<td>
                                         {% if process.available %}
                                         <input class="form-check-input" name="check_process_{{process.id_process}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
                                         {% endif %}
-                                    </td>
+                                    </td>-->
                                     <td>
                                         <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
                                     </td>
@@ -277,11 +220,6 @@
                             </table>
                         </div>
                     </div>
-                    <form>
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success btn-lg">Zapisz</button>
-                        <a class="btn btn-secondary btn-lg" href="../rules">Wróć</a>
-                    </form>
-
                 </div>
                 <div>
                     <p></p>

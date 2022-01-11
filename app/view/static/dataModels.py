@@ -14,6 +14,11 @@ class UserData:
     role = ""
     pass
 
-def RuleData():
+class RuleData():
     name = ""
     max = ""
+    pass
+
+class ActivityColData():
+
+    pass

@@ -10,7 +10,7 @@ from django.db import models
 
 class Activity(models.Model):
     id_activity = models.IntegerField(primary_key=True)
-    time_consuming = models.FloatField()
+    value = models.FloatField()
     time_add = models.DateTimeField(blank=True, null=True)
     time_from = models.DateField(blank=True, null=True)
     time_to = models.CharField(max_length=45, blank=True, null=True)
@@ -195,12 +195,12 @@ class Rule(models.Model):
 
 class RuleHasEmployee(models.Model):
     rule_id_rule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_id_rule')
-    employee_id_employee = models.OneToOneField(Employee, models.DO_NOTHING, db_column='employee_id_employee', primary_key=True)
+    employee_id_employee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='employee_id_employee')
+    id_rule_has_employee = models.BigAutoField(primary_key=True)
 
     class Meta:
         managed = False
         db_table = 'rule_has_employee'
-        unique_together = (('employee_id_employee', 'rule_id_rule'),)
 
 
 class RuleHasProcess(models.Model):

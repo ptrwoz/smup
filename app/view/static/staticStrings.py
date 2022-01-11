@@ -7,3 +7,7 @@ USER_GUEST = 'GUEST'
 #login tag in HTML and code
 LOGIN_USERNAME = 'username'
 PASSWORD_USERNAME = 'password'
+#
+TIMERANGE_DAY = 'Dzień'
+TIMERANGE_WEEK = 'Tydzień'
+TIMERANGE_MONTH = 'Miesiąc'

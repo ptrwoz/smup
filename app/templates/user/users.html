@@ -109,9 +109,9 @@
                             </div>
                         </div>
                         {% if employee.auth_user.is_active == 0 %}
-                        <a href="../user/{{employee.id_employee}}/active" class="btn btn-success">Atywuj</a>
+                        <a href="../user/{{employee.id_employee}}/active?page={{employeesData.number}}" class="btn btn-success">Atywuj</a>
                         {% else %}
-                        <a href="../user/{{employee.id_employee}}/active" class="btn btn-danger" >Deaktywuj</a>
+                        <a href="../user/{{employee.id_employee}}/active?page={{employeesData.number}}" class="btn btn-danger" >Deaktywuj</a>
                         {% endif %}
                         <a class="btn btn-primary" href="../user/{{employee.id_employee}}">Edytuj</a>
                         <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#exampleModal{{employee.id_employee}}">Usuń</a>
@@ -120,13 +120,36 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <form>
+            <form >
+                {% if employeesData.has_other_pages %}
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    {% if employeesData.has_previous %}
+                      <li class="page-item"><a class="btn btn-primary" href="?page={{ employeesData.previous_page_number }}">Poprzednia</a></li>
+                    {% else %}
+                      <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
+                    {% endif %}
+                    {% for i in employeesData.paginator.page_range %}
+                      {% if employeesData.number == i %}
+                        <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if employeesData.has_next %}
+                      <li class="page-item"><a class="btn btn-primary" href="?page={{ employeesData.next_page_number }}">Następna</a></li>
+                    {% else %}
+                      <li class="page-item"><a class="btn btn-light">Następna</a></li>
+                    {% endif %}
+                  </ul>
+                </nav>
                 <a class="btn btn-success btn-lg btn-block" href="../user">Dodaj</a>
                 <a class="btn btn-secondary btn-lg btn-block" href="../">Wróć</a>
             </form>
             {% endif %}
             {% endif %}
         </div>
+        {% endif %}
     </section>
     {% endblock %}
 </main>

@@ -17,11 +17,41 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/rulePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
     <style>
 
     </style>
+    <script type="text/javascript">
+        function styleRows(elements) {
+            for (var i = 1; i < elements.length; i++) {
+                ii = elements[i].children[0].children[0].value.split('.').length
+                if (ii == 2) {
+                    elements[i].className = "firstRow";
+                }
+                else if (ii == 3) {
+                    elements[i].className = "secondRow";
+                }
+                else if (ii == 4) {
+                    elements[i].className = "thirdRow";
+                }
+                else {
+                    elements[i].className = "subRow";
+                }
+                elements[i].children[0].children[0].style.float = 'right'
+                elements[i].children[0].children[0].style.width = (100 - ((ii - 2) * 9))  + '%'
+                if (ii == 2)
+                    elements[i].children[0].children[0].style.fontWeight = 'bold'
+            }
+        }
+    </script>
+    <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 </head>
-<body class="text-center">
+<body class="text-center" onload="styleRows($('#mainProcessTabel tr'))">
 <main class="form-signin">
     {% csrf_token %}
     {% block content %}
@@ -36,13 +66,13 @@
             </div>
             {% else %}
             <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
-            <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
+            <a class="me-3 py-2 text-success text-decoration-none" href="../profil">{{userLabel}}</a>
             <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
-            <a class="btn  btn-success" href="logout">logout</a>
+            <a class="btn  btn-success" href="../logout">logout</a>
             {% endif %}
         </nav>
     </div>
-    <section class="text-center container form-control">
+    <section class="text-center form-control">
         <div class="d-grid gap-2">
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
@@ -50,35 +80,61 @@
             <h1 class="fw-light">Aktywności:</h1>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
-            <div class="scrollTable">
+            <div>
                 <table id="mainProcessTabel" class="table">
                     <thead>
                     <tr>
                         <!--<th scope="col">#</th>-->
-                        <th style="width:  4.33%" scope="col"></th>
-                        <th style="width: 16.66%" scope="col">Numer</th>
-                        <th scope="col">Nazwa</th>
+                        <th scope="col">Numer</th>
+                        <th style="width: 30%" scope="col">Nazwa</th>
+                        {% for i in activityData %}
+                            <th scope="col">{{i}}</th>
+                        {% endfor %}
                     </tr>
                     </thead>
                     <tbody>
                     {% for process in processData%}
                     <tr id="{{process.id}}">
                         <td>
-                            {% if process.available %}
-                            <input class="form-check-input" name="check_{{process.idprocess}}" type="checkbox" value="" id="flexCheckChecked">
-                            {% endif %}
-                        </td>
-                        <td>
                             <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
                         </td>
                         <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
-
+                        {% for i in activityData %}
+                            <th scope="col"><input type="number" class="form-control" name='name' placeholder="0" ></th>
+                        {% endfor %}
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <a class="btn btn-secondary" href="../">Wróć</a>
+            <form>
+				{% if activityData.has_other_pages %}
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    {% if activityData.has_previous %}
+                      <li class="page-item"><a class="btn btn-primary" href="?page={{ activityData.previous_page_number }}">Poprzednia</a></li>
+                    {% else %}
+                      <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
+                    {% endif %}
+                    {% for i in activityData.paginator.page_range %}
+                      {% if activityData.number == i %}
+                        <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if activityData.has_next %}
+                      <li class="page-item"><a class="btn btn-primary" href="?page={{ activityData.next_page_number }}">Następna</a></li>
+                    {% else %}
+                      <li class="page-item"><a class="btn btn-light">Następna</a></li>
+                    {% endif %}
+                  </ul>
+                </nav>
+				{% endif %}
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-success">Zapisz</button>
+                <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
+            </form>
+
             {% endif %}
             {% endif %}
         </div>

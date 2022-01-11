@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from app.models import Employee, Unit, Employeetype, AuthUser
@@ -8,6 +9,7 @@ from app.view.auth.auth import authUser, UserData
 from app.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, \
     MESSAGES_DIFFPASSWORD_ERROR, MESSAGES_UNIT_ERROR, MESSAGES_ROLE_ERROR, MESSAGES_DUPLICATEUSER_ERROR, \
     MESSAGES_PASSWORD_ERROR
+from app.view.static.staticStrings import USER_ACCOUNT
 from app.view.static.urls import REDIRECT_HOME_URL, RENDER_USER_URL, REDIRECT_USERS_URL, REDIRECT_USER_URL, \
     RENDER_USERS_URL
 
@@ -39,6 +41,17 @@ def password_check(passwd):
         print('Password should have at least one of the symbols $@#')
         val = False
     return val
+
+def getRoleToEdit(userRole):
+    if userRole == 'ADMIN':
+        roles = Employeetype.objects.all().order_by('name')
+    elif userRole == 'PROCESS MANAGER':
+        roles = Employeetype.objects.filter(Q(name = 'MANAGER') | Q(name = 'USER')).order_by('name')
+    elif userRole == 'MANAGER':
+        roles = Employeetype.objects.filter(Q(name = 'USER')).order_by('name')
+    else:
+        roles = None
+    return roles
 
 def getEmployeeToEdit(id, userId, userRole):
     e = Employee.objects.filter(id_employee=int(id))
@@ -215,10 +228,10 @@ def saveUser(request, context, id =''):
 def viewUser(request, context, id = 0, u = 0):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        units = Unit.objects.all()
+        units = Unit.objects.all().order_by('name')
         context['units'] = units
-        roles = Employeetype.objects.all()
-        context['roles'] = roles
+
+        context['roles'] =  getRoleToEdit(context[USER_ACCOUNT])
         if id == '':
             if u == 0:
                 context['user'] = UserData()
@@ -242,7 +255,7 @@ def viewUser(request, context, id = 0, u = 0):
 #
 #   user change active
 #
-def userActive(request, id = ''):
+def userActive(request, id = '', page = ''):
     context  = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if len(id) > 0:
@@ -254,7 +267,10 @@ def userActive(request, id = ''):
                 else:
                     auth.is_active = 1
                 auth.save()
-                return redirect(REDIRECT_USERS_URL)
+                if page != '':
+                    return redirect('../../'+ REDIRECT_USERS_URL + '?page=' + page)
+                else:
+                    return redirect(REDIRECT_USERS_URL)
             else:
                 return redirect(REDIRECT_USERS_URL)
     else:
@@ -262,7 +278,7 @@ def userActive(request, id = ''):
 #
 #   main function
 #
-def userManager(request, id = '', operation = ''):
+def userManager(request, id = '', operation = '', page=''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if request.method == 'POST':
@@ -278,7 +294,8 @@ def userManager(request, id = '', operation = ''):
         else:
             #active
             if operation == 'active':
-                return userActive(request, id)
+                page = request.GET.get('page')
+                return userActive(request, id, page)
             #view
             else:
                 return viewUser(request, context, id)
@@ -300,10 +317,19 @@ def usersView(request):
         if (context['account'] == 'ADMIN'):
             employeesData = Employee.objects.filter(~Q(id_employee=context['userData'].id)).order_by('surname', 'name')
         elif (context['account'] == 'PROCESS MANAGER'):
-            employeesData = Employee.objects.filter(Q(id_employeetype__name='USER') | Q(id_employeetype__name='MANAGER')).order_by('surname', 'name')
+            employeesData = Employee.objects.filter(~Q(id_employee=context['userData'].id) & Q(id_employeetype__name='USER') | Q(id_employeetype__name='MANAGER')).order_by('surname', 'name')
         elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(id_employeetype__name='USER').order_by('surname', 'name')
-        context['employeesData'] = employeesDataReduce(employeesData)
+            employeesData = Employee.objects.filter(~Q(id_employee=context['userData'].id) & Q(id_employeetype__name='USER')).order_by('surname', 'name')
+        page = request.GET.get('page', 1)
+        employeesData = employeesDataReduce(employeesData)
+        paginator = Paginator(employeesData, 2)
+        try:
+            employeesData = paginator.page(page)
+        except PageNotAnInteger:
+            employeesData = paginator.page(1)
+        except EmptyPage:
+            employeesData = paginator.page(paginator.num_pages)
+        context['employeesData'] = employeesData
         return render(request, RENDER_USERS_URL, context)
     else:
         return redirect(REDIRECT_HOME_URL)

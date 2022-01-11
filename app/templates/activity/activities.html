@@ -64,8 +64,8 @@
                     {% for rule in rules%}
                         <tr>
                           <td>{{rule.name}}</td>
-                          <td>{{rule.time_range_idtime_range.name}}</td>
-                          <td>{{rule.data_type_iddata_type.name}}</td>
+                          <td>{{rule.time_range.name}}</td>
+                          <td>{{rule.data_type.name}}</td>
                           <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
                           <td>
                                 <div>
