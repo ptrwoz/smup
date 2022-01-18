@@ -1,3 +1,6 @@
+from datetime import datetime, time
+
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 
 from app.models import Rule, TimeRange, DataType, Employee, Process, RuleHasProcess, Activity, RuleHasEmployee
@@ -6,6 +9,7 @@ from app.view.process.processViews import initChapterNo, initAvailableProcess, c
 from app.view.static.dataModels import RuleData
 from app.view.static.messagesTexts import MESSAGES_ACTIVITYINRULE_ERROR, MESSAGES_OPERATION_ERROR, \
     MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR
+from app.view.static.staticValues import PAGEINATION_SIZE
 from app.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, \
     REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
 from django.contrib import messages
@@ -114,6 +118,10 @@ def viewRule(request, context, id='', static=False):
                 rule = rules[0]
                 rule.time_from = str(rule.time_from)
                 rule.time_to = str(rule.time_to)
+                if rule.data_type.id_data_type == 1:
+                    timeStr = str(rule.max).replace('.', ':')
+                    timeMax = datetime.strptime(timeStr, '%H:%M')
+                    rule.max = timeMax.strftime('%H:%M')
                 context['rule'] = rule
                 if static:
                     return render(request, RENDER_VIEWRULE_URL, context)
@@ -160,6 +168,8 @@ def checkRuleFromForm(request, rule = Rule()):
     timeTo = request.POST.get('timeTo')
     #rule = Rule()
     rule.name = name
+    maxValue = maxValue.replace(':', '.')
+
     rule.max = maxValue
     rule.time_from = timeFrom
     rule.time_to = timeTo
@@ -218,19 +228,26 @@ def saveRule(request, context, id =''):
                 rule.save()
                 for p in processes:
                     value = request.POST.get('check_process_'+ str(p.id_process))
-                    if value is not None:
+                    ruleHasProcessArray = RuleHasProcess.objects.filter(process_id_process=p.id_process,
+                                                                        rule_id_rule=rule.id_rule)
+                    if value is not None and not ruleHasProcessArray.exists():
                         ruleHasProcess = RuleHasProcess()
                         ruleHasProcess.process_id_process = p
                         ruleHasProcess.rule_id_rule = rule
-                        #ruleHasProcess.id_rule_has_process = None
                         ruleHasProcess.save()
+                    elif value is None and ruleHasProcessArray.exists():
+                        ruleHasProcessArray.delete()
                 for e in employeesData:
                     value = request.POST.get('check_employee_' + str(e.id_employee))
-                    if value is not None:
+                    ruleHasEmployeeArray = RuleHasEmployee.objects.filter(employee_id_employee=e.id_employee,
+                                                                          rule_id_rule=rule.id_rule)
+                    if value is not None and not ruleHasEmployeeArray:
                         ruleHasEmployee = RuleHasEmployee()
                         ruleHasEmployee.rule_id_rule = rule
                         ruleHasEmployee.employee_id_employee = e
                         ruleHasEmployee.save()
+                    elif value is None and ruleHasEmployeeArray.exists():
+                        ruleHasEmployeeArray.delete()
             else:
                 messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
                 context, processData, processes, prs, employees = initForm(request, context)
@@ -269,6 +286,7 @@ def updateRule(request, context, id=''):
         return render(request, RENDER_RULE_URL, context)
     else:
         context, processData, processes, prs, employeesData = initForm(request, context)
+        #if True:
         try:
             flag1 = checkProcessInputs(request, processData)
             flag2 = checkEmployeeInputs(request, employeesData)
@@ -276,46 +294,44 @@ def updateRule(request, context, id=''):
                 rule.save()
                 for p in processes:
                     value = request.POST.get('check_process_' + str(p.id_process))
-                    if value is not None:
+                    ruleHasProcessArray = RuleHasProcess.objects.filter(process_id_process=p.id_process,
+                                                                        rule_id_rule=rule.id_rule)
+                    if value is not None and not ruleHasProcessArray.exists():
                         ruleHasProcess = RuleHasProcess()
                         ruleHasProcess.process_id_process = p
                         ruleHasProcess.rule_id_rule = rule
                         ruleHasProcess.save()
-                    else:
-                        ruleHasProcessArray = RuleHasProcess.objects.filter(process_id_process = p.id_process, rule_id_rule = rule.id_rule)
-                        if ruleHasProcessArray.exists():
-                            ruleHasProcessArray.delete()
+                    elif value is None and ruleHasProcessArray.exists():
+                        ruleHasProcessArray.delete()
                 for e in employeesData:
                     value = request.POST.get('check_employee_' + str(e.id_employee))
-                    if value is not None:
+                    ruleHasEmployeeArray = RuleHasEmployee.objects.filter(employee_id_employee=e.id_employee,
+                                                                          rule_id_rule=rule.id_rule)
+                    if value is not None and not ruleHasEmployeeArray:
                         ruleHasEmployee = RuleHasEmployee()
                         ruleHasEmployee.rule_id_rule = rule
                         ruleHasEmployee.employee_id_employee = e
                         ruleHasEmployee.save()
-                    else:
-                        ruleHasEmployeeArray = RuleHasEmployee.objects.filter(employee_id_employee = e.id_employee, rule_id_rule = rule.id_rule)
-                        if ruleHasEmployeeArray.exists():
-                            ruleHasEmployeeArray.delete()
+                    elif value is None and ruleHasEmployeeArray.exists():
+                        ruleHasEmployeeArray.delete()
             else:
-                messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
                 context, processData, processes, prs, employeesData = initForm(request, context)
+                processData = initProcessData(processData, False, id)
                 for p in processData:
                     value = request.POST.get('check_process_' + str(p.id_process))
                     if value is not None:
                         p.check = 1
                     else:
                         p.check = 0
-
                 for e in employeesData:
-                    value = request.POST.get('check_employee_' + str(p.id_employee))
+                    value = request.POST.get('check_employee_' + str(e.id_employee))
                     if value is not None:
                         e.check = 1
                     else:
                         e.check = 0
-
-                context['employeesData'] = employeesData
                 context['processData'] = processData
                 context['rule'] = rule
+                messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
                 return render(request, RENDER_RULE_URL, context)
         except:
             if id == '':
@@ -344,14 +360,32 @@ def ruleManager(request, id = '', operation = ''):
     else:
         return redirect('home')
 
+def formatRulesMax(rules):
+    for r in rules:
+        if r.data_type.id_data_type == 1:
+            timeStr = str(r.max).replace('.', ':')
+            timeMax = datetime.strptime(timeStr, '%H:%M')
+            r.max = timeMax.strftime('%H:%M')
+    return rules
 def rulesView(request):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         rules = Rule.objects.all()
+        rules = formatRulesMax(rules)
+        page = request.GET.get('page', 1)
+        paginator = Paginator(rules, PAGEINATION_SIZE)
+        try:
+            rules = paginator.page(page)
+        except PageNotAnInteger:
+            rules = paginator.page(1)
+        except EmptyPage:
+            rules = paginator.page(paginator.num_pages)
+
         context['rules'] = rules
         return render(request, RENDER_RULES_URL, context)
     else:
         return redirect(REDIRECT_HOME_URL)
+
 #
 #   user change active
 #

@@ -33,6 +33,23 @@
                 });*/
             });
         });
+        function initDatTypeSelect() {
+            dataTypeSelect = $('#dataTypeSelect')
+            maxInput = $('#maxInput')
+            if (dataTypeSelect.val() == '1') {
+                maxInput.attr('type','time')
+            } else {
+                maxInput.attr('type','number')
+            }
+            dataTypeSelect.on('change', function() {
+              initDatTypeSelect()
+            });
+
+        }
+        function initForm() {
+            styleRows()
+            initDatTypeSelect()
+        }
         function checkAllEmployee() {
           value = false;
           $('#mainEmployeeTabel input[type=checkbox]').each(function (i, ob) {
@@ -53,7 +70,8 @@
              }
           });
         }
-        function styleRows(elements) {
+        function styleRows() {
+            elements = $('#mainProcessTabel tr')
             for (var i = 1; i < elements.length; i++) {
                 ii = elements[i].children[1].children[0].value.split('.').length
                 if (ii == 2) {
@@ -109,7 +127,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 </head>
-<body class="text-center" onload="styleRows($('#mainProcessTabel tr'))">
+<body class="text-center" onload="initForm()">
 <main class="form-signin">
     {% csrf_token %}
     {% block content %}
@@ -159,13 +177,13 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Wartość maksymalna:</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
+                        <input id="maxInput" {% if rule.data_type.id_data_type == 1 %} type="time"{% else %} type="number" min="0" max=10 {% endif %}  class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Informacja:</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="dataType" aria-label="Default select example">
+                        <select id="dataTypeSelect" onload="initTypeData()" class="form-select" name="dataType" aria-label="Default select example">
                             {% for d in dataType %}
                             <option {% if d.id_data_type == rule.data_type.id_data_type %} selected{% endif %} value="{{d.id_data_type}}">{{d.name}}</option>
                             {% endfor %}

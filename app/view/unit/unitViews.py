@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from app.models import *
 from app.view.auth.auth import authUser
@@ -153,6 +154,16 @@ def unitsView(request, field='name', sort='0'):
         else:
             units = Unit.objects.all().order_by('-name')
         units = countUnitEmployees(units)
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(units, 2)
+        try:
+            units = paginator.page(page)
+        except PageNotAnInteger:
+            units = paginator.page(1)
+        except EmptyPage:
+            units = paginator.page(paginator.num_pages)
+
         context['units'] = units
         return render(request, RENDER_UNITS_URL, context)
     else:

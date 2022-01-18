@@ -87,7 +87,7 @@
             return i;
         }
         function addSubProcess() {
-            var newElementId = getLasId() + 1;
+            var newElementId = getLastId() + 1;
             var realId = 1;
             trElement = $(event.target).parent().parent('tr')
             thisId = trElement[0].cells[0].children[0].value;
@@ -115,7 +115,7 @@
             styleRows($('#mainProcessTabel tr'))
             
         }
-        function getLasId() {
+        function getLastId() {
             var newElementId = $("#mainProcessTabel tr");
             var idArray = new Array(newElementId.length - 1)
             for (var i = 1; i < newElementId.length; i++) {
@@ -156,7 +156,7 @@
             return htmlText;
         }
         function addMainProcess() {
-            var newElementId = getLasId() + 1;
+            var newElementId = getLastId() + 1;
             if (newElementId == -Infinity)
                 newElementId = 1
             newElementId = newElementId.toString();

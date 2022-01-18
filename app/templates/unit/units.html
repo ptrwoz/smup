@@ -65,9 +65,9 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Nazwa</th>
-                    <th scope="col">Liczba pracowników</th>
-                    <th scope="col">Operacje</th>
+                    <th scope="col"><a>Nazwa</a></th>
+                    <th scope="col"><a>Liczba pracowników</a></th>
+                    <th scope="col"><a>Operacje</a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -106,6 +106,29 @@
                 </tbody>
             </table>
             <form>
+                {% if units.has_other_pages %}
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    {% if units.has_previous %}
+                      <li class="page-item"><a class="btn btn-primary" href="?page={{ units.previous_page_number }}">Poprzednia</a></li>
+                    {% else %}
+                      <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
+                    {% endif %}
+                    {% for i in units.paginator.page_range %}
+                      {% if units.number == i %}
+                        <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
+                      {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if units.has_next %}
+                      <li class="page-item"><a class="btn btn-primary" href="?page={{ units.next_page_number }}">Następna</a></li>
+                    {% else %}
+                      <li class="page-item"><a class="btn btn-light">Następna</a></li>
+                    {% endif %}
+                  </ul>
+                </nav>
+                {% endif %}
                 <a class="btn btn-success btn-lg" href="../unit">Dodaj</a>
                 <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
             </form>

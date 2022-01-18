@@ -67,7 +67,7 @@
                     {% for rule in rules%}
                         <tr>
                           <td>{{rule.name}}</td>
-                          <td>{{rule.max|floatformat:2}}</td>
+                          <td>{{rule.max}}</td><!--|floatformat:2-->
                           <td>{{rule.data_type.name}}</td>
                           <td>{{rule.time_range.name}}</td>
                           <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                                <a type="button" data-method="delete" class="btn btn-success" href="../rule/{{rule.id_rule}}/delete">Tak</a>
+                                                <a type="button" data-method="post" class="btn btn-success" href="../activity">Tak</a>
                                             </div>
                                         </div>
                                     </div>
@@ -105,6 +105,29 @@
                   </tbody>
                 </table>
                 <form>
+                    {% if rules.has_other_pages %}
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        {% if rules.has_previous %}
+                          <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.previous_page_number }}">Poprzednia</a></li>
+                        {% else %}
+                          <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
+                        {% endif %}
+                        {% for i in rules.paginator.page_range %}
+                          {% if rules.number == i %}
+                            <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
+                          {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                        {% if rules.has_next %}
+                          <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.next_page_number }}">Następna</a></li>
+                        {% else %}
+                          <li class="page-item"><a class="btn btn-light">Następna</a></li>
+                        {% endif %}
+                      </ul>
+                    </nav>
+                    {% endif %}
                     <a class="btn btn-success btn-lg" href="../rule">Dodaj</a>
                     <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
                 </form>

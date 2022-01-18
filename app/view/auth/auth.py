@@ -1,6 +1,6 @@
 from app.models import Employee
 from app.view.static.dataModels import UserData
-from app.view.static.staticStrings import USER_LABEL, USER_ACCOUNT, USER_DATA, USER_GUEST
+from app.view.static.staticValues import USER_LABEL, USER_ACCOUNT, USER_DATA, USER_GUEST
 
 
 #

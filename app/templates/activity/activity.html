@@ -19,13 +19,92 @@
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
     <link rel="stylesheet" href="{% static 'css/rulePage.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
     <style>
 
     </style>
     <script type="text/javascript">
+        $(document).ready(function(){
+          $('[data-toggle="popover"]').popover(
+          {
+            html:true,
+           });
+        });
+
+        $(document).ready(function(){
+            $('input').on("input", function(self){
+                sumCols()
+                var newElementId = getLastId() + 1;
+                var realId = 1;
+                trElement = $(event.target).parent().parent('tr')
+                thisId = trElement[0].cells[0].children[0].value;
+                newElementId = newElementId.toString();
+                //console.log(trElement.next()[0].cells[0].children[0].value)
+                //subElements = getSubProcess(trElement);
+            });
+        });
+        function timeToMins(time) {
+          var b = time.split(':');
+          return b[0]*60 + +b[1];
+        }
+
+        // Convert minutes to a time in format hh:mm
+        // Returned value is in range 00  to 24 hrs
+        function timeFromMins(mins) {
+          function z(n){return (n<10? '0':'') + n;}
+          var h = (mins/60 |0) % 24;
+          var m = mins % 60;
+          return z(h) + ':' + z(m);
+        }
+
+        // Add two times in hh:mm format
+        function addTimes(t0, t1) {
+          return timeFromMins(timeToMins(t0) + timeToMins(t1));
+        }
+
+        function sumCols() {
+            mainRows = $('#mainProcessTabel tr')
+            sumRow = mainRows[mainRows.length - 1]
+            i = 3
+            dataType = 0
+            while(i < sumRow.cells.length) {
+                v = mainRows[1].cells[i].children[0].placeholder
+                if (v.indexOf(":") > -1) {
+                    dataType = 1
+                    sum = "00:00"
+                }
+                else {
+                    dataType = 0
+                    sum = 0
+                }
+                for (var j = 1; j<mainRows.length - 1; j++) {
+                   v = mainRows[j].cells[i].children[0].value
+                   if (v.length > 0)
+                       if (dataType == 1)
+                            sum = addTimes(sum, v)
+                        else
+                            sum = parseInt(v) + sum
+                }
+                sumRow.cells[i].children[0].value = sum.toString()
+                i = i + 1
+            }
+        }
+
+        function getLastId() {
+            var newElementId = $("#mainProcessTabel tr");
+            var idArray = new Array(newElementId.length - 1)
+            for (var i = 1; i < newElementId.length; i++) {
+               idArray[i - 1] = parseInt(newElementId[i].id);
+            }
+            return Math.max.apply(Math,idArray);
+        }
+
         function styleRows(elements) {
-            for (var i = 1; i < elements.length; i++) {
+            sumCols()
+            for (var i = 1; i < elements.length - 1; i++) {
                 ii = elements[i].children[0].children[0].value.split('.').length
                 if (ii == 2) {
                     elements[i].className = "firstRow";
@@ -80,61 +159,110 @@
             <h1 class="fw-light">Aktywności:</h1>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
-            <div>
-                <table id="mainProcessTabel" class="table">
-                    <thead>
-                    <tr>
-                        <!--<th scope="col">#</th>-->
-                        <th scope="col">Numer</th>
-                        <th style="width: 30%" scope="col">Nazwa</th>
-                        {% for i in activityData %}
-                            <th scope="col">{{i}}</th>
+            <form method="post">
+                <div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Czy na pewno chcesz wykonać operację?
+                                </div>
+                                {% csrf_token %}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                                    <button type="submit" class="btn btn-success">Tak</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="mainProcessTabel" class="table">
+                        <thead>
+                        <tr>
+                            <th style="width: 6%" scope="col">Numer</th>
+                            <th style="width: 30%" scope="col">Nazwa</th>
+                            <th style="width: 3%" scope="col">Info.</th>
+                            {% for i in activityData %}
+                                <th {% if today == i %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center" name="col" value="{{i}}"></input></th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% autoescape off %}
+                        {% for process in processData%}
+                        <tr id="{{process.id}}">
+                            <td>
+                                <input name="id_{{process.id}}" class="form-control" readonly="readonly" name="row" value="{{process.no}}"></input>
+                            </td>
+                            <td><input name='name_{{process.id}}' type="text" class="form-control" name='row' name="row" readonly="readonly" placeholder="Nazwa" value="{{process.name}}"></td>
+                            <td>
+                                {%if process.tip != ""%}
+                                    <button type="button" class="btn btn-primary" data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="{{process.tip|linebreaksbr}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                        </svg>
+                                    </button>
+                                {% endif %}
+                            </td>
+                            {% for i in activityData %}
+                                {% if process.editable == 1%}
+                                <th {% if today == i %} class="table-primary" {% endif %} scope="col"><input {% if ruleData.data_type.id_data_type == 1 %} type="time"{% else %} type="number" min="0" max=10 {% endif %} name="row" class="form-control" c placeholder="0" ></th>
+                                {% else %}
+                                <th {% if today == i %} class="table-primary" {% endif %} scope="col"><input readonly type="text" class="form-control" {% if ruleData.data_type.id_data_type == 1 %} placeholder="-- : --" type="time"{% else %} type="number" placeholder="0" {% endif %} ></th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
                         {% endfor %}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for process in processData%}
-                    <tr id="{{process.id}}">
-                        <td>
-                            <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.no}}"></input>
-                        </td>
-                        <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
-                        {% for i in activityData %}
-                            <th scope="col"><input type="number" class="form-control" name='name' placeholder="0" ></th>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <form>
-				{% if activityData.has_other_pages %}
+                        <tr id="sum">
+                            <td>
+
+                            </td>
+                            <td><a>Suma:</a></td>
+                            <td>
+
+                            </td>
+                            {% for i in activityData %}
+                                {% if process.editable == 1%}
+                                <th {% if today == i %} class="table-primary" {% endif %} scope="col"><input {% if ruleData.data_type.id_data_type == 1 %} type="time"{% else %} type="number" min="0" max=10 {% endif %} class="form-control" name="sum_row" placeholder="0" ></th>
+                                {% else %}
+                                <th {% if today == i %} class="table-primary" {% endif %} scope="col"><input readonly type="text" class="form-control" name="sum_row" {% if ruleData.data_type.id_data_type == 1 %} placeholder="-- : --" type="time"{% else %} type="number" placeholder="0" {% endif %} ></th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        {% endautoescape %}
+                        </tbody>
+                    </table>
+                </div>
+                {% if activityData.has_other_pages %}
                 <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                    {% if activityData.has_previous %}
-                      <li class="page-item"><a class="btn btn-primary" href="?page={{ activityData.previous_page_number }}">Poprzednia</a></li>
-                    {% else %}
-                      <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
-                    {% endif %}
-                    {% for i in activityData.paginator.page_range %}
-                      {% if activityData.number == i %}
+                    <ul class="pagination">
+                        {% if activityData.has_previous %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ activityData.previous_page_number }}">Poprzednia</a></li>
+                        {% else %}
+                        <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
+                        {% endif %}
+                        {% for i in activityData.paginator.page_range %}
+                        {% if activityData.number == i %}
                         <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
-                      {% else %}
+                        {% else %}
                         <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                      {% endif %}
-                    {% endfor %}
-                    {% if activityData.has_next %}
-                      <li class="page-item"><a class="btn btn-primary" href="?page={{ activityData.next_page_number }}">Następna</a></li>
-                    {% else %}
-                      <li class="page-item"><a class="btn btn-light">Następna</a></li>
-                    {% endif %}
-                  </ul>
+                        {% endif %}
+                        {% endfor %}
+                        {% if activityData.has_next %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ activityData.next_page_number }}">Następna</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="btn btn-light">Następna</a></li>
+                        {% endif %}
+                    </ul>
                 </nav>
-				{% endif %}
+                {% endif %}
                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-success">Zapisz</button>
                 <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
             </form>
-
             {% endif %}
             {% endif %}
         </div>

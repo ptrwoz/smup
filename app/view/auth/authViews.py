@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from app.models import Employee
 from app.view.auth.auth import authUser
 from app.view.static.messagesTexts import MESSAGES_LOGIN_ERROR
-from app.view.static.staticStrings import USER_GUEST, USER_ACCOUNT, LOGIN_USERNAME, PASSWORD_USERNAME
+from app.view.static.staticValues import USER_GUEST, USER_ACCOUNT, LOGIN_USERNAME, PASSWORD_USERNAME
 from app.view.static.urls import RENDER_PROFIL_URL, REDIRECT_HOME_URL, RENDER_LOGIN_URL
 
 def profilUser(request):
