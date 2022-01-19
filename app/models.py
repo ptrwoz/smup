@@ -9,12 +9,13 @@ from django.db import models
 
 
 class Activity(models.Model):
-    id_activity = models.IntegerField(primary_key=True)
+    id_activity = models.AutoField(primary_key=True)
     value = models.FloatField()
     time_add = models.DateTimeField(blank=True, null=True)
     time_from = models.DateField(blank=True, null=True)
     time_to = models.CharField(max_length=45, blank=True, null=True)
     rule_has_process_id_rule_has_process = models.ForeignKey('RuleHasProcess', models.DO_NOTHING, db_column='rule_has_process_id_rule_has_process')
+    employee_id_employee = models.ForeignKey('Employee', models.DO_NOTHING, db_column='employee_id_employee')
 
     class Meta:
         managed = False
@@ -194,9 +195,9 @@ class Rule(models.Model):
 
 
 class RuleHasEmployee(models.Model):
+    id_rule_has_employee = models.BigAutoField(primary_key=True)
     rule_id_rule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_id_rule')
     employee_id_employee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='employee_id_employee')
-    id_rule_has_employee = models.BigAutoField(primary_key=True)
 
     class Meta:
         managed = False
@@ -204,9 +205,9 @@ class RuleHasEmployee(models.Model):
 
 
 class RuleHasProcess(models.Model):
-    rule_id_rule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_id_rule')
     process_id_process = models.ForeignKey(Process, models.DO_NOTHING, db_column='process_id_process')
     id_rule_has_process = models.BigAutoField(primary_key=True)
+    rule_id_rule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_id_rule')
 
     class Meta:
         managed = False

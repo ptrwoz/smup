@@ -1,20 +1,15 @@
-from datetime import datetime, time
-
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render, redirect
-
+from datetime import datetime
 from app.models import Rule, TimeRange, DataType, Employee, Process, RuleHasProcess, Activity, RuleHasEmployee
 from app.view.auth.auth import authUser
 from app.view.process.processViews import initChapterNo, initAvailableProcess, checkChaptersNo, sortDataByChapterNo
 from app.view.static.dataModels import RuleData
-from app.view.static.messagesTexts import MESSAGES_ACTIVITYINRULE_ERROR, MESSAGES_OPERATION_ERROR, \
-    MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR
+from app.view.static.messagesTexts import MESSAGES_ACTIVITYINRULE_ERROR, MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR
 from app.view.static.staticValues import PAGEINATION_SIZE
-from app.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, \
-    REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
-from django.contrib import messages
+from app.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
 from django.db.models import Q
+from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def checkProcessInputs(request, processes, tag = 'check_process_'):
     flag = False
@@ -34,7 +29,7 @@ def checkEmployeeInputs(request, employees, tag = 'check_employee_'):
             break
     return flag
 
-def initForm(request, context, id=''):
+def initContext(context):
     if (context['account'] == 'ADMIN'):
         employeesData = Employee.objects.all().order_by('surname', 'name')
     elif (context['account'] == 'PROCESS MANAGER'):
@@ -55,7 +50,7 @@ def initForm(request, context, id=''):
 def showRule(request, context, id=''):
     context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        context, processData, processes, prs, employeesData = initForm(request, context, id)
+        context, processData, processes, prs, employeesData = initContext(context)
         if not checkChaptersNo(prs):
             return viewRule(request, context, id)
         if id == '':
@@ -99,7 +94,7 @@ def initEmployeesData(employeesData, static, id = ''):
 def viewRule(request, context, id='', static=False):
     context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        context, processData, processes, prs, employeesData = initForm(request, context, id)
+        context, processData, processes, prs, employeesData = initContext(context)
         if not checkChaptersNo(prs):
             return viewRule(request, context, id)
         if id == '':
@@ -120,8 +115,8 @@ def viewRule(request, context, id='', static=False):
                 rule.time_to = str(rule.time_to)
                 if rule.data_type.id_data_type == 1:
                     timeStr = str(rule.max).replace('.', ':')
-                    timeMax = datetime.strptime(timeStr, '%H:%M')
-                    rule.max = timeMax.strftime('%H:%M')
+                    #timeMax = datetime.strptime(timeStr, '%H:%M')
+                    rule.max = timeStr#timeMax.strftime('%H:%M')
                 context['rule'] = rule
                 if static:
                     return render(request, RENDER_VIEWRULE_URL, context)
@@ -200,7 +195,7 @@ def saveRule(request, context, id =''):
     rule, me = checkRuleFromForm(request)
     if me != None:
         messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-        context, processData, processes, prs, employeesData = initForm(request, context)
+        context, processData, processes, prs, employeesData = initContext(context)
 
         for p in processData:
             value = request.POST.get('check_process_' + str(p.id_process))
@@ -220,7 +215,7 @@ def saveRule(request, context, id =''):
         context['rule'] = rule
         return render(request, RENDER_RULE_URL, context)
     else:
-        context, processData, processes, prs, employeesData = initForm(request, context)
+        context, processData, processes, prs, employeesData = initContext(context)
         try:
             flag1 = checkProcessInputs(request, processData)
             flag2 = checkEmployeeInputs(request, employeesData)
@@ -250,7 +245,7 @@ def saveRule(request, context, id =''):
                         ruleHasEmployeeArray.delete()
             else:
                 messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-                context, processData, processes, prs, employees = initForm(request, context)
+                context, processData, processes, prs, employees = initContext(context)
                 processData = initProcessData(processData, False, id)
                 context['processData'] = processData
                 context['rule'] = rule
@@ -285,7 +280,7 @@ def updateRule(request, context, id=''):
         context['rule'] = rule
         return render(request, RENDER_RULE_URL, context)
     else:
-        context, processData, processes, prs, employeesData = initForm(request, context)
+        context, processData, processes, prs, employeesData = initContext(context)
         #if True:
         try:
             flag1 = checkProcessInputs(request, processData)
@@ -315,7 +310,7 @@ def updateRule(request, context, id=''):
                     elif value is None and ruleHasEmployeeArray.exists():
                         ruleHasEmployeeArray.delete()
             else:
-                context, processData, processes, prs, employeesData = initForm(request, context)
+                context, processData, processes, prs, employeesData = initContext(context)
                 processData = initProcessData(processData, False, id)
                 for p in processData:
                     value = request.POST.get('check_process_' + str(p.id_process))
@@ -364,8 +359,8 @@ def formatRulesMax(rules):
     for r in rules:
         if r.data_type.id_data_type == 1:
             timeStr = str(r.max).replace('.', ':')
-            timeMax = datetime.strptime(timeStr, '%H:%M')
-            r.max = timeMax.strftime('%H:%M')
+            timeMax = str(timeStr)#datetime.strptime(timeStr, '%H:%M')
+            r.max = timeMax#timeMax.strftime('%H:%M')
     return rules
 def rulesView(request):
     context = authUser(request)

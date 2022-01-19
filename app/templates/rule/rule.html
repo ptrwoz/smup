@@ -20,11 +20,21 @@
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
     <link rel="stylesheet" href="{% static 'css/rulePage.css' %}" />
     <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
 
     </style>
     <script>
+        $(document).ready(function(){
+          $('[data-toggle="popover"]').popover(
+          {
+            html:true,
+           });
+        });
         $(document).ready(function() {
             $("#checkall").on('click', function(event) {
                 /*$("table > tbody > tr").each(function () {
@@ -37,9 +47,11 @@
             dataTypeSelect = $('#dataTypeSelect')
             maxInput = $('#maxInput')
             if (dataTypeSelect.val() == '1') {
-                maxInput.attr('type','time')
+                maxInput.attr('type','text')
+                maxInput.attr('placeholder','--:--')
             } else {
                 maxInput.attr('type','number')
+                maxInput.attr('placeholder','--')
             }
             dataTypeSelect.on('change', function() {
               initDatTypeSelect()
@@ -169,25 +181,61 @@
             {% endfor %}
             <form id="rulePage" id="submit" method="post"> {% csrf_token %}
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Nazwa:</label>
-                    <div class="col-sm-10">
-                        <input type="text"  class="form-control" type="text" name='ruleName' placeholder="Nazwa" id="ruleName" value="{{rule.name}}">
+                    <div class="col-sm-2">
+                        <label class="col-form-label">Nazwa:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="Nazwa reguły do której będą przypisane aktywności" class="input-group-text btn btn-primary" id="btnGroupAddon2">&#8203;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="bottom" title="tekst">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" type="text" name='ruleName' placeholder="Nazwa" id="ruleName" value="{{rule.name}}">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Wartość maksymalna:</label>
-                    <div class="col-sm-10">
-                        <input id="maxInput" {% if rule.data_type.id_data_type == 1 %} type="time"{% else %} type="number" min="0" max=10 {% endif %}  class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
+                    <div class="col-sm-2">
+                        <label class="col-sm-2 col-form-label">Wartość maksymalna:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="Rodzaj informacji jaki będzie przechowywany w aktywności" class="input-group-text btn btn-primary" id="btnGroupAddon3">&#8203;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="bottom" title="tekst">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <input id="maxInput" {% if rule.data_type.id_data_type == 1 %} placeholder="-- : --" type="text"{% else %} type="number" {% endif %}  class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Informacja:</label>
-                    <div class="col-sm-10">
-                        <select id="dataTypeSelect" onload="initTypeData()" class="form-select" name="dataType" aria-label="Default select example">
-                            {% for d in dataType %}
-                            <option {% if d.id_data_type == rule.data_type.id_data_type %} selected{% endif %} value="{{d.id_data_type}}">{{d.name}}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="col-sm-2">
+                        <label class="col-sm-2 col-form-label">Informacja:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="Rodzaj informacji jaki będzie przechowywany w aktywności" class="input-group-text btn btn-primary" id="btnGroupAddon4">&#8203;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="bottom" title="tekst">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <select id="dataTypeSelect" onload="initTypeData()" class="form-select" name="dataType" aria-label="Default select example">
+                                {% for d in dataType %}
+                                <option {% if d.id_data_type == rule.data_type.id_data_type %} selected{% endif %} value="{{d.id_data_type}}">{{d.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -240,27 +288,27 @@
                     <div>
                         <h4>Pracownicy:</h4>
                         <div>
-                        <table id="mainEmployeeTabel" class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th style="width:  4.33%" scope="col">
-                                    <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" value="" ></th>
-                                <th scope="col">Imię</th>
-                                <th scope="col">Nazwisko</th>
-                                <th scope="col">Jednostka</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for employee in employeesData %}
-                            <tr>
-                                <td>
-                                    <input class="form-check-input" name="check_employee_{{employee.id_employee}}" type="checkbox" value="" {% if employee.check %} checked {% endif %}></td>
-                                <td>{{employee.name}}</td>
-                                <td>{{employee.surname}}</td>
-                                <td>{{employee.id_unit.name}}</td>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                            <table id="mainEmployeeTabel" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width:  4.33%" scope="col">
+                                        <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" value="" ></th>
+                                    <th scope="col">Imię</th>
+                                    <th scope="col">Nazwisko</th>
+                                    <th scope="col">Jednostka</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for employee in employeesData %}
+                                <tr>
+                                    <td>
+                                        <input class="form-check-input" name="check_employee_{{employee.id_employee}}" type="checkbox" value="" {% if employee.check %} checked {% endif %}></td>
+                                    <td>{{employee.name}}</td>
+                                    <td>{{employee.surname}}</td>
+                                    <td>{{employee.id_unit.name}}</td>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div>

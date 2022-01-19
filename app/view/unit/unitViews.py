@@ -156,7 +156,7 @@ def unitsView(request, field='name', sort='0'):
         units = countUnitEmployees(units)
 
         page = request.GET.get('page', 1)
-        paginator = Paginator(units, 2)
+        paginator = Paginator(units, 10)
         try:
             units = paginator.page(page)
         except PageNotAnInteger:

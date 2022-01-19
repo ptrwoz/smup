@@ -1,9 +1,9 @@
 import datetime
-
+import numpy as np
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
-from app.models import Employee, Rule, AuthUser, RuleHasProcess, RuleHasEmployee
+from app.models import Employee, Rule, AuthUser, RuleHasEmployee, Activity, RuleHasProcess
 from app.view.auth.auth import authUser
 from app.view.process.processViews import initChapterNo, sortDataByChapterNo
 from app.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
@@ -42,17 +42,61 @@ def get_segments(start_date, end_date, interval_delta):
         ii = ii + 1
     return segments, todayId
 
+#def dataRowFormat(cols, rows):
+#    for col
 
+def activityExist(ruleHasProcess, timeFrom, timeTo):
+    activities = Activity.objects.filter(Q(rule_has_process_id_rule_has_process= ruleHasProcess) & Q(time_from = timeFrom) & Q(time_to = timeTo))
+    if activities.exists():
+        return True
+    else:
+        return False
+
+def saveActivity(rule, ruleHasProcess, value, activityDate):
+
+    if rule.exists() and len(value) > 1:
+        rule = rule[0]
+        if rule.data_type.id_data_type == 1:
+            value = float(value.replace(':','.'))
+        dateParts = activityDate.split(' - ')
+        if not activityExist(ruleHasProcess, dateParts[0], dateParts[1]):
+            activity = Activity()
+            activity.time_from = dateParts[0]
+            if rule.data_type.id_data_type == 0:
+                activity.time_to = dateParts[0]
+            else:
+                activity.time_to = dateParts[1]
+            activity.value = value
+            activity.time_add = date.today()
+            activity.rule_has_process_id_rule_has_process = ruleHasProcess
+            activity.save()
+    else:
+        return None
+def formatFormData(rows):
+    newRows = []
+    for r in range(1,len(rows),2):
+        newRows.append(rows[r-1] + ':' + rows[r])
+    return newRows
 def updateActivities(request, context, rule_id):
     cols = request.POST.getlist('col')
     rows = request.POST.getlist('row')
-    processData = []
-    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule_id)
-    for r in ruleHasProcess:
-        p = r.process_id_process
-        p.editable = 1
-        processData.append(p)
-    return render(request, RENDER_ACTIVITY_URL, context)
+    rule = Rule.objects.filter(id_rule=rule_id)
+    if rule.exists():
+        if rule[0].data_type.id_data_type == 1:
+            rows = formatFormData(rows)
+
+        ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule_id)
+        colSize = int(len(rows) / len(cols))
+        rows = np.array(rows)
+        rows = np.transpose(rows)
+        rows = rows.reshape((colSize, len(cols)))
+        for x in range(len(cols)):
+            for y in range(0,colSize):
+                if len(rows[y,x]) > 0:
+                    saveActivity(rule, ruleHasProcess[x], rows[y, x], cols[x])
+        return render(request, RENDER_ACTIVITY_URL, context)
+    else:
+        return render(request, RENDER_ACTIVITY_URL, context)
 
 def getRelativedeltaFromDateType(timeRange):
     if timeRange.name == TIMERANGE_DAY:
@@ -69,6 +113,8 @@ def getPagesFromDateType(timeRange):
         return 5
     elif timeRange.name == TIMERANGE_MONTH:
         return 5
+#def getActivityData(dates, rule_has_processes):
+#    for rule_has_process in rule_has_processes:
 
 def viewActivity(request, context, id=''):
     context = authUser(request)
@@ -98,13 +144,17 @@ def viewActivity(request, context, id=''):
                 if currentPage == 0:
                     currentPage = 1
             page = request.GET.get('page', currentPage)
+            allActivityData = []
             try:
-                activityData = paginator.page(page)
+                activityDatas = paginator.page(page)
             except PageNotAnInteger:
-                activityData = paginator.page(currentPage)
+                activityDatas = paginator.page(currentPage)
             except EmptyPage:
-                activityData = paginator.page(paginator.num_pages)
-            context['activityData'] = activityData
+                activityDatas = paginator.page(paginator.num_pages)
+            #allActivityData.append(activityDatas)
+            #for activityData in activityDatas:
+
+            context['activityData'] = activityDatas
 
             processData = []
             ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule.id_rule)
@@ -120,6 +170,8 @@ def viewActivity(request, context, id=''):
             processData = initChapterNo(processData)
             processData, prs = sortDataByChapterNo(processData)
             context['processData'] = processData
+
+
         else:
             return redirect(REDIRECT_ACTIVITIES_URL)
     return render(request, RENDER_ACTIVITY_URL, context)
