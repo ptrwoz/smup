@@ -205,10 +205,11 @@
                             <th style="width: 6%" scope="col">Numer</th>
                             <th style="width: 30%" scope="col">Nazwa</th>
                             <th style="width: 3%" scope="col">Info.</th>
-                            {% for i in activityData %}
-                            <th {% if today == i %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center" name="col" value="{{i}}"></input></th>
+                            {% for i in activityData.currentActivityData %}
+                                <th {% if today == i %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center" name="col" value="{{i}}"></input></th>
                             {% endfor %}
                         </tr>
+                        {{ activityData.increment }}
                         </thead>
                         <tbody>
                         {% autoescape off %}
@@ -228,19 +229,19 @@
                                 </button>
                                 {% endif %}
                             </td>
-                            {% for i in activityData %}
-                            <th {% if today == i %} class="table-primary" {% endif %} scope="col">
+                            {% for i in activityData.currentActivityData %}
+                            <th {% if today == i.date %} class="table-primary" {% endif %} scope="col">
                                 <div class="btn-row">
                                     <div class="btn-group" data-toggle="buttons">
-                                        <input name="row" {% if process.editable == 0%}  disabled type="text" {% else %}  type="number" {% endif %} style="text-align:center" class="form-control"  min="0" max="999" {% if ruleData.data_type.id_data_type == 1 %} placeholder="--" {% else %} placeholder="--"{% endif %}>
-                                        {% if ruleData.data_type.id_data_type == 1 %}
-                                        :
-                                        <input name="row" {% if process.editable == 0%}  disabled type="text" {% else %}  type="number" {% endif %} style="text-align:center" class="form-control" type="number" min="0" max="59" placeholder="--">
+                                        <input value='{{i.firstValue}}' step=1 name="row" {% if process.editable == 0%}  disabled type="text" {% else %}  type="number" {% endif %} style="text-align:center" class="form-control"  min="0" max="999" placeholder="--">
+                                        {% if ruleData.data_type.id_data_type == 1 %} :
+                                        <input value='{{i.secondValue}}' step=1 name="row" {% if process.editable == 0%}  disabled type="text" {% else %}  type="number" {% endif %} style="text-align:center" class="form-control" type="number" min="0" max="59" placeholder="--">
                                         {% endif %}
                                     </div>
                                 </div>
                             </th>
                             {% endfor %}
+                            {{ activityData.increment }}
                         </tr>
                         {% endfor %}
                         <tr id="sum">
@@ -251,7 +252,7 @@
                             <td>
 
                             </td>
-                            {% for i in activityData %}
+                            {% for i in activityData.currentActivityData %}
                             {% if process.editable == 1%}
                             <th {% if today == i %} class="table-primary" {% endif %} scope="col">
                                 <input style="text-align:center" {% if ruleData.data_type.id_data_type == 1 %} placeholder="--:--" type="text"{% else %} type="text" min="00" max=10 {% endif %} class="form-control" name="sum_row" placeholder="-" >

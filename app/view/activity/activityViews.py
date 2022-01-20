@@ -6,9 +6,10 @@ from django.shortcuts import render, redirect
 from app.models import Employee, Rule, AuthUser, RuleHasEmployee, Activity, RuleHasProcess
 from app.view.auth.auth import authUser
 from app.view.process.processViews import initChapterNo, sortDataByChapterNo
+from app.view.static.dataModels import DateInformation
 from app.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
-from app.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, \
-    RENDER_RULE_URL
+from app.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, RENDER_RULE_URL
+from django import template
 from datetime import date
 from django.db.models import Q
 from app.view.user.userViews import getEmployeeToEdit
@@ -42,36 +43,40 @@ def get_segments(start_date, end_date, interval_delta):
         ii = ii + 1
     return segments, todayId
 
-#def dataRowFormat(cols, rows):
-#    for col
-
-def activityExist(ruleHasProcess, timeFrom, timeTo):
-    activities = Activity.objects.filter(Q(rule_has_process_id_rule_has_process= ruleHasProcess) & Q(time_from = timeFrom) & Q(time_to = timeTo))
+def activityExist(user, ruleHasProcess, timeFrom, timeTo):
+    activities = Activity.objects.filter(Q(rule_has_process_id_rule_has_process = ruleHasProcess) & Q(employee_id_employee__id_employee = user.id) & Q(time_from = timeFrom) & Q(time_to = timeTo))
     if activities.exists():
         return True
     else:
         return False
 
-def saveActivity(rule, ruleHasProcess, value, activityDate):
-
-    if rule.exists() and len(value) > 1:
-        rule = rule[0]
-        if rule.data_type.id_data_type == 1:
-            value = float(value.replace(':','.'))
-        dateParts = activityDate.split(' - ')
-        if not activityExist(ruleHasProcess, dateParts[0], dateParts[1]):
-            activity = Activity()
-            activity.time_from = dateParts[0]
-            if rule.data_type.id_data_type == 0:
-                activity.time_to = dateParts[0]
-            else:
-                activity.time_to = dateParts[1]
-            activity.value = value
-            activity.time_add = date.today()
-            activity.rule_has_process_id_rule_has_process = ruleHasProcess
-            activity.save()
+def saveActivity(request, rule, ruleHasProcess, value, activityDate):
+    context = authUser(request)
+    if context['account'] != 'GUEST':
+        user = context['userData']
+        employees = Employee.objects.filter(id_employee = user.id)
+        if employees.exists()  and rule.exists() and len(value) > 1:
+            rule = rule[0]
+            if rule.data_type.id_data_type == 1:
+                value = float(value.replace(':','.'))
+            dateParts = activityDate.split(' - ')
+            if not activityExist(user, ruleHasProcess, dateParts[0], dateParts[1]):
+                activity = Activity()
+                activity.time_from = dateParts[0]
+                if rule.data_type.id_data_type == 0:
+                    activity.time_to = dateParts[0]
+                else:
+                    activity.time_to = dateParts[1]
+                activity.value = value
+                activity.time_add = date.today()
+                activity.employee_id_employee = employees[0]
+                activity.rule_has_process_id_rule_has_process = ruleHasProcess
+                activity.save()
+        else:
+            return None
     else:
-        return None
+        return redirect(REDIRECT_HOME_URL)
+
 def formatFormData(rows):
     newRows = []
     for r in range(1,len(rows),2):
@@ -93,7 +98,7 @@ def updateActivities(request, context, rule_id):
         for x in range(len(cols)):
             for y in range(0,colSize):
                 if len(rows[y,x]) > 0:
-                    saveActivity(rule, ruleHasProcess[x], rows[y, x], cols[x])
+                    saveActivity(request, rule, ruleHasProcess[x], rows[y, x], cols[x])
         return render(request, RENDER_ACTIVITY_URL, context)
     else:
         return render(request, RENDER_ACTIVITY_URL, context)
@@ -113,15 +118,55 @@ def getPagesFromDateType(timeRange):
         return 5
     elif timeRange.name == TIMERANGE_MONTH:
         return 5
-#def getActivityData(dates, rule_has_processes):
-#    for rule_has_process in rule_has_processes:
+
+
+def getActivityData(user, dates, rule):
+    array = []
+    array.append(dates)
+    ruleHasProcesses = RuleHasProcess.objects.filter(rule_id_rule=rule.id_rule)
+    for date in dates:
+        date
+    #for rule_has_process in ruleHasProcesses:
+
+    return array
+
+class ActivityDataCounter:
+    def __init__(self, activityDatas):
+        self.index = 0
+        self.activityDatas = activityDatas
+        self.currentActivityData = self.activityDatas[self.index]
+
+    @property
+    def increment(self):
+        if (self.index < len(self.activityDatas)-1):
+            self.index = self.index + 1
+            self.currentActivityData = self.activityDatas[self.index]
+        return ''
+
+def initActivityData(userActivities, processData, activityDatas, data_type):
+    newActivityDatas = []
+    newActivityDatas.append(activityDatas)
+    for p in processData:
+        cNewActivityData = []
+        for activityData in activityDatas:
+            splitedActivityData = activityData.split(' - ')
+            activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) &Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[1]))
+            if activity.exists():
+                if data_type.id_data_type == 1:
+                    hmData = str(activity[0].value).split('.')
+                    cNewActivityData.append(DateInformation(hmData[0],hmData[1],activityData))
+                else:
+                    cNewActivityData.append(DateInformation(int(activity[0].value), "",activityData))
+            else:
+                cNewActivityData.append(DateInformation("", "", activityData))
+        newActivityDatas.append(cNewActivityData)
+    return newActivityDatas
 
 def viewActivity(request, context, id=''):
     context = authUser(request)
     if id == '':
         return redirect(REDIRECT_ACTIVITIES_URL)
     elif id.isnumeric():
-
         rules = Rule.objects.filter(id_rule=int(id))
         if rules.exists():
             rule = rules[0]
@@ -144,18 +189,14 @@ def viewActivity(request, context, id=''):
                 if currentPage == 0:
                     currentPage = 1
             page = request.GET.get('page', currentPage)
-            allActivityData = []
             try:
-                activityDatas = paginator.page(page)
+                activityData = paginator.page(page)
             except PageNotAnInteger:
-                activityDatas = paginator.page(currentPage)
+                activityData = paginator.page(currentPage)
             except EmptyPage:
-                activityDatas = paginator.page(paginator.num_pages)
-            #allActivityData.append(activityDatas)
-            #for activityData in activityDatas:
-
-            context['activityData'] = activityDatas
-
+                activityData = paginator.page(paginator.num_pages)
+            activityDatas = []
+            activityDatas.append(activityData)
             processData = []
             ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule.id_rule)
             for r in ruleHasProcess:
@@ -167,13 +208,18 @@ def viewActivity(request, context, id=''):
                     p.editable = 0
                     processData.append(p)
                 processData = list({p.name: p for p in processData}.values())
+
             processData = initChapterNo(processData)
             processData, prs = sortDataByChapterNo(processData)
             context['processData'] = processData
 
-
+            userActivities = Activity.objects.filter(Q(employee_id_employee__id_employee = context['userData'].id) & Q(rule_has_process_id_rule_has_process__rule_id_rule = rule.id_rule))
+            activityDatas = initActivityData(userActivities, processData, activityData, rule.data_type)
+            formActivityDatas = ActivityDataCounter(activityDatas)
+            context['activityData'] = formActivityDatas
         else:
             return redirect(REDIRECT_ACTIVITIES_URL)
+
     return render(request, RENDER_ACTIVITY_URL, context)
 
 #
@@ -187,13 +233,13 @@ def activitiesManager(request, id='', operation=''):
                 return updateActivities(request, context, int(id))
         else:
             return viewActivity(request, context, id)
-
+    else:
+        return redirect(REDIRECT_HOME_URL)
 
 def activitiesView(request, field='name', sort='0'):
     context = authUser(request)
     if context['account'] != 'GUEST':
         today = date.today()
-        #todayDate = today.strftime("%Y-%m-%d")
         ruleHasEmployees = RuleHasEmployee.objects.filter(Q(employee_id_employee=context['userData'].id))
         rules = []
         for ruleHasEmployee in ruleHasEmployees:
