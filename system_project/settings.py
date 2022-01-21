@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'smupapp.urls'
+ROOT_URLCONF = 'system_project.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'smupapp.wsgi.application'
+WSGI_APPLICATION = 'system_project.wsgi.application'
 
 
 # Database

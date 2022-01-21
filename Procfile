@@ -1,1 +1,1 @@
-web: gunicorn smupApp.wsgi
+web: gunicorn system_project.wsgi
