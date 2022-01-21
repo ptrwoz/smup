@@ -1,7 +1,6 @@
 django-heroku
 django
 gunicorn
-//Django==3.2.9
 natsort==8.0.1
 numpy==1.22.1
 openpyxl==3.0.9
