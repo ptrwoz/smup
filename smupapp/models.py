@@ -93,7 +93,7 @@ class DataType(models.Model):
     name = models.CharField(max_length=45, blank=True, null=True)
     class Meta:
         managed = False
-        db_table = 'smupapp_datayype'
+        db_table = 'smupapp_datatype'
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
