@@ -16,6 +16,9 @@ class Activity(models.Model):
     time_to = models.CharField(max_length=45, blank=True, null=True)
     rule_has_process_id_rule_has_process = models.ForeignKey('RuleHasProcess', models.DO_NOTHING, db_column='rule_has_process_id_rule_has_process')
     employee_id_employee = models.ForeignKey('Employee', models.DO_NOTHING, db_column='employee_id_employee')
+    class Meta:
+        managed = False
+        db_table = 'smupapp_activity'
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -88,7 +91,9 @@ class AuthUserUserPermissions(models.Model):
 class DataType(models.Model):
     id_data_type = models.AutoField(primary_key=True)
     name = models.CharField(max_length=45, blank=True, null=True)
-
+    class Meta:
+        managed = False
+        db_table = 'smupapp_datayype'
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -143,12 +148,17 @@ class Employee(models.Model):
     id_employeetype = models.ForeignKey('Employeetype', models.DO_NOTHING, db_column='id_employeetype')
     auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
+    class Meta:
+        managed = False
+        db_table = 'smupapp_employee'
 
 
 class Employeetype(models.Model):
     id_employeetype = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=64)
-
+    class Meta:
+        managed = False
+        db_table = 'smupapp_employeetype'
 
 class Process(models.Model):
     id_process = models.AutoField(primary_key=True)
@@ -156,7 +166,9 @@ class Process(models.Model):
     tip = models.TextField(blank=True, null=True)
     id_number = models.IntegerField()
     id_mainprocess = models.ForeignKey('self', models.DO_NOTHING, db_column='id_mainProcess', blank=True, null=True)  # Field name made lowercase.
-
+    class Meta:
+        managed = False
+        db_table = 'smupapp_process'
 
 
 class Rule(models.Model):
@@ -168,6 +180,9 @@ class Rule(models.Model):
     time_range = models.ForeignKey('TimeRange', models.DO_NOTHING)
     data_type = models.ForeignKey(DataType, models.DO_NOTHING)
     is_active = models.IntegerField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'smupapp_rule'
 
 
 
@@ -175,21 +190,30 @@ class RuleHasEmployee(models.Model):
     id_rule_has_employee = models.BigAutoField(primary_key=True)
     rule_id_rule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_id_rule')
     employee_id_employee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='employee_id_employee')
-
+    class Meta:
+        managed = False
+        db_table = 'smupapp_rulehasemployee'
 
 class RuleHasProcess(models.Model):
     process_id_process = models.ForeignKey(Process, models.DO_NOTHING, db_column='process_id_process')
     id_rule_has_process = models.BigAutoField(primary_key=True)
     rule_id_rule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_id_rule')
-
+    class Meta:
+        managed = False
+        db_table = 'smupapp_rulehasprocess'
 
 
 class TimeRange(models.Model):
     id_time_range = models.AutoField(primary_key=True)
     name = models.CharField(max_length=45, blank=True, null=True)
-
+    class Meta:
+        managed = False
+        db_table = 'smupapp_timerange'
 
 
 class Unit(models.Model):
     id_unit = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=256)
+    class Meta:
+        managed = False
+        db_table = 'smupapp_unit'

@@ -29,17 +29,19 @@ def password_check(passwd):
         print('Password should have at least one numeral')
         val = False
 
-    elif not any(char.isupper() for char in passwd):
+    '''elif not any(char.isupper() for char in passwd):
         print('Password should have at least one uppercase letter')
         val = False
+    
+    elif not any(char in SpecialSym for char in passwd):
+        print('Password should have at least one of the symbols $@#')
+        val = False
+    return val
 
     elif not any(char.islower() for char in passwd):
         print('Password should have at least one lowercase letter')
         val = False
-
-    elif not any(char in SpecialSym for char in passwd):
-        print('Password should have at least one of the symbols $@#')
-        val = False
+'''
     return val
 
 def getRoleToEdit(userRole):
@@ -111,9 +113,9 @@ def checkUserFromForm(request, isUpdated):
         authUser.username = login
         authUser.email = login
         authUser.password = password
-        authUser.is_superuser = False
-        authUser.is_staff = False
-        authUser.is_active = True
+        authUser.is_superuser = 0
+        authUser.is_staff = 0
+        authUser.is_active = 1
         authUser.date_joined = datetime.now()
     else:
         return None, None, u, MESSAGES_ROLE_ERROR
@@ -192,7 +194,8 @@ def saveUser(request, context, id =''):
         roles = Employeetype.objects.all()
         context['roles'] = roles
         return render(request, RENDER_USER_URL, context)
-    try:
+    if True:
+    #try:
         au = AuthUser.objects.filter(username=authUser.username)
         if au.exists():
             context['user'] = u
@@ -214,7 +217,7 @@ def saveUser(request, context, id =''):
         else:
             messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
             return render(request, RENDER_USER_URL, context)
-    except:
+    #except:
         context['user'] = u
         units = Unit.objects.all()
         context['units'] = units
