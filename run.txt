@@ -5,12 +5,12 @@ django-admin startproject model
 #
 python manage.py startapp
 #
-python manage.py inspectdb > app/models.py
+python manage.py inspectdb > smupApp/models.py
 #
-python manage.py makemigrations app
+python manage.py makemigrations smupApp (1)
 #
 python manage.py migrate auth
-python manage.py migrate
+python manage.py migrate (2)
 #
 python manage.py createsuperuser
 #
@@ -30,6 +30,16 @@ python manage.py inspectdb
 python manage.py collectstatic
 
 python manage.py dumpdata > db.json
+#
+python manage.py shell
+with open('db.json', 'rb') as f:
+    data = f.read()
+newdata = open('newdb.json', 'wb')
+newdata.write(data)
+newdata.close()
+exit()
+
+python manage.py loaddata newdb.json
 
 
 #init
