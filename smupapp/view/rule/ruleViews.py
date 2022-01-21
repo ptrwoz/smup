@@ -1,11 +1,11 @@
 from datetime import datetime
-from smupApp.models import Rule, TimeRange, DataType, Employee, Process, RuleHasProcess, Activity, RuleHasEmployee
-from smupApp.view.auth.auth import authUser
-from smupApp.view.process.processViews import initChapterNo, initAvailableProcess, checkChaptersNo, sortDataByChapterNo
-from smupApp.view.static.dataModels import RuleData
-from smupApp.view.static.messagesTexts import MESSAGES_ACTIVITYINRULE_ERROR, MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR
-from smupApp.view.static.staticValues import PAGEINATION_SIZE
-from smupApp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
+from smupapp.models import Rule, TimeRange, DataType, Employee, Process, RuleHasProcess, Activity, RuleHasEmployee
+from smupapp.view.auth.auth import authUser
+from smupapp.view.process.processViews import initChapterNo, initAvailableProcess, checkChaptersNo, sortDataByChapterNo
+from smupapp.view.static.dataModels import RuleData
+from smupapp.view.static.messagesTexts import MESSAGES_ACTIVITYINRULE_ERROR, MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR
+from smupapp.view.static.staticValues import PAGEINATION_SIZE
+from smupapp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
 from django.db.models import Q
 from django.contrib import messages
 from django.shortcuts import render, redirect

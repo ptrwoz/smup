@@ -1,6 +1,6 @@
-from smupApp.models import Employee
-from smupApp.view.static.dataModels import UserData
-from smupApp.view.static.staticValues import USER_LABEL, USER_ACCOUNT, USER_DATA, USER_GUEST
+from smupapp.models import Employee
+from smupapp.view.static.dataModels import UserData
+from smupapp.view.static.staticValues import USER_LABEL, USER_ACCOUNT, USER_DATA, USER_GUEST
 
 
 #

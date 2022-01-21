@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'smupApp.apps.AppConfig'
-    'smupApp'
+    #'smupapp.apps.AppConfig'
+    'smupapp'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'system_project.urls'
+ROOT_URLCONF = 'smupapp.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'system_project.wsgi.application'
+WSGI_APPLICATION = 'smupapp.wsgi.application'
 
 
 # Database

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from smupApp.view.auth.auth import authUser
-from smupApp.view.static.urls import RENDER_HOME_URL
+from smupapp.view.auth.auth import authUser
+from smupapp.view.static.urls import RENDER_HOME_URL
 
 #
 #   home page

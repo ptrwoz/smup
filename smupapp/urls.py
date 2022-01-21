@@ -1,13 +1,13 @@
-from smupApp.view.activity import activityViews
-from smupApp.view.auth import authViews
-from smupApp.view.importexport import importexportView
-from smupApp.view.main import mainViews
+from smupapp.view.activity import activityViews
+from smupapp.view.auth import authViews
+from smupapp.view.importexport import importexportView
+from smupapp.view.main import mainViews
 from django.urls import path
-from smupApp.view.process import processViews
-from smupApp.view.rule import ruleViews
-from smupApp.view.unit import unitViews
+from smupapp.view.process import processViews
+from smupapp.view.rule import ruleViews
+from smupapp.view.unit import unitViews
 
-from smupApp.view.user import userViews
+from smupapp.view.user import userViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 

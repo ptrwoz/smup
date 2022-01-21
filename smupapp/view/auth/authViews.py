@@ -1,11 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from smupApp.models import Employee
-from smupApp.view.auth.auth import authUser
-from smupApp.view.static.messagesTexts import MESSAGES_LOGIN_ERROR
-from smupApp.view.static.staticValues import USER_GUEST, USER_ACCOUNT, LOGIN_USERNAME, PASSWORD_USERNAME
-from smupApp.view.static.urls import RENDER_PROFIL_URL, REDIRECT_HOME_URL, RENDER_LOGIN_URL
+from smupapp.models import Employee
+from smupapp.view.auth.auth import authUser
+from smupapp.view.static.messagesTexts import MESSAGES_LOGIN_ERROR
+from smupapp.view.static.staticValues import USER_GUEST, USER_ACCOUNT, LOGIN_USERNAME, PASSWORD_USERNAME
+from smupapp.view.static.urls import RENDER_PROFIL_URL, REDIRECT_HOME_URL, RENDER_LOGIN_URL
 
 def profilUser(request):
     context = authUser(request)

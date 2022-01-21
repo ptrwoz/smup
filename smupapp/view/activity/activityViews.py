@@ -3,16 +3,16 @@ import numpy as np
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
-from smupApp.models import Employee, Rule, AuthUser, RuleHasEmployee, Activity, RuleHasProcess
-from smupApp.view.auth.auth import authUser
-from smupApp.view.process.processViews import initChapterNo, sortDataByChapterNo
-from smupApp.view.static.dataModels import DateInformation
-from smupApp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
-from smupApp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, RENDER_RULE_URL
+from smupapp.models import Employee, Rule, AuthUser, RuleHasEmployee, Activity, RuleHasProcess
+from smupapp.view.auth.auth import authUser
+from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo
+from smupapp.view.static.dataModels import DateInformation
+from smupapp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
+from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, RENDER_RULE_URL
 from django import template
 from datetime import date
 from django.db.models import Q
-from smupApp.view.user.userViews import getEmployeeToEdit
+from smupapp.view.user.userViews import getEmployeeToEdit
 
 class Segment:
     def __init__(self, start_date, end_date):

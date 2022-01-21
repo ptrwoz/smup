@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
-from smupApp.models import *
-from smupApp.view.auth.auth import authUser
-from smupApp.view.static.dataModels import UnitData
-from smupApp.view.static.messagesTexts import MESSAGES_ADD_ERROR, MESSAGES_NO_DATA, MESSAGES_OPERATION_SUCCESS, \
+from smupapp.models import *
+from smupapp.view.auth.auth import authUser
+from smupapp.view.static.dataModels import UnitData
+from smupapp.view.static.messagesTexts import MESSAGES_ADD_ERROR, MESSAGES_NO_DATA, MESSAGES_OPERATION_SUCCESS, \
     MESSAGES_DATA_EXISTS, MESSAGES_OPERATION_ERROR, MESSAGES_USERINUNIT_ERROR, MESSAGES_DATA_ERROR
-from smupApp.view.static.urls import REDIRECT_HOME_URL, RENDER_UNITS_URL, REDIRECT_UNITS_URL, RENDER_UNIT_URL
+from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_UNITS_URL, REDIRECT_UNITS_URL, RENDER_UNIT_URL
 
 #
 # delete Unit

@@ -150,7 +150,7 @@ class Migration(migrations.Migration):
                 ('id_employee', models.BigAutoField(primary_key=True, serialize=False)),
                 ('name', models.CharField(blank=True, max_length=256, null=True)),
                 ('surname', models.CharField(blank=True, max_length=256, null=True)),
-                ('auth_user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.authuser')),
+                ('auth_user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.authuser')),
             ],
         ),
         migrations.CreateModel(
@@ -167,7 +167,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=256)),
                 ('tip', models.TextField(blank=True, null=True)),
                 ('id_number', models.IntegerField()),
-                ('id_mainprocess', models.ForeignKey(blank=True, db_column='id_mainProcess', null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.process')),
+                ('id_mainprocess', models.ForeignKey(blank=True, db_column='id_mainProcess', null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.process')),
             ],
         ),
         migrations.CreateModel(
@@ -179,7 +179,7 @@ class Migration(migrations.Migration):
                 ('time_from', models.DateField()),
                 ('time_to', models.DateField()),
                 ('is_active', models.IntegerField(blank=True, null=True)),
-                ('data_type', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.datatype')),
+                ('data_type', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.datatype')),
             ],
         ),
         migrations.CreateModel(
@@ -200,32 +200,32 @@ class Migration(migrations.Migration):
             name='RuleHasProcess',
             fields=[
                 ('id_rule_has_process', models.BigAutoField(primary_key=True, serialize=False)),
-                ('process_id_process', models.ForeignKey(db_column='process_id_process', on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.process')),
-                ('rule_id_rule', models.ForeignKey(db_column='rule_id_rule', on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.rule')),
+                ('process_id_process', models.ForeignKey(db_column='process_id_process', on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.process')),
+                ('rule_id_rule', models.ForeignKey(db_column='rule_id_rule', on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.rule')),
             ],
         ),
         migrations.CreateModel(
             name='RuleHasEmployee',
             fields=[
                 ('id_rule_has_employee', models.BigAutoField(primary_key=True, serialize=False)),
-                ('employee_id_employee', models.ForeignKey(db_column='employee_id_employee', on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.employee')),
-                ('rule_id_rule', models.ForeignKey(db_column='rule_id_rule', on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.rule')),
+                ('employee_id_employee', models.ForeignKey(db_column='employee_id_employee', on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.employee')),
+                ('rule_id_rule', models.ForeignKey(db_column='rule_id_rule', on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.rule')),
             ],
         ),
         migrations.AddField(
             model_name='rule',
             name='time_range',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.timerange'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.timerange'),
         ),
         migrations.AddField(
             model_name='employee',
             name='id_employeetype',
-            field=models.ForeignKey(db_column='id_employeetype', on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.employeetype'),
+            field=models.ForeignKey(db_column='id_employeetype', on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.employeetype'),
         ),
         migrations.AddField(
             model_name='employee',
             name='id_unit',
-            field=models.ForeignKey(db_column='id_unit', on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.unit'),
+            field=models.ForeignKey(db_column='id_unit', on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.unit'),
         ),
         migrations.CreateModel(
             name='Activity',
@@ -235,8 +235,8 @@ class Migration(migrations.Migration):
                 ('time_add', models.DateTimeField(blank=True, null=True)),
                 ('time_from', models.DateField(blank=True, null=True)),
                 ('time_to', models.CharField(blank=True, max_length=45, null=True)),
-                ('employee_id_employee', models.ForeignKey(db_column='employee_id_employee', on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.employee')),
-                ('rule_has_process_id_rule_has_process', models.ForeignKey(db_column='rule_has_process_id_rule_has_process', on_delete=django.db.models.deletion.DO_NOTHING, to='smupApp.rulehasprocess')),
+                ('employee_id_employee', models.ForeignKey(db_column='employee_id_employee', on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.employee')),
+                ('rule_has_process_id_rule_has_process', models.ForeignKey(db_column='rule_has_process_id_rule_has_process', on_delete=django.db.models.deletion.DO_NOTHING, to='smupapp.rulehasprocess')),
             ],
         ),
     ]
