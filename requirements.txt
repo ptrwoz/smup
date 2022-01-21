@@ -4,6 +4,4 @@ numpy==1.22.1
 openpyxl==3.0.9
 pandas==1.2.4
 python_dateutil==2.8.2
-~penpyxl==3.0.7
-~umpy==1.19.5
 django-heroku
