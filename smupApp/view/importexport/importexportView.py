@@ -6,8 +6,8 @@ from django.core.files.storage import default_storage
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from openpyxl import load_workbook
-from app.models import *
-from app.view.process.processViews import initChapterNo, sortDataByChapterNo
+from smupApp.models import *
+from smupApp.view.process.processViews import initChapterNo, sortDataByChapterNo
 
 
 def color(row):

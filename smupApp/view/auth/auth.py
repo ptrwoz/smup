@@ -1,6 +1,6 @@
-from app.models import Employee
-from app.view.static.dataModels import UserData
-from app.view.static.staticValues import USER_LABEL, USER_ACCOUNT, USER_DATA, USER_GUEST
+from smupApp.models import Employee
+from smupApp.view.static.dataModels import UserData
+from smupApp.view.static.staticValues import USER_LABEL, USER_ACCOUNT, USER_DATA, USER_GUEST
 
 
 #
@@ -25,7 +25,19 @@ def authUser(request):
             context[USER_DATA] = userData
         else:
             context[USER_LABEL] = userName
-            context[USER_ACCOUNT] = USER_GUEST
+            if userName.username == 'admin':
+                userData.id = 0
+                userData.name = 'ADMIN'
+                userData.surname = 'ADMIN'
+                userData.unit = 'ADMIN'
+                userData.role = 'ADMIN'
+                userData.login = 'ADMIN'
+                context[USER_LABEL] = 'ADMIN'
+                context[USER_ACCOUNT] = 'ADMIN'
+                context[USER_DATA] = userData
+                context[USER_ACCOUNT] = str('ADMIN')
+            else:
+                context[USER_ACCOUNT] = USER_GUEST
     else:
         context[USER_ACCOUNT] = USER_GUEST
     return context

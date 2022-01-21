@@ -1,11 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from app.models import Employee
-from app.view.auth.auth import authUser
-from app.view.static.messagesTexts import MESSAGES_LOGIN_ERROR
-from app.view.static.staticValues import USER_GUEST, USER_ACCOUNT, LOGIN_USERNAME, PASSWORD_USERNAME
-from app.view.static.urls import RENDER_PROFIL_URL, REDIRECT_HOME_URL, RENDER_LOGIN_URL
+from smupApp.models import Employee
+from smupApp.view.auth.auth import authUser
+from smupApp.view.static.messagesTexts import MESSAGES_LOGIN_ERROR
+from smupApp.view.static.staticValues import USER_GUEST, USER_ACCOUNT, LOGIN_USERNAME, PASSWORD_USERNAME
+from smupApp.view.static.urls import RENDER_PROFIL_URL, REDIRECT_HOME_URL, RENDER_LOGIN_URL
 
 def profilUser(request):
     context = authUser(request)
@@ -38,6 +38,9 @@ def loginPage(request):
                     else:
                         messages.info(request, MESSAGES_LOGIN_ERROR)
                         return render(request, RENDER_LOGIN_URL, context)
+                else:
+                    login(request, user)
+                    return redirect(REDIRECT_HOME_URL)
             else:
                 messages.info(request, MESSAGES_LOGIN_ERROR)
                 return render(request, RENDER_LOGIN_URL, context)

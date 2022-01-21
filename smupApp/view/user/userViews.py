@@ -4,13 +4,13 @@ from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from app.models import Employee, Unit, Employeetype, AuthUser
-from app.view.auth.auth import authUser, UserData
-from app.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, \
+from smupApp.models import Employee, Unit, Employeetype, AuthUser
+from smupApp.view.auth.auth import authUser, UserData
+from smupApp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, \
     MESSAGES_DIFFPASSWORD_ERROR, MESSAGES_UNIT_ERROR, MESSAGES_ROLE_ERROR, MESSAGES_DUPLICATEUSER_ERROR, \
     MESSAGES_PASSWORD_ERROR
-from app.view.static.staticValues import USER_ACCOUNT, PAGEINATION_SIZE
-from app.view.static.urls import REDIRECT_HOME_URL, RENDER_USER_URL, REDIRECT_USERS_URL, REDIRECT_USER_URL, \
+from smupApp.view.static.staticValues import USER_ACCOUNT, PAGEINATION_SIZE
+from smupApp.view.static.urls import REDIRECT_HOME_URL, RENDER_USER_URL, REDIRECT_USERS_URL, REDIRECT_USER_URL, \
     RENDER_USERS_URL
 
 def password_check(passwd):

@@ -1,6 +1,8 @@
 # to run app
 python manage.py runserver 8080
 #
+django-admin startproject model
+#
 python manage.py startapp
 #
 python manage.py inspectdb > app/models.py
@@ -12,6 +14,7 @@ python manage.py migrate
 #
 python manage.py createsuperuser
 #
+#
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -22,5 +25,11 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+python manage.py inspectdb
 
 python manage.py collectstatic
+
+python manage.py dumpdata > db.json
+
+
+#init

@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from app.models import Process
-from app.view.auth.auth import authUser
+from smupApp.models import Process
+from smupApp.view.auth.auth import authUser
 from natsort import natsort
 from itertools import repeat
 from django.contrib import messages
 
-from app.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS
+from smupApp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS
 
 
 class ProcessData:

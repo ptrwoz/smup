@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app.apps.AppConfig'
+    #'smupApp.apps.AppConfig'
+    'smupApp'
 ]
 
 MIDDLEWARE = [
@@ -72,18 +73,37 @@ WSGI_APPLICATION = 'system_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
+
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dapa877tv09iv4',
+        'USER': 'fibcouwxttxmqd',
+        'PASSWORD': '370b8800d314cb56ee992c6434438ce55ea5983f7783590b5fa220d31d47cb26',
+        'HOST': 'ec2-54-195-76-73.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'system',
+        'NAME': 'system1',
         'USER': 'admin',
         'PASSWORD': 'Qwerty123!',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}'''
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
