@@ -87,8 +87,8 @@ WSGI_APPLICATION = 'system_project.wsgi.application'
         'HOST': 'ec2-3-227-15-75.compute-1.amazonaws.com',
         'PORT': '5432',
     }
-}
-DATABASES = {
+}'''
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'system1',

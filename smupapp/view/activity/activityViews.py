@@ -82,14 +82,22 @@ def formatFormData(rows):
     for r in range(1,len(rows),2):
         newRows.append(rows[r-1] + ':' + rows[r])
     return newRows
+
+def checkMaxValue(sumRows, max):
+    for sunRow in sumRows:
+        if float(sunRow.replace(':','.')) > max:
+            return False
+    return True
 def updateActivities(request, context, rule_id):
     cols = request.POST.getlist('col')
     rows = request.POST.getlist('row')
     rule = Rule.objects.filter(id_rule=rule_id)
+    sumRows = rows[-len(cols):]
     if rule.exists():
+        if not checkMaxValue(sumRows, rule[0].max):
+            return render(request, RENDER_ACTIVITY_URL, context)
         if rule[0].data_type.id_data_type == 1:
             rows = formatFormData(rows)
-
         ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule_id)
         colSize = int(len(rows) / len(cols))
         rows = np.array(rows)

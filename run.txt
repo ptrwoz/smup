@@ -44,3 +44,8 @@ python manage.py loaddata newsmup.json
 
 python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > data.json
 #init
+
+##
+
+python manage.py makemigrations smupapp
+python manage.py migrate

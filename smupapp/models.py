@@ -3,22 +3,10 @@
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-
-class Activity(models.Model):
-    id_activity = models.AutoField(primary_key=True)
-    value = models.FloatField()
-    time_add = models.DateTimeField(blank=True, null=True)
-    time_from = models.DateField(blank=True, null=True)
-    time_to = models.CharField(max_length=45, blank=True, null=True)
-    rule_has_process_id_rule_has_process = models.ForeignKey('RuleHasProcess', models.DO_NOTHING, db_column='rule_has_process_id_rule_has_process')
-    employee_id_employee = models.ForeignKey('Employee', models.DO_NOTHING, db_column='employee_id_employee')
-    class Meta:
-        managed = False
-        db_table = 'smupapp_activity'
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -92,7 +80,7 @@ class DataType(models.Model):
     id_data_type = models.AutoField(primary_key=True)
     name = models.CharField(max_length=45, blank=True, null=True)
     class Meta:
-        managed = False
+        
         db_table = 'smupapp_datatype'
 
 class DjangoAdminLog(models.Model):
@@ -139,6 +127,16 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
+class Activity(models.Model):
+    id_activity = models.AutoField(primary_key=True)
+    value = models.FloatField()
+    time_add = models.DateTimeField(blank=True, null=True)
+    time_from = models.DateField(blank=True, null=True)
+    time_to = models.CharField(max_length=45, blank=True, null=True)
+    rule_has_process_id_rule_has_process = models.ForeignKey('RuleHasProcess', models.DO_NOTHING, db_column='rule_has_process_id_rule_has_process')
+    employee_id_employee = models.ForeignKey('Employee', models.DO_NOTHING, db_column='employee_id_employee')
+    class Meta:
+        db_table = 'smupapp_activity'
 
 class Employee(models.Model):
     id_employee = models.BigAutoField(primary_key=True)
@@ -149,7 +147,6 @@ class Employee(models.Model):
     auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'smupapp_employee'
 
 
@@ -157,7 +154,6 @@ class Employeetype(models.Model):
     id_employeetype = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=64)
     class Meta:
-        managed = False
         db_table = 'smupapp_employeetype'
 
 class Process(models.Model):
@@ -167,7 +163,6 @@ class Process(models.Model):
     id_number = models.IntegerField()
     id_mainprocess = models.ForeignKey('self', models.DO_NOTHING, db_column='id_mainProcess', blank=True, null=True)  # Field name made lowercase.
     class Meta:
-        managed = False
         db_table = 'smupapp_process'
 
 
@@ -181,7 +176,6 @@ class Rule(models.Model):
     data_type = models.ForeignKey(DataType, models.DO_NOTHING)
     is_active = models.IntegerField(blank=True, null=True)
     class Meta:
-        managed = False
         db_table = 'smupapp_rule'
 
 
@@ -191,7 +185,6 @@ class RuleHasEmployee(models.Model):
     rule_id_rule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_id_rule')
     employee_id_employee = models.ForeignKey(Employee, models.DO_NOTHING, db_column='employee_id_employee')
     class Meta:
-        managed = False
         db_table = 'smupapp_rulehasemployee'
 
 class RuleHasProcess(models.Model):
@@ -199,7 +192,6 @@ class RuleHasProcess(models.Model):
     id_rule_has_process = models.BigAutoField(primary_key=True)
     rule_id_rule = models.ForeignKey(Rule, models.DO_NOTHING, db_column='rule_id_rule')
     class Meta:
-        managed = False
         db_table = 'smupapp_rulehasprocess'
 
 
@@ -207,7 +199,6 @@ class TimeRange(models.Model):
     id_time_range = models.AutoField(primary_key=True)
     name = models.CharField(max_length=45, blank=True, null=True)
     class Meta:
-        managed = False
         db_table = 'smupapp_timerange'
 
 
@@ -215,5 +206,4 @@ class Unit(models.Model):
     id_unit = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=256)
     class Meta:
-        managed = False
         db_table = 'smupapp_unit'
