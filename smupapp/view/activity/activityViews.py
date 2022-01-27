@@ -24,7 +24,7 @@ class Segment:
         else:
             return str(self.start_date) + ' - ' + str(self.end_date)
 
-def get_segments(start_date, end_date, interval_delta):
+def getSegments(start_date, end_date, interval_delta):
 
     today = date.today()
     curr_date = start_date
@@ -183,7 +183,7 @@ def viewActivity(request, context, id=''):
             rule.max = int(rules[0].max)
             context['ruleData'] = rule
 
-            segments, todayId = get_segments(start_date, end_date, getRelativedeltaFromDateType(rule.time_range))
+            segments, todayId = getSegments(start_date, end_date, getRelativedeltaFromDateType(rule.time_range))
             if todayId == -1:
                 context['today'] = ''
             else:

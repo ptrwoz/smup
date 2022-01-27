@@ -36,15 +36,8 @@
 
         $(document).ready(function(){
             $('input').on("input", function(self){
-                sumSubRows()
                 sumCols()
-                //var newElementId = getLastId() + 1;
-                //var realId = 1;
-                //trElement = $(event.target).parent().parent().parent('tr')
-                //thisId = trElement[0].cells[0].children[0].value;
-                //newElementId = newElementId.toString();
-                //console.log(trElement.next()[0].cells[0].children[0].value)
-                //subElements = getSubProcess(trElement);
+                sumSubCols()
             });
         });
 
@@ -62,56 +55,6 @@
 
         function addTimes(t0, t1) {
           return timeFromMins(timeToMins(t0) + timeToMins(t1));
-        }
-        function sumSubRows() {
-            mainRows = $('#mainProcessTabel tr')
-            sumRow = mainRows[mainRows.length - 1]
-            i = 3
-            dataType = 0
-            while(i < sumRow.cells.length) {
-                ch = mainRows[1].cells[i].children[0].children[0].children
-                if (ch.length > 1) {
-                    dataType = 1
-                    sum = "00:00"
-                }
-                else {
-                    dataType = 0
-                    sum = 0
-                }
-                for (var j = 1; j<mainRows.length - 1; j++) {
-
-                   if (dataType == 1) {
-                        c1 = mainRows[j].cells[i].children[0].children[0].children[0]
-                        c2 = mainRows[j].cells[i].children[0].children[0].children[1]
-                        if (c1.disabled)
-                            continue
-                        if (parseInt(c1.value) < 0) {
-                            var c1v = '0'
-                            c1.value = c1v
-                        }
-                        if (parseInt(c2.value) >= 60) {
-                            var c2v = '59'
-                            c2.value = c2v
-                        }
-                        if (parseInt(c2.value) < 0) {
-                            var c2v = '0'
-                            c2.value = c2v
-                        }
-                        if (c1.value.length > 0 && c2.value.length) {
-                            sum = addTimes(sum, c1.value + ':' + c2.value)
-                        }
-                   }
-                   else {
-                        v = mainRows[j].cells[i].children[0].children[0].children[0].value
-                        if (v.length > 0)
-                            sum = parseInt(v) + sum
-                   }
-                }
-                 sumRow.cells[i].children[0].children[0].children[0].value = sum.toString()
-
-                i = i + 1
-            }
-
         }
         function sumCols() {
             mainRows = $('#mainProcessTabel tr')
@@ -147,12 +90,25 @@
                             var c2v = '0'
                             c2.value = c2v
                         }
+                        if ((parseInt(c2.value) <= 0) && (parseInt(c1.value) <= 0)) {
+                            var c1v = '--'
+                            c1.value = c1v
+                            var c2v = '--'
+                            c2.value = c2v
+                        }
                         if (c1.value.length > 0 && c2.value.length) {
                             sum = addTimes(sum, c1.value + ':' + c2.value)
                         }
                    }
                    else {
-                        v = mainRows[j].cells[i].children[0].children[0].children[0].value
+                        c1 = mainRows[j].cells[i].children[0].children[0].children[0]
+                        if (parseInt(c1.value) <= 0) {
+                            var c1v = '--'
+                            c1.value = c1v
+                        }
+                        if (c1.disabled)
+                            continue
+                        v = c1.value
                         if (v.length > 0)
                             sum = parseInt(v) + sum
                    }
@@ -161,6 +117,82 @@
 
                 i = i + 1
             }
+
+        }
+        function sumSubCols() {
+            mainRows = $('#mainProcessTabel tr')
+            sumRow = mainRows[mainRows.length - 1]
+            i = 3
+            dataType = 0
+            while(i < sumRow.cells.length) {
+                for (var j = 1; j<mainRows.length - 1; j++)
+                {
+                    ch = mainRows[j].cells[i].children[0].children[0].children
+                    if (ch.length > 1) {
+                        dataType = 1
+                        sum = "00:00"
+                    }
+                    else {
+                        dataType = 0
+                        sum = 0
+                    }
+                    id1 = mainRows[j].cells[0].children[0].value
+                    if (!ch[0].disabled) {
+                        continue
+                    }
+                    for (var k = j + 1; k<mainRows.length - 1; k++)
+                    {
+                         id2 = mainRows[k].cells[0].children[0].value
+                         if (id2.indexOf(id1) == 0) {
+                             if (dataType == 1)
+                             {
+                                c1 = mainRows[k].cells[i].children[0].children[0].children[0]
+                                c2 = mainRows[k].cells[i].children[0].children[0].children[1]
+                                if (c1.disabled) {
+                                    continue
+                                }
+                                if (parseInt(c1.value) < 0) {
+                                    var c1v = '0'
+                                    c1.value = c1v
+                                }
+                                if (parseInt(c2.value) >= 60) {
+                                    var c2v = '59'
+                                    c2.value = c2v
+                                }
+                                if (parseInt(c2.value) < 0) {
+                                    var c2v = '0'
+                                    c2.value = c2v
+                                }
+                                if (c1.value.length > 0 && c2.value.length) {
+                                    sum = addTimes(sum, c1.value + ':' + c2.value)
+                                }
+                            }
+                            else {
+                                c1 = mainRows[k].cells[i].children[0].children[0].children[0]
+                                if (c1.disabled) {
+                                    continue
+                                }
+                                v = c1.value
+                                if (v.length > 0) {
+                                    sum = parseInt(v) + sum
+                                }
+                            }
+                         }
+                         else {
+                            break
+                         }
+                    }
+                    if (dataType == 1) {
+                        splitSum = sum.split(':')
+                        c1 = mainRows[j].cells[i].children[0].children[0].children[0].value = splitSum[0]
+                        c2 = mainRows[j].cells[i].children[0].children[0].children[1].value = splitSum[1]
+                    } else {
+                        c1 = mainRows[j].cells[i].children[0].children[0].children[0].value = sum
+                    }
+                }
+                i = i + 1
+            }
+
         }
 
         function getLastId() {
@@ -173,8 +205,8 @@
         }
 
         function styleRows(elements) {
-            sumSubRows()
             sumCols()
+            sumSubCols()
             for (var i = 1; i < elements.length - 1; i++) {
                 ii = elements[i].children[0].children[0].value.split('.').length
                 if (ii == 2) {
@@ -259,7 +291,7 @@
                             <th style="width: 30%" scope="col">Nazwa</th>
                             <th style="width: 3%" scope="col">Info.</th>
                             {% for i in activityData.currentActivityData %}
-                                <th {% if today == i %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center" name="col" value="{{i}}"></input></th>
+                            <th {% if today == i %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center" name="col" value="{{i}}"></input></th>
                             {% endfor %}
                         </tr>
                         {{ activityData.increment }}
@@ -285,10 +317,10 @@
                             {% for i in activityData.currentActivityData %}
                             <th {% if today == i.date %} class="table-primary" {% endif %} scope="col">
                                 <div class="btn-row">
-                                    <div class="btn-group" data-toggle="buttons">
-                                        <input value='{{i.firstValue}}' step=1 name="row" {% if process.editable == 0%}  disabled type="text" {% else %}  type="number" {% endif %} style="text-align:center" class="form-control"  min="0" max="999" placeholder="--">
+                                    <div class="btn-group w-100" data-toggle="buttons">
+                                        <input value='{{i.firstValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center" class="form-control"  type="number" min="0" max="999" placeholder="--">
                                         {% if ruleData.data_type.id_data_type == 1 %} :
-                                        <input value='{{i.secondValue}}' step=1 name="row" {% if process.editable == 0%}  disabled type="text" {% else %}  type="number" {% endif %} style="text-align:center" class="form-control" type="number" min="0" max="59" placeholder="--">
+                                        <input value='{{i.secondValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center" class="form-control" type="number" min="0" max="59" placeholder="--">
                                         {% endif %}
                                     </div>
                                 </div>

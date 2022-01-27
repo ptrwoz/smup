@@ -1,3 +1,7 @@
+#!/usr/bin/python
+#-*- coding: cp1250 -*- 
+import os, sys
+
 USER_LABEL = 'userLabel'
 USER_ACCOUNT = 'account'
 USER_DATA = 'userData'
@@ -8,8 +12,8 @@ USER_GUEST = 'GUEST'
 LOGIN_USERNAME = 'username'
 PASSWORD_USERNAME = 'password'
 #
-TIMERANGE_DAY = 'Dzien'
-TIMERANGE_WEEK = 'Tydzien'
-TIMERANGE_MONTH = 'Miesiac'
+TIMERANGE_DAY = 'Dzieñ'
+TIMERANGE_WEEK = 'Tydzieñ'
+TIMERANGE_MONTH = 'Miesi¹c'
 #
 PAGEINATION_SIZE = 10

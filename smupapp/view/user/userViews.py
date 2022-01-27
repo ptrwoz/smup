@@ -12,6 +12,8 @@ from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES
 from smupapp.view.static.staticValues import USER_ACCOUNT, PAGEINATION_SIZE
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_USER_URL, REDIRECT_USERS_URL, REDIRECT_USER_URL, \
     RENDER_USERS_URL
+from smupapp.view.unit.unitViews import getUnitsToEdit
+
 
 def password_check(passwd):
     SpecialSym = ['$', '@', '#', '%', '!', '*']
@@ -29,7 +31,7 @@ def password_check(passwd):
         print('Password should have at least one numeral')
         val = False
 
-    '''elif not any(char.isupper() for char in passwd):
+    elif not any(char.isupper() for char in passwd):
         print('Password should have at least one uppercase letter')
         val = False
     
@@ -38,10 +40,10 @@ def password_check(passwd):
         val = False
     return val
 
-    elif not any(char.islower() for char in passwd):
+    '''elif not any(char.islower() for char in passwd):
         print('Password should have at least one lowercase letter')
         val = False
-'''
+    '''
     return val
 
 def getRoleToEdit(userRole):
@@ -89,10 +91,12 @@ def checkUserFromForm(request, isUpdated):
     u.id_employeetype = Employeetype()
     u.id_employeetype.name = employeeType
     #
-    if len(name) <= 2 or len(surname) <= 2 or len(login) <= 2:
-        return None, None, u, MESSAGES_DATA_ERROR
     if password != password2:
         return None, None, u, MESSAGES_DIFFPASSWORD_ERROR
+    if len(name) <= 2 or len(surname) <= 2:
+        return None, None, u, MESSAGES_DATA_NAMESURNAME_ERROR
+    if len(login) <= 6:
+        return None, None, u, MESSAGES_DATA_LOGIN_ERROR
     if (len(password) == 0 and len(password2) == 0) and not isUpdated:
         return None, None, u, MESSAGES_PASSWORD_ERROR
     if not password_check(password) and not isUpdated:
@@ -189,7 +193,8 @@ def saveUser(request, context, id =''):
     if e is None:
         context['user'] = u
         messages.info(request, MESSAGE, extra_tags='error')
-        units = Unit.objects.all()
+        units = getUnitsToEdit(context[USER_ACCOUNT])
+        #units = Unit.objects.all()
         context['units'] = units
         roles = Employeetype.objects.all()
         context['roles'] = roles
@@ -199,7 +204,7 @@ def saveUser(request, context, id =''):
         au = AuthUser.objects.filter(username=authUser.username)
         if au.exists():
             context['user'] = u
-            units = Unit.objects.all()
+            units = getUnitsToEdit(context[USER_ACCOUNT])
             context['units'] = units
             roles = Employeetype.objects.all()
             context['roles'] = roles
@@ -231,7 +236,8 @@ def saveUser(request, context, id =''):
 def viewUser(request, context, id = 0, u = 0):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        units = Unit.objects.all().order_by('name')
+        #units = Unit.objects.all().order_by('name')
+        units = getUnitsToEdit(context[USER_ACCOUNT])
         context['units'] = units
 
         context['roles'] =  getRoleToEdit(context[USER_ACCOUNT])

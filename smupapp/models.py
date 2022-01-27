@@ -7,7 +7,6 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
@@ -205,5 +204,6 @@ class TimeRange(models.Model):
 class Unit(models.Model):
     id_unit = models.AutoField(primary_key=True)
     name = models.CharField(unique=True, max_length=256)
+    is_active = models.IntegerField(blank=True, null=True)
     class Meta:
         db_table = 'smupapp_unit'

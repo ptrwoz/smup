@@ -18,12 +18,22 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
         .row {
             margin-bottom: 10px;
         }
     </style>
     <script>
+        $(document).ready(function(){
+          $('[data-toggle="popover"]').popover(
+          {
+            html:true,
+           });
+        });
         function showPassword() {
           var x1 = document.getElementById("userPassword");
           var x2 = document.getElementById("userPassword2");
@@ -64,6 +74,7 @@
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
             <h1 class="fw-light">Dodaj użytkownika:</h1>
+            <p>Panel pozwala na dodanie użytkownika. Wypełnij formularz i wciśnij przycisk Zapisz. Przyciski informacji informują o poszczególnych danych.</p>
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
             {% for message in messages %}
@@ -79,25 +90,49 @@
             {% endfor %}
             <form id="userPage" id="submit" method="post"> {% csrf_token %}
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Login:</label>
-                    <div class="col-sm-10">
-                        <input type="text"  class="form-control" type="text" name='userLogin' placeholder="Login" id="userLogin" value="{{user.login}}">
+                    <div class="col-sm-2">
+                        <label for="text" class="col-sm-2 col-form-label">Login:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="Unikalny login użytkownika" class="input-group-text btn btn-primary" id="btnGroupAddon1">&#8203;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="bottom" title="tekst">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <input type="text"  class="form-control" type="text" name='userLogin' placeholder="Login" id="userLogin" value="{{user.login}}">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Hasło:</label>
-                    <div class="col-sm-10">
-                        <div class="input-group flex-nowrap">
+                    <div class="col-sm-2">
+                        <label for="text" class="col-sm-2 col-form-label">Hasło:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="Hasło:<p>-powinno mieć wiecej niż 5 oraz mniej niż 20 znaków</p><p>-powinno zawierać co najmniej jedną cyfrę</p><p>-powinno zawierać co najmniej jedną wielką literę</p><p>-powinno zawierać przynajmniej jeden z symboli $@#%!* </p>" class="input-group-text btn btn-primary" id="btnGroupAddon2">&#8203;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="bottom" title="tekst">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
                             <input type="password" class="form-control" name='userPassword' autocomplete="off" placeholder="Password" id="userPassword" value="{{user.password}}" readonly onfocus="this.removeAttribute('readonly');">
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Hasło (powtórz):</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-2">
+                        <label for="text" class="col-sm-2 col-form-label">Hasło (powtórz):</label>
+                    </div>
+                    <div class="col-sm-8">
                         <div class="input-group flex-nowrap">
-                                <input type="password" class="form-control rounded-right" name='userPassword2' autocomplete="off" placeholder="Password" id="userPassword2" value="{{user.password}}"  readonly onfocus="this.removeAttribute('readonly');">
-                                <span class="input-group-text" id="basic-addon2" onclick="showPassword()">
+                            <input type="password" class="form-control rounded-right" name='userPassword2' autocomplete="off" placeholder="Password" id="userPassword2" value="{{user.password}}"  readonly onfocus="this.removeAttribute('readonly');">
+                            <span class="input-group-text" id="basic-addon2" onclick="showPassword()">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                     <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
                                     <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
@@ -107,36 +142,69 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Imię:</label>
-                    <div class="col-sm-10">
-                        <input type="text"  class="form-control" type="text" name='userName' placeholder="Imię" id="userName" value="{{user.name}}">
+                    <div class="col-sm-2">
+                        <label for="text" class="col-sm-2 col-form-label">Imię:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group flex-nowrap">
+                            <input type="text"  class="form-control" type="text" name='userName' placeholder="Imię" id="userName" value="{{user.name}}">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Nazwisko:</label>
-                    <div class="col-sm-10">
-                        <input type="text"  class="form-control" type="text" name='userSurname' placeholder="Nazwisko" id="userSurname" value="{{user.surname}}">
+                    <div class="col-sm-2">
+                        <label for="text" class="col-sm-2 col-form-label">Nazwisko:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group flex-nowrap">
+                            <input type="text"  class="form-control" type="text" name='userSurname' placeholder="Nazwisko" id="userSurname" value="{{user.surname}}">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Jednostka:</label>
-                    <div class="col-sm-10">
-                        <select class="form-select" name="unitValue" aria-label="Default select example">
-                            {% for u in units %}
-                            <option value="{{u.name}}"{% if u.name == user.id_unit.name %} selected{% endif %}>{{u.name}}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="col-sm-2">
+                        <label for="text" class="col-sm-2 col-form-label">Jednostka:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group flex-nowrap">
+                             <div class="input-group-prepend">
+                                <div data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="Jednostka, w ramach której pracownik będzie wprowadzał dane" class="input-group-text btn btn-primary" id="btnGroupAddon2">&#8203;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="bottom" title="tekst">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <select class="form-select" name="unitValue" aria-label="Default select example">
+                                {% for u in units %}
+                                <option value="{{u.name}}"{% if u.name == user.id_unit.name %} selected{% endif %}>{{u.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="text" class="col-sm-2 col-form-label">Typ konta:</label>
-                    <div class="col-sm-10">
-                        <select class="form-select" name="roleValue" aria-label="Default select example">
-                            {% for r in roles %}
-                            <option value="{{r.name}}"{% if r.name == user.id_employeetype.name %} selected{% endif %}>{{r.name}}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="col-sm-2">
+                        <label for="text" class="col-sm-2 col-form-label">Typ konta:</label>
                     </div>
+                    <div class="col-sm-8">
+                        <div class="input-group flex-nowrap">
+                             <div class="input-group-prepend">
+                                <div data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="Typ konta na podstawie, którego przyznane są funkcje w aplikacji" class="input-group-text btn btn-primary" id="btnGroupAddon7">&#8203;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="bottom" title="tekst">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <select class="form-select" name="roleValue" aria-label="Default select example">
+                                {% for r in roles %}
+                                <option value="{{r.name}}"{% if r.name == user.id_employeetype.name %} selected{% endif %}>{{r.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
                 <div>
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
