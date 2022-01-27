@@ -206,8 +206,9 @@ def viewActivity(request, context, id=''):
                 activityData = paginator.page(currentPage)
             except EmptyPage:
                 activityData = paginator.page(paginator.num_pages)
+            context['activityPaginator'] = activityData
             activityDatas = []
-            activityDatas.append(activityData)
+            activityDatas.append(activityData.object_list)
             processData = []
             ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule.id_rule)
             for r in ruleHasProcess:
@@ -228,6 +229,7 @@ def viewActivity(request, context, id=''):
             activityDatas = initActivityData(userActivities, processData, activityData, rule.data_type)
             formActivityDatas = ActivityDataCounter(activityDatas)
             context['activityData'] = formActivityDatas
+
         else:
             return redirect(REDIRECT_ACTIVITIES_URL)
 

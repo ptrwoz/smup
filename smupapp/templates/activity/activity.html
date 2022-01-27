@@ -356,23 +356,23 @@
                         </tbody>
                     </table>
                 </div>
-                {% if activityData.has_other_pages %}
+                {% if activityPaginator.has_other_pages %}
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        {% if activityData.has_previous %}
-                        <li class="page-item"><a class="btn btn-primary" href="?page={{ activityData.previous_page_number }}">Poprzednia</a></li>
+                        {% if activityPaginator.has_previous %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ activityPaginator.previous_page_number }}">Poprzednia</a></li>
                         {% else %}
                         <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
                         {% endif %}
-                        {% for i in activityData.paginator.page_range %}
-                        {% if activityData.number == i %}
+                        {% for i in activityPaginator.paginator.page_range %}
+                        {% if activityPaginator.number == i %}
                         <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
                         {% else %}
                         <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                         {% endif %}
                         {% endfor %}
-                        {% if activityData.has_next %}
-                        <li class="page-item"><a class="btn btn-primary" href="?page={{ activityData.next_page_number }}">Następna</a></li>
+                        {% if activityPaginator.has_next %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ activityPaginator.next_page_number }}">Następna</a></li>
                         {% else %}
                         <li class="page-item"><a class="btn btn-light">Następna</a></li>
                         {% endif %}
