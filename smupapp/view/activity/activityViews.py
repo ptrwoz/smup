@@ -43,39 +43,35 @@ def getSegments(start_date, end_date, interval_delta):
         ii = ii + 1
     return segments, todayId
 
-def activityExist(user, ruleHasProcess, timeFrom, timeTo, value):
+def activityExist(user, ruleHasProcess, timeFrom, timeTo):
     activities = Activity.objects.filter(Q(rule_has_process_id_rule_has_process_id = ruleHasProcess.id_rule_has_process) & Q(employee_id_employee__id_employee = user.id) & Q(time_from = timeFrom) & Q(time_to = timeTo))
     if activities.exists():
-        #if activities[0].value == value
-        return True
+        return True, activities[0]
     else:
-        return False
+        return False, None
 
 def saveActivity(request, rule, ruleHasProcess, value, activityDate):
     context = authUser(request)
     if context['account'] != 'GUEST':
         user = context['userData']
         employees = Employee.objects.filter(id_employee = user.id)
-        if employees.exists()  and rule.exists() and len(value) > 0:
-            rule = rule[0]
-            if rule.data_type.id_data_type == 1:
-                value = float(value.replace(':','.'))
+        if employees.exists()  and rule.exists():
             dateParts = activityDate.split(' - ')
-            if not activityExist(user, ruleHasProcess, dateParts[0], dateParts[1] if len(dateParts) > 1 else dateParts[0], value):
+            exist, activity = activityExist(user, ruleHasProcess, dateParts[0], dateParts[1] if len(dateParts) > 1 else dateParts[0])
+            if not exist and len(value) > 0:
                 activity = Activity()
                 activity.time_from = dateParts[0]
-
                 activity.time_to = dateParts[1] if len(dateParts) > 1 else dateParts[0]
-
-                '''if rule.data_type.id_data_type == 1:
-                    activity.time_to = dateParts[0]
-                else:
-                    activity.time_to = dateParts[1]'''
                 activity.value = value
                 activity.time_add = date.today()
                 activity.employee_id_employee = employees[0]
                 activity.rule_has_process_id_rule_has_process = ruleHasProcess
                 activity.save()
+            if exist and len(value) > 0:
+                activity.value = value
+                activity.save()
+            if exist and len(value) == 0:
+                activity.delete()
         else:
             return None
     else:
@@ -84,7 +80,10 @@ def saveActivity(request, rule, ruleHasProcess, value, activityDate):
 def formatFormData(rows):
     newRows = []
     for r in range(1,len(rows),2):
-        newRows.append(rows[r-1] + ':' + rows[r])
+        if(len(rows[r-1])>0 and len(rows[r]) >0):
+            newRows.append(rows[r-1] + '.' + rows[r])
+        else:
+            newRows.append('')
     return newRows
 
 def checkMaxValue(sumRows, max):
@@ -97,20 +96,22 @@ def updateActivities(request, context, rule_id):
     rows = request.POST.getlist('row')
     rule = Rule.objects.filter(id_rule=rule_id)
     sumRows = rows[-len(cols):]
+    rows = rows[0:len(rows)-len(cols)]
     if rule.exists():
         #if not checkMaxValue(sumRows, rule[0].max):
         #    return render(request, RENDER_ACTIVITY_URL, context)
         if rule[0].data_type.id_data_type == 1:
             rows = formatFormData(rows)
         ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule_id)
-        colSize = int(len(rows) / len(cols))
+
+        colSize = int(len(rows) / (len(cols)))
         rows = np.array(rows)
         rows = np.transpose(rows)
         rows = rows.reshape((colSize, len(cols)))
         for x in range(len(cols)):
             for y in range(0,colSize - 1):
-                if len(rows[y,x]) > 0:
-                    saveActivity(request, rule, ruleHasProcess[y], rows[y, x], cols[x])
+                #if len(rows[y,x]) > 0:
+                saveActivity(request, rule, ruleHasProcess[y], rows[y, x], cols[x])
         return viewActivity(request, context, id=str(rule_id))
         #return render(request, RENDER_ACTIVITY_URL, context)
     else:
