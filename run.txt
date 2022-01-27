@@ -49,3 +49,6 @@ python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=
 
 python manage.py makemigrations smupapp
 python manage.py migrate
+
+# heroku
+git push heroku master

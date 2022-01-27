@@ -121,7 +121,7 @@ def getRelativedeltaFromDateType(timeRange):
 
 def getPagesFromDateType(timeRange):
     if timeRange.name == TIMERANGE_DAY:
-        return 7
+        return 5
     elif timeRange.name == TIMERANGE_WEEK:
         return 5
     elif timeRange.name == TIMERANGE_MONTH:
@@ -158,7 +158,10 @@ def initActivityData(userActivities, processData, activityDatas, data_type):
         cNewActivityData = []
         for activityData in activityDatas:
             splitedActivityData = activityData.split(' - ')
-            activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) &Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[1]))
+            if len(splitedActivityData) == 1:
+                activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[0]))
+            else:
+                activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) &Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[1]))
             if activity.exists():
                 if data_type.id_data_type == 1:
                     hmData = str(activity[0].value).split('.')
