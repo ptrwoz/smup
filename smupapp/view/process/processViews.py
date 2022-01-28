@@ -14,7 +14,7 @@ class ProcessData:
     name = ""
     tip = ""
     def __init__(self,no, id, name, tip):
-        self.no = no
+        self.number = no
         self.id = id
         self.name = name
         self.tip = tip
@@ -31,7 +31,7 @@ def sortDataByChapterNo(processData):
     idx = []
     processes = []
     for p in processData:
-        idx.append(p.no)
+        idx.append(p.number)
     nIdx = natsort.natsorted(idx)
     for i in nIdx:
         processes.append(processData[idx.index(i)])
@@ -55,7 +55,7 @@ def initChapterNo(processData):
         while sp is not None:
             no = no + '.' + str(sp.id_number)
             sp = sp.id_mainprocess
-        p.no = no[::-1]
+        p.number = no[::-1]
         id = id +1
         p.id = id
     return processData
@@ -117,22 +117,25 @@ def saveProcess(request, context):
         ii = 0
         for pp in processes:
             pno = getChapterNoFromProcess(pp)
-            if (pno == prs[i].no):
+            if (pno == prs[i].number):
                 pp.tip = prs[i].tip
                 pp.name = prs[i].name
                 pp.order = i
+                pp.number = prs[i].number
                 pp.save()
                 changeFlag = True
                 existId[ii] = 1
                 break
-            elif len(prs[i].no) > 2 and pno == getPrevChapterNo(prs[i].no):
+            elif len(prs[i].number) > 2 and pno == getPrevChapterNo(prs[i].number):
                 partner = pp
             ii = ii + 1
         if not changeFlag:
             np = Process()
-            np.id_number = prs[i].no.split('.')[-2]
+            np.id_number = prs[i].number.split('.')[-2]
             np.tip = prs[i].tip
             np.name = prs[i].name
+            np.order = i
+            pp.number = prs[i].number
             np.id_mainprocess = partner
             np.save()
             processes = Process.objects.all()
@@ -151,11 +154,11 @@ def processView(request):
             return saveProcess(request, context)
         else:
             processData = Process.objects.all().order_by('order')
-            processData = initChapterNo(processData)
+            #processData = initChapterNo(processData)
             #processData, prs = sortDataByChapterNo(processData)
             #processData = initLevelChaptersNo(processData)
-            if checkChaptersNo(processData) == False:
-                print()
+            #if checkChaptersNo(processData) == False:
+            #    print()
             context['processData'] = processData
             return render(request, 'process/process.html', context)
     else:

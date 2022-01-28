@@ -10,6 +10,7 @@ from smupapp.view.static.dataModels import DateInformation
 from smupapp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, RENDER_RULE_URL
 from django import template
+import math
 from datetime import date
 from django.db.models import Q
 from smupapp.view.user.userViews import getEmployeeToEdit
@@ -204,7 +205,8 @@ def viewActivity(request, context, id=''):
                 currentPage = 1
             else:
                 i = (todayId - 1)
-                currentPage = i % (paginator.num_pages)
+
+                currentPage = math.ceil(i / (paginator.num_pages - 1))
                 if currentPage == 0:
                     currentPage = 1
             page = request.GET.get('page', currentPage)
@@ -218,19 +220,22 @@ def viewActivity(request, context, id=''):
             activityDatas = []
             activityDatas.append(activityData.object_list)
             processData = []
-            ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule.id_rule)
+            ruleHasProcess = RuleHasProcess.objects.filter(Q(rule_id_rule=rule.id_rule)).order_by('process_id_process__order')
+
             for r in ruleHasProcess:
                 p = r.process_id_process
                 p.editable = 1
                 processData.append(p)
-                while p.id_mainprocess != None:
+                while p.id_mainprocess != None :
+                    if processData[-1].number.find(p.number) == 0:
+                        break
                     p = p.id_mainprocess
                     p.editable = 0
                     processData.append(p)
-                processData = list({p.name: p for p in processData}.values())
+            processData = list({p.name: p for p in processData}.values())
             #processData.order_by('order')
-            processData = initChapterNo(processData)
-            processData, prs = sortDataByChapterNo(processData)
+            #processData = initChapterNo(processData)
+            #processData, prs = sortDataByChapterNo(processData)
             context['processData'] = processData
 
             userActivities = Activity.objects.filter(Q(employee_id_employee__id_employee = context['userData'].id) & Q(rule_has_process_id_rule_has_process__rule_id_rule = rule.id_rule))

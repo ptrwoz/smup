@@ -51,10 +51,10 @@ def showRule(request, context, id=''):
     context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         context, processData, processes, prs, employeesData = initContext(context)
-        if not checkChaptersNo(prs):
-            return viewRule(request, context, id)
-        if id == '':
-            return render(request, RENDER_RULE_URL, context)
+        #if not checkChaptersNo(prs):
+        return viewRule(request, context, id)
+        #if id == '':
+        #    return render(request, RENDER_RULE_URL, context)
 
 def initProcessData(processData, static, id = ''):
     checkedProcessData = []
@@ -95,8 +95,8 @@ def viewRule(request, context, id='', static=False):
     context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         context, processData, processes, prs, employeesData = initContext(context)
-        if not checkChaptersNo(prs):
-            return viewRule(request, context, id)
+        #if not checkChaptersNo(prs):
+        #    return viewRule(request, context, id)
         if id == '':
             return render(request, RENDER_RULE_URL, context)
         elif id.isnumeric():
