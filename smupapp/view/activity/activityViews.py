@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from smupapp.models import Employee, Rule, AuthUser, RuleHasEmployee, Activity, RuleHasProcess
 from smupapp.view.auth.auth import authUser
-from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo
+from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo, sortDataByOrder
 from smupapp.view.static.dataModels import DateInformation
 from smupapp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, RENDER_RULE_URL
@@ -226,16 +226,17 @@ def viewActivity(request, context, id=''):
                 p = r.process_id_process
                 p.editable = 1
                 processData.append(p)
-                while p.id_mainprocess != None :
-                    if processData[-1].number.find(p.number) == 0:
-                        break
+                while p.id_mainprocess != None:
+                    #and (not processData[-1].number.find(p.number) == 0)
                     p = p.id_mainprocess
+                    #if processData[-1].number.find(p.number) == 0:
+                    #    break
                     p.editable = 0
                     processData.append(p)
             processData = list({p.name: p for p in processData}.values())
             #processData.order_by('order')
             #processData = initChapterNo(processData)
-            #processData, prs = sortDataByChapterNo(processData)
+            processData, prs = sortDataByOrder(processData)
             context['processData'] = processData
 
             userActivities = Activity.objects.filter(Q(employee_id_employee__id_employee = context['userData'].id) & Q(rule_has_process_id_rule_has_process__rule_id_rule = rule.id_rule))

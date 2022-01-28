@@ -36,7 +36,15 @@ def sortDataByChapterNo(processData):
     for i in nIdx:
         processes.append(processData[idx.index(i)])
     return processes, nIdx
-
+def sortDataByOrder(processData):
+    idx = []
+    processes = []
+    for p in processData:
+        idx.append(p.order)
+    nIdx = natsort.natsorted(idx)
+    for i in nIdx:
+        processes.append(processData[idx.index(i)])
+    return processes, nIdx
 def getChapterNoFromProcess(process):
     no = ''
     while True:
