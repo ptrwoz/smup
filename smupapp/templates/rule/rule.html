@@ -293,11 +293,11 @@
                         </div>
                     </div>
                     <div>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                        <h5 class="modal-title" id="saveModalLabel">Zapis</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -306,6 +306,23 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
                                         <button type="submit" class="btn btn-success">Tak</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="clearDataModal" tabindex="-1" aria-labelledby="clearDataModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="clearDataModalLabel">Usuń Dane</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Czy na pewno chcesz wykonać operację?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
+                                        <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/clear">Tak</a>
                                     </div>
                                 </div>
                             </div>
@@ -371,7 +388,8 @@
                             </div>
                         </div>
                         <form>
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success btn-lg">Zapisz</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#saveModal" class="btn btn-success btn-lg">Zapisz</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#clearDataModal" class="btn btn-danger btn-lg">Usuń dane</button>
                             <a class="btn btn-secondary btn-lg" href="../rules">Wróć</a>
                         </form>
 

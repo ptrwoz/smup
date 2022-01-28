@@ -3,7 +3,8 @@ from smupapp.models import Rule, TimeRange, DataType, Employee, Process, RuleHas
 from smupapp.view.auth.auth import authUser
 from smupapp.view.process.processViews import initChapterNo, initAvailableProcess, checkChaptersNo, sortDataByChapterNo
 from smupapp.view.static.dataModels import RuleData
-from smupapp.view.static.messagesTexts import MESSAGES_ACTIVITYINRULE_ERROR, MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR
+from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, \
+    MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, MESSAGES_ACTIVITY_IN_RULE_ERROR
 from smupapp.view.static.staticValues import PAGEINATION_SIZE
 from smupapp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
 from django.db.models import Q
@@ -133,9 +134,8 @@ def deleteRule(request, context, id=''):
         try:
             ruleHasProcessSet = RuleHasProcess.objects.filter(rule_id_rule=rules[0].id_rule)
             if existRuleActivity(rules[0]):
-                messages.info(request, MESSAGES_ACTIVITYINRULE_ERROR, extra_tags='error')
+                messages.info(request, MESSAGES_ACTIVITY_IN_RULE_ERROR, extra_tags='error')
                 return redirect(REDIRECT_RULES_URL)
-
             '''for ruleHasProcess in ruleHasProcessSet:
                 activities = Activity.objects.filter(rule_has_process_id_rule_has_process=ruleHasProcess.id_rule_has_process)
                 if(len(activities) > 0):
@@ -265,16 +265,15 @@ def existRuleActivity(rule):
 def updateRule(request, context, id=''):
 
     rules = Rule.objects.filter(id_rule=id)
-    if rules.exists():
-        try:
-            if existRuleActivity(rules[0]):
-                messages.info(request, MESSAGES_ACTIVITYINRULE_ERROR, extra_tags='error')
-                return redirect(REDIRECT_RULES_URL)
-        except:
-            messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-            return redirect(REDIRECT_RULES_URL)
+    if not rules.exists():
+        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+        return redirect(REDIRECT_RULES_URL)
 
     rule, me = checkRuleFromForm(request, rules[0])
+    if existRuleActivity(rule):
+        messages.info(request, MESSAGES_ACTIVITY_IN_RULE_ERROR, extra_tags='error')
+        context['rule'] = rule
+        return viewRule(request, context, id, False)
     if me != None:
         messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
         context['rule'] = rule
@@ -380,6 +379,9 @@ def rulesView(request):
         return render(request, RENDER_RULES_URL, context)
     else:
         return redirect(REDIRECT_HOME_URL)
+
+#def ruleClearData(request, id=''):
+
 
 #
 #   user change active

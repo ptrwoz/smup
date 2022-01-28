@@ -2,7 +2,6 @@ from smupapp.models import Employee
 from smupapp.view.static.dataModels import UserData
 from smupapp.view.static.staticValues import USER_LABEL, USER_ACCOUNT, USER_DATA, USER_GUEST
 
-
 #
 # auth user function
 #
