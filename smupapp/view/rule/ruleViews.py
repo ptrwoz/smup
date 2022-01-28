@@ -40,12 +40,12 @@ def initContext(context):
     context['employeesData'] = employeesData
     context['dataType'] = DataType.objects.all()
     context['timeRange'] = TimeRange.objects.all()
-    processes = Process.objects.all()
+    processes = Process.objects.all().order_by('order')
     processData = initChapterNo(processes)
     processData = initAvailableProcess(processData)
-    processData, prs = sortDataByChapterNo(processData)
+    #processData, prs = sortDataByChapterNo(processData)
     context['processData'] = processData
-    return context, processData, processes, prs, employeesData
+    return context, processData, processes, processData, employeesData
 
 def showRule(request, context, id=''):
     context['rule'] = RuleData()

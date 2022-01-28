@@ -161,6 +161,7 @@ class Process(models.Model):
     tip = models.TextField(blank=True, null=True)
     id_number = models.IntegerField()
     id_mainprocess = models.ForeignKey('self', models.DO_NOTHING, db_column='id_mainProcess', blank=True, null=True)  # Field name made lowercase.
+    order = models.IntegerField(default=-1)
     class Meta:
         db_table = 'smupapp_process'
 

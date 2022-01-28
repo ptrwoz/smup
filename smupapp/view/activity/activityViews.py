@@ -102,14 +102,15 @@ def updateActivities(request, context, rule_id):
         #    return render(request, RENDER_ACTIVITY_URL, context)
         if rule[0].data_type.id_data_type == 1:
             rows = formatFormData(rows)
-        ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule=rule_id)
+            #& ~Q(process_id_process__id_mainprocess=None)
+        ruleHasProcess = RuleHasProcess.objects.filter(Q(rule_id_rule=rule_id) ).order_by("process_id_process__order")
 
         colSize = int(len(rows) / (len(cols)))
         rows = np.array(rows)
-        rows = np.transpose(rows)
+        #rows = np.transpose(rows)
         rows = rows.reshape((colSize, len(cols)))
         for x in range(len(cols)):
-            for y in range(0,colSize - 1):
+            for y in range(0,colSize):
                 #if len(rows[y,x]) > 0:
                 saveActivity(request, rule, ruleHasProcess[y], rows[y, x], cols[x])
         return viewActivity(request, context, id=str(rule_id))
@@ -227,7 +228,7 @@ def viewActivity(request, context, id=''):
                     p.editable = 0
                     processData.append(p)
                 processData = list({p.name: p for p in processData}.values())
-
+            #processData.order_by('order')
             processData = initChapterNo(processData)
             processData, prs = sortDataByChapterNo(processData)
             context['processData'] = processData

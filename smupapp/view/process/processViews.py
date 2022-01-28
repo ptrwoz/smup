@@ -108,6 +108,8 @@ def saveProcess(request, context):
         context['processData'] = prs
         return render(request, 'process/process.html', context)
     processes = Process.objects.all()
+    processData = initChapterNo(processes)
+    prs, prs_ids = sortDataByChapterNo(processData)
     existId = list(repeat(0, len(processes)))
     for i in range(0, len(prs)):
         partner = None
@@ -118,6 +120,7 @@ def saveProcess(request, context):
             if (pno == prs[i].no):
                 pp.tip = prs[i].tip
                 pp.name = prs[i].name
+                pp.order = i
                 pp.save()
                 changeFlag = True
                 existId[ii] = 1
@@ -147,11 +150,11 @@ def processView(request):
         if request.method == 'POST':
             return saveProcess(request, context)
         else:
-            processData = Process.objects.all()
+            processData = Process.objects.all().order_by('order')
             processData = initChapterNo(processData)
-            processData, prs = sortDataByChapterNo(processData)
+            #processData, prs = sortDataByChapterNo(processData)
             #processData = initLevelChaptersNo(processData)
-            if checkChaptersNo(prs) == False:
+            if checkChaptersNo(processData) == False:
                 print()
             context['processData'] = processData
             return render(request, 'process/process.html', context)
