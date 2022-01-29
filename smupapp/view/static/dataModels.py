@@ -25,6 +25,7 @@ class UserData:
     pass
 
 class RuleData():
+    id_rule = None
     name = ""
     max = ""
     pass

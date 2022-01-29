@@ -192,7 +192,8 @@ def viewActivity(request, context, id=''):
             rule = rules[0]
             start_date = rule.time_from
             end_date = rule.time_to
-            rule.max = int(rules[0].max)
+            if rule.max != None:
+                rule.max = int(rule.max)
             context['ruleData'] = rule
 
             segments, todayId = getSegments(start_date, end_date, getRelativedeltaFromDateType(rule.time_range))
@@ -204,10 +205,10 @@ def viewActivity(request, context, id=''):
             if todayId == -1 or paginator.num_pages == 1:
                 currentPage = 1
             else:
-                i = (todayId - 1)
+                i = (todayId)
 
-                currentPage = math.ceil(i / (paginator.num_pages - 1))
-                if currentPage == 0:
+                currentPage = math.ceil((i / len(segments)) * paginator.num_pages)
+                if currentPage == 1:
                     currentPage = 1
             page = request.GET.get('page', currentPage)
             try:

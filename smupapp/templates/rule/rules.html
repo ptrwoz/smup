@@ -35,103 +35,132 @@
                 <a class="btn btn-success " href="login">Zaloguj się</a>
             </div>
             {% else %}
-                <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
-                <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
-                <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
-                <a class="btn  btn-success" href="logout">Wyloguj</a>
+            <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
+            <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
+            <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
+            <a class="btn  btn-success" href="logout">Wyloguj</a>
             {% endif %}
         </nav>
     </div>
     <section class="text-center form-control">
         <div class="d-grid gap-2">
             {% if account == "GUEST" %}
-                <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
+            <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
-                <h1 class="fw-light">Reguły:</h1>
-                <p class="lead text-muted"></p>
-                {% if account == "ADMIN" or "PROCESS MANAGER"%}
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <!--<th scope="col">#</th>-->
-                      <th scope="col">Nazwa</th>
-                      <th scope="col">Wartość maksymalna</th>
-                      <th scope="col">Informacja</th>
-                      <th scope="col">Jednostka</th>
-                      <th scope="col">Okres</th>
-                      <th scope="col">Szczegóły</th>
-                      <th scope="col">Operacje</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for rule in rules%}
-                        <tr>
-                          <td>{{rule.name}}</td>
-                          <td>{{rule.max}}</td><!--|floatformat:2-->
-                          <td>{{rule.data_type.name}}</td>
-                          <td>{{rule.time_range.name}}</td>
-                          <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
-                          <td><a class="btn btn-primary" href="../rule/{{rule.id_rule}}/view">Wyświetl</a></td>
-                          <td>
-                                <div>
-                                <div class="modal fade" id="exampleModal{{rules.id_rule}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Czy na pewno chcesz wykonać operację?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                                <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/delete">Tak</a>
-                                            </div>
+            <h1 class="fw-light">Reguły:</h1>
+            <p class="lead text-muted"></p>
+            {% for message in messages %}
+            {% if 'error' in message.extra_tags %}
+            <div class="alert alert-danger">
+                <strong>{{message}}</strong>
+            </div>
+            {% elif 'info' in message.extra_tags %}
+            <div class="alert alert-success">
+                <strong>{{message}}</strong>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% if account == "ADMIN" or "PROCESS MANAGER"%}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <!--<th scope="col">#</th>-->
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Wartość maksymalna</th>
+                    <th scope="col">Informacja</th>
+                    <th scope="col">Jednostka</th>
+                    <th scope="col">Okres</th>
+                    <th scope="col">Szczegóły</th>
+                    <th scope="col">Operacje</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for rule in rules%}
+                <tr>
+                    <td>{{rule.name}}</td>
+                    <td>{{rule.max}}</td><!--|floatformat:2-->
+                    <td>{{rule.data_type.name}}</td>
+                    <td>{{rule.time_range.name}}</td>
+                    <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
+                    <td><a class="btn btn-primary" href="../rule/{{rule.id_rule}}/view">Wyświetl</a></td>
+                    <td>
+                        <div>
+                            <div class="modal fade" id="deleteModal{{rule.id_rule}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Zapis</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Czy na pewno chcesz wykonać operację?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
+                                            <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/delete">Tak</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {% if rule.is_active == 0 %}
-                                <a href="../rule/{{rule.id_rule}}/active" class="btn btn-success">Atywuj</a>
-                            {% else %}
-                                <a href="../rule/{{rule.id_rule}}/active" class="btn btn-danger" >Deaktywuj</a>
-                            {% endif %}
-                            <a class="btn btn-primary" data-method="post" href="../rule/{{rule.id_rule}}">Edytuj</a>
-                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{rules.id_rule}}" >Usuń</a>
-                          </td>
-                        </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-                <form>
-                    {% if rules.has_other_pages %}
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination">
-                        {% if rules.has_previous %}
-                          <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.previous_page_number }}">Poprzednia</a></li>
+                            <div class="modal fade" id="clearModal{{rule.id_rule}}" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="clearModalLabel">Wyczyść</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Czy na pewno chcesz wykonać operację?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
+                                            <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/clear">Tak</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if rule.is_active == 0 %}
+                        <a href="../rule/{{rule.id_rule}}/active" class="btn btn-success">Atywuj</a>
                         {% else %}
-                          <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
+                        <a href="../rule/{{rule.id_rule}}/active" class="btn btn-danger" >Deaktywuj</a>
+                        {% endif %}
+                        <a class="btn btn-primary" data-method="post" href="../rule/{{rule.id_rule}}">Edytuj</a>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{rule.id_rule}}">Usuń</a>
+                        <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#clearModal{{rule.id_rule}}">Wyczyść dane</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <form>
+                {% if rules.has_other_pages %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if rules.has_previous %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.previous_page_number }}">Poprzednia</a></li>
+                        {% else %}
+                        <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
                         {% endif %}
                         {% for i in rules.paginator.page_range %}
-                          {% if rules.number == i %}
-                            <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
-                          {% else %}
-                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                          {% endif %}
+                        {% if rules.number == i %}
+                        <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
                         {% endfor %}
                         {% if rules.has_next %}
-                          <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.next_page_number }}">Następna</a></li>
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.next_page_number }}">Następna</a></li>
                         {% else %}
-                          <li class="page-item"><a class="btn btn-light">Następna</a></li>
+                        <li class="page-item"><a class="btn btn-light">Następna</a></li>
                         {% endif %}
-                      </ul>
-                    </nav>
-                    {% endif %}
-                    <a class="btn btn-success btn-lg" href="../rule">Dodaj</a>
-                    <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
-                </form>
+                    </ul>
+                </nav>
                 {% endif %}
+                <a class="btn btn-success btn-lg" href="../rule">Dodaj</a>
+                <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
+            </form>
+            {% endif %}
             {% endif %}
         </div>
     </section>

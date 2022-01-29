@@ -4,7 +4,8 @@ from smupapp.view.auth.auth import authUser
 from smupapp.view.process.processViews import initChapterNo, initAvailableProcess, checkChaptersNo, sortDataByChapterNo
 from smupapp.view.static.dataModels import RuleData
 from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, \
-    MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, MESSAGES_ACTIVITY_IN_RULE_ERROR
+    MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, MESSAGES_ACTIVITY_IN_RULE_ERROR, MESSAGES_RULE_NAME_ERROR, \
+    MESSAGES_RULE_DATATYPE_ERROR, MESSAGES_RULE_TIMERANGE_ERROR, MESSAGES_RULE_USERS_ERROR, MESSAGES_RULE_PROCESS_ERROR
 from smupapp.view.static.staticValues import PAGEINATION_SIZE
 from smupapp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
 from django.db.models import Q
@@ -48,14 +49,16 @@ def initContext(context):
     context['processData'] = processData
     return context, processData, processes, processData, employeesData
 
-def showRule(request, context, id=''):
+'''def showRule(request, context, id=''):
     context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         context, processData, processes, prs, employeesData = initContext(context)
+        checkedProcessData = initProcessData(processData, True, id)
+        context['processData'] = checkedProcessData
         #if not checkChaptersNo(prs):
         return viewRule(request, context, id)
         #if id == '':
-        #    return render(request, RENDER_RULE_URL, context)
+        #    return render(request, RENDER_RULE_URL, context)'''
 
 def initProcessData(processData, static, id = ''):
     checkedProcessData = []
@@ -92,6 +95,20 @@ def initEmployeesData(employeesData, static, id = ''):
     else:
         return employeesData
 
+def clearDate(request, context, id=''):
+    rules = Rule.objects.filter(id_rule=id)
+    if rules.exists():
+        rule = rules[0]
+        rulehasprocess = rule.rulehasprocess_set.all()
+        for rulehasproces in rulehasprocess:
+            activites = Activity.objects.filter(rule_has_process_id_rule_has_process = rulehasproces)
+            activites.delete()
+        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+        return redirect(REDIRECT_RULES_URL)
+    else:
+        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+        return redirect(REDIRECT_RULES_URL)
+
 def viewRule(request, context, id='', static=False):
     context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
@@ -102,6 +119,8 @@ def viewRule(request, context, id='', static=False):
             return render(request, RENDER_RULE_URL, context)
         elif id.isnumeric():
             checkedEmployeesData = initEmployeesData(employeesData, static, id)
+            checkedProcessData = initProcessData(processData, static, id)
+            context['processData'] = checkedProcessData
             context['employeesData'] = checkedEmployeesData
         if id == '':
             return render(request, RENDER_RULE_URL, context)
@@ -136,14 +155,8 @@ def deleteRule(request, context, id=''):
             if existRuleActivity(rules[0]):
                 messages.info(request, MESSAGES_ACTIVITY_IN_RULE_ERROR, extra_tags='error')
                 return redirect(REDIRECT_RULES_URL)
-            '''for ruleHasProcess in ruleHasProcessSet:
-                activities = Activity.objects.filter(rule_has_process_id_rule_has_process=ruleHasProcess.id_rule_has_process)
-                if(len(activities) > 0):
-                    messages.info(request, MESSAGES_ACTIVITYINRULE_ERROR, extra_tags='error')
-                    return redirect(REDIRECT_RULES_URL)'''
             for ruleHasProcess in ruleHasProcessSet:
                 ruleHasProcess.delete()
-
             ruleHasEmployeeSet = RuleHasEmployee.objects.filter(rule_id_rule=rules[0].id_rule)
             for ruleHasEmployee in ruleHasEmployeeSet:
                 ruleHasEmployee.delete()
@@ -161,64 +174,85 @@ def checkRuleFromForm(request, rule = Rule()):
     timeRange = request.POST.get('timeRange')
     timeFrom = request.POST.get('timeFrom')
     timeTo = request.POST.get('timeTo')
-    #rule = Rule()
-    rule.name = name
-    maxValue = maxValue.replace(':', '.')
 
-    rule.max = maxValue
+    rule.name = name
+    if len(maxValue) > 0:
+        maxValue = maxValue.replace(':', '.')
+        rule.max = maxValue
+
     rule.time_from = timeFrom
     rule.time_to = timeTo
     rule.is_active = True
     rule.data_type_id = int(dataType)#DataType.objects.filter(id_data_type = int(dataType))[0]
     rule.time_range_id = int(timeRange)#TimeRange.objects.filter(id_time_range = int(timeRange))[0]
 
-    if len(name) <= 2 or len(dataType) == 0 or len(timeRange) == 0 or len(timeFrom) < 10 or len(timeTo) < 10:
-        return rule, MESSAGES_DATA_ERROR
-    try:
-        float(maxValue)
-        if float(maxValue) < 0:
+    if len(name) <= 2:
+        return rule, MESSAGES_RULE_NAME_ERROR
+    if len(dataType) == 0:
+        return rule, MESSAGES_RULE_DATATYPE_ERROR
+    if len(timeRange) == 0:
+        return rule, MESSAGES_RULE_TIMERANGE_ERROR
+    #    or len(timeFrom) < 10 or len(timeTo) < 10:
+    if len(maxValue)>0:
+        try:
+            float(maxValue)
+            if float(maxValue) < 0:
+                return rule, MESSAGES_DATA_ERROR
+            else:
+                return rule, None
+        except ValueError:
             return rule, MESSAGES_DATA_ERROR
-        else:
-            return rule, None
-    except ValueError:
-        return rule, MESSAGES_DATA_ERROR
 
-    if maxValue.isdigit():
-        if int(maxValue) < 0:
-            return rule, MESSAGES_DATA_ERROR
+        if maxValue.isdigit():
+            if int(maxValue) < 0:
+                return rule, MESSAGES_DATA_ERROR
+            else:
+                return rule, None
         else:
-            return rule, None
+            return rule, MESSAGES_DATA_ERROR
     else:
-        return rule, MESSAGES_DATA_ERROR
+        return rule, None
+
+def initPrevForm(request, context, rule):
+    context, processData, processes, prs, employeesData = initContext(context)
+    for p in processData:
+        value = request.POST.get('check_process_' + str(p.id_process))
+        if value is not None:
+            p.check = 1
+        else:
+            p.check = 0
+    for e in employeesData:
+        value = request.POST.get('check_employee_' + str(e.id_employee))
+        if value is not None:
+            e.check = 1
+        else:
+            e.check = 0
+
+    context['employeesData'] = employeesData
+    context['processData'] = processData
+    context['rule'] = rule
+    return context
 
 def saveRule(request, context, id =''):
     rule, me = checkRuleFromForm(request)
     if me != None:
-        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-        context, processData, processes, prs, employeesData = initContext(context)
-
-        for p in processData:
-            value = request.POST.get('check_process_' + str(p.id_process))
-            if value is not None:
-                p.check = 1
-            else:
-                p.check = 0
-        for e in employeesData:
-            value = request.POST.get('check_employee_' + str(e.id_employee))
-            if value is not None:
-                e.check = 1
-            else:
-                e.check = 0
-
-        context['employeesData'] = employeesData
-        context['processData'] = processData
-        context['rule'] = rule
+        context = initPrevForm(request, context, rule)
+        messages.info(request, me, extra_tags='error')
         return render(request, RENDER_RULE_URL, context)
     else:
         context, processData, processes, prs, employeesData = initContext(context)
-        try:
+        if True:
+        #try:
             flag1 = checkProcessInputs(request, processData)
             flag2 = checkEmployeeInputs(request, employeesData)
+            if not flag1:
+                context = initPrevForm(request, context, rule)
+                messages.info(request, MESSAGES_RULE_PROCESS_ERROR, extra_tags='error')
+                return render(request, RENDER_RULE_URL, context)
+            if not flag2:
+                context = initPrevForm(request, context, rule)
+                messages.info(request, MESSAGES_RULE_USERS_ERROR, extra_tags='error')
+                return render(request, RENDER_RULE_URL, context)
             if flag1 and flag2:
                 rule.save()
                 for p in processes:
@@ -243,15 +277,8 @@ def saveRule(request, context, id =''):
                         ruleHasEmployee.save()
                     elif value is None and ruleHasEmployeeArray.exists():
                         ruleHasEmployeeArray.delete()
-            else:
-                messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-                context, processData, processes, prs, employees = initContext(context)
-                processData = initProcessData(processData, False, id)
-                context['processData'] = processData
-                context['rule'] = rule
-                return render(request, RENDER_RULE_URL, context)
-        except:
-            rule.delete()
+        #except:
+
     return redirect(REDIRECT_RULES_URL)
 
 def existRuleActivity(rule):
@@ -280,6 +307,18 @@ def updateRule(request, context, id=''):
         return render(request, RENDER_RULE_URL, context)
     else:
         context, processData, processes, prs, employeesData = initContext(context)
+        if True:
+        #try:
+            flag1 = checkProcessInputs(request, processData)
+            flag2 = checkEmployeeInputs(request, employeesData)
+            if not flag1:
+                context = initPrevForm(request, context, rule)
+                messages.info(request, MESSAGES_RULE_PROCESS_ERROR, extra_tags='error')
+                return render(request, RENDER_RULE_URL, context)
+            if not flag2:
+                context = initPrevForm(request, context, rule)
+                messages.info(request, MESSAGES_RULE_USERS_ERROR, extra_tags='error')
+                return render(request, RENDER_RULE_URL, context)
         #if True:
         try:
             flag1 = checkProcessInputs(request, processData)
@@ -348,6 +387,8 @@ def ruleManager(request, id = '', operation = ''):
                 return deleteRule(request, context, id)
             if operation == 'view':
                 return viewRule(request, context, id, True)
+            if operation == 'clear':
+                return clearDate(request, context, id)
             else:
                 return viewRule(request, context, id)
 
@@ -364,7 +405,7 @@ def formatRulesMax(rules):
 def rulesView(request):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        rules = Rule.objects.all()
+        rules = Rule.objects.all().order_by('name')
         rules = formatRulesMax(rules)
         page = request.GET.get('page', 1)
         paginator = Paginator(rules, PAGEINATION_SIZE)

@@ -45,7 +45,7 @@
         });
         function initDatTypeSelect() {
             dataTypeSelect = $('#dataTypeSelect')
-            maxInput = $('#maxInput')
+            maxVal = maxInput = $('#maxInput')
             if (dataTypeSelect.val() == '1') {
                 maxInput.attr('type','text')
                 maxInput.attr('placeholder','--:--')
@@ -53,13 +53,13 @@
                 maxInput.attr('type','number')
                 maxInput.attr('placeholder','--')
             }
-            dataTypeSelect.on('change', function() {
-              initDatTypeSelect()
-            });
-
         }
         function initForm() {
             styleRows()
+            dataTypeSelect = $('#dataTypeSelect')
+            dataTypeSelect.on('change', function() {
+              initDatTypeSelect()
+            });
             initDatTypeSelect()
         }
         function checkAllEmployee() {
@@ -310,26 +310,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="clearDataModal" tabindex="-1" aria-labelledby="clearDataModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="clearDataModalLabel">Usuń Dane</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Czy na pewno chcesz wykonać operację?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                        <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/clear">Tak</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div>
                             <h4>Pracownicy:</h4>
-                            <p>Zaznacz pracowników przypisanych do reguły (którzy mają wprowadzać informacje).</p>
+                            <p>Zaznacz pracowników przypisanych do reguły (którzy mają wprowadzać informacje)</p>
                             <div>
                                 <table id="mainEmployeeTabel" class="table table-striped">
                                     <thead>
@@ -389,7 +372,6 @@
                         </div>
                         <form>
                             <button type="button" data-bs-toggle="modal" data-bs-target="#saveModal" class="btn btn-success btn-lg">Zapisz</button>
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#clearDataModal" class="btn btn-danger btn-lg">Usuń dane</button>
                             <a class="btn btn-secondary btn-lg" href="../rules">Wróć</a>
                         </form>
 
