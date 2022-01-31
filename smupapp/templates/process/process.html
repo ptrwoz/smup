@@ -20,6 +20,13 @@
     <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
+        body
+        {
+         margin-top:5px;
+         margin-left:5px;
+         margin-right:5px;
+
+        }
     </style>
     <script type="text/javascript">
         function styleRows(elements) {
@@ -198,7 +205,7 @@
     </div>
 
     <section class="text-center form-control">
-        <div >
+        <div>
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
@@ -220,11 +227,9 @@
                 <table id="mainProcessTabel" class="table">
                     <thead>
                     <tr>
-                        <!--<th scope="col">#</th>-->
                         <th style="width: 9%" scope="col">Numer</th>
                         <th style="width: 40%" scope="col">Nazwa</th>
                         <th scope="col">Komentarz</th>
-                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -237,7 +242,8 @@
                         <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' placeholder="Nazwa" id="name" value="{{process.name}}"></td>
                         <td><textarea name="text_{{process.id}}" cols="40" class="form-control" rows="1" class="vLargeTextField" id="id_tip">{{process.tip}}</textarea></td>
                         <td><a class="btn btn-primary" onclick="addSubProcess()">Dodaj</a>
-                            <a onclick="deleteProcess()" class="btn btn-danger">Usuń</a></td>
+                            <a onclick="deleteProcess()" class="btn btn-danger">Usuń</a>
+                        </td>
                     </tr>
                     {% endfor %}
                     </tbody>

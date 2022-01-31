@@ -13,7 +13,6 @@ from django import template
 import math
 from datetime import date
 from django.db.models import Q
-from smupapp.view.user.userViews import getEmployeeToEdit
 
 class Segment:
     def __init__(self, start_date, end_date):

@@ -10,69 +10,72 @@ from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES
     MESSAGES_DIFFPASSWORD_ERROR, MESSAGES_UNIT_ERROR, MESSAGES_ROLE_ERROR, MESSAGES_DUPLICATEUSER_ERROR, \
     MESSAGES_PASSWORD_ERROR, MESSAGES_DATA_NAMESURNAME_ERROR, MESSAGES_DATA_LOGINLEN_ERROR, \
     MESSAGES_DATA_LOGINEXIST_ERROR, MESSAGES_OPERATION_USER_DELETE_ERROR, MESSAGES_OPERATION_USER_HAS_RULE_SUCCESS
-from smupapp.view.static.staticValues import USER_ACCOUNT, PAGEINATION_SIZE
+from smupapp.view.static.staticValues import USER_ACCOUNT, PAGEINATION_SIZE, USER_ADMIN, USER_PROCESS_MANAGER, USER_USER, USER_MANAGER, \
+    USER_GUEST
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_USER_URL, REDIRECT_USERS_URL, REDIRECT_USER_URL, \
     RENDER_USERS_URL
 from smupapp.view.unit.unitViews import getUnitsToEdit
 
-
-def password_check(passwd):
+#
+#   check password by conditions
+#
+def passwordCheck(passwd):
     SpecialSym = ['$', '@', '#', '%', '!', '*']
-    val = True
+    result = True
 
     if len(passwd) < 6:
         print('length should be at least 6')
-        val = False
+        result = False
 
     elif len(passwd) > 20:
         print('length should be not be greater than 8')
-        val = False
+        result = False
 
     elif not any(char.isdigit() for char in passwd):
         print('Password should have at least one numeral')
-        val = False
+        result = False
 
     elif not any(char.isupper() for char in passwd):
         print('Password should have at least one uppercase letter')
-        val = False
+        result = False
     
     elif not any(char in SpecialSym for char in passwd):
         print('Password should have at least one of the symbols $@#')
-        val = False
-    return val
-
-def getRoleToEdit(userRole):
-    if userRole == 'ADMIN':
+        result = False
+    return result
+#
+#   get user roles by curretn user role
+#
+def getRolesToEdit(userRole):
+    if userRole == USER_ADMIN:
         roles = Employeetype.objects.all().order_by('name')
-    elif userRole == 'PROCESS MANAGER':
-        roles = Employeetype.objects.filter(Q(name = 'MANAGER') | Q(name = 'USER')).order_by('name')
-    elif userRole == 'MANAGER':
-        roles = Employeetype.objects.filter(Q(name = 'USER')).order_by('name')
+    elif userRole == USER_PROCESS_MANAGER:
+        roles = Employeetype.objects.filter(Q(name = USER_MANAGER) | Q(name = USER_USER)).order_by('name')
+    elif userRole == USER_MANAGER:
+        roles = Employeetype.objects.filter(Q(name = USER_USER)).order_by('name')
     else:
         roles = None
     return roles
 #
-#
+#   get all employyes
 #
 def getEmployeeToEdit(id, userId, userRole):
-    e = Employee.objects.filter(id_employee=int(id))
-    if (len(e) > 0):
-        e = e[0]
-        if userRole == 'ADMIN' and e.id_employee != userId:
-            return e
-        elif userRole == 'PROCESS MANAGER' and (e.id_employeetype.name == 'MANAGER' or e.id_employeetype.name == 'USER'):
-            return e
-        elif userRole == 'MANAGER' and (e.id_employeetype.name == 'USER'):
-            return e
-        else:
-            return None
-    else:
-        return None
-
+    employees = Employee.objects.filter(id_employee=int(id))
+    if employees.exists():
+        employee = employees[0]
+        if userRole == USER_ADMIN and employee.id_employee != userId:
+            return employee
+        elif userRole == USER_PROCESS_MANAGER and (employee.id_employeetype.name == USER_MANAGER or \
+                                                   employee.id_employeetype.name == USER_USER):
+            return employee
+        elif userRole == USER_MANAGER and (employee.id_employeetype.name == USER_USER):
+            return employee
+    return None
 #
 #   check data from form
 #
 def checkUserFromForm(request, isUpdated):
+    messages = []
     name = request.POST.get('userName')
     surname = request.POST.get('userSurname')
     unit = request.POST.get('unitValue')
@@ -92,18 +95,19 @@ def checkUserFromForm(request, isUpdated):
     formUser.id_employeetype.name = employeeType
     #
     if password != password2:
-        return None, None, formUser, MESSAGES_DIFFPASSWORD_ERROR
+        messages.append(MESSAGES_DIFFPASSWORD_ERROR)
     if len(formUser.name) <= 2 or len(formUser.surname) <= 2:
-        return None, None, formUser, MESSAGES_DATA_NAMESURNAME_ERROR
-    if AuthUser.objects.filter(username=formUser.login).exists():
-        return None, None, formUser, MESSAGES_DATA_LOGINEXIST_ERROR
+        messages.append(MESSAGES_DATA_NAMESURNAME_ERROR)
+    if AuthUser.objects.filter(username=formUser.login).exists() and not isUpdated:
+        messages.append(MESSAGES_DATA_LOGINEXIST_ERROR)
     if len(formUser.login) < 6:
-        return None, None, formUser, MESSAGES_DATA_LOGINLEN_ERROR
-    if (len(password) == 0 and len(password2) == 0) and not isUpdated:
-        return None, None, formUser, MESSAGES_PASSWORD_ERROR
-    if not password_check(password) and not isUpdated:
-        return None, None, formUser, MESSAGES_PASSWORD_ERROR
-
+        messages.append(MESSAGES_DATA_LOGINLEN_ERROR)
+    if ((len(password) == 0 and len(password2) == 0) and not isUpdated) or \
+            (not passwordCheck(password) and not isUpdated):
+        messages.append(MESSAGES_PASSWORD_ERROR)
+    if len(messages) > 0:
+        return None, None, formUser, messages
+    # create employee
     employee = Employee()
     employee.name = formUser.name
     employee.surname = formUser.surname
@@ -111,23 +115,26 @@ def checkUserFromForm(request, isUpdated):
     if units.exists():
         employee.id_unit = units[0]
     else:
-        return None, None, formUser, MESSAGES_UNIT_ERROR
+        messages.append(MESSAGES_UNIT_ERROR)
+        return None, None, formUser, messages
 
-    employeeType = Employeetype.objects.filter(name=formUser.id_employeetype.name)
-    if employeeType.exists():
-        employee.id_employeetype = employeeType[0]
+    employeeTypes = Employeetype.objects.filter(name=formUser.id_employeetype.name)
+    if employeeTypes.exists():
+        employee.id_employeetype = employeeTypes[0]
+        # create auth user
         authUser = AuthUser()
         authUser.username = formUser.login
         authUser.email = formUser.login
-        authUser.password = formUser.password
+        authUser.password = password
         authUser.is_superuser = 0
         authUser.is_staff = 0
         authUser.is_active = 1
         authUser.date_joined = datetime.now()
     else:
-        return None, None, formUser, MESSAGES_ROLE_ERROR
+        messages.append(MESSAGES_UNIT_ERROR)
+        return None, None, formUser, messages
 
-    return employee, authUser, formUser, None
+    return employee, authUser, formUser, messages
 
 #
 #   user delete function
@@ -159,10 +166,11 @@ def deleteUser(request, context, id):
 #   user update function
 #
 def updateUser(request, context, id):
-    employee, authUser, formUser, MESSAGE = checkUserFromForm(request, True)
+    employee, newAuthUser, formUser, messageTexts = checkUserFromForm(request, True)
     if employee is None:
         context['user'] = formUser
-        messages.info(request, MESSAGE, extra_tags='error')
+        for messageText in messageTexts:
+            messages.info(request, messageText, extra_tags='error')
         return viewUser(request, id, formUser)
     try:
         otherEmployees = Employee.objects.filter(id_employee=int(id))
@@ -171,9 +179,9 @@ def updateUser(request, context, id):
             authUsers = User.objects.filter(username=otherEmployee.auth_user.username)
             if authUsers.exists():
                 authUser = authUsers[0]
-                if len(authUser.password) > 0:
-                    authUser.set_password(authUser.password)
-                authUser.username = authUser.username
+                if len(newAuthUser.password) > 0:
+                    authUser.set_password(newAuthUser.password)
+                authUser.username = newAuthUser.username
                 authUser.save()
                 otherEmployee.name = employee.name
                 otherEmployee.surname = employee.surname
@@ -197,13 +205,14 @@ def updateUser(request, context, id):
 #
 #   user save function
 #
-def saveUser(request, context, id =''):
-    e, authUser, u, MESSAGE = checkUserFromForm(request, False)
+def saveUser(request, context):
+    e, authUser, u, messageTexts = checkUserFromForm(request, False)
     if e is None:
         context['user'] = u
-        messages.info(request, MESSAGE, extra_tags='error')
+        for messageText in messageTexts:
+            messages.info(request, messageText, extra_tags='error')
+        #messages.info(request, MESSAGE, extra_tags='error')
         units = getUnitsToEdit(context[USER_ACCOUNT])
-        #units = Unit.objects.all()
         context['units'] = units
         roles = Employeetype.objects.all()
         context['roles'] = roles
@@ -247,7 +256,7 @@ def viewUser(request, id = 0, u = 0):
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         units = getUnitsToEdit(context[USER_ACCOUNT])
         context['units'] = units
-        context['roles'] = getRoleToEdit(context[USER_ACCOUNT])
+        context['roles'] = getRolesToEdit(context[USER_ACCOUNT])
         if id == '':
             if u == 0:
                 context['user'] = UserData()
@@ -306,7 +315,7 @@ def userManager(request, id = '', operation = '', page=''):
                 return deleteUser(request, context, id)
             else:
                 # save - new unit
-                return saveUser(request, context, id)
+                return saveUser(request, context)
         else:
             #active
             if operation == 'active':
@@ -321,9 +330,24 @@ def userManager(request, id = '', operation = '', page=''):
 #
 #   reduce users password
 #
-def employeesDataReduce(employeesData):
+def employeesPasswordReduce(employeesData):
     for e in employeesData:
         e.auth_user.password = ''
+    return employeesData
+#
+#   get employeesByRole
+#
+def getEmployeesByRole(user):
+    if (user.role == 'ADMIN'):
+        employeesData = Employee.objects.filter(~Q(id_employee=user.id)).order_by('surname', 'name')
+    elif (user.role == 'PROCESS MANAGER'):
+        employeesData = Employee.objects.filter(
+            ~Q(id_employee=user.id) & Q(id_employeetype__name='USER') | Q(
+                id_employeetype__name='MANAGER')).order_by('surname', 'name')
+    elif (user.role == 'MANAGER'):
+        employeesData = Employee.objects.filter(
+            ~Q(id_employee=user.id) & Q(id_employeetype__name='USER')).order_by('surname', 'name')
+    employeesData = employeesPasswordReduce(employeesData)
     return employeesData
 
 #
@@ -331,15 +355,9 @@ def employeesDataReduce(employeesData):
 #
 def usersView(request):
     context = authUser(request)
-    if context['account'] != 'GUEST':
-        if (context['account'] == 'ADMIN'):
-            employeesData = Employee.objects.filter(~Q(id_employee=context['userData'].id)).order_by('surname', 'name')
-        elif (context['account'] == 'PROCESS MANAGER'):
-            employeesData = Employee.objects.filter(~Q(id_employee=context['userData'].id) & Q(id_employeetype__name='USER') | Q(id_employeetype__name='MANAGER')).order_by('surname', 'name')
-        elif (context['account'] == 'MANAGER'):
-            employeesData = Employee.objects.filter(~Q(id_employee=context['userData'].id) & Q(id_employeetype__name='USER')).order_by('surname', 'name')
+    if context['account'] != USER_GUEST:
+        employeesData = getEmployeesByRole(context['userData'])
         page = request.GET.get('page', 1)
-        employeesData = employeesDataReduce(employeesData)
         paginator = Paginator(employeesData, PAGEINATION_SIZE)
         try:
             employeesData = paginator.page(page)

@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
 
     </style>
@@ -35,69 +37,84 @@
                 <a class="btn btn-success " href="login">Zaloguj się</a>
             </div>
             {% else %}
-                <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
-                <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
-                <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
-                <a class="btn  btn-success" href="logout">logout</a>
+            <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
+            <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
+            <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
+            <a class="btn  btn-success" href="logout">logout</a>
             {% endif %}
         </nav>
     </div>
-    <section class="form-control">
-        <div class="d-grid gap-2">
+    <section class="text-center form-control">
+        <div>
             {% if account == "GUEST" %}
-                <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
+            <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
+            <form id="viewProcess" method="post"> {% csrf_token %}
                 <h1 class="fw-light">Aktywności:</h1>
+                {% for message in messages %}
+                {% if 'error' in message.extra_tags %}
+                <div class="alert alert-danger">
+                    <strong>{{message}}</strong>
+                </div>
+                {% elif 'info' in message.extra_tags %}
+                <div class="alert alert-success">
+                    <strong>{{message}}</strong>
+                </div>
+                {% endif %}
+                {% endfor %}
                 <p class="lead text-muted"></p>
                 {% if account == "ADMIN" or "PROCESS MANAGER"%}
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nazwa</th>
-                      <th scope="col">Jednostka</th>
-                      <th scope="col">Informacja</th>
-                      <th scope="col">Termin</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for rule in rules%}
+                <div class="table-responsive">
+                    <table id="mainProcessTabel" class="table">
+                        <thead>
                         <tr>
-                          <td>{{rule.name}}</td>
-                          <td>{{rule.time_range.name}}</td>
-                          <td>{{rule.data_type.name}}</td>
-                          <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
-                          <td>
-                                <div>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Czy na pewno chcesz wykonać operację?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                                <a type="button" data-method="delete" class="btn btn-success" href="../units/{{unit.id_unit}}">Tak</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <th scope="col">Nazwa</th>
+                            <th scope="col">Jednostka</th>
+                            <th scope="col">Informacja</th>
+                            <th scope="col">Termin</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rule in rules%}
+                        <tr>
+                            <td>{{rule.name}}</td>
+                            <td>{{rule.time_range.name}}</td>
+                            <td>{{rule.data_type.name}}</td>
+                            <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
+                            <td>
+                                <a class="btn btn-primary" data-method="post" href="../activity/{{rule.id_rule}}">Wypełnij</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Czy na pewno chcesz wykonać operację?
+                                </div>
+                                <div class="modal-footer">
+                                    <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
+                                    <a type="button" data-method="delete" class="btn btn-success" href="../units/{{unit.id_unit}}">Tak</a>
                                 </div>
                             </div>
-                            <a class="btn btn-primary" data-method="post" href="../activity/{{rule.id_rule}}">Wypełnij</a>
-                          </td>
-                        </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-                <form>
-                    <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
-                </form>
+                        </div>
+                    </div>
+                </div>
+                <!--<form>-->
+                <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
+                <!--</form>-->
                 {% endif %}
-            {% endif %}
+                {% endif %}
+            </form>
         </div>
     </section>
     {% endblock %}
