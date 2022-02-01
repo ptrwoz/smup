@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'system_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DATABASES = {
+'''DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -88,7 +88,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'system1',
@@ -97,9 +97,19 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
-}
-
+}'''
 DATABASES = {
+    #smup2
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd2g470lle501a8',
+        'USER': 'gkaobjfvultoop',
+        'PASSWORD': '586109f04b7f47fb70879a8302854b0ae9881332297959aae7a624e48b11cdac',
+        'HOST': 'ec2-34-230-167-186.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',

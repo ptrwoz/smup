@@ -22,6 +22,8 @@ MESSAGES_DIFFPASSWORD_ERROR = 'Podane hasła nie są różne'
 MESSAGES_PASSWORD_ERROR = 'Niepoprawne hasło (sprawdź warunki poprawnego hasła)'
 MESSAGES_UNIT_ERROR = 'Błędna jednostka'
 
+MESSAGES_IMPORT_NOFILE_ERROR = 'Nie wybrano odpowiedniego pliku'
+MESSAGES_IMPORT_SUCCESS = 'Sukces importu danych'
 MESSAGES_USERINUNIT_ERROR = 'Błąd. Jednostka ma przypisanego użytkownika'
 MESSAGES_ACTIVITY_IN_RULE_ERROR = 'Błąd. Reguła ma przypisane aktywności'
 MESSAGES_ROLE_ERROR = 'Błędna rola'

@@ -2,6 +2,7 @@
 #  pages
 #
 RENDER_HOME_URL = 'main/home.html'
+RENDER_IMPORT_EXPORT_URL = 'importexport/importexport.html'
 RENDER_ACTIVITY_URL = 'activity/activity.html'
 RENDER_ACTIVITIES_URL = 'activity/activities.html'
 RENDER_PROFIL_URL = 'auth/profil.html'
@@ -16,6 +17,7 @@ RENDER_USERS_URL = 'user/users.html'
 #
 REDIRECT_ACTIVITIES_URL = 'activities'
 REDIRECT_HOME_URL = 'home'
+REDIRECT_IMPORT_EXPORT_URL = 'importExport'
 REDIRECT_UNITS_URL = 'units'
 REDIRECT_USERS_URL = 'users'
 REDIRECT_USER_URL = 'user'

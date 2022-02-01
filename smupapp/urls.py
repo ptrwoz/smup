@@ -1,6 +1,6 @@
 from smupapp.view.activity import activityViews
 from smupapp.view.auth import authViews
-from smupapp.view.importexport import importexportView
+from smupapp.view.importexport import importexportViews
 from smupapp.view.main import mainViews
 from django.urls import path
 from smupapp.view.process import processViews
@@ -39,9 +39,9 @@ urlpatterns = [
     path('processes', processViews.processView, name='processes'),
 
     #path('importexport', eporter.xlsxViewUnits, name='importexport'),
-    path('export', importexportView.exportFile, name='export'),
-    path('import', importexportView.importFile, name='import'),
-    path('importExport', importexportView.importexportView, name='importExport'),
+    path('export', importexportViews.exportFile, name='export'),
+    path('import', importexportViews.importFile, name='import'),
+    path('importExport', importexportViews.importexportManager, name='importExport'),
 
     path('', mainViews.home, name='home'),
 ]
