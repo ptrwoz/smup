@@ -2,7 +2,7 @@
 #  pages
 #
 RENDER_HOME_URL = 'main/home.html'
-RENDER_IMPORT_EXPORT_URL = 'importexport/importexport.html'
+RENDER_IMPORT_EXPORT_URL = 'importexport/importExport.html'
 RENDER_ACTIVITY_URL = 'activity/activity.html'
 RENDER_ACTIVITIES_URL = 'activity/activities.html'
 RENDER_PROFIL_URL = 'auth/profil.html'
