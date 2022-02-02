@@ -5,7 +5,8 @@ from smupapp.view.process.processViews import initChapterNo, initAvailableProces
 from smupapp.view.static.dataModels import RuleData
 from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, \
     MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, MESSAGES_ACTIVITY_IN_RULE_ERROR, MESSAGES_RULE_NAME_ERROR, \
-    MESSAGES_RULE_DATATYPE_ERROR, MESSAGES_RULE_TIMERANGE_ERROR, MESSAGES_RULE_USERS_ERROR, MESSAGES_RULE_PROCESS_ERROR
+    MESSAGES_RULE_DATATYPE_ERROR, MESSAGES_RULE_TIMERANGE_ERROR, MESSAGES_RULE_USERS_ERROR, MESSAGES_RULE_PROCESS_ERROR, \
+    MESSAGES_RULE_MAX_ERROR
 from smupapp.view.static.staticValues import PAGEINATION_SIZE
 from smupapp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
 from django.db.models import Q
@@ -178,8 +179,13 @@ def checkRuleFromForm(request, rule = Rule()):
     rule.name = name
     if len(maxValue) > 0:
         maxValue = maxValue.replace(':', '.')
-        rule.max = maxValue
-
+        try:
+            if  float(maxValue) - int(maxValue) >= 60:
+                return rule, MESSAGES_RULE_MAX_ERROR
+            else:
+                rule.max = maxValue
+        except ValueError:
+                return rule, MESSAGES_RULE_MAX_ERROR
     rule.time_from = timeFrom
     rule.time_to = timeTo
     rule.is_active = True
@@ -302,7 +308,7 @@ def updateRule(request, context, id=''):
         context['rule'] = rule
         return viewRule(request, context, id, False)
     if me != None:
-        messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
+        messages.info(request, me, extra_tags='error')
         context['rule'] = rule
         return render(request, RENDER_RULE_URL, context)
     else:

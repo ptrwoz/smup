@@ -117,13 +117,13 @@ def saveProcess(request, context):
         return render(request, 'process/process.html', context)
     processes = Process.objects.all()
     processData = initChapterNo(processes)
-    prs, prs_ids = sortDataByChapterNo(processData)
-    existId = list(repeat(0, len(processes)))
+    #prs, prs_ids = sortDataByChapterNo(processData)
+    existId = list(repeat(0, len(processData)))
     for i in range(0, len(prs)):
         partner = None
         changeFlag = False
         ii = 0
-        for pp in processes:
+        for pp in processData:
             pno = getChapterNoFromProcess(pp)
             if (pno == prs[i].number):
                 pp.tip = prs[i].tip
@@ -143,7 +143,7 @@ def saveProcess(request, context):
             np.tip = prs[i].tip
             np.name = prs[i].name
             np.order = i
-            pp.number = prs[i].number
+            np.number = prs[i].number
             np.id_mainprocess = partner
             np.save()
             processes = Process.objects.all()
@@ -162,11 +162,15 @@ def processView(request):
             return saveProcess(request, context)
         else:
             processData = Process.objects.all().order_by('order')
-            #processData = initChapterNo(processData)
+            #`processData` = initChapterNo(processData)
             #processData, prs = sortDataByChapterNo(processData)
             #processData = initLevelChaptersNo(processData)
             #if checkChaptersNo(processData) == False:
             #    print()
+            cId = 1
+            for process in processData:
+                process.id = cId
+                cId += 1
             context['processData'] = processData
             return render(request, 'process/process.html', context)
     else:

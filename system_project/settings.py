@@ -97,7 +97,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
-}'''
+}
 DATABASES = {
     #smup2
     'default': {
@@ -108,8 +108,8 @@ DATABASES = {
         'HOST': 'ec2-34-230-167-186.compute-1.amazonaws.com',
         'PORT': '5432',
     }
-}
-'''DATABASES = {
+}'''
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
@@ -118,7 +118,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
-}'''
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
