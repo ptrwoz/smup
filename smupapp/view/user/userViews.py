@@ -48,7 +48,7 @@ def passwordCheck(passwd):
 #
 def getRolesToEdit(userRole):
     if userRole == USER_ADMIN:
-        roles = Employeetype.objects.all().order_by('name')
+        roles = Employeetype.objects.filter(Q(name = USER_PROCESS_MANAGER) | Q(name = USER_MANAGER) | Q(name = USER_USER)).order_by('name')
     elif userRole == USER_PROCESS_MANAGER:
         roles = Employeetype.objects.filter(Q(name = USER_MANAGER) | Q(name = USER_USER)).order_by('name')
     elif userRole == USER_MANAGER:

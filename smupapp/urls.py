@@ -14,7 +14,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('login', authViews.loginPage, name='login'), #ok
     path('logout', authViews.logoutUser, name='logout'), #ok
-    path('profil', authViews.profilUser, name='profil'), #ok
+    path('profil', authViews.profilUserView, name='profil'), #ok
+    path('profil/password', authViews.changePasswordView, name='password'), #ok
+
     #
     path('users', userViews.usersView, name='users'),
     path('user/<str:id>', userViews.userManager, name='user'),

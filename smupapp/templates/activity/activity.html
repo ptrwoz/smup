@@ -24,7 +24,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
     <style>
-
+        .achievements-wrapper { height: 700px; overflow: auto; margin-bottom:20px; }
+        .innerPanel {
+            height: auto;
+            overflow: auto;
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -255,43 +259,44 @@
         </nav>
     </div>
     <section class="text-center form-control">
-        <div class="d-grid gap-2">
+        <div>
             {% if account == "GUEST" %}
             <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
             {% else %}
             <h1 class="fw-light">Aktywności:</h1>
             <p>Wprowadź dane dotyczące <b>{{ruleData.data_type.name}}</b> do formularzu z okresu <b>od {{ruleData.time_from|date:'Y-m-d'}} do {{ruleData.time_to|date:'Y-m-d'}}</b> (interwał: {{ruleData.time_range.name}})</p>
-            <p>Pamiętaj o poprawnym typie danych oraz limicie <b style="color : red;">{{ruleData.max}} na <a name="valueLimit">{{ruleData.time_range.name}}</a></b></p>
+            {% if ruleData.max != None %} <p>Pamiętaj o poprawnym typie danych oraz limicie <b style="color : red;">{{ruleData.max}} na <a name="valueLimit">{{ruleData.time_range.name}}</a></b></p>{% endif %}
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
             <form method="post">
-                <div>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Czy na pewno chcesz wykonać operację?
-                                </div>
-                                {% csrf_token %}
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
-                                    <button type="submit" class="btn btn-success">Tak</button>
-                                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Czy na pewno chcesz wykonać operację?
+                            </div>
+                            {% csrf_token %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                                <button type="submit" class="btn btn-success">Tak</button>
                             </div>
                         </div>
                     </div>
-                    <table id="mainProcessTabel" class="table">
+                </div>
+
+                <div class="table-responsive span3 achievements-wrapper">
+                <table id="mainProcessTabel" class="table" style="min-width: 1000px;">
                         <thead>
                         <tr>
                             <th style="width: 6%" scope="col">Numer</th>
-                            <th style="width: 30%" scope="col">Nazwa</th>
+                            <th style="width: 25%" scope="col">Nazwa</th>
                             <th style="width: 3%" scope="col">Info.</th>
                             {% for i in activityData.currentActivityData %}
-                            <th {% if today == i %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center" name="col" value="{{i}}"></input></th>
+                            <th {% if today == i %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center;width: 100%" name="col" value="{{i}}"></input></th>
                             {% endfor %}
                         </tr>
                         {{ activityData.increment }}
@@ -315,7 +320,7 @@
                                 {% endif %}
                             </td>
                             {% for i in activityData.currentActivityData %}
-                            <th {% if today == i.date %} class="table-primary" {% endif %} scope="col">
+                            <td {% if today == i.date %} class="table-primary" {% endif %} scope="col">
                                 <div class="btn-row">
                                     <div class="btn-group w-100" data-toggle="buttons">
                                         <input value='{{i.firstValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center" class="form-control"  type="number" min="0" max="999" placeholder="--">
@@ -324,14 +329,13 @@
                                         {% endif %}
                                     </div>
                                 </div>
-                            </th>
+                            </td>
                             {% endfor %}
                             {{ activityData.increment }}
                         </tr>
                         {% endfor %}
                         <tr id="sum">
                             <td>
-
                             </td>
                             <td><a>Suma:</a></td>
                             <td>
@@ -356,6 +360,7 @@
                         </tbody>
                     </table>
                 </div>
+
                 {% if activityPaginator.has_other_pages %}
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -364,13 +369,20 @@
                         {% else %}
                         <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
                         {% endif %}
+                        {% if activityPaginator.number > 1 %}
+                        <li><a class="btn btn-primary" href="?page={{ 1 }}">&hellip;</a></li>
+                        {% endif %}
                         {% for i in activityPaginator.paginator.page_range %}
                         {% if activityPaginator.number == i %}
                         <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
-                        {% else %}
+                        {% elif  activityPaginator.number > i|add:"-5" and activityPaginator.number < i|add:"5"%}
                         <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                         {% endif %}
                         {% endfor %}
+                        {% if activityPaginator.number < activityPaginator.paginator.num_pages %}
+                        <li><a class="btn btn-primary" href="?page={{ activityPaginator.paginator.page_range.stop }}">&hellip;</a></li>
+                        {% endif %}
+
                         {% if activityPaginator.has_next %}
                         <li class="page-item"><a class="btn btn-primary" href="?page={{ activityPaginator.next_page_number }}">Następna</a></li>
                         {% else %}

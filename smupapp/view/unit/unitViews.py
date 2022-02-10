@@ -37,6 +37,7 @@ def checkUnitFromForm(request):
     if len(unitName) == 0:
         unit = Unit()
         unit.name = unitName
+        unit.is_active = 1
         return None, MESSAGES_DATA_ERROR
     else:
         unit = Unit()

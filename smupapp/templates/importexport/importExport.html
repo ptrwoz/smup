@@ -116,30 +116,119 @@
             {% endif %}
             <div></div>
             <h3 class="fw-light">Exportuj dane:</h3>
-            <p> Pobierz dane:
             <p>
+                <button class="btn btn-secondary collapse show" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Wiecej
+                </button>
                 <a href="export" class="btn btn-primary">Export</a>
-            </p>
-            <p/>
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <label class="col-form-label">Zakres czasowy:</label>
-                </div>
-                <div class="col-sm-8">
-                    <div class="form-control" class='picker'>
-                        <label for="fromperiod">Od: </label>
-                        <input type="text" id="fromperiod" name="timeFrom" value="{{rule.time_from}}">
-                        <label for="toperiod"> Do: </label>
-                        <input type="text" id="toperiod" name="timeTo" value="{{rule.time_to}}">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <label class="col-form-label">Typ arkusza:</label>
-                </div>
-                <div class="col-sm-8">
 
+            </p>
+            <div id="accordionExample">
+                <div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label class="col-sm-2 col-form-label">Typ arkusza:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select id="dataTypeSelect" onload="initTypeData()" class="form-select" name="dataType" aria-label="Default select example">
+                                        <option>Standard</option>
+                                        <option>Standard-2</option>
+                                        <option>Raport</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label class="col-form-label">Zakres czasowy:</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class='form-control'>
+                                        <label for="fromperiod">Od: </label>
+                                        <input type="text" id="fromperiod" name="timeFrom" value="{{rule.time_from}}">
+                                        <label for="toperiod"> Do: </label>
+                                        <input type="text" id="toperiod" name="timeTo" value="{{rule.time_to}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <!--<th scope="col">#</th>-->
+                                        <th scope="col">Nazwa</th>
+                                        <th scope="col">Wartość maksymalna</th>
+                                        <th scope="col">Informacja</th>
+                                        <th scope="col">Jednostka</th>
+                                        <th scope="col">Okres</th>
+                                        <th scope="col">Szczegóły</th>
+                                        <th scope="col">Operacje</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for rule in rules%}
+                                    <tr>
+                                        <td>{{rule.name}}</td>
+                                        <td>{% if rule.max != None %} {{rule.max}} {% else %} - {% endif %}</td><!--|floatformat:2-->
+                                        <td>{{rule.data_type.name}}</td>
+                                        <td>{{rule.time_range.name}}</td>
+                                        <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
+                                        <td><a class="btn btn-primary" href="../rule/{{rule.id_rule}}/view">Wyświetl</a></td>
+                                        <td>
+                                            <div>
+                                                <div class="modal fade" id="deleteModal{{rule.id_rule}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deleteModalLabel">Zapis</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Czy na pewno chcesz wykonać operację?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
+                                                                <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/delete">Tak</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="clearModal{{rule.id_rule}}" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="clearModalLabel">Wyczyść</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Czy na pewno chcesz wykonać operację?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
+                                                                <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/clear">Tak</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% if rule.is_active == 0 %}
+                                            <a href="../rule/{{rule.id_rule}}/active" class="btn btn-success">Atywuj</a>
+                                            {% else %}
+                                            <a href="../rule/{{rule.id_rule}}/active" class="btn btn-danger" >Deaktywuj</a>
+                                            {% endif %}
+                                            <a class="btn btn-primary" data-method="post" href="../rule/{{rule.id_rule}}">Edytuj</a>
+                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{rule.id_rule}}">Usuń</a>
+                                            <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#clearModal{{rule.id_rule}}">Wyczyść dane</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endif %}

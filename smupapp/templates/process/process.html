@@ -20,13 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
-        body
-        {
-         margin-top:5px;
-         margin-left:5px;
-         margin-right:5px;
-
-        }
+        .achievements-wrapper { height: 700px; overflow: auto; margin-bottom:20px; }
     </style>
     <script type="text/javascript">
         function styleRows(elements) {
@@ -224,17 +218,18 @@
                 {% endfor %}
                 <p class="lead text-muted"></p>
                 {% if account == "ADMIN" or "PROCESS MANAGER"%}
-                <table id="mainProcessTabel" class="table">
+                <div class="table-responsive span3 achievements-wrapper">
+                <table id="mainProcessTabel" class="table" style="min-width: 1000px;">
                     <thead>
                     <tr>
-                        <th style="width: 9%" scope="col">Numer</th>
+                        <th style="width: 15%" scope="col">Numer</th>
                         <th style="width: 40%" scope="col">Nazwa</th>
-                        <th scope="col">Komentarz</th>
+                        <th style="width: 30%" scope="col">Komentarz</th>
+                        <th style="width: 15%" scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for process in processData%}
-
                     <tr id="{{process.id}}">
                         <td >
                             <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.number}}"></input>
@@ -270,7 +265,7 @@
                         </div>
                     </div>
                 </div>
-
+                </div>
                 <a id="mainProcessButton" class="btn btn-primary btn-lg" onclick="addMainProcess()">Dodaj główny proces</a>
                 <button type="submit" class="btn btn-success btn-lg" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#saveModal">Zapisz</button>
                 <a class="btn btn-secondary btn-lg" href="../">Wróć</a>

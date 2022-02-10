@@ -213,7 +213,7 @@
                                     </svg>
                                 </div>
                             </div>
-                            <input id="maxInput" {% if rule.data_type.id_data_type == 1 %} placeholder="-- : --" type="text"{% else %} type="number" min="1" step="1" {% endif %}  class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" {% if rule.max != None %} value="{{rule.max}} {% endif %}">
+                            <input id="maxInput" {% if rule.data_type.id_data_type == 1 %} placeholder="-- : --" type="text"{% else %} type="number" min="1" step="1" {% endif %}  class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
                         </div>
                     </div>
                 </div>
@@ -381,6 +381,7 @@
                     </div>
                     {% endif %}
                     {% endif %}
+                </div>
             </form>
         </div>
     </section>
