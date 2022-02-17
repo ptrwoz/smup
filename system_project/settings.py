@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'system_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DATABASES = {
+'''DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -88,7 +88,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'system1',
@@ -108,7 +108,7 @@ DATABASES = {
         'HOST': 'ec2-34-230-167-186.compute-1.amazonaws.com',
         'PORT': '5432',
     }
-}
+}'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -118,7 +118,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
-}'''
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
