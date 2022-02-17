@@ -134,14 +134,14 @@ def viewRule(request, context, id='', static=False):
                 rule = rules[0]
                 rule.time_from = str(rule.time_from)
                 rule.time_to = str(rule.time_to)
-                if rule.max == None:
-                    rule.max = ''
+                if rule.max_value == None:
+                    rule.max_value = ''
                 elif rule.data_type.id_data_type == 1:
-                    timeStr = str(rule.max).replace('.', ':')
+                    timeStr = str(rule.max_value).replace('.', ':')
                     #timeMax = datetime.strptime(timeStr, '%H:%M')
-                    rule.max = timeStr#timeMax.strftime('%H:%M')
+                    rule.max_value = timeStr#timeMax.strftime('%H:%M')
                 else:
-                    rule.max = int(rule.max)
+                    rule.max = int(rule.max_value)
                 context['rule'] = rule
                 if static:
                     return render(request, RENDER_VIEWRULE_URL, context)
@@ -409,13 +409,13 @@ def ruleManager(request, id = '', operation = ''):
 
 def formatRulesMax(rules):
     for r in rules:
-        if r.max == None:
+        if r.max_value == None:
             r.max = '-'
         else:
             if r.data_type.id_data_type == 1:
-                timeStr = str(r.max).replace('.', ':')
+                timeStr = str(r.max_value).replace('.', ':')
                 timeMax = str(timeStr)#datetime.strptime(timeStr, '%H:%M')
-                r.max = timeMax#timeMax.strftime('%H:%M')
+                r.max_value = timeMax#timeMax.strftime('%H:%M')
     return rules
 def rulesView(request):
     context = authUser(request)

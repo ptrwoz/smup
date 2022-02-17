@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'system_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DATABASES = {
+'''DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -88,7 +88,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'system1',
@@ -109,7 +109,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }'''
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
@@ -118,7 +118,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
-}'''
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -164,5 +164,7 @@ STATIC_ROOT = os.path.join(VENV_PATH, 'root')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000 #
 
 LOGIN_REDIRECT_URL = '/'

@@ -23,6 +23,11 @@ class Segment:
             return str(self.start_date)
         else:
             return str(self.start_date) + ' - ' + str(self.end_date)
+    def isDay(self):
+        if self.start_date == self.end_date:
+            return True
+        else:
+            False
 
 def getSegments(start_date, end_date, interval_delta):
 
@@ -31,17 +36,23 @@ def getSegments(start_date, end_date, interval_delta):
     segments = []
     todayId = -1
     ii = 0
+    isWeekends = []
     while (curr_date <= end_date):
         curr_date = start_date + interval_delta
         curr_end_data = curr_date - datetime.timedelta(days=1)
         segment = Segment(start_date, curr_end_data)
         if today >= start_date and today <= curr_end_data:
             todayId = ii
+        if segment.start_date.weekday() and segment.isDay:
+            isWeekends.append(True)
+        else:
+            isWeekends.append(False)
         segments.append(segment.getLabel())
+        #
         start_date = curr_date
         curr_date = start_date + interval_delta
         ii = ii + 1
-    return segments, todayId
+    return segments, todayId, isWeekends
 
 def activityExist(user, ruleHasProcess, timeFrom, timeTo):
     activities = Activity.objects.filter(Q(rule_has_process_id_rule_has_process_id = ruleHasProcess.id_rule_has_process) & Q(employee_id_employee__id_employee = user.id) & Q(time_from = timeFrom) & Q(time_to = timeTo))
@@ -119,17 +130,17 @@ def updateActivities(request, context, rule_id):
         return viewActivity(request, context, id=str(rule_id))
         #return render(request, RENDER_ACTIVITY_URL, context)
 
-def getRelativedeltaFromDateType(timeRange):
-    if timeRange.name == TIMERANGE_DAY:
+def getRelativedeltaFromDateType(timeRangeName):
+    if timeRangeName == TIMERANGE_DAY:
         return relativedelta(days=1, months=0, weeks=0)
-    elif timeRange.name == TIMERANGE_WEEK:
+    elif timeRangeName == TIMERANGE_WEEK:
         return relativedelta(days=0, months=0, weeks=1)
-    elif timeRange.name == TIMERANGE_MONTH:
+    elif timeRangeName == TIMERANGE_MONTH:
         return relativedelta(days=0, months=1, weeks=0)
 
 def getPagesFromDateType(timeRange):
     if timeRange.name == TIMERANGE_DAY:
-        return 5
+        return 7
     elif timeRange.name == TIMERANGE_WEEK:
         return 5
     elif timeRange.name == TIMERANGE_MONTH:
@@ -151,7 +162,6 @@ class ActivityDataCounter:
         self.index = 0
         self.activityDatas = activityDatas
         self.currentActivityData = self.activityDatas[self.index]
-
     @property
     def increment(self):
         if (self.index < len(self.activityDatas)-1):
@@ -164,8 +174,9 @@ def initActivityData(userActivities, processData, activityDatas, data_type):
     newActivityDatas.append(activityDatas)
     for p in processData:
         cNewActivityData = []
-        for activityData in activityDatas:
-            splitedActivityData = activityData.split(' - ')
+
+        for activityData in activityDatas.object_list:
+            splitedActivityData = activityData[0].split(' - ')
             if len(splitedActivityData) == 1:
                 activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[0]))
             else:
@@ -173,11 +184,11 @@ def initActivityData(userActivities, processData, activityDatas, data_type):
             if activity.exists():
                 if data_type.id_data_type == 1:
                     hmData = str(activity[0].value).split('.')
-                    cNewActivityData.append(DateInformation(hmData[0],hmData[1],activityData))
+                    cNewActivityData.append(DateInformation(hmData[0],hmData[1],activityData[0], activityData[1]))
                 else:
-                    cNewActivityData.append(DateInformation(int(activity[0].value), "",activityData))
+                    cNewActivityData.append(DateInformation(int(activity[0].value), "",activityData[0], activityData[1]))
             else:
-                cNewActivityData.append(DateInformation("", "", activityData))
+                cNewActivityData.append(DateInformation("", "", activityData[0], activityData[1]))
         newActivityDatas.append(cNewActivityData)
     return newActivityDatas
 
@@ -191,16 +202,16 @@ def viewActivity(request, context, id=''):
             rule = rules[0]
             start_date = rule.time_from
             end_date = rule.time_to
-            if rule.max != None:
-                rule.max = int(rule.max)
+            if rule.max_value != None:
+                rule.max = int(rule.max_value)
             context['ruleData'] = rule
 
-            segments, todayId = getSegments(start_date, end_date, getRelativedeltaFromDateType(rule.time_range))
+            segments, todayId, isWeekends = getSegments(start_date, end_date, getRelativedeltaFromDateType(rule.time_range.name))
             if todayId == -1:
                 context['today'] = ''
             else:
                 context['today'] = segments[todayId]
-            paginator = Paginator(segments, getPagesFromDateType(rule.time_range))
+            paginator = Paginator(list(zip(segments, isWeekends)), getPagesFromDateType(rule.time_range))
             if todayId == -1 or paginator.num_pages == 1:
                 currentPage = 1
             else:
@@ -216,7 +227,7 @@ def viewActivity(request, context, id=''):
                 activityData = paginator.page(currentPage)
             except EmptyPage:
                 activityData = paginator.page(paginator.num_pages)
-            context['activityPaginator'] = activityData
+
             activityDatas = []
             activityDatas.append(activityData.object_list)
             processData = []
@@ -242,6 +253,7 @@ def viewActivity(request, context, id=''):
             userActivities = Activity.objects.filter(Q(employee_id_employee__id_employee = context['userData'].id) & Q(rule_has_process_id_rule_has_process__rule_id_rule = rule.id_rule))
             activityDatas = initActivityData(userActivities, processData, activityData, rule.data_type)
             formActivityDatas = ActivityDataCounter(activityDatas)
+            context['activityPaginator'] = activityData
             context['activityData'] = formActivityDatas
 
         else:

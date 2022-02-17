@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 <head>
     {% load static %}
@@ -115,123 +115,180 @@
             </form>
             {% endif %}
             <div></div>
-            <h3 class="fw-light">Exportuj dane:</h3>
-            <p>
-                <button class="btn btn-secondary collapse show" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Wiecej
-                </button>
-                <a href="export" class="btn btn-primary">Export</a>
+            <form action="export" method="post" id="export"> {% csrf_token %}
+                <h3 class="fw-light">Exportuj dane:</h3>
+                <p>
+                    <button class="btn btn-secondary collapse show" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Wiecej
+                    </button>
+                    <button href="export" type="submit" class="btn btn-primary">Export</button>
 
-            </p>
-            <div id="accordionExample">
-                <div>
-
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-sm-2">
-                                    <label class="col-sm-2 col-form-label">Typ arkusza:</label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select id="dataTypeSelect" onload="initTypeData()" class="form-select" name="dataType" aria-label="Default select example">
-                                        <option>Standard</option>
-                                        <option>Standard-2</option>
-                                        <option>Raport</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-2">
-                                    <label class="col-form-label">Zakres czasowy:</label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <div class='form-control'>
-                                        <label for="fromperiod">Od: </label>
-                                        <input type="text" id="fromperiod" name="timeFrom" value="{{rule.time_from}}">
-                                        <label for="toperiod"> Do: </label>
-                                        <input type="text" id="toperiod" name="timeTo" value="{{rule.time_to}}">
+                </p>
+                <div id="accordionExample">
+                    <div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="col-sm-2 col-form-label">Typ arkusza:</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select name="docType" class="form-select" aria-label="Default select example">
+                                            <option>Standard</option>
+                                            <option>Standard-2</option>
+                                            <option>Raport</option>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <!--<th scope="col">#</th>-->
-                                        <th scope="col">Nazwa</th>
-                                        <th scope="col">Wartość maksymalna</th>
-                                        <th scope="col">Informacja</th>
-                                        <th scope="col">Jednostka</th>
-                                        <th scope="col">Okres</th>
-                                        <th scope="col">Szczegóły</th>
-                                        <th scope="col">Operacje</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for rule in rules%}
-                                    <tr>
-                                        <td>{{rule.name}}</td>
-                                        <td>{% if rule.max != None %} {{rule.max}} {% else %} - {% endif %}</td><!--|floatformat:2-->
-                                        <td>{{rule.data_type.name}}</td>
-                                        <td>{{rule.time_range.name}}</td>
-                                        <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
-                                        <td><a class="btn btn-primary" href="../rule/{{rule.id_rule}}/view">Wyświetl</a></td>
-                                        <td>
-                                            <div>
-                                                <div class="modal fade" id="deleteModal{{rule.id_rule}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="deleteModalLabel">Zapis</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Czy na pewno chcesz wykonać operację?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                                                <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/delete">Tak</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal fade" id="clearModal{{rule.id_rule}}" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="clearModalLabel">Wyczyść</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Czy na pewno chcesz wykonać operację?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
-                                                                <a type="button" data-method="post" class="btn btn-success" href="../rule/{{rule.id_rule}}/clear">Tak</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% if rule.is_active == 0 %}
-                                            <a href="../rule/{{rule.id_rule}}/active" class="btn btn-success">Atywuj</a>
-                                            {% else %}
-                                            <a href="../rule/{{rule.id_rule}}/active" class="btn btn-danger" >Deaktywuj</a>
-                                            {% endif %}
-                                            <a class="btn btn-primary" data-method="post" href="../rule/{{rule.id_rule}}">Edytuj</a>
-                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{rule.id_rule}}">Usuń</a>
-                                            <a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#clearModal{{rule.id_rule}}">Wyczyść dane</a>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="col-sm-2 col-form-label">Statystyki:</label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input name="averageParam" class="form-check-input" type="checkbox" {%if excelData.averageParam%} checked {% endif %}>
+                                            <label class="form-check-label">
+                                                Średnia arytmetyczna
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input name="dominantParam" class="form-check-input" type="checkbox" {%if excelData.dominantParam%} checked {% endif %}>
+                                            <label class="form-check-label">
+                                                Modalna (Dominanta)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input name="varianceParam" class="form-check-input" type="checkbox" {%if excelData.varianceParam%} checked {% endif %}>
+                                            <label class="form-check-label">
+                                                Wariancja
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input id="minimumParam" class="form-check-input" type="checkbox" {%if excelData.minimumParam%} checked {% endif %}>
+                                            <label class="form-check-label">
+                                                Minimum
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input id="maximumParam" class="form-check-input" type="checkbox" {%if excelData.maximumParam%} checked {% endif %}>
+                                            <label class="form-check-label">
+                                                Minimum
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input name="standardDeviationParam" class="form-check-input" type="checkbox" {%if excelData.standardDeviationParam%} checked {% endif %}>
+                                            <label class="form-check-label">
+                                                Odchylenie standardowe
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input name="typicalRangeOfVolatilityParam" class="form-check-input" type="checkbox" value="" >
+                                            <label class="form-check-label">
+                                                Typowy przedział zmienności
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="col-sm-2 col-form-label">Dodatkowe opcje:</label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input name="timeMinParam" class="form-check-input" type="checkbox" value="{{excelData.timeMinParam}}" >
+                                            <label class="form-check-label">
+                                                Zapis czasu w min.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input name="anonymizationParam" class="form-check-input" type="checkbox" value="{{excelData.anonymizationParam}}" >
+                                            <label class="form-check-label">
+                                                Anonimizacja danych
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label">Zakres czasowy:</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div>
+                                            <label for="fromperiod">Od: </label>
+                                            <input class='form-control' type="text" id="fromperiod" name="timeFrom" value="{{excelData.timeFrom}}">
+                                            <label for="toperiod"> Do: </label>
+                                            <input class='form-control' type="text" id="toperiod" name="timeTo" value="{{excelData.timeTo}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label">Jednosta czasu:</label>
+                                    </div>
+
+                                    <div class="col-sm-8">
+                                        <div>
+                                            <select class="form-select" name="timeRange" aria-label="Default select example">
+                                                {% for t in timeRange %}
+                                                <option {% if t.id_time_range == excelData.id_time_range %} selected{% endif %} value="{{t.name}}">{{t.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <h3 class="fw-light">Wybierz reguły:</h3>
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">
+                                            </th>
+                                            <th scope="col">Nazwa</th>
+                                            <th scope="col">Informacja</th>
+                                            <th scope="col">Jednostka</th>
+                                            <th scope="col">Okres</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for rule in rules%}
+                                        <tr>
+                                            <td>
+                                                <input name="id_{{rule.id_rule}}" class="form-check-input" name="check_rule_{{rule.id_rule}}" type="checkbox" checked>
+                                            </td>
+                                            <td>{{rule.name}}</td>
+                                            <td>{{rule.data_type.name}}</td>
+                                            <td>{{rule.time_range.name}}</td>
+                                            <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {% endif %}
+                {% endif %}
+
+            </form>
         </div>
         <form>
             <a class="btn btn-secondary btn-lg btn-block" href="../">Wróć</a>

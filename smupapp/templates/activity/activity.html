@@ -24,7 +24,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
     <style>
-        .achievements-wrapper { height: 700px; overflow: auto; margin-bottom:20px; }
         .innerPanel {
             height: auto;
             overflow: auto;
@@ -265,7 +264,7 @@
             {% else %}
             <h1 class="fw-light">Aktywności:</h1>
             <p>Wprowadź dane dotyczące <b>{{ruleData.data_type.name}}</b> do formularzu z okresu <b>od {{ruleData.time_from|date:'Y-m-d'}} do {{ruleData.time_to|date:'Y-m-d'}}</b> (interwał: {{ruleData.time_range.name}})</p>
-            {% if ruleData.max != None %} <p>Pamiętaj o poprawnym typie danych oraz limicie <b style="color : red;">{{ruleData.max}} na <a name="valueLimit">{{ruleData.time_range.name}}</a></b></p>{% endif %}
+            {% if ruleData.max != None and ruleData.max != 0 %} <p>Pamiętaj o poprawnym typie danych oraz limicie <b style="color : red;">{{ruleData.max}} na <a name="valueLimit">{{ruleData.time_range.name}}</a></b></p>{% endif %}
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
             <form method="post">
@@ -296,7 +295,7 @@
                             <th style="width: 25%" scope="col">Nazwa</th>
                             <th style="width: 3%" scope="col">Info.</th>
                             {% for i in activityData.currentActivityData %}
-                            <th {% if today == i %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center;width: 100%" name="col" value="{{i}}"></input></th>
+                            <th {% if today == i|first %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center;width: 100%" name="col" value="{{i|first }}"></input></th>
                             {% endfor %}
                         </tr>
                         {{ activityData.increment }}
@@ -308,7 +307,8 @@
                             <td>
                                 <input name="id_{{process.id}}" class="form-control" readonly="readonly" name="row" value="{{process.number}}"></input>
                             </td>
-                            <td><input name='name_{{process.id}}' type="text" class="form-control" name='row' name="row" readonly="readonly" placeholder="Nazwa" value="{{process.name}}"></td>
+                            <td>
+                                <input name='name_{{process.id}}' type="text" class="form-control" name='row' name="row" readonly="readonly" placeholder="Nazwa" value="{{process.name}}"></td>
                             <td>
                                 {%if process.tip != ""%}
                                 <button type="button" class="btn btn-primary" data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="{{process.tip|linebreaksbr}}">
@@ -323,9 +323,9 @@
                             <td {% if today == i.date %} class="table-primary" {% endif %} scope="col">
                                 <div class="btn-row">
                                     <div class="btn-group w-100" data-toggle="buttons">
-                                        <input value='{{i.firstValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center" class="form-control"  type="number" min="0" max="999" placeholder="--">
+                                        <input {% if not i.isWeekend %} readonly {% endif %} value='{{i.firstValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center" class="form-control"  type="number" min="0" max="999" placeholder="--">
                                         {% if ruleData.data_type.id_data_type == 1 %} :
-                                        <input value='{{i.secondValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center" class="form-control" type="number" min="0" max="59" placeholder="--">
+                                        <input {% if not i.isWeekend %} readonly {% endif %} value='{{i.secondValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center" class="form-control" type="number" min="0" max="59" placeholder="--">
                                         {% endif %}
                                     </div>
                                 </div>

@@ -130,7 +130,7 @@ class DjangoSession(models.Model):
 
 class Activity(models.Model):
     id_activity = models.AutoField(primary_key=True)
-    value = models.FloatField()
+    value = models.FloatField(blank=True, null=True)
     time_add = models.DateTimeField(blank=True, null=True)
     time_from = models.DateField(blank=True, null=True)
     time_to = models.CharField(max_length=45, blank=True, null=True)
@@ -172,7 +172,7 @@ class Process(models.Model):
 class Rule(models.Model):
     id_rule = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=45, blank=True, null=True)
-    max = models.FloatField(blank=True, null=True)
+    max_value = models.FloatField(null = True, blank = True, default = 0)
     time_from = models.DateField()
     time_to = models.DateField()
     time_range = models.ForeignKey('TimeRange', models.DO_NOTHING)
@@ -180,7 +180,6 @@ class Rule(models.Model):
     is_active = models.IntegerField(blank=True, null=True)
     class Meta:
         db_table = '{}_rule'.format(appName)
-
 
 
 class RuleHasEmployee(models.Model):

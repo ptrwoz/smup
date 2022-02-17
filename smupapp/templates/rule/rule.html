@@ -49,9 +49,11 @@
             if (dataTypeSelect.val() == '1') {
                 maxInput.attr('type','text')
                 maxInput.attr('placeholder','--:--')
+                maxInput.val('')
             } else {
                 maxInput.attr('type','number')
                 maxInput.attr('placeholder','--')
+                maxInput.val('')
             }
         }
         function initForm() {
