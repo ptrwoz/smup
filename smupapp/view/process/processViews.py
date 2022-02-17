@@ -148,7 +148,8 @@ def saveProcess(request, context):
             np.save()
             processes = Process.objects.all()
         i = i + 1
-    for i in reversed(range(len(existId))):
+    processes = processes.order_by('-order')
+    for i in range(len(existId)):
         if not existId[i]:
             processes[i].delete()
     messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')

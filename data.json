@@ -1,0 +1,3229 @@
+[
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$qpkFbHUYGMPwsHI4Jve1V6$2g2tImq39YBAWmXRRkAYpH2CA1jhW3X9s41aZCMiPLE=",
+        "last_login": "2022-02-17T15:35:17.150Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "user@email.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-01-21T14:57:37Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$zGMlKU2zkKBqovK2ljtK4O$MAlBJG+bQ4zo3ER697pMA8xo8rlQ5HqvnjBX3AEpNVA=",
+        "last_login": "2022-02-17T08:24:29.085Z",
+        "is_superuser": false,
+        "username": "mInglot",
+        "first_name": "",
+        "last_name": "",
+        "email": "mInglot",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-21T15:28:49.833Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$01170HAWwy0U7CF7zGcx7h$YQNSGn+HsDD2L27OyxeQQtSM8NKruIIBdrXK23cZueU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jkowalski",
+        "first_name": "",
+        "last_name": "",
+        "email": "jkowalski",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-25T11:43:04.007Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$kyQQaK13Fyhv3t4AsBTEIf$WW2ZXpFvaj2VKAiiyeBF0aa9wdtxe8tojePDZcWT/wM=",
+        "last_login": "2022-02-01T20:15:55.278Z",
+        "is_superuser": false,
+        "username": "anowak",
+        "first_name": "",
+        "last_name": "",
+        "email": "anowak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-01T20:11:00.006Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$53gwW8EfD5217CagVh7POz$cGEuo7XPFwWmGYFQfZzisV9OcJDvl002lIr5EAaLMEg=",
+        "last_login": "2022-02-17T15:35:39.856Z",
+        "is_superuser": false,
+        "username": "pwozniak",
+        "first_name": "",
+        "last_name": "",
+        "email": "pwozniak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-10T20:24:38.758Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$rfiPc4bvxe9imzEC99qwHu$+4eX+gWwmf0jb44mfdOdsTpgefFWDwGChiBf81DxQM8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jjamrozy",
+        "first_name": "",
+        "last_name": "",
+        "email": "jjamrozy",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-17T08:25:44.629Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$kLFZKUNwhQQGJecqpLw87h$oqXDHW515qGWLSrxZzDpD/k0rIaeF0f6RQXzBsS0xgw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "swysocki",
+        "first_name": "",
+        "last_name": "",
+        "email": "swysocki",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-17T08:27:47.316Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$g1a7CeMYSyeSNuicEX7AOK$9tph/oZXPb9PjtE4lgH5P26GyVZqNp4jCzC2/6NZH2o=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mpolomski",
+        "first_name": "",
+        "last_name": "",
+        "email": "mpolomski",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-17T08:28:38.158Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$NwjnE1yCqcVLX9Y0hu9vfY$VP03SmCiu2dxfaS5nWMt6NAR8Ay6TTVJtsNx7ynZu4A=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jstrojny",
+        "first_name": "",
+        "last_name": "",
+        "email": "jstrojny",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-17T08:29:22.949Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "0lk94fuamt65h54ghk8508im5367z04p",
+    "fields": {
+        "session_data": ".eJxVjDEOwjAMRe-SGUVNjBLDyM4ZIru2SQG1UtNOiLtDpQ6w_vfef7lC61LL2nQug7izi-7wuzH1Dx03IHcab5Pvp3GZB_ab4nfa_HUSfV529--gUqvfGgGMGDllyQGFIRBL0i6wKkKkgMZyIussiypkMYoxHg0SApoG9_4AC-g49A:1nF1bC:-129V2qVf6_Qy36xa0HAnC8od_IZzy2q9-PSTBQsn5I",
+        "expire_date": "2022-02-15T22:26:06.996Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "28loa75l1gd1t9r1h29evpxiiuyazokt",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nKc5V:qVDcu-558Chf0wvYQX8rfLURpxdu0v_3WVxVZyQazCc",
+        "expire_date": "2022-03-03T08:24:29.126Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "8yrdwd67nrn52qzvietsusqjqsxddr6r",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nCKA3:YceCI-CeJpAh2nSJze_A20_C9_cq0R4U5wuvmVZiGpA",
+        "expire_date": "2022-02-08T11:38:55.227Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "bh3h3oecw3mumplmidhcpiymxdotp57q",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBIgQGX7j0DGYZBqgaS0q6Md9cmXej2v_f-S0Tc1hq3wUucszgLJ06_W0J6cNtBvmO7dUm9rcuc5K7Igw557Zmfl8P9O6g46rcGrcvkciBkxWzJJsJkvFYmTAZAA1vvPeTEQM6rQBZL0cWTUjYxO_H-AO71OEk:1nIG0N:r4wmPi8LC8CMe3sRG8cOATZ5Zkyp198LW4J2oJh06sQ",
+        "expire_date": "2022-02-24T20:25:27.428Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "dm70qmsubrsdz10slaxvm7gapacovw8z",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGln24i8lfc5grdcbHECOFCcV4u4QKQW0b2beSyTc1pq2zkuairgIEKffLSM9uO2g3LHdZklzW5cpy12RB-1ymAs_r4f7d1Cx12_tjB-9BrJFZwSwOTgIOvs4euUiWsYInJVnUjro4g3qQoYiEJuzi1a8P8_gN3U:1nKins:QKFeg6Hq4B25bXP9amyF5luL9l2ro8cS1GZeEJ_mFNs",
+        "expire_date": "2022-03-03T15:34:44.119Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "hp2qd3xg8wh3wvt433rux6m5mrfr0x98",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQAP_C2RAoUIpH730DWXa3UjWQlPZk_Lsh6UGvM5N5iwjHnuPReIsriatw4vLLEuCTSxf0gHKvEmvZtzXJnsjTNjlX4tftbP8GGVruWzsSWcbEC1lNk0sjDzokcBgsB3Ca0JNRDIpZoVrCwN75NFljiC2KzxcTmDj2:1nEzZD:ptElAhaWPt8yodtgl0BVbV0ydMkfUxiLR6y0SntYnfg",
+        "expire_date": "2022-02-15T20:15:55.282Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ijdgoijtrb2fwtl6ekzk8g0g166f91b2",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nBFum:-cQc0prztzq9i7wj73yduHl_whU64u98BvV001jaEds",
+        "expire_date": "2022-02-05T12:54:44.226Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "kqew903jsxj93zr0wwasu8qbvf02qll2",
+    "fields": {
+        "session_data": ".eJxVjLEOgzAQQ_8lcxVBQi6kY3e-ITrujoa2SiQCU9V_L0gM7WTZz_ZbRdzWFLcqS5xZXRWoy282Ij0lH4AfmO9FU8nrMo_6qOiTVj0Ultft7P4dJKxpX5OHBlyAFoHE06HtbsU13orHnsGazhoxLvjQYj-NMJGbvHQusDCpzxfDzDeZ:1nKiol:3flxasLyAHd8ck2xMfyKvCdnEW_GWdAs8Tje_JShuEI",
+        "expire_date": "2022-03-03T15:35:39.988Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ldwjl0hmqx5i3fkei0gi3no7kuk3u1ta",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nCMlS:NQCj5WEVM3D_MwiO1r-0JTs-rUxMObYLAkv9p2O2yi8",
+        "expire_date": "2022-02-08T14:25:42.946Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "qxv4g287ui0n3uu06y1gwezdhmlybcet",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2pBhoAVcuvcMBIZBqoYmpV0Z765NutDtf-_9lwhxW2vYOi9hyuIsUJx-txTpwW0H-R7bbZY0t3WZktwVedAur3Pm5-Vw_w5q7PVbO8TIPIzFeQJOWSudvUVvDBjrC3FEzZacZUYAPQCS9VaPhpSGYpR4fwDavjcY:1nF1Za:2IaIhpiD0nY-ZcTvnZEBYhOkJiaGaF0oZTKe3bqvdD4",
+        "expire_date": "2022-02-15T22:24:26.834Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "s0k179n51635zuyk9x6st3fdkms2lxns",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBmWiy4dO8ZyAwMUjU0Ke3KeHfbpAvdvvf-f6tA61LC2mQOY1IXher0y5jiU-ou0oPqfdJxqss8st4Tfdimb1OS1_Vo_w4KtbKtPbCxEBmEIqD19mxBsEfPGTpwmdGDMy4jIAxDt4FI3LEhcVkQevX5AsWAN1g:1nFM1u:KJqVqemB4zpvJFasLVvx--8YJi88PL3iYPOJ6SWKvgU",
+        "expire_date": "2022-02-16T20:15:02.962Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "unseqs7ffp1reygmu5jovra1a4n4pzsa",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nFB6l:YD49X1ugJNvrTIeb9gEFN-_9--lYBZl1t7gbnimb9h8",
+        "expire_date": "2022-02-16T08:35:19.923Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "voliynavulr155dnagad8fkfy19t8mgh",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAUBO_iGlmJP8kLJT1nsNb2Mw4gW4qTCnF3iJQC2p2ZfQmHbc1ua7y4OYqzUOL0u3mEB5cdxDvKrcpQy7rMXu6KPGiT1xr5eTncv4OMlr91TwB1qScdRmsRtYJiStr6iZIPg4mDQUhGkWcDWA3SDLbEhMl0o3h_APIgOGg:1nExb9:T1mDfoxleRD-hq16ckESQO7_QKh7y3OvBe4-t4KCKFI",
+        "expire_date": "2022-02-15T18:09:47.307Z"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add auth group",
+        "content_type": 7,
+        "codename": "add_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change auth group",
+        "content_type": 7,
+        "codename": "change_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete auth group",
+        "content_type": 7,
+        "codename": "delete_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view auth group",
+        "content_type": 7,
+        "codename": "view_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add auth group permissions",
+        "content_type": 8,
+        "codename": "add_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change auth group permissions",
+        "content_type": 8,
+        "codename": "change_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete auth group permissions",
+        "content_type": 8,
+        "codename": "delete_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view auth group permissions",
+        "content_type": 8,
+        "codename": "view_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add auth permission",
+        "content_type": 9,
+        "codename": "add_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change auth permission",
+        "content_type": 9,
+        "codename": "change_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete auth permission",
+        "content_type": 9,
+        "codename": "delete_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view auth permission",
+        "content_type": 9,
+        "codename": "view_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add auth user",
+        "content_type": 10,
+        "codename": "add_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change auth user",
+        "content_type": 10,
+        "codename": "change_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete auth user",
+        "content_type": 10,
+        "codename": "delete_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view auth user",
+        "content_type": 10,
+        "codename": "view_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add auth user groups",
+        "content_type": 11,
+        "codename": "add_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change auth user groups",
+        "content_type": 11,
+        "codename": "change_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete auth user groups",
+        "content_type": 11,
+        "codename": "delete_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view auth user groups",
+        "content_type": 11,
+        "codename": "view_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add auth user user permissions",
+        "content_type": 12,
+        "codename": "add_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change auth user user permissions",
+        "content_type": 12,
+        "codename": "change_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete auth user user permissions",
+        "content_type": 12,
+        "codename": "delete_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view auth user user permissions",
+        "content_type": 12,
+        "codename": "view_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add django admin log",
+        "content_type": 13,
+        "codename": "add_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change django admin log",
+        "content_type": 13,
+        "codename": "change_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete django admin log",
+        "content_type": 13,
+        "codename": "delete_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view django admin log",
+        "content_type": 13,
+        "codename": "view_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add django content type",
+        "content_type": 14,
+        "codename": "add_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change django content type",
+        "content_type": 14,
+        "codename": "change_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete django content type",
+        "content_type": 14,
+        "codename": "delete_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view django content type",
+        "content_type": 14,
+        "codename": "view_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add django migrations",
+        "content_type": 15,
+        "codename": "add_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change django migrations",
+        "content_type": 15,
+        "codename": "change_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete django migrations",
+        "content_type": 15,
+        "codename": "delete_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view django migrations",
+        "content_type": 15,
+        "codename": "view_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add django session",
+        "content_type": 16,
+        "codename": "add_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change django session",
+        "content_type": 16,
+        "codename": "change_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete django session",
+        "content_type": 16,
+        "codename": "delete_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view django session",
+        "content_type": 16,
+        "codename": "view_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add data type",
+        "content_type": 17,
+        "codename": "add_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change data type",
+        "content_type": 17,
+        "codename": "change_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete data type",
+        "content_type": 17,
+        "codename": "delete_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view data type",
+        "content_type": 17,
+        "codename": "view_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add employee",
+        "content_type": 18,
+        "codename": "add_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change employee",
+        "content_type": 18,
+        "codename": "change_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete employee",
+        "content_type": 18,
+        "codename": "delete_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view employee",
+        "content_type": 18,
+        "codename": "view_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add employeetype",
+        "content_type": 19,
+        "codename": "add_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change employeetype",
+        "content_type": 19,
+        "codename": "change_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete employeetype",
+        "content_type": 19,
+        "codename": "delete_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view employeetype",
+        "content_type": 19,
+        "codename": "view_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 77,
+    "fields": {
+        "name": "Can add process",
+        "content_type": 20,
+        "codename": "add_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 78,
+    "fields": {
+        "name": "Can change process",
+        "content_type": 20,
+        "codename": "change_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 79,
+    "fields": {
+        "name": "Can delete process",
+        "content_type": 20,
+        "codename": "delete_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 80,
+    "fields": {
+        "name": "Can view process",
+        "content_type": 20,
+        "codename": "view_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 81,
+    "fields": {
+        "name": "Can add rule",
+        "content_type": 21,
+        "codename": "add_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 82,
+    "fields": {
+        "name": "Can change rule",
+        "content_type": 21,
+        "codename": "change_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 83,
+    "fields": {
+        "name": "Can delete rule",
+        "content_type": 21,
+        "codename": "delete_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 84,
+    "fields": {
+        "name": "Can view rule",
+        "content_type": 21,
+        "codename": "view_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 85,
+    "fields": {
+        "name": "Can add time range",
+        "content_type": 22,
+        "codename": "add_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 86,
+    "fields": {
+        "name": "Can change time range",
+        "content_type": 22,
+        "codename": "change_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 87,
+    "fields": {
+        "name": "Can delete time range",
+        "content_type": 22,
+        "codename": "delete_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 88,
+    "fields": {
+        "name": "Can view time range",
+        "content_type": 22,
+        "codename": "view_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 89,
+    "fields": {
+        "name": "Can add unit",
+        "content_type": 23,
+        "codename": "add_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 90,
+    "fields": {
+        "name": "Can change unit",
+        "content_type": 23,
+        "codename": "change_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 91,
+    "fields": {
+        "name": "Can delete unit",
+        "content_type": 23,
+        "codename": "delete_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 92,
+    "fields": {
+        "name": "Can view unit",
+        "content_type": 23,
+        "codename": "view_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 93,
+    "fields": {
+        "name": "Can add rule has process",
+        "content_type": 24,
+        "codename": "add_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 94,
+    "fields": {
+        "name": "Can change rule has process",
+        "content_type": 24,
+        "codename": "change_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 95,
+    "fields": {
+        "name": "Can delete rule has process",
+        "content_type": 24,
+        "codename": "delete_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 96,
+    "fields": {
+        "name": "Can view rule has process",
+        "content_type": 24,
+        "codename": "view_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 97,
+    "fields": {
+        "name": "Can add rule has employee",
+        "content_type": 25,
+        "codename": "add_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 98,
+    "fields": {
+        "name": "Can change rule has employee",
+        "content_type": 25,
+        "codename": "change_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 99,
+    "fields": {
+        "name": "Can delete rule has employee",
+        "content_type": 25,
+        "codename": "delete_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 100,
+    "fields": {
+        "name": "Can view rule has employee",
+        "content_type": 25,
+        "codename": "view_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 101,
+    "fields": {
+        "name": "Can add activity",
+        "content_type": 26,
+        "codename": "add_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 102,
+    "fields": {
+        "name": "Can change activity",
+        "content_type": 26,
+        "codename": "change_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 103,
+    "fields": {
+        "name": "Can delete activity",
+        "content_type": 26,
+        "codename": "delete_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 104,
+    "fields": {
+        "name": "Can view activity",
+        "content_type": 26,
+        "codename": "view_activity"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$qpkFbHUYGMPwsHI4Jve1V6$2g2tImq39YBAWmXRRkAYpH2CA1jhW3X9s41aZCMiPLE=",
+        "last_login": "2022-02-17T15:35:17.150Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "user@email.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-01-21T14:57:37Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$zGMlKU2zkKBqovK2ljtK4O$MAlBJG+bQ4zo3ER697pMA8xo8rlQ5HqvnjBX3AEpNVA=",
+        "last_login": "2022-02-17T08:24:29.085Z",
+        "is_superuser": false,
+        "username": "mInglot",
+        "first_name": "",
+        "last_name": "",
+        "email": "mInglot",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-21T15:28:49.833Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$01170HAWwy0U7CF7zGcx7h$YQNSGn+HsDD2L27OyxeQQtSM8NKruIIBdrXK23cZueU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jkowalski",
+        "first_name": "",
+        "last_name": "",
+        "email": "jkowalski",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-25T11:43:04.007Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$kyQQaK13Fyhv3t4AsBTEIf$WW2ZXpFvaj2VKAiiyeBF0aa9wdtxe8tojePDZcWT/wM=",
+        "last_login": "2022-02-01T20:15:55.278Z",
+        "is_superuser": false,
+        "username": "anowak",
+        "first_name": "",
+        "last_name": "",
+        "email": "anowak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-01T20:11:00.006Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$53gwW8EfD5217CagVh7POz$cGEuo7XPFwWmGYFQfZzisV9OcJDvl002lIr5EAaLMEg=",
+        "last_login": "2022-02-17T15:35:39.856Z",
+        "is_superuser": false,
+        "username": "pwozniak",
+        "first_name": "",
+        "last_name": "",
+        "email": "pwozniak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-10T20:24:38.758Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$rfiPc4bvxe9imzEC99qwHu$+4eX+gWwmf0jb44mfdOdsTpgefFWDwGChiBf81DxQM8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jjamrozy",
+        "first_name": "",
+        "last_name": "",
+        "email": "jjamrozy",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-17T08:25:44.629Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$kLFZKUNwhQQGJecqpLw87h$oqXDHW515qGWLSrxZzDpD/k0rIaeF0f6RQXzBsS0xgw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "swysocki",
+        "first_name": "",
+        "last_name": "",
+        "email": "swysocki",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-17T08:27:47.316Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$g1a7CeMYSyeSNuicEX7AOK$9tph/oZXPb9PjtE4lgH5P26GyVZqNp4jCzC2/6NZH2o=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mpolomski",
+        "first_name": "",
+        "last_name": "",
+        "email": "mpolomski",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-17T08:28:38.158Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$NwjnE1yCqcVLX9Y0hu9vfY$VP03SmCiu2dxfaS5nWMt6NAR8Ay6TTVJtsNx7ynZu4A=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jstrojny",
+        "first_name": "",
+        "last_name": "",
+        "email": "jstrojny",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-17T08:29:22.949Z"
+    }
+},
+{
+    "model": "smupapp.datatype",
+    "pk": 1,
+    "fields": {
+        "name": "Aktywnoœæ (godz.)"
+    }
+},
+{
+    "model": "smupapp.datatype",
+    "pk": 2,
+    "fields": {
+        "name": "Sprawa (iloœæ)"
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 1,
+    "fields": {
+        "action_time": "2022-01-22T23:48:16.768Z",
+        "object_id": "3",
+        "object_repr": "TimeRange object (3)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 2,
+    "fields": {
+        "action_time": "2022-01-22T23:48:23.169Z",
+        "object_id": "2",
+        "object_repr": "TimeRange object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 3,
+    "fields": {
+        "action_time": "2022-01-22T23:48:28.680Z",
+        "object_id": "1",
+        "object_repr": "TimeRange object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 4,
+    "fields": {
+        "action_time": "2022-01-22T23:48:36.361Z",
+        "object_id": "2",
+        "object_repr": "DataType object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 5,
+    "fields": {
+        "action_time": "2022-01-22T23:48:43.743Z",
+        "object_id": "1",
+        "object_repr": "DataType object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 6,
+    "fields": {
+        "action_time": "2022-02-10T20:25:09.506Z",
+        "object_id": "4",
+        "object_repr": "Employee object (4)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id employeetype\"]}}]",
+        "content_type": 18,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authgroup"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authpermission"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authuser"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authusergroups"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 14,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 15,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangomigrations"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 16,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangosession"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 17,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "datatype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 18,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "employee"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 19,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "employeetype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 20,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "process"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 21,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rule"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 22,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "timerange"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 23,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "unit"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 24,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 25,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 26,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "activity"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 1,
+    "fields": {
+        "app": "contenttypes",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:51.543Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 2,
+    "fields": {
+        "app": "auth",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:55.363Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 3,
+    "fields": {
+        "app": "admin",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:56.483Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 4,
+    "fields": {
+        "app": "admin",
+        "name": "0002_logentry_remove_auto_add",
+        "applied": "2022-01-22T12:50:56.844Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 5,
+    "fields": {
+        "app": "admin",
+        "name": "0003_logentry_add_action_flag_choices",
+        "applied": "2022-01-22T12:50:57.324Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 6,
+    "fields": {
+        "app": "contenttypes",
+        "name": "0002_remove_content_type_name",
+        "applied": "2022-01-22T12:50:58.044Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 7,
+    "fields": {
+        "app": "auth",
+        "name": "0002_alter_permission_name_max_length",
+        "applied": "2022-01-22T12:50:58.644Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 8,
+    "fields": {
+        "app": "auth",
+        "name": "0003_alter_user_email_max_length",
+        "applied": "2022-01-22T12:50:59.244Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 9,
+    "fields": {
+        "app": "auth",
+        "name": "0004_alter_user_username_opts",
+        "applied": "2022-01-22T12:50:59.732Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 10,
+    "fields": {
+        "app": "auth",
+        "name": "0005_alter_user_last_login_null",
+        "applied": "2022-01-22T12:51:00.338Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 11,
+    "fields": {
+        "app": "auth",
+        "name": "0006_require_contenttypes_0002",
+        "applied": "2022-01-22T12:51:00.816Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 12,
+    "fields": {
+        "app": "auth",
+        "name": "0007_alter_validators_add_error_messages",
+        "applied": "2022-01-22T12:51:01.302Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 13,
+    "fields": {
+        "app": "auth",
+        "name": "0008_alter_user_username_max_length",
+        "applied": "2022-01-22T12:51:01.909Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 14,
+    "fields": {
+        "app": "auth",
+        "name": "0009_alter_user_last_name_max_length",
+        "applied": "2022-01-22T12:51:02.515Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 15,
+    "fields": {
+        "app": "auth",
+        "name": "0010_alter_group_name_max_length",
+        "applied": "2022-01-22T12:51:03.120Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 16,
+    "fields": {
+        "app": "auth",
+        "name": "0011_update_proxy_permissions",
+        "applied": "2022-01-22T12:51:03.601Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 17,
+    "fields": {
+        "app": "auth",
+        "name": "0012_alter_user_first_name_max_length",
+        "applied": "2022-01-22T12:51:04.200Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 18,
+    "fields": {
+        "app": "sessions",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:51:05.163Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 19,
+    "fields": {
+        "app": "smupapp",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:51:10.111Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 20,
+    "fields": {
+        "app": "smupapp",
+        "name": "0002_unit_is_active",
+        "applied": "2022-02-01T18:15:56.787Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 21,
+    "fields": {
+        "app": "smupapp",
+        "name": "0003_process_order",
+        "applied": "2022-02-01T18:15:57.505Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 22,
+    "fields": {
+        "app": "smupapp",
+        "name": "0004_process_number",
+        "applied": "2022-02-01T18:15:58.217Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "0lk94fuamt65h54ghk8508im5367z04p",
+    "fields": {
+        "session_data": ".eJxVjDEOwjAMRe-SGUVNjBLDyM4ZIru2SQG1UtNOiLtDpQ6w_vfef7lC61LL2nQug7izi-7wuzH1Dx03IHcab5Pvp3GZB_ab4nfa_HUSfV529--gUqvfGgGMGDllyQGFIRBL0i6wKkKkgMZyIussiypkMYoxHg0SApoG9_4AC-g49A:1nF1bC:-129V2qVf6_Qy36xa0HAnC8od_IZzy2q9-PSTBQsn5I",
+        "expire_date": "2022-02-15T22:26:06.996Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "28loa75l1gd1t9r1h29evpxiiuyazokt",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nKc5V:qVDcu-558Chf0wvYQX8rfLURpxdu0v_3WVxVZyQazCc",
+        "expire_date": "2022-03-03T08:24:29.126Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "8yrdwd67nrn52qzvietsusqjqsxddr6r",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nCKA3:YceCI-CeJpAh2nSJze_A20_C9_cq0R4U5wuvmVZiGpA",
+        "expire_date": "2022-02-08T11:38:55.227Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "bh3h3oecw3mumplmidhcpiymxdotp57q",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBIgQGX7j0DGYZBqgaS0q6Md9cmXej2v_f-S0Tc1hq3wUucszgLJ06_W0J6cNtBvmO7dUm9rcuc5K7Igw557Zmfl8P9O6g46rcGrcvkciBkxWzJJsJkvFYmTAZAA1vvPeTEQM6rQBZL0cWTUjYxO_H-AO71OEk:1nIG0N:r4wmPi8LC8CMe3sRG8cOATZ5Zkyp198LW4J2oJh06sQ",
+        "expire_date": "2022-02-24T20:25:27.428Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "dm70qmsubrsdz10slaxvm7gapacovw8z",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGln24i8lfc5grdcbHECOFCcV4u4QKQW0b2beSyTc1pq2zkuairgIEKffLSM9uO2g3LHdZklzW5cpy12RB-1ymAs_r4f7d1Cx12_tjB-9BrJFZwSwOTgIOvs4euUiWsYInJVnUjro4g3qQoYiEJuzi1a8P8_gN3U:1nKins:QKFeg6Hq4B25bXP9amyF5luL9l2ro8cS1GZeEJ_mFNs",
+        "expire_date": "2022-03-03T15:34:44.119Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "hp2qd3xg8wh3wvt433rux6m5mrfr0x98",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQAP_C2RAoUIpH730DWXa3UjWQlPZk_Lsh6UGvM5N5iwjHnuPReIsriatw4vLLEuCTSxf0gHKvEmvZtzXJnsjTNjlX4tftbP8GGVruWzsSWcbEC1lNk0sjDzokcBgsB3Ca0JNRDIpZoVrCwN75NFljiC2KzxcTmDj2:1nEzZD:ptElAhaWPt8yodtgl0BVbV0ydMkfUxiLR6y0SntYnfg",
+        "expire_date": "2022-02-15T20:15:55.282Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ijdgoijtrb2fwtl6ekzk8g0g166f91b2",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nBFum:-cQc0prztzq9i7wj73yduHl_whU64u98BvV001jaEds",
+        "expire_date": "2022-02-05T12:54:44.226Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "kqew903jsxj93zr0wwasu8qbvf02qll2",
+    "fields": {
+        "session_data": ".eJxVjLEOgzAQQ_8lcxVBQi6kY3e-ITrujoa2SiQCU9V_L0gM7WTZz_ZbRdzWFLcqS5xZXRWoy282Ij0lH4AfmO9FU8nrMo_6qOiTVj0Ultft7P4dJKxpX5OHBlyAFoHE06HtbsU13orHnsGazhoxLvjQYj-NMJGbvHQusDCpzxfDzDeZ:1nKiol:3flxasLyAHd8ck2xMfyKvCdnEW_GWdAs8Tje_JShuEI",
+        "expire_date": "2022-03-03T15:35:39.988Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ldwjl0hmqx5i3fkei0gi3no7kuk3u1ta",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nCMlS:NQCj5WEVM3D_MwiO1r-0JTs-rUxMObYLAkv9p2O2yi8",
+        "expire_date": "2022-02-08T14:25:42.946Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "qxv4g287ui0n3uu06y1gwezdhmlybcet",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2pBhoAVcuvcMBIZBqoYmpV0Z765NutDtf-_9lwhxW2vYOi9hyuIsUJx-txTpwW0H-R7bbZY0t3WZktwVedAur3Pm5-Vw_w5q7PVbO8TIPIzFeQJOWSudvUVvDBjrC3FEzZacZUYAPQCS9VaPhpSGYpR4fwDavjcY:1nF1Za:2IaIhpiD0nY-ZcTvnZEBYhOkJiaGaF0oZTKe3bqvdD4",
+        "expire_date": "2022-02-15T22:24:26.834Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "s0k179n51635zuyk9x6st3fdkms2lxns",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBmWiy4dO8ZyAwMUjU0Ke3KeHfbpAvdvvf-f6tA61LC2mQOY1IXher0y5jiU-ou0oPqfdJxqss8st4Tfdimb1OS1_Vo_w4KtbKtPbCxEBmEIqD19mxBsEfPGTpwmdGDMy4jIAxDt4FI3LEhcVkQevX5AsWAN1g:1nFM1u:KJqVqemB4zpvJFasLVvx--8YJi88PL3iYPOJ6SWKvgU",
+        "expire_date": "2022-02-16T20:15:02.962Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "unseqs7ffp1reygmu5jovra1a4n4pzsa",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nFB6l:YD49X1ugJNvrTIeb9gEFN-_9--lYBZl1t7gbnimb9h8",
+        "expire_date": "2022-02-16T08:35:19.923Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "voliynavulr155dnagad8fkfy19t8mgh",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAUBO_iGlmJP8kLJT1nsNb2Mw4gW4qTCnF3iJQC2p2ZfQmHbc1ua7y4OYqzUOL0u3mEB5cdxDvKrcpQy7rMXu6KPGiT1xr5eTncv4OMlr91TwB1qScdRmsRtYJiStr6iZIPg4mDQUhGkWcDWA3SDLbEhMl0o3h_APIgOGg:1nExb9:T1mDfoxleRD-hq16ckESQO7_QKh7y3OvBe4-t4KCKFI",
+        "expire_date": "2022-02-15T18:09:47.307Z"
+    }
+},
+{
+    "model": "smupapp.activity",
+    "pk": 1,
+    "fields": {
+        "value": 8.0,
+        "time_add": "2022-02-01T00:00:00Z",
+        "time_from": "2022-02-01",
+        "time_to": "2022-02-07",
+        "rule_has_process_id_rule_has_process": 3,
+        "employee_id_employee": 3
+    }
+},
+{
+    "model": "smupapp.activity",
+    "pk": 2,
+    "fields": {
+        "value": 7.3,
+        "time_add": "2022-02-01T00:00:00Z",
+        "time_from": "2022-02-08",
+        "time_to": "2022-02-14",
+        "rule_has_process_id_rule_has_process": 3,
+        "employee_id_employee": 3
+    }
+},
+{
+    "model": "smupapp.activity",
+    "pk": 3,
+    "fields": {
+        "value": 1.3,
+        "time_add": "2022-02-01T00:00:00Z",
+        "time_from": "2022-02-15",
+        "time_to": "2022-02-21",
+        "rule_has_process_id_rule_has_process": 1,
+        "employee_id_employee": 3
+    }
+},
+{
+    "model": "smupapp.activity",
+    "pk": 4,
+    "fields": {
+        "value": 6.15,
+        "time_add": "2022-02-01T00:00:00Z",
+        "time_from": "2022-02-15",
+        "time_to": "2022-02-21",
+        "rule_has_process_id_rule_has_process": 3,
+        "employee_id_employee": 3
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 1,
+    "fields": {
+        "name": "Magdalena",
+        "surname": "Inglot",
+        "id_unit": 1,
+        "id_employeetype": 1,
+        "auth_user": 3
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 2,
+    "fields": {
+        "name": "Jan ",
+        "surname": "Kowalski",
+        "id_unit": 1,
+        "id_employeetype": 1,
+        "auth_user": 4
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 3,
+    "fields": {
+        "name": "Anna",
+        "surname": "Nowak",
+        "id_unit": 1,
+        "id_employeetype": 2,
+        "auth_user": 5
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 4,
+    "fields": {
+        "name": "Piotr",
+        "surname": "W*****k",
+        "id_unit": 2,
+        "id_employeetype": 1,
+        "auth_user": 6
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 5,
+    "fields": {
+        "name": "Jolanta",
+        "surname": "Jamro¿y",
+        "id_unit": 1,
+        "id_employeetype": 3,
+        "auth_user": 7
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 6,
+    "fields": {
+        "name": "S³awomir",
+        "surname": "Wysocki",
+        "id_unit": 2,
+        "id_employeetype": 3,
+        "auth_user": 8
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 7,
+    "fields": {
+        "name": "Marcin",
+        "surname": "Po³omski",
+        "id_unit": 1,
+        "id_employeetype": 3,
+        "auth_user": 9
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 8,
+    "fields": {
+        "name": "Jacek",
+        "surname": "Strojny",
+        "id_unit": 1,
+        "id_employeetype": 3,
+        "auth_user": 10
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 1,
+    "fields": {
+        "name": "ADMIN"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 2,
+    "fields": {
+        "name": "USER"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 3,
+    "fields": {
+        "name": "MANAGER"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 4,
+    "fields": {
+        "name": "PROCESS MANAGER"
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 1,
+    "fields": {
+        "name": "Zarz¹dzanie i obs³uga w jednostce",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": null,
+        "order": 0,
+        "number": "1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 2,
+    "fields": {
+        "name": "Us³ugi (ogó³em)",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": null,
+        "order": 1,
+        "number": "2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 3,
+    "fields": {
+        "name": "Podatki i op³aty lokalne",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 2,
+        "order": 2,
+        "number": "2.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 4,
+    "fields": {
+        "name": "Wymiar i pobór podatku od nieruchomoœci",
+        "tip": "Zadania:\n1. okreœlenie w drodze uchwa³y rady gminy stawek oraz zwolnieñ z tytu³u podatku od nieruchomoœci,\n2. dokonanie wymiaru podatku poprzez wydanie decyzji podatkowych, zaewidencjonowanie danych z deklaracji podatkowych,\n3. udzielanie ulg w zap³acie podatku,\n4. przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych,\n5. pobór podatku,\n6.  wydawanie interpretacji podatkowych,\n7. wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. Uchwa³y rady gminy w sprawie: okreœlenia wysokoœci stawek podatku, w sprawie zwolnieñ, ulg podatkowych, w sprawie zarz¹dzenia poboru w drodze inkasa i okreœlenia inkasentów, \n2. decyzja ustalaj¹ca/koryguj¹ca wysokoœæ zobowi¹zania podatkowego,\n3. decyzja w zakresie ulgi podatkowej, \n4. pozosta³e decyzje, \n5. zaœwiadczenie w sprawach podatkowych, \n6. interpretacja podatkowa,\n7. wp³ata podatku.",
+        "id_number": 1,
+        "id_mainprocess": 3,
+        "order": 3,
+        "number": "2.1.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 5,
+    "fields": {
+        "name": "Wymiar i pobór podatku rolnego ",
+        "tip": "Zadania:\n1. podjêcie przez rady gmin uchwa³ w sprawie: obni¿enia cen skupu ¿yta, zwolnieñ, ulg podatkowych, zarz¹dzenia poboru w drodze inkasa i okreœlenia inkasentów,\n2. dokonanie wymiaru podatku poprzez wydanie decyzji podatkowych, zaewidencjonowanie danych z deklaracji podatkowych,\n3. udzielanie ulg w zap³acie podatku,\n4. przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych,\n5. pobór podatku,\n6. wydawanie interpretacji podatkowych,\n7. wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. Uchwa³y rady gminy w sprawie: obni¿enia cen skupu ¿yta, w sprawie zwolnieñ, ulg podatkowych, w sprawie zarz¹dzenia poboru w drodze inkasa i okreœlenia inkasentów, \n2. decyzja ustalaj¹ca/koryguj¹ca wysokoœæ zobowi¹zania podatkowego,\n3. decyzja w zakresie ulgi podatkowej, \n4. pozosta³e decyzje, \n5. zaœwiadczenie w sprawach podatkowych, \n6. interpretacja podatkowa, \n7. wp³ata podatku.",
+        "id_number": 2,
+        "id_mainprocess": 3,
+        "order": 4,
+        "number": "2.1.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 6,
+    "fields": {
+        "name": "Wymiar i pobór podatku leœnego",
+        "tip": "Zadania:\n1. okreœlenie w drodze uchwa³y rady gminy w sprawie wprowadzenia zwolnieñ przedmiotowych, zarz¹dzenia poboru podatku leœnego w drodze inkasa oraz obni¿enia kwoty stanowi¹cej œredni¹ cenê sprzeda¿y drewna przyjmowanej, jako podstawê obliczania podatku leœnego na obszarze gminy,\n2. dokonanie wymiaru podatku poprzez wydanie decyzji podatkowych, zaewidencjonowanie danych z deklaracji podatkowych,\n3. udzielanie ulg w zap³acie podatku,\n4. przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych,\n5. pobór podatku, \n6. wydawanie interpretacji podatkowych,\n7. wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. uchwa³y rady gminy w sprawie: obni¿enia kwoty stanowi¹cej œredni¹ cenê sprzeda¿y drewna przyjmowanej, jako podstawê obliczania podatku leœnego na obszarze gminy, wprowadzenia zwolnieñ przedmiotowych, zarz¹dzenia poboru leœnego w drodze inkasa; \n2. decyzja ustalaj¹ce i okreœlaj¹ce wysokoœæ zobowi¹zania podatkowego, \n3. pozosta³e decyzje, \n4. zaœwiadczenie w sprawach podatkowych, \n5. interpretacja podatkowa, \n6. wp³ata podatku.",
+        "id_number": 3,
+        "id_mainprocess": 3,
+        "order": 5,
+        "number": "2.1.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 7,
+    "fields": {
+        "name": "Wymiar i pobór podatku od œrodków transportowych",
+        "tip": "Zadania:\n1. okreœlenie, w drodze uchwa³y rady gminy stawek, zwolnieñ z tytu³u podatku od œrodków transportowych,\n2. dokonanie wymiaru podatku poprzez zaewidencjonowanie danych z deklaracji podatkowych oraz wydanie decyzji podatkowych,\n3. udzielanie ulg w zap³acie podatku,\n4. przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych,\n5. pobór podatku poprzez przyjmowanie wp³at podatku z wykorzystaniem ró¿nych rozwi¹zañ (m.in. kasa, mo¿liwoœæ zap³aty podatku kart¹ p³atnicz¹, przelewy bankowe, op³atomaty, inkaso) oraz prowadzenie czynnoœci windykacyjnych, w tym tzw. miêkkiej windykacji (powiadamianie sms, maile),\n6. wydawanie interpretacji podatkowych,\n7. wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. uchwa³y rady gminy w sprawie okreœlenia stawek i zwolnieñ podatkowych,\n2. decyzja okreœlaj¹ca/koryguj¹ca wysokoœæ zobowi¹zania podatkowego,\n3. decyzja w zakresie ulgi podatkowej, \n4. pozosta³e decyzje, \n5. zaœwiadczenie w sprawach podatkowych, \n6. interpretacja podatkowa, \n7. wp³ata podatku.",
+        "id_number": 4,
+        "id_mainprocess": 3,
+        "order": 6,
+        "number": "2.1.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 8,
+    "fields": {
+        "name": "Wymiar i pobór op³aty od posiadania psów",
+        "tip": "Zadania:\n1. okreœlenie w drodze uchwa³y rady gminy wprowadzenia op³aty od posiadania psa, okreœlenie zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w drodze uchwa³y rada miasta mo¿e tak¿e zarz¹dziæ pobór op³aty w drodze inkasa i okreœliæ inkasentów,\n2. dokonanie wymiaru op³aty poprzez wydanie decyzji okreœlaj¹cych, w przypadku braku zap³aty op³aty, \n3. udzielanie ulg w zap³acie op³aty,\n4.  przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych,\n5. pobór op³aty, \n6. wydawanie interpretacji podatkowych,\n7. wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. Uchwa³y rady gminy w sprawie: wprowadzenia op³aty od posiadania psa, okreœlenia zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w sprawie zwolnieñ, w sprawie zarz¹dzenia poboru op³aty w drodze inkasa i okreœlenia inkasentów, \n2. decyzja okreœlaj¹ca wysokoœæ op³aty, \n3. decyzja okreœlaj¹ca zaleg³oœæ inkasenta, \n3. pozosta³e decyzje, \n4. zaœwiadczenie w sprawach podatkowych, \n5. interpretacja podatkowa, \n6. wp³ata op³aty.",
+        "id_number": 5,
+        "id_mainprocess": 3,
+        "order": 7,
+        "number": "2.1.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 9,
+    "fields": {
+        "name": "Wymiar i pobór op³aty targowej",
+        "tip": "Zadania:\n1. okreœlenie w drodze uchwa³y rady gminy wprowadzenia op³aty targowej, okreœlenie zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w drodze uchwa³y rada gminy mo¿e tak¿e zarz¹dziæ pobór op³aty w drodze inkasa i okreœliæ inkasentów,\n2. dokonanie wymiaru op³aty poprzez wydanie decyzji okreœlaj¹cych, w przypadku braku zap³aty op³aty,\n3. udzielanie ulg w zap³acie op³aty,\n4. przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych,\n5. pobór op³aty,\n6. wydawanie interpretacji podatkowych,\n7.wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. Uchwa³y rady gminy w sprawie: wprowadzenia op³aty targowej, okreœlenia zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w sprawie zwolnieñ, w sprawie zarz¹dzenia poboru op³aty w drodze inkasa, okreœlenia inkasentów, i ich wynagrodzenia, \n2. decyzja okreœlaj¹ca wysokoœæ op³aty, \n3. decyzja okreœlaj¹ca zaleg³oœæ inkasenta, \n4. pozosta³e decyzje, \n5. zaœwiadczenie w sprawach podatkowych, \n6. interpretacja podatkowa, \n7. wp³ata op³aty.",
+        "id_number": 6,
+        "id_mainprocess": 3,
+        "order": 8,
+        "number": "2.1.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 10,
+    "fields": {
+        "name": "Wymiar i pobór op³aty reklamowej",
+        "tip": "Zadania:\n1. okreœlenie w drodze uchwa³y rady gminy wprowadzenia op³aty reklamowej, okreœlenie zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w sprawie zwolnieñ, w sprawie zarz¹dzenia poboru op³aty w drodze inkasa i okreœlenia inkasentów, w sprawie wprowadzenia obowi¹zku sk³adania deklaracji na op³atê reklamow¹ (termin, warunki i tryb wraz ze wzorem formularza), w sprawie mo¿liwoœci sk³adania deklaracji na op³atê reklamow¹ w drodze elektronicznej,\n2. zaewidencjonowanie danych z deklaracji, dokonanie wymiaru op³aty poprzez wydanie decyzji okreœlaj¹cych wysokoœæ zobowi¹zania,\n3. udzielanie ulg w zap³acie op³aty,\n4. przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych,\n5. pobór op³aty poprzez przyjmowanie wp³at op³aty z wykorzystaniem ró¿nych rozwi¹zañ ( m.in. z wykorzystaniem inkasa, kasy, mo¿liwoœæ zap³aty op³aty kart¹ p³atnicz¹, przelewy bankowe, op³atomaty, inkaso) oraz prowadzenie czynnoœci windykacyjnych, w tym tzw. miêkkiej windykacji (powiadamianie sms, maile),\n6. wydawanie interpretacji podatkowych,\n7.wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. Uchwa³y rady gminy w sprawie: wprowadzenia op³aty reklamowej, okreœlenia zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w sprawie zwolnieñ, w sprawie zarz¹dzenia poboru op³aty w drodze inkasa i okreœlenia inkasentów, w sprawie wprowadzenia obowi¹zku sk³adania deklaracji na op³atê reklamow¹ (termin, warunki i tryb wraz ze wzorem formularza), w sprawie mo¿liwoœci sk³adania deklaracji na op³atê reklamow¹ w drodze elektronicznej, \n2. decyzja okreœlaj¹ca wysokoœæ op³aty, \n3. decyzja okreœlaj¹ca zaleg³oœæ inkasenta, \n4. pozosta³e decyzje, \n5. zaœwiadczenie w sprawach podatkowych, \n6. interpretacja podatkowa, \n7. wp³ata op³aty.",
+        "id_number": 7,
+        "id_mainprocess": 3,
+        "order": 9,
+        "number": "2.1.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 11,
+    "fields": {
+        "name": "Wymiar i pobór op³aty uzdrowiskowej",
+        "tip": "Zadania:\n1. okreœlenie w drodze uchwa³y rady gminy wprowadzenia op³aty uzdrowiskowej, okreœlenie zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w drodze uchwa³y rada miasta mo¿e tak¿e zarz¹dziæ pobór op³aty w drodze inkasa i okreœliæ inkasentów,\n2. dokonanie  wymiaru op³aty poprzez wydanie decyzji okreœlaj¹cych, w przypadku braku zap³aty op³aty, \n3. udzielanie ulg w zap³acie op³aty,\n4. przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych,\n5. pobór op³aty poprzez przyjmowanie wp³at op³aty z wykorzystaniem ró¿nych rozwi¹zañ (m.in. z wykorzystaniem inkasa, kasy, mo¿liwoœæ zap³aty op³aty kart¹ p³atnicz¹, przelewy bankowe, op³atomaty) oraz prowadzenie czynnoœci windykacyjnych, w tym tzw. miêkkiej windykacji (powiadamianie sms, maile),\n6. wydawanie interpretacji podatkowych,\n7.wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. Uchwa³y rady gminy w sprawie: wprowadzenia op³aty uzdrowiskowej, okreœlenia zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w sprawie zwolnieñ, w sprawie zarz¹dzenia poboru op³aty w drodze inkasa i okreœlenia inkasentów, \n2. decyzja okreœlaj¹ca wysokoœæ op³aty, \n3. decyzja okreœlaj¹ca zaleg³oœæ inkasenta, \n4. pozosta³e decyzje, \n5. zaœwiadczenie w sprawach podatkowych, \n6. interpretacja podatkowa, \n7. wp³ata op³aty.",
+        "id_number": 8,
+        "id_mainprocess": 3,
+        "order": 10,
+        "number": "2.1.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 12,
+    "fields": {
+        "name": "Wymiar i pobór op³aty miejscowej ",
+        "tip": "Zadania:\n1. Wprowadzenie w drodze uchwa³y rady gminy op³aty miejscowej, okreœlenie zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, rada gminy w drodze uchwa³y mo¿e tak¿e zarz¹dziæ pobór op³aty w drodze inkasa i okreœliæ inkasentów.\n2. Dokonanie wymiaru op³aty poprzez wydanie decyzji okreœlaj¹cych, w przypadku braku zap³aty op³aty.\n3. Udzielanie ulg w zap³acie op³aty.\n4. Przeprowadzanie czynnoœci sprawdzaj¹cych i kontroli podatkowych.\n5. Pobór op³aty. \n6. Wydawanie interpretacji podatkowych.\n7. Wydawanie zaœwiadczeñ w sprawach podatkowych.\nProdukty:\n1. Uchwa³y rady gminy w sprawie: wprowadzenia op³aty miejscowej, okreœlenia zasad jej poboru, terminów p³atnoœci oraz stawek op³aty, w sprawie zwolnieñ, w sprawie zarz¹dzenia poboru op³aty w drodze inkasa i okreœlenia inkasentów, \n2. decyzja okreœlaj¹ca wysokoœæ op³aty, \n3. decyzja okreœlaj¹ca zaleg³oœæ inkasenta, \n4. pozosta³e decyzje, \n5. zaœwiadczenie w sprawach podatkowych, \n6. interpretacja podatkowa, \n7. wp³ata op³aty.",
+        "id_number": 9,
+        "id_mainprocess": 3,
+        "order": 11,
+        "number": "2.1.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 13,
+    "fields": {
+        "name": "Windykacja nale¿noœci",
+        "tip": "",
+        "id_number": 10,
+        "id_mainprocess": 3,
+        "order": 12,
+        "number": "2.1.10."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 14,
+    "fields": {
+        "name": "Gospodarowanie nieruchomoœciami ",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 2,
+        "order": 13,
+        "number": "2.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 15,
+    "fields": {
+        "name": "Wynajmowanie mieszkañ przez JST",
+        "tip": "Zadania:\n1. okreœlenie potrzeb mieszkaniowych JST\n2. opracowanie projektów aktów prawnych reguluj¹cych politykê mieszkaniow¹ JST\n3. zapewnienie realizacji polityki mieszkaniowej prowadzonej przez JST w zakresie stanowienia prawa reguluj¹cego zasady najmu lokali z mieszkaniowego zasobu JST oraz zasady gospodarowania tym mieniem\n4. wypracowywanie rozwi¹zañ, projektów i programów, których celem jest zaspokajanie potrzeb mieszkaniowych spo³ecznoœci lokalnej\n5. tworzenie polityki czynszow¹ w mieszkaniowym zasobie JST\n6. bie¿¹ce utrzymanie mieszkaniowego zasobu JST\n7. realizacja uprawnienia w stosunku do zasobu stanowi¹cego w³asnoœæ towarzystw budownictwa spo³ecznego, w którym JST jest partycypantem, w zakresie ustalania uprawnieñ do zawierania umów najmu na te lokale\n8. realizacja uprawnienia w stosunku do zasobu obcego, w którym JST jest najemc¹, w zakresie ustalania uprawnieñ do zawierania umów najmu na te lokale\n9. rozpatrywanie spraw dotycz¹cych udzielania pomocy mieszkaniowej osobom i rodzinom o niskich dochodach i opracowywanie list osób uprawnionych do jej uzyskania\n10. rozpatrywanie spraw dotycz¹cych udzielania pomocy mieszkaniowej w ramach realizacji wyroków s¹dowych orzekaj¹cych eksmisjê.\nProdukty:\n1. wynajête lokale mieszkalne;\n2. wynajête lokale zamienne;\n3. wynajête lokale socjalne (stan prawny do 30.04.2019 r.) / wynajête lokale w ramach najmu socjalnego (stan prawny od 1.05.2019 r.);\n4. wynajête tymczasowe pomieszczenia; ",
+        "id_number": 1,
+        "id_mainprocess": 14,
+        "order": 14,
+        "number": "2.2.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 16,
+    "fields": {
+        "name": "Gospodarowanie nieruchomoœciami JST",
+        "tip": "Zadania:\n1. ewidencja nieruchomoœci;\n2. zapewnienie ich wyceny;\n3. sporz¹dzenie planów wykorzystania zasobu;\n4. zabezpieczenie nieruchomoœci przed uszkodzeniem lub zniszczeniem;\n5. naliczenie nale¿noœci za nieruchomoœci udostêpnione z zasobu oraz prowadzenie windykacji tych nale¿noœci;\n6. za zgod¹ organu stanowi¹cego zbywanie oraz nabywanie nieruchomoœci wchodz¹cych w sk³ad zasobu;\n7. wydzier¿awianie, wynajmowanie i u¿yczanie nieruchomoœci;\n8. ustanawianie ograniczonych praw na nieruchomoœciach;\nProdukty:\n1. nieruchomoœæ gruntowa sprzedana lub oddana w u¿ytkowanie wieczyste;\n2. nieruchomoœæ zabudowana sprzedana;\n3. nieruchomoœæ (zabudowana lub nie)  wydzier¿awiona, wynajêta lub inaczej u¿yczona podmiotowi na dzia³alnoœæ gospodarcz¹;\n4. nieruchomoœæ wykorzystywana do œwiadczenia us³ug i innych zadañ administracji publicznej - sprzedane mieszkanie;",
+        "id_number": 2,
+        "id_mainprocess": 14,
+        "order": 15,
+        "number": "2.2.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 17,
+    "fields": {
+        "name": "Gospodarowanie nieruchomoœciami Skarbu Pañstwa",
+        "tip": "Zadania:\n1. ewidencja nieruchomoœci;\n2. zapewnienie ich wyceny;\n3. sporz¹dzanie planów realizacji polityki gospodarowania nieruchomoœciami Skarbu Pañstwa;\n4. zabezpieczanie nieruchomoœci przed uszkodzeniem lub zniszczeniem;\n5. naliczajanie nale¿noœci za nieruchomoœci udostêpnione z zasobu oraz prowadzenie windykacji tych nale¿noœci;\n6. za zgod¹ wojewody zbywanie oraz nabywanie nieruchomoœci wchodz¹cych w sk³ad zasobu;\n7. wydzier¿awianie, wynajmowanie i u¿yczanie nieruchomoœci;\n8. ustanawianie ograniczonego prawa na nieruchomoœciach;\nProdukty:\n1. nieruchomoœæ gruntowa sprzedana lub oddana w u¿ytkowanie wieczyste;\n2. nieruchomoœæ zabudowana sprzedana;\n3. nieruchomoœæ (zabudowana lub nie)  wydzier¿awiona, wynajêta lub inaczej u¿yczona podmiotowi na dzia³alnoœæ gospodarcz¹;\n4. nieruchomoœæ wykorzystywana do œwiadczenia us³ug i innych zadañ administracji publicznej - sprzedane mieszkanie;",
+        "id_number": 3,
+        "id_mainprocess": 14,
+        "order": 16,
+        "number": "2.2.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 18,
+    "fields": {
+        "name": "Drogownictwo i transport ",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 2,
+        "order": 17,
+        "number": "2.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 19,
+    "fields": {
+        "name": "Udostêpnianie sieci drogowej ",
+        "tip": "Zadania:\n1. rozpatrywanie projektów sta³ych i czasowych organizacji ruchu\n2. uzgodnienia lokalizacji zjazdu\n3. uzgodnienie projektu zagospodarowania dzia³ki/dzia³ek po³o¿onej/po³o¿onych w s¹siedztwie drogi\n4. uzgodnienie usytuowania ogrodzenia dzia³ki od strony drogi\n5. wydanie zezwolenia na korzystanie z dróg w sposób szczególny\n6. wydanie zezwolenia na zajêcie pasa drogowego drogi na prawach wy³¹cznoœci\n7. wydanie zezwolenia na zajêcie pasa drogowego drogi w celu prowadzenia robót zwi¹zanych z budow¹ lub przebudow¹ zjazdu\n8. wydanie zezwolenia na zajêcie pasa drogowego drogi w celu usuniêcia awarii\n9. uzgodnienie lokalizacji w pasie drogowym obiektów budowlanych i umieszczania urz¹dzeñ infrastruktury technicznej, niezwi¹zane z potrzebami zarz¹dzania drogami lub potrzebami ruchu drogowego\n10. zezwolenie na umieszczenie w pasie drogowym obiektów budowlanych lub urz¹dzeñ infrastruktury technicznej niezwi¹zanych z funkcjonowaniem dróg\n11. uzgodnienie lokalizacji reklamy\n12. zezwolenie na umieszczenie reklam w pasie drogowym.\n13. opracowywanie projektów planów rozwoju sieci drogowej oraz bie¿¹ce informowanie o tych planach organów w³aœciwych do sporz¹dzania miejscowych planów zagospodarowania przestrzennego;\n14. opracowywanie projektów planów finansowania budowy, przebudowy, remontu, utrzymania i ochrony dróg oraz drogowych obiektów in¿ynierskich;\n15. utrzymanie nawierzchni drogi, chodników, drogowych obiektów in¿ynierskich, urz¹dzeñ zabezpieczaj¹cych ruch i innych urz¹dzeñ zwi¹zanych z drog¹;\n16. wykonywanie robót interwencyjnych, robót utrzymaniowych i zabezpieczaj¹cych;\n17. pe³nienie funkcji inwestora;\n18. realizacja zadañ w zakresie in¿ynierii ruchu.\n19. okreœlnie struktury organizacyjno-prawnej zarz¹dzania infrastruktur¹ transportu drogowego niezmotoryzowanego;\n20. przyjmowanie planów wydatków finansowych na zarz¹dzanie infrastruktur¹ transportu drogowego niezmotoryzowanego.\nProdukty:\n1. zapewnienie mo¿liwoœci sprawnego przejazdu i transportu towarów \n2. zmniejszaj¹ca siê liczba wypadków i ofiar wypadków drogowych\n3. wiêkszenie udzia³u nieemisyjnych zachowañ komunikacyjnych w modal split (podró¿y pieszych i rowerowych)\n4. poprawa jakoœci i zwiêkszenie dostêpnoœci (rozwój) elementów (czêœci) infrastruktury transportu drogowego niezmotoryzowanego dla u¿ytkowników (piesi, rowerzyœci)\n5. poprawa poziomu bezpieczeñstwa ruchu drogowego niechronionych uczestników ruchu drogowego (piesi, rowerzyœci).",
+        "id_number": 1,
+        "id_mainprocess": 18,
+        "order": 18,
+        "number": "2.3.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 20,
+    "fields": {
+        "name": "Udostêpnianie dworców i przystanków",
+        "tip": "Zadania:\n1. udostêpnianie przystanków komunikacyjnych po³o¿onych w pasach drogowych dróg publicznych\n2. udostêpnianie innych przystanków komunikacyjnych\n3. udostêpnianie dworców / zintegrowanych wêz³ów przesiadkowych\n4. udostêpnianie dworców, stacji i przystanków kolejowych,\n5. udostêpnianie infrastruktury transportu szynowego\n6. utrzymanie, remont, przebudowa i budowa dotycz¹ca omawianego rodzaju obiektów.\nProdukty:\n1. Ci¹g³a i niezawodna dostêpnoœæ infrastruktury publicznego transportu zbiorowego niezbêdnej do œwiadczenia us³ug przewozowych w publicznym transporcie zbiorowym przy zapewnieniu wysokiego poziomu bezpieczeñstwa.",
+        "id_number": 2,
+        "id_mainprocess": 18,
+        "order": 19,
+        "number": "2.3.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 21,
+    "fields": {
+        "name": "Publiczny transport zbiorowy ",
+        "tip": "Zadania:\n1. Zapewnienie mobilnoœci (mo¿liwoœci dojazdu do szko³y, pracy, podstawowych us³ug publicznych) osobom nie chc¹cym lub nie mog¹cym korzystaæ z samochodów\n2. Redukcja obci¹¿enia sieci drogowej i emisji zanieczyszczeñ oraz ha³asu poprzez oferowanie konkurencyjnych us³ug dla osób mog¹cych korzystaæ z samochodów.\nProdukty:\n1. Zapewnienie dowozu do szko³y, pracy i innych us³ug publicznych,\n2. redukcja emisji zanieczyszczeñ i ha³asu, \n3. oszczêdnoœæ zu¿ycia sieci drogowej, \n4. przychody z tytu³u sprzeda¿y biletów.",
+        "id_number": 3,
+        "id_mainprocess": 18,
+        "order": 20,
+        "number": "2.3.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 22,
+    "fields": {
+        "name": "Dowozy szkolne i przedszkolne",
+        "tip": "Zadania:\n1. Dowóz dzieci i m³odzie¿y szkolnej do placówek oœwiatowych z wykorzystaniem publicznego transportu zbiorowego (komunikacji publicznej) lub przewozów regularnych specjalnych (zamkniêtych – komunikacji niepublicznej – tzw. gimbusów),\n2. Dowóz dzieci niepe³nosprawnych do placówek edukacji i rehabilitacji,\n3. Wykonywanie przewozów zamkniêtych przez podmioty komunalne.\n4. Wykonywanie przewozów zamkniêtych przez podmiot zewnêtrzny, wy³oniony zgodnie z prawem zamówieñ publicznych.\n5. Zakup biletów publicznego transportu zbiorowego zgodnie z prawem zamówieñ publicznych\n6. Refundacja kosztów zakupu biletów publicznego transportu zbiorowego, poniesionych przez rodziców.\nProdukty:\n1. Zapewnienie dowozu do szko³y dzieci.",
+        "id_number": 4,
+        "id_mainprocess": 18,
+        "order": 21,
+        "number": "2.3.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 23,
+    "fields": {
+        "name": "Udostêpnianie rowerów publicznych",
+        "tip": "Zadania:\n1. Zapewnienie alternatywnych w stosunku do motoryzacji indywidualnej i publicznego transportu zbiorowego metod zaspokajania potrzeb mobilnoœci\n2. Samodzielna organizacja systemu przez j.s.t. z zakupem rozwi¹zañ technologicznych i sprzêtowych;\n3. Zlecenie przez j.s.t podmiotowi prywatnemu organizacji systemu i jego utrzymania;\n4. Udzielenie d³ugookresowej koncesji na us³ugê podmiotowi prywatnemu.\nProdukty:\n1. Zapewnienie dowozu do szko³y, pracy i innych us³ug publicznych, \n2. Oszczêdnoœæ zu¿ycia infrastruktury i miejsc parkingowych.",
+        "id_number": 5,
+        "id_mainprocess": 18,
+        "order": 22,
+        "number": "2.3.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 24,
+    "fields": {
+        "name": "Ochrona œrodowiska",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 2,
+        "order": 23,
+        "number": "2.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 25,
+    "fields": {
+        "name": "Zaopatrzenie w wodê",
+        "tip": "Zadania:\n1. Wydawanie zezwoleñ na prowadzenie zbiorowego zaopatrzenia w wodê, \n2. Kontrola dzia³alnoœci gospodarczej przedsiêbiorstwa wodoci¹gowo-kanalizacyjnego w zakresie zgodnoœci wykonywanej dzia³alnoœci z udzielonym zezwoleniem.\n3. Podejmowanie uchwa³ dotycz¹cych regulaminu dostarczania wody, \n4. Podejmowanie uchwa³ o dop³acie dla jednej, wybranych lub wszystkich taryfowych grup odbiorców us³ug.\n5. Przeprowadzanie dzia³añ planistycznych dotycz¹cych bezpoœrednio danej us³ugi;\n6. Zlecenia wykonywania poszczególnych dzia³añ podmiotom zewnêtrznym zaanga¿owanym w œwiadczenie us³ugi; \n7. Nadzór nad wykonywaniem dzia³añ przez podmioty zewnêtrzne zaanga¿owane w œwiadczenie us³ugi.\nProdukty:\n1. Ci¹g³a i niezawodna dostêpnoœæ wody o wymaganej jakoœci dla nieruchomoœci przy³¹czonych do sieci gminnej.",
+        "id_number": 1,
+        "id_mainprocess": 24,
+        "order": 24,
+        "number": "2.4.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 26,
+    "fields": {
+        "name": "Odprowadzanie i oczyszczanie œcieków",
+        "tip": "Zadania:\n1. odprowadzanie i oczyszczanie œcieków prowadzona przez przedsiêbiorstwo wodoci¹gowo-kanalizacyjne,\n2. zapewnienie mo¿liwoœci opró¿niania zbiorników bezodp³ywowych i oczyszczanie nieczystoœci ciek³ych w przypadku, gdy pod³¹czenie wszystkich nieruchomoœci do sieci kanalizacyjnej jest niemo¿liwe lub powoduje nadmierne koszty, \n3. tworzenie warunków do wykonywania prac zwi¹zanych z opró¿nianiem zbiorników bezodp³ywowych na terenie gminy lub zapewnieniu wykonania tych prac przez tworzenie odpowiednich jednostek organizacyjnych,\n4. prowadzenie ewidencji zbiorników bezodp³ywowych w celu kontroli czêstotliwoœci ich opró¿niania oraz w celu opracowania planu rozwoju sieci kanalizacyjnej, \n5. wydawanie zezwoleñ na opró¿nianie zbiorników bezodp³ywowych oraz nadzorze i kontroli nad przedsiêbiorcami prowadz¹cymi tak¹ dzia³alnoœæ,\n6. w razie koniecznoœci zapewnienie opró¿niania zbiorników bezodp³ywowych przez gminnne jednostki organizacyjne,\n7. przeprowadzanie dzia³añ planistycznych dotycz¹cych bezpoœrednio danej us³ugi;\n8. zlecenia wykonywania poszczególnych dzia³añ podmiotom zewnêtrznym zaanga¿owanym w œwiadczenie us³ugi; \n9. nadzór nad wykonywaniem dzia³añ przez podmioty zewnêtrzne zaanga¿owane w œwiadczenie us³ugi.\nProdukty:\n1. Ci¹g³y i niezawodny odbiór oraz oczyszczanie œcieków z nieruchomoœci na terenie gminny.",
+        "id_number": 2,
+        "id_mainprocess": 24,
+        "order": 25,
+        "number": "2.4.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 27,
+    "fields": {
+        "name": "Gospodarowanie odpadami komunalnymi ",
+        "tip": "Zadania:\n1. organizacja przez gminê przetargów na odbieranie odpadów komunalnych z nieruchomoœci oraz na ich odbieranie i zagospodarowanie, a tak¿e z zawarcie przez gminê umowy z wybranym w drodze przetargu przedsiêbiorc¹ odbieraj¹cym odpady komunalne, i/lub\n2. udzielanie przez gminê zamówienia z wolnej rêki osobie prawnej, je¿eli spe³nione s¹ warunki zamówienia wewnêtrznego (in house), i/lub\n3. zawarcie umowy korzystania z us³ug gminnej jednostki organizacyjnej lub przedsiêbiorcy odbieraj¹cego odpady komunalne od w³aœcicieli nieruchomoœci. \n4. przeprowadzanie dzia³añ planistycznych dotycz¹cych bezpoœrednio danej us³ugi;\n5. zlecenia wykonywania poszczególnych dzia³añ podmiotom zewnêtrznym zaanga¿owanym w œwiadczenie us³ugi; \n6. nadzór nad wykonywaniem dzia³añ przez podmioty zewnêtrzne zaanga¿owane w œwiadczenie us³ugi.\nProdukty:\n1. ci¹g³e i niezawodne odbieranie i przetwarzanie odpadów komunalnych z nieruchomoœci, na których powstaj¹ odpady komunalne, \n2. osi¹gniêcie wymaganych przepisami poziomów selektywnej zbiórki odpadów \n3. ograniczenie iloœci odpadów zebranych selektywnie przekazywanych na sk³adowiska.",
+        "id_number": 3,
+        "id_mainprocess": 24,
+        "order": 26,
+        "number": "2.4.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 28,
+    "fields": {
+        "name": "Utrzymanie czystoœci i porz¹dku terenów gminy",
+        "tip": "Zadania:\n1. zapobieganie zanieczyszczaniu ulic, placów, przystanków komunikacyjnych i terenów otwartych przez zbieranie i pozbywanie siê (poza drogami publicznymi innymi ni¿ gminne) b³ota, œniegu, lodu oraz innych zanieczyszczeñ uprz¹tniêtych z chodników przez w³aœcicieli nieruchomoœci oraz odpadów zgromadzonych w przeznaczonych do tego celu pojemnikach ustawionych na chodniku,\n2. utrzymaie czystoœci i porz¹dku na przystankach komunikacyjnych, których w³aœcicielem lub zarz¹dzaj¹cym jest gmina oraz które s¹ po³o¿one na jej obszarze przy drogach publicznych bez wzglêdu na kategoriê tych dróg,\n2. przeprowadzanie dzia³añ planistycznych dotycz¹cych bezpoœrednio danej us³ugi;\n3. zlecenia wykonywania poszczególnych dzia³añ podmiotom zewnêtrznym zaanga¿owanym w œwiadczenie us³ugi; \n4. nadzór nad wykonywaniem dzia³añ przez podmioty zewnêtrzne zaanga¿owane w œwiadczenie us³ugi.\nProdukt:\n1. Ci¹g³e i niezawodne utrzymywanie w czystoœci i porz¹dku terenów gminy.",
+        "id_number": 4,
+        "id_mainprocess": 24,
+        "order": 27,
+        "number": "2.4.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 29,
+    "fields": {
+        "name": "Ochrona przyrody le¿¹ca w gestii gminy ",
+        "tip": "Zadania:\n1. zachowanie, zrównowa¿one u¿ytkowaniu oraz odnawianiu zasobów, tworów i sk³adników przyrody: dziko wystêpuj¹cych roœlin, zwierz¹t i grzybów; roœlin, zwierz¹t i grzybów objêtych ochron¹ gatunkow¹; zwierz¹t prowadz¹cych wêdrowny tryb ¿ycia, siedlisk przyrodniczych; siedlisk zagro¿onych wyginiêciem, rzadkich i chronionych gatunków roœlin, zwierz¹t i grzybów; tworów przyrody ¿ywej i nieo¿ywionej oraz kopalnych szcz¹tków roœlin i zwierz¹t; krajobrazu; zieleni w miastach i wsiach; zadrzewieñ.\n2. przeprowadzanie dzia³añ planistycznych dotycz¹cych bezpoœrednio danej us³ugi;\n3. zlecenia wykonywania poszczególnych dzia³añ podmiotom zewnêtrznym zaanga¿owanym w œwiadczenie us³ugi; \n4. nadzór nad wykonywaniem dzia³añ przez podmioty zewnêtrzne zaanga¿owane w œwiadczenie us³ugi.\nProdukty:\n1. zachowanie obszarów cennych przyrodniczo, \n2. poprawa walorów estetycznych i zwiêkszenie atrakcyjnoœci danej jednostki terytorialnej \n3. zapewnienie dostêpu do obszarów przyrodniczych. ",
+        "id_number": 5,
+        "id_mainprocess": 24,
+        "order": 28,
+        "number": "2.4.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 30,
+    "fields": {
+        "name": "Inwestycje i budownictwo",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 2,
+        "order": 29,
+        "number": "2.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 31,
+    "fields": {
+        "name": "Opracowanie miejscowego planu zagospodarowania przestrzennego ",
+        "tip": "Zadania:\n1. wykonanie analizy dotycz¹cej zasadnoœci przyst¹pienia do sporz¹dzenia planu miejscowego i ustalenia stopnia zgodnoœci przewidywanych rozwi¹zañ z ustaleniami studium, przygotowanie materia³ów geodezyjnych do opracowania planu miejscowego oraz ustalenie niezbêdnego zakresu prac planistycznych\n2. wykonanie analizy dotycz¹cej zasadnoœci przyst¹pienia do zmiany planu miejscowego i ustalenia stopnia zgodnoœci przewidywanych rozwi¹zañ z ustaleniami studium, przygotowanie materia³ów geodezyjnych do zmiany planu oraz ustalenie niezbêdnego zakresu prac planistycznych\n3. sporz¹dzenie projektu planu miejscowego, przy uwzglêdnieniu ustaleñ studium oraz przepisów odrêbnych odnosz¹cych siê do obszaru objêtego planem, wraz z uzasadnieniem \n4. sporz¹dzenie projektu zmiany planu miejscowego, przy uwzglêdnieniu treœci wniosku o zmianê jego zapisów, ustaleñ studium oraz przepisów odrêbnych odnosz¹cych siê do obszaru objêtego planem, wraz z uzasadnieniem. \n5. podejmowanie uchwa³y o przyst¹pieniu do sporz¹dzenia planu miejscowego (z w³asnej inicjatywy lub na wniosek wójta, burmistrza albo prezydenta miasta),\n6. uchwalenie planu miejscowego,\n7. podejmowanie uchwa³y o przyst¹pieniu do zmiany planu miejscowego (z w³asnej inicjatywy lub na wniosek wójta, burmistrza albo prezydenta miasta),\n8. uchwalenie zmiany planu miejscowego.\nProdukty:\n1. Miejscowy plan zagospodarowania przestrzennego.",
+        "id_number": 1,
+        "id_mainprocess": 30,
+        "order": 30,
+        "number": "2.5.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 32,
+    "fields": {
+        "name": "Wydanie decyzji o warunkach zabudowy oraz o ustaleniu lokalizacji inwestycji celu publicznego",
+        "tip": "Zadania:\n1. wydaniu decyzji administracyjnej ustalaj¹cej warunki zabudowy w przypadku zmiany zagospodarowania terenu polegaj¹cej na budowie obiektu budowlanego lub wykonaniu innych robót budowlanych, a tak¿e zmianie u¿ytkowania obiektu budowlanego lub jego czêœci dla inwestycji na obszarach nieobjêtych miejscowym planem zagospodarowania przestrzennego oraz odmownej decyzji administracyjnej dotycz¹cej ustalenia warunków zabudowy;\n2. wydaniu decyzji administracyjnej okreœlaj¹cej sposób zagospodarowania i warunki zabudowy terenu dla lokalizacji inwestycji celu publicznego na terenach nieobjêtych miejscowym planem zagospodarowania przestrzennego oraz odmownej decyzji administracyjnej dotycz¹cej ustalenia lokalizacji inwestycji celu publicznego.\nProdukty:\n1. decyzja ustalaj¹ca warunki zabudowy lub decyzja odmowna w zakresie ustalenia warunków zabudowy;\n2. decyzja o ustaleniu lokalizacji inwestycji celu publicznego lub decyzja odmowna dotycz¹ca ustalenia lokalizacji inwestycji celu publicznego.",
+        "id_number": 2,
+        "id_mainprocess": 30,
+        "order": 31,
+        "number": "2.5.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 33,
+    "fields": {
+        "name": "Wydanie decyzji dot. pozwolenia na budowê i zg³oszenia budowy",
+        "tip": "Zadania:\n1. wydanie decyzji o pozwoleniu na budowê – dla robót, co do których wymagane jest pozwolenie na budowê; \n2. przyjêcie zg³oszenia budowy z projektem budowlanym (do którego nie wniesiono sprzeciwu) – dla robót, co do których nie jest wymagane pozwolenie, a jedynie zg³oszenie z projektem budowlanym. \nProdukty:\n1. decyzja administracyjna o pozwoleniu na budowê lub przyjêcie zg³oszenia (na zasadzie milcz¹cej zgody) budowy z projektem budowlanym, \n2. w przypadku, gdy uprawniony organ nie zezwala na rozpoczêcie robót, odpowiednio: decyzja o odmowie pozwolenia na budowê, decyzja o sprzeciwie do zg³oszenia budowy z projektem budowlanym.",
+        "id_number": 3,
+        "id_mainprocess": 30,
+        "order": 32,
+        "number": "2.5.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 34,
+    "fields": {
+        "name": "Wydanie decyzji dot. pozwolenia na u¿ytkowanie i zawiadomienia o zakoñczeniu budowy",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 30,
+        "order": 33,
+        "number": "2.5.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 35,
+    "fields": {
+        "name": "Wydanie decyzji o zezwoleniu na realizacjê inwestycji drogowej (ZRID)",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 30,
+        "order": 34,
+        "number": "2.5.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 36,
+    "fields": {
+        "name": "Realizacja inwestycji budowlanych przez JST ",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 30,
+        "order": 35,
+        "number": "2.5.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 37,
+    "fields": {
+        "name": "Geodezja i Kartografia ",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 2,
+        "order": 36,
+        "number": "2.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 38,
+    "fields": {
+        "name": "Prowadzenie i udostêpnianie danych z ewidencji gruntów i budynków",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 37,
+        "order": 37,
+        "number": "2.6.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 39,
+    "fields": {
+        "name": "Prowadzenie i udostêpnianie danych z ewidencji miejscowoœci, ulic i adresów",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 37,
+        "order": 38,
+        "number": "2.6.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 40,
+    "fields": {
+        "name": "Prowadzenie i udostêpnianie danych z rejestru cen nieruchomoœci",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 37,
+        "order": 39,
+        "number": "2.6.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 41,
+    "fields": {
+        "name": "Prowadzenie i udostêpnianie standardowych opracowañ kartograficznych: map ewidencyjnych oraz map zasadniczych",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 37,
+        "order": 40,
+        "number": "2.6.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 42,
+    "fields": {
+        "name": "Obs³uga zg³oszonych prac geodezyjnych",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 37,
+        "order": 41,
+        "number": "2.6.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 43,
+    "fields": {
+        "name": "Edukacja",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 2,
+        "order": 42,
+        "number": "2.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 44,
+    "fields": {
+        "name": "Edukacja dzieci i m³odzie¿y w szko³ach podstawowych",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 43,
+        "order": 43,
+        "number": "2.7.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 45,
+    "fields": {
+        "name": "Edukacja m³odzie¿y w bran¿owych szko³ach I stopnia",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 43,
+        "order": 44,
+        "number": "2.7.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 46,
+    "fields": {
+        "name": "Edukacja m³odzie¿y w liceach ogólnokszta³c¹cych",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 43,
+        "order": 45,
+        "number": "2.7.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 47,
+    "fields": {
+        "name": "Edukacja m³odzie¿y w technikach",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 43,
+        "order": 46,
+        "number": "2.7.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 48,
+    "fields": {
+        "name": "Edukacja przedszkolna",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 43,
+        "order": 47,
+        "number": "2.7.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 49,
+    "fields": {
+        "name": "Edukacja specjalna",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 43,
+        "order": 48,
+        "number": "2.7.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 50,
+    "fields": {
+        "name": "Edukacja w szko³ach dla doros³ych",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 43,
+        "order": 49,
+        "number": "2.7.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 51,
+    "fields": {
+        "name": "Wsparcie przez poradnie psychologiczno-pedagogiczne",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 43,
+        "order": 50,
+        "number": "2.7.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 52,
+    "fields": {
+        "name": "Lokalna polityka spo³eczna",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 2,
+        "order": 51,
+        "number": "2.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 53,
+    "fields": {
+        "name": "Wsparcie rodziny i system pieczy zastêpczej",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 52,
+        "order": 52,
+        "number": "2.8.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 54,
+    "fields": {
+        "name": "Zapewnienie opieki nad dzieckiem do lat 3",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 53,
+        "order": 53,
+        "number": "2.8.1.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 55,
+    "fields": {
+        "name": "Wsparcie rodziny prze¿ywaj¹cej trudnoœci opiekuñczo-wychowawcze",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 53,
+        "order": 54,
+        "number": "2.8.1.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 56,
+    "fields": {
+        "name": "Zapewnienie rodzinnej pieczy zastêpczej",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 53,
+        "order": 55,
+        "number": "2.8.1.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 57,
+    "fields": {
+        "name": "Zapewnienie instytucjonalnej pieczy zastêpczej",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 53,
+        "order": 56,
+        "number": "2.8.1.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 58,
+    "fields": {
+        "name": "Wsparcie osób usamodzielnianych",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 53,
+        "order": 57,
+        "number": "2.8.1.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 59,
+    "fields": {
+        "name": "Pomoc spo³eczna",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 52,
+        "order": 58,
+        "number": "2.8.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 61,
+    "fields": {
+        "name": "Lokalna polityka zdrowotna",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 52,
+        "order": 72,
+        "number": "2.8.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 65,
+    "fields": {
+        "name": "Obs³uga œwiadczeñ rodzinnych kierowanych do rodzin z dzieæmi",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 59,
+        "order": 59,
+        "number": "2.8.2.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 66,
+    "fields": {
+        "name": "Obs³uga œwiadczeñ rodzinnych o charakterze opiekuñczym",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 59,
+        "order": 60,
+        "number": "2.8.2.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 67,
+    "fields": {
+        "name": "Pomoc osobom uprawnionym do alimentów",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 59,
+        "order": 61,
+        "number": "2.8.2.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 68,
+    "fields": {
+        "name": "Udzielanie œwiadczeñ z pomocy spo³ecznej",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 59,
+        "order": 62,
+        "number": "2.8.2.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 69,
+    "fields": {
+        "name": "Zapewnienie schronienia osobom bezdomnym",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 59,
+        "order": 63,
+        "number": "2.8.2.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 70,
+    "fields": {
+        "name": "Pomoc dla cudzoziemców",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 59,
+        "order": 64,
+        "number": "2.8.2.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 71,
+    "fields": {
+        "name": "Poradnictwo specjalistyczne i interwencja kryzysowa",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 59,
+        "order": 65,
+        "number": "2.8.2.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 72,
+    "fields": {
+        "name": "Praca socjalna",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 59,
+        "order": 66,
+        "number": "2.8.2.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 73,
+    "fields": {
+        "name": "Zapewnienie us³ug opiekuñczych",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 59,
+        "order": 67,
+        "number": "2.8.2.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 74,
+    "fields": {
+        "name": "Zapewnienie opieki w domach pomocy spo³ecznej",
+        "tip": "",
+        "id_number": 10,
+        "id_mainprocess": 59,
+        "order": 68,
+        "number": "2.8.2.10."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 75,
+    "fields": {
+        "name": "Mieszkania chronione",
+        "tip": "",
+        "id_number": 11,
+        "id_mainprocess": 59,
+        "order": 69,
+        "number": "2.8.2.11."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 76,
+    "fields": {
+        "name": "Zapewnienie us³ug w oœrodkach wsparcia",
+        "tip": "",
+        "id_number": 12,
+        "id_mainprocess": 59,
+        "order": 70,
+        "number": "2.8.2.12."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 77,
+    "fields": {
+        "name": "Rehabilitacja spo³eczna osób niepe³nosprawnych",
+        "tip": "",
+        "id_number": 13,
+        "id_mainprocess": 59,
+        "order": 71,
+        "number": "2.8.2.13."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 78,
+    "fields": {
+        "name": "Obs³uga procesu orzeczniczego w ramach zespo³ów ds. orzekania o niepe³nosprawnoœci",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 61,
+        "order": 73,
+        "number": "2.8.3.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 79,
+    "fields": {
+        "name": "Dzia³ania z zakresu zdrowia publicznego",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 61,
+        "order": 74,
+        "number": "2.8.3.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 80,
+    "fields": {
+        "name": "Zabezpieczenie œwiadczeñ opieki zdrowotnej w ramach samorz¹dowych podmiotów leczniczych",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 61,
+        "order": 75,
+        "number": "2.8.3.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 81,
+    "fields": {
+        "name": "Regulacja lokalnego rynku sprzeda¿y alkoholu i profilaktyka uzale¿nieñ",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 61,
+        "order": 76,
+        "number": "2.8.3.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 82,
+    "fields": {
+        "name": "Rynek pracy i ekonomia spo³eczna ",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 52,
+        "order": 77,
+        "number": "2.8.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 83,
+    "fields": {
+        "name": "Obs³uga zabezpieczenia obywateli przez pañstwo w zwi¹zku z bezrobociem",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 82,
+        "order": 78,
+        "number": "2.8.4.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 84,
+    "fields": {
+        "name": "Œwiadczenie us³ug w zakresie poœrednictwa pracy i poradnictwa zawodowego",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 82,
+        "order": 79,
+        "number": "2.8.4.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 85,
+    "fields": {
+        "name": "Wsparcie tworzenia miejsc pracy i rozwoju przedsiêbiorczoœci",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 82,
+        "order": 80,
+        "number": "2.8.4.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 86,
+    "fields": {
+        "name": "Rozwój zawodowy oraz wsparcie kompetencji i kwalifikacji",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 82,
+        "order": 81,
+        "number": "2.8.4.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 87,
+    "fields": {
+        "name": "Wsparcie niektórych podmiotów ekonomii spo³ecznej",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 82,
+        "order": 82,
+        "number": "2.8.4.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 88,
+    "fields": {
+        "name": "Kultura i rekreacja",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 2,
+        "order": 83,
+        "number": "2.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 89,
+    "fields": {
+        "name": "Wspieranie rozwoju czytelnictwa",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 88,
+        "order": 84,
+        "number": "2.9.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 90,
+    "fields": {
+        "name": "Organizowanie dzia³añ z zakresu animacji i edukacji kulturowej",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 88,
+        "order": 85,
+        "number": "2.9.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 91,
+    "fields": {
+        "name": "Wspieranie twórców i artystów oraz sektorów kreatywnych",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 88,
+        "order": 86,
+        "number": "2.9.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 92,
+    "fields": {
+        "name": "Organizowanie oferty wydarzeñ kulturalnych",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 88,
+        "order": 87,
+        "number": "2.9.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 93,
+    "fields": {
+        "name": "Ochrona dziedzictwa kulturowego",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 88,
+        "order": 88,
+        "number": "2.9.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 94,
+    "fields": {
+        "name": "Udostêpnianie materialnego dziedzictwa kulturowego",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 88,
+        "order": 89,
+        "number": "2.9.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 95,
+    "fields": {
+        "name": "Udostêpnianie infrastruktury rekreacyjno-sportowej",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 88,
+        "order": 90,
+        "number": "2.9.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 96,
+    "fields": {
+        "name": "Wspieranie aktywnoœci rekreacyjno-sportowej mieszkañców",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 88,
+        "order": 91,
+        "number": "2.9.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 97,
+    "fields": {
+        "name": "Wspieranie aktywnego stylu ¿ycia",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 88,
+        "order": 92,
+        "number": "2.9.9."
+    }
+}
