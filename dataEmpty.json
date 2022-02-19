@@ -1,0 +1,1965 @@
+[
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$SR9fWv0zX1WDoztpl0MH3W$+K1NO5HFBRIlB+gQah5radKqJeWH5pcfhmPSBQndPkU=",
+        "last_login": "2022-02-17T22:22:04.526Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "user@email.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-01-21T14:57:37Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$zGMlKU2zkKBqovK2ljtK4O$MAlBJG+bQ4zo3ER697pMA8xo8rlQ5HqvnjBX3AEpNVA=",
+        "last_login": "2022-02-17T08:24:29.085Z",
+        "is_superuser": false,
+        "username": "mInglot",
+        "first_name": "",
+        "last_name": "",
+        "email": "mInglot",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-21T15:28:49.833Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$j3lUWfhoFpxj01XKy1oY56$134rBDwrMK5pH3SQzFXnOkpioFCHBK3Dt2W9K+bUF7M=",
+        "last_login": "2022-02-17T15:39:39.072Z",
+        "is_superuser": false,
+        "username": "pwozniak",
+        "first_name": "",
+        "last_name": "",
+        "email": "pwozniak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-10T20:24:38.758Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "0lk94fuamt65h54ghk8508im5367z04p",
+    "fields": {
+        "session_data": ".eJxVjDEOwjAMRe-SGUVNjBLDyM4ZIru2SQG1UtNOiLtDpQ6w_vfef7lC61LL2nQug7izi-7wuzH1Dx03IHcab5Pvp3GZB_ab4nfa_HUSfV529--gUqvfGgGMGDllyQGFIRBL0i6wKkKkgMZyIussiypkMYoxHg0SApoG9_4AC-g49A:1nF1bC:-129V2qVf6_Qy36xa0HAnC8od_IZzy2q9-PSTBQsn5I",
+        "expire_date": "2022-02-15T22:26:06.996Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "1t3uy9qc24d8eup9x2iz2iux18ks76sy",
+    "fields": {
+        "session_data": ".eJxVjDkOwjAUBe_iGln5XsChpOcM0d-MAyiW4qRC3B0ipYD2zcx7mQHXpQxr03kYxZyNM4ffjZAfOm1A7jjdquU6LfNIdlPsTpu9VtHnZXf_Dgq28q0DEmQvrBGj9D0GyICJtfOeT-B85MiJVDsVTxBiAkmiKYI_Zkck5v0BBMQ4sQ:1nKohV:2iI-vLoh2xxI4yChXSjaiJV3QyBnRC_RS7H88h8dn54",
+        "expire_date": "2022-03-03T21:52:33.684Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "28loa75l1gd1t9r1h29evpxiiuyazokt",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nKc5V:qVDcu-558Chf0wvYQX8rfLURpxdu0v_3WVxVZyQazCc",
+        "expire_date": "2022-03-03T08:24:29.126Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "8yrdwd67nrn52qzvietsusqjqsxddr6r",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nCKA3:YceCI-CeJpAh2nSJze_A20_C9_cq0R4U5wuvmVZiGpA",
+        "expire_date": "2022-02-08T11:38:55.227Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "bh3h3oecw3mumplmidhcpiymxdotp57q",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBIgQGX7j0DGYZBqgaS0q6Md9cmXej2v_f-S0Tc1hq3wUucszgLJ06_W0J6cNtBvmO7dUm9rcuc5K7Igw557Zmfl8P9O6g46rcGrcvkciBkxWzJJsJkvFYmTAZAA1vvPeTEQM6rQBZL0cWTUjYxO_H-AO71OEk:1nIG0N:r4wmPi8LC8CMe3sRG8cOATZ5Zkyp198LW4J2oJh06sQ",
+        "expire_date": "2022-02-24T20:25:27.428Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "enskznlieqx9u6qo99pgrn4cssrgkoy8",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hCGwgAu3XsGMpRRqgaS0q6Md7dNutDtf-_9t4i0LiWunec4ZXEWWpx-t0Tjk-sO8oPqvcmx1WWektwVedAury3z63K4fweFetlqb5w35JwPbBktJhgHE1RWTueE3oCCYLRVCmFzwGHG4RbAMDAmCiQ-X6CKNjo:1nKpA4:sGd87TUuuz79J4Rcsu6GrWCvhV507diYK7Zth7YQmIc",
+        "expire_date": "2022-03-03T22:22:04.545Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "gqqui3z0gnq7bddyc3nw5vwqo3l9kw0v",
+    "fields": {
+        "session_data": ".eJxVjDkOwjAUBe_iGln5XsChpOcM0d-MAyiW4qRC3B0ipYD2zcx7mQHXpQxr03kYxZyNM4ffjZAfOm1A7jjdquU6LfNIdlPsTpu9VtHnZXf_Dgq28q0DEmQvrBGj9D0GyICJtfOeT-B85MiJVDsVTxBiAkmiKYI_Zkck5v0BBMQ4sQ:1nKp67:luWgu1BJ69MdljNXy1XIXJg1xtn_X1oOBqGIRU6eYAY",
+        "expire_date": "2022-03-03T22:17:59.518Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "hp2qd3xg8wh3wvt433rux6m5mrfr0x98",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQAP_C2RAoUIpH730DWXa3UjWQlPZk_Lsh6UGvM5N5iwjHnuPReIsriatw4vLLEuCTSxf0gHKvEmvZtzXJnsjTNjlX4tftbP8GGVruWzsSWcbEC1lNk0sjDzokcBgsB3Ca0JNRDIpZoVrCwN75NFljiC2KzxcTmDj2:1nEzZD:ptElAhaWPt8yodtgl0BVbV0ydMkfUxiLR6y0SntYnfg",
+        "expire_date": "2022-02-15T20:15:55.282Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ijdgoijtrb2fwtl6ekzk8g0g166f91b2",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nBFum:-cQc0prztzq9i7wj73yduHl_whU64u98BvV001jaEds",
+        "expire_date": "2022-02-05T12:54:44.226Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ldwjl0hmqx5i3fkei0gi3no7kuk3u1ta",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nCMlS:NQCj5WEVM3D_MwiO1r-0JTs-rUxMObYLAkv9p2O2yi8",
+        "expire_date": "2022-02-08T14:25:42.946Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "mn0jqucgeozcck8rmqm3f1da4pe5oa6h",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQRP-FsyEt4Mp69N5vIAu7laqBpLQn47_bJj1o5jbvzbxVoHXJYW0yh4nVVYE6_XaR0lPKDvhB5V51qmWZp6h3RR-06aGyvG6H-3eQqeVtPRJwdD05uXD0gAidRcbOuC1nYulJyLCId2A9WvA42sTegE9C4NTnC-zcN_A:1nKisd:UdfaUuRrM-xM4SlLM1JmyABbgTh9l3pGq29UE-aY4fU",
+        "expire_date": "2022-03-03T15:39:39.074Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "qxv4g287ui0n3uu06y1gwezdhmlybcet",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2pBhoAVcuvcMBIZBqoYmpV0Z765NutDtf-_9lwhxW2vYOi9hyuIsUJx-txTpwW0H-R7bbZY0t3WZktwVedAur3Pm5-Vw_w5q7PVbO8TIPIzFeQJOWSudvUVvDBjrC3FEzZacZUYAPQCS9VaPhpSGYpR4fwDavjcY:1nF1Za:2IaIhpiD0nY-ZcTvnZEBYhOkJiaGaF0oZTKe3bqvdD4",
+        "expire_date": "2022-02-15T22:24:26.834Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "s0k179n51635zuyk9x6st3fdkms2lxns",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBmWiy4dO8ZyAwMUjU0Ke3KeHfbpAvdvvf-f6tA61LC2mQOY1IXher0y5jiU-ou0oPqfdJxqss8st4Tfdimb1OS1_Vo_w4KtbKtPbCxEBmEIqD19mxBsEfPGTpwmdGDMy4jIAxDt4FI3LEhcVkQevX5AsWAN1g:1nFM1u:KJqVqemB4zpvJFasLVvx--8YJi88PL3iYPOJ6SWKvgU",
+        "expire_date": "2022-02-16T20:15:02.962Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "unseqs7ffp1reygmu5jovra1a4n4pzsa",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nFB6l:YD49X1ugJNvrTIeb9gEFN-_9--lYBZl1t7gbnimb9h8",
+        "expire_date": "2022-02-16T08:35:19.923Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "voliynavulr155dnagad8fkfy19t8mgh",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAUBO_iGlmJP8kLJT1nsNb2Mw4gW4qTCnF3iJQC2p2ZfQmHbc1ua7y4OYqzUOL0u3mEB5cdxDvKrcpQy7rMXu6KPGiT1xr5eTncv4OMlr91TwB1qScdRmsRtYJiStr6iZIPg4mDQUhGkWcDWA3SDLbEhMl0o3h_APIgOGg:1nExb9:T1mDfoxleRD-hq16ckESQO7_QKh7y3OvBe4-t4KCKFI",
+        "expire_date": "2022-02-15T18:09:47.307Z"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add auth group",
+        "content_type": 7,
+        "codename": "add_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change auth group",
+        "content_type": 7,
+        "codename": "change_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete auth group",
+        "content_type": 7,
+        "codename": "delete_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view auth group",
+        "content_type": 7,
+        "codename": "view_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add auth group permissions",
+        "content_type": 8,
+        "codename": "add_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change auth group permissions",
+        "content_type": 8,
+        "codename": "change_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete auth group permissions",
+        "content_type": 8,
+        "codename": "delete_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view auth group permissions",
+        "content_type": 8,
+        "codename": "view_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add auth permission",
+        "content_type": 9,
+        "codename": "add_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change auth permission",
+        "content_type": 9,
+        "codename": "change_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete auth permission",
+        "content_type": 9,
+        "codename": "delete_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view auth permission",
+        "content_type": 9,
+        "codename": "view_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add auth user",
+        "content_type": 10,
+        "codename": "add_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change auth user",
+        "content_type": 10,
+        "codename": "change_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete auth user",
+        "content_type": 10,
+        "codename": "delete_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view auth user",
+        "content_type": 10,
+        "codename": "view_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add auth user groups",
+        "content_type": 11,
+        "codename": "add_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change auth user groups",
+        "content_type": 11,
+        "codename": "change_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete auth user groups",
+        "content_type": 11,
+        "codename": "delete_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view auth user groups",
+        "content_type": 11,
+        "codename": "view_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add auth user user permissions",
+        "content_type": 12,
+        "codename": "add_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change auth user user permissions",
+        "content_type": 12,
+        "codename": "change_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete auth user user permissions",
+        "content_type": 12,
+        "codename": "delete_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view auth user user permissions",
+        "content_type": 12,
+        "codename": "view_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add django admin log",
+        "content_type": 13,
+        "codename": "add_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change django admin log",
+        "content_type": 13,
+        "codename": "change_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete django admin log",
+        "content_type": 13,
+        "codename": "delete_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view django admin log",
+        "content_type": 13,
+        "codename": "view_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add django content type",
+        "content_type": 14,
+        "codename": "add_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change django content type",
+        "content_type": 14,
+        "codename": "change_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete django content type",
+        "content_type": 14,
+        "codename": "delete_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view django content type",
+        "content_type": 14,
+        "codename": "view_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add django migrations",
+        "content_type": 15,
+        "codename": "add_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change django migrations",
+        "content_type": 15,
+        "codename": "change_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete django migrations",
+        "content_type": 15,
+        "codename": "delete_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view django migrations",
+        "content_type": 15,
+        "codename": "view_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add django session",
+        "content_type": 16,
+        "codename": "add_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change django session",
+        "content_type": 16,
+        "codename": "change_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete django session",
+        "content_type": 16,
+        "codename": "delete_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view django session",
+        "content_type": 16,
+        "codename": "view_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add data type",
+        "content_type": 17,
+        "codename": "add_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change data type",
+        "content_type": 17,
+        "codename": "change_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete data type",
+        "content_type": 17,
+        "codename": "delete_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view data type",
+        "content_type": 17,
+        "codename": "view_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add employee",
+        "content_type": 18,
+        "codename": "add_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change employee",
+        "content_type": 18,
+        "codename": "change_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete employee",
+        "content_type": 18,
+        "codename": "delete_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view employee",
+        "content_type": 18,
+        "codename": "view_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add employeetype",
+        "content_type": 19,
+        "codename": "add_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change employeetype",
+        "content_type": 19,
+        "codename": "change_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete employeetype",
+        "content_type": 19,
+        "codename": "delete_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view employeetype",
+        "content_type": 19,
+        "codename": "view_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 77,
+    "fields": {
+        "name": "Can add process",
+        "content_type": 20,
+        "codename": "add_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 78,
+    "fields": {
+        "name": "Can change process",
+        "content_type": 20,
+        "codename": "change_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 79,
+    "fields": {
+        "name": "Can delete process",
+        "content_type": 20,
+        "codename": "delete_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 80,
+    "fields": {
+        "name": "Can view process",
+        "content_type": 20,
+        "codename": "view_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 81,
+    "fields": {
+        "name": "Can add rule",
+        "content_type": 21,
+        "codename": "add_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 82,
+    "fields": {
+        "name": "Can change rule",
+        "content_type": 21,
+        "codename": "change_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 83,
+    "fields": {
+        "name": "Can delete rule",
+        "content_type": 21,
+        "codename": "delete_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 84,
+    "fields": {
+        "name": "Can view rule",
+        "content_type": 21,
+        "codename": "view_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 85,
+    "fields": {
+        "name": "Can add time range",
+        "content_type": 22,
+        "codename": "add_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 86,
+    "fields": {
+        "name": "Can change time range",
+        "content_type": 22,
+        "codename": "change_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 87,
+    "fields": {
+        "name": "Can delete time range",
+        "content_type": 22,
+        "codename": "delete_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 88,
+    "fields": {
+        "name": "Can view time range",
+        "content_type": 22,
+        "codename": "view_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 89,
+    "fields": {
+        "name": "Can add unit",
+        "content_type": 23,
+        "codename": "add_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 90,
+    "fields": {
+        "name": "Can change unit",
+        "content_type": 23,
+        "codename": "change_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 91,
+    "fields": {
+        "name": "Can delete unit",
+        "content_type": 23,
+        "codename": "delete_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 92,
+    "fields": {
+        "name": "Can view unit",
+        "content_type": 23,
+        "codename": "view_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 93,
+    "fields": {
+        "name": "Can add rule has process",
+        "content_type": 24,
+        "codename": "add_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 94,
+    "fields": {
+        "name": "Can change rule has process",
+        "content_type": 24,
+        "codename": "change_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 95,
+    "fields": {
+        "name": "Can delete rule has process",
+        "content_type": 24,
+        "codename": "delete_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 96,
+    "fields": {
+        "name": "Can view rule has process",
+        "content_type": 24,
+        "codename": "view_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 97,
+    "fields": {
+        "name": "Can add rule has employee",
+        "content_type": 25,
+        "codename": "add_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 98,
+    "fields": {
+        "name": "Can change rule has employee",
+        "content_type": 25,
+        "codename": "change_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 99,
+    "fields": {
+        "name": "Can delete rule has employee",
+        "content_type": 25,
+        "codename": "delete_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 100,
+    "fields": {
+        "name": "Can view rule has employee",
+        "content_type": 25,
+        "codename": "view_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 101,
+    "fields": {
+        "name": "Can add activity",
+        "content_type": 26,
+        "codename": "add_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 102,
+    "fields": {
+        "name": "Can change activity",
+        "content_type": 26,
+        "codename": "change_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 103,
+    "fields": {
+        "name": "Can delete activity",
+        "content_type": 26,
+        "codename": "delete_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 104,
+    "fields": {
+        "name": "Can view activity",
+        "content_type": 26,
+        "codename": "view_activity"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$SR9fWv0zX1WDoztpl0MH3W$+K1NO5HFBRIlB+gQah5radKqJeWH5pcfhmPSBQndPkU=",
+        "last_login": "2022-02-17T22:22:04.526Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "user@email.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-01-21T14:57:37Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$zGMlKU2zkKBqovK2ljtK4O$MAlBJG+bQ4zo3ER697pMA8xo8rlQ5HqvnjBX3AEpNVA=",
+        "last_login": "2022-02-17T08:24:29.085Z",
+        "is_superuser": false,
+        "username": "mInglot",
+        "first_name": "",
+        "last_name": "",
+        "email": "mInglot",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-21T15:28:49.833Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$j3lUWfhoFpxj01XKy1oY56$134rBDwrMK5pH3SQzFXnOkpioFCHBK3Dt2W9K+bUF7M=",
+        "last_login": "2022-02-17T15:39:39.072Z",
+        "is_superuser": false,
+        "username": "pwozniak",
+        "first_name": "",
+        "last_name": "",
+        "email": "pwozniak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-10T20:24:38.758Z"
+    }
+},
+{
+    "model": "smupapp.datatype",
+    "pk": 1,
+    "fields": {
+        "name": "Aktywnoœæ (godz.)"
+    }
+},
+{
+    "model": "smupapp.datatype",
+    "pk": 2,
+    "fields": {
+        "name": "Sprawa (iloœæ)"
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 1,
+    "fields": {
+        "action_time": "2022-01-22T23:48:16.768Z",
+        "object_id": "3",
+        "object_repr": "TimeRange object (3)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 2,
+    "fields": {
+        "action_time": "2022-01-22T23:48:23.169Z",
+        "object_id": "2",
+        "object_repr": "TimeRange object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 3,
+    "fields": {
+        "action_time": "2022-01-22T23:48:28.680Z",
+        "object_id": "1",
+        "object_repr": "TimeRange object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 4,
+    "fields": {
+        "action_time": "2022-01-22T23:48:36.361Z",
+        "object_id": "2",
+        "object_repr": "DataType object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 5,
+    "fields": {
+        "action_time": "2022-01-22T23:48:43.743Z",
+        "object_id": "1",
+        "object_repr": "DataType object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 6,
+    "fields": {
+        "action_time": "2022-02-10T20:25:09.506Z",
+        "object_id": "4",
+        "object_repr": "Employee object (4)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id employeetype\"]}}]",
+        "content_type": 18,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authgroup"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authpermission"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authuser"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authusergroups"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 14,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 15,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangomigrations"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 16,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangosession"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 17,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "datatype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 18,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "employee"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 19,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "employeetype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 20,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "process"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 21,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rule"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 22,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "timerange"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 23,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "unit"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 24,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 25,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 26,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "activity"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 1,
+    "fields": {
+        "app": "contenttypes",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:51.543Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 2,
+    "fields": {
+        "app": "auth",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:55.363Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 3,
+    "fields": {
+        "app": "admin",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:56.483Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 4,
+    "fields": {
+        "app": "admin",
+        "name": "0002_logentry_remove_auto_add",
+        "applied": "2022-01-22T12:50:56.844Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 5,
+    "fields": {
+        "app": "admin",
+        "name": "0003_logentry_add_action_flag_choices",
+        "applied": "2022-01-22T12:50:57.324Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 6,
+    "fields": {
+        "app": "contenttypes",
+        "name": "0002_remove_content_type_name",
+        "applied": "2022-01-22T12:50:58.044Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 7,
+    "fields": {
+        "app": "auth",
+        "name": "0002_alter_permission_name_max_length",
+        "applied": "2022-01-22T12:50:58.644Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 8,
+    "fields": {
+        "app": "auth",
+        "name": "0003_alter_user_email_max_length",
+        "applied": "2022-01-22T12:50:59.244Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 9,
+    "fields": {
+        "app": "auth",
+        "name": "0004_alter_user_username_opts",
+        "applied": "2022-01-22T12:50:59.732Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 10,
+    "fields": {
+        "app": "auth",
+        "name": "0005_alter_user_last_login_null",
+        "applied": "2022-01-22T12:51:00.338Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 11,
+    "fields": {
+        "app": "auth",
+        "name": "0006_require_contenttypes_0002",
+        "applied": "2022-01-22T12:51:00.816Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 12,
+    "fields": {
+        "app": "auth",
+        "name": "0007_alter_validators_add_error_messages",
+        "applied": "2022-01-22T12:51:01.302Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 13,
+    "fields": {
+        "app": "auth",
+        "name": "0008_alter_user_username_max_length",
+        "applied": "2022-01-22T12:51:01.909Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 14,
+    "fields": {
+        "app": "auth",
+        "name": "0009_alter_user_last_name_max_length",
+        "applied": "2022-01-22T12:51:02.515Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 15,
+    "fields": {
+        "app": "auth",
+        "name": "0010_alter_group_name_max_length",
+        "applied": "2022-01-22T12:51:03.120Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 16,
+    "fields": {
+        "app": "auth",
+        "name": "0011_update_proxy_permissions",
+        "applied": "2022-01-22T12:51:03.601Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 17,
+    "fields": {
+        "app": "auth",
+        "name": "0012_alter_user_first_name_max_length",
+        "applied": "2022-01-22T12:51:04.200Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 18,
+    "fields": {
+        "app": "sessions",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:51:05.163Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 19,
+    "fields": {
+        "app": "smupapp",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:51:10.111Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 20,
+    "fields": {
+        "app": "smupapp",
+        "name": "0002_unit_is_active",
+        "applied": "2022-02-01T18:15:56.787Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 21,
+    "fields": {
+        "app": "smupapp",
+        "name": "0003_process_order",
+        "applied": "2022-02-01T18:15:57.505Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 22,
+    "fields": {
+        "app": "smupapp",
+        "name": "0004_process_number",
+        "applied": "2022-02-01T18:15:58.217Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "0lk94fuamt65h54ghk8508im5367z04p",
+    "fields": {
+        "session_data": ".eJxVjDEOwjAMRe-SGUVNjBLDyM4ZIru2SQG1UtNOiLtDpQ6w_vfef7lC61LL2nQug7izi-7wuzH1Dx03IHcab5Pvp3GZB_ab4nfa_HUSfV529--gUqvfGgGMGDllyQGFIRBL0i6wKkKkgMZyIussiypkMYoxHg0SApoG9_4AC-g49A:1nF1bC:-129V2qVf6_Qy36xa0HAnC8od_IZzy2q9-PSTBQsn5I",
+        "expire_date": "2022-02-15T22:26:06.996Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "1t3uy9qc24d8eup9x2iz2iux18ks76sy",
+    "fields": {
+        "session_data": ".eJxVjDkOwjAUBe_iGln5XsChpOcM0d-MAyiW4qRC3B0ipYD2zcx7mQHXpQxr03kYxZyNM4ffjZAfOm1A7jjdquU6LfNIdlPsTpu9VtHnZXf_Dgq28q0DEmQvrBGj9D0GyICJtfOeT-B85MiJVDsVTxBiAkmiKYI_Zkck5v0BBMQ4sQ:1nKohV:2iI-vLoh2xxI4yChXSjaiJV3QyBnRC_RS7H88h8dn54",
+        "expire_date": "2022-03-03T21:52:33.684Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "28loa75l1gd1t9r1h29evpxiiuyazokt",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nKc5V:qVDcu-558Chf0wvYQX8rfLURpxdu0v_3WVxVZyQazCc",
+        "expire_date": "2022-03-03T08:24:29.126Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "8yrdwd67nrn52qzvietsusqjqsxddr6r",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nCKA3:YceCI-CeJpAh2nSJze_A20_C9_cq0R4U5wuvmVZiGpA",
+        "expire_date": "2022-02-08T11:38:55.227Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "bh3h3oecw3mumplmidhcpiymxdotp57q",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBIgQGX7j0DGYZBqgaS0q6Md9cmXej2v_f-S0Tc1hq3wUucszgLJ06_W0J6cNtBvmO7dUm9rcuc5K7Igw557Zmfl8P9O6g46rcGrcvkciBkxWzJJsJkvFYmTAZAA1vvPeTEQM6rQBZL0cWTUjYxO_H-AO71OEk:1nIG0N:r4wmPi8LC8CMe3sRG8cOATZ5Zkyp198LW4J2oJh06sQ",
+        "expire_date": "2022-02-24T20:25:27.428Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "enskznlieqx9u6qo99pgrn4cssrgkoy8",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hCGwgAu3XsGMpRRqgaS0q6Md7dNutDtf-_9t4i0LiWunec4ZXEWWpx-t0Tjk-sO8oPqvcmx1WWektwVedAury3z63K4fweFetlqb5w35JwPbBktJhgHE1RWTueE3oCCYLRVCmFzwGHG4RbAMDAmCiQ-X6CKNjo:1nKpA4:sGd87TUuuz79J4Rcsu6GrWCvhV507diYK7Zth7YQmIc",
+        "expire_date": "2022-03-03T22:22:04.545Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "gqqui3z0gnq7bddyc3nw5vwqo3l9kw0v",
+    "fields": {
+        "session_data": ".eJxVjDkOwjAUBe_iGln5XsChpOcM0d-MAyiW4qRC3B0ipYD2zcx7mQHXpQxr03kYxZyNM4ffjZAfOm1A7jjdquU6LfNIdlPsTpu9VtHnZXf_Dgq28q0DEmQvrBGj9D0GyICJtfOeT-B85MiJVDsVTxBiAkmiKYI_Zkck5v0BBMQ4sQ:1nKp67:luWgu1BJ69MdljNXy1XIXJg1xtn_X1oOBqGIRU6eYAY",
+        "expire_date": "2022-03-03T22:17:59.518Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "hp2qd3xg8wh3wvt433rux6m5mrfr0x98",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQAP_C2RAoUIpH730DWXa3UjWQlPZk_Lsh6UGvM5N5iwjHnuPReIsriatw4vLLEuCTSxf0gHKvEmvZtzXJnsjTNjlX4tftbP8GGVruWzsSWcbEC1lNk0sjDzokcBgsB3Ca0JNRDIpZoVrCwN75NFljiC2KzxcTmDj2:1nEzZD:ptElAhaWPt8yodtgl0BVbV0ydMkfUxiLR6y0SntYnfg",
+        "expire_date": "2022-02-15T20:15:55.282Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ijdgoijtrb2fwtl6ekzk8g0g166f91b2",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nBFum:-cQc0prztzq9i7wj73yduHl_whU64u98BvV001jaEds",
+        "expire_date": "2022-02-05T12:54:44.226Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ldwjl0hmqx5i3fkei0gi3no7kuk3u1ta",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nCMlS:NQCj5WEVM3D_MwiO1r-0JTs-rUxMObYLAkv9p2O2yi8",
+        "expire_date": "2022-02-08T14:25:42.946Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "mn0jqucgeozcck8rmqm3f1da4pe5oa6h",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQRP-FsyEt4Mp69N5vIAu7laqBpLQn47_bJj1o5jbvzbxVoHXJYW0yh4nVVYE6_XaR0lPKDvhB5V51qmWZp6h3RR-06aGyvG6H-3eQqeVtPRJwdD05uXD0gAidRcbOuC1nYulJyLCId2A9WvA42sTegE9C4NTnC-zcN_A:1nKisd:UdfaUuRrM-xM4SlLM1JmyABbgTh9l3pGq29UE-aY4fU",
+        "expire_date": "2022-03-03T15:39:39.074Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "qxv4g287ui0n3uu06y1gwezdhmlybcet",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2pBhoAVcuvcMBIZBqoYmpV0Z765NutDtf-_9lwhxW2vYOi9hyuIsUJx-txTpwW0H-R7bbZY0t3WZktwVedAur3Pm5-Vw_w5q7PVbO8TIPIzFeQJOWSudvUVvDBjrC3FEzZacZUYAPQCS9VaPhpSGYpR4fwDavjcY:1nF1Za:2IaIhpiD0nY-ZcTvnZEBYhOkJiaGaF0oZTKe3bqvdD4",
+        "expire_date": "2022-02-15T22:24:26.834Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "s0k179n51635zuyk9x6st3fdkms2lxns",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBmWiy4dO8ZyAwMUjU0Ke3KeHfbpAvdvvf-f6tA61LC2mQOY1IXher0y5jiU-ou0oPqfdJxqss8st4Tfdimb1OS1_Vo_w4KtbKtPbCxEBmEIqD19mxBsEfPGTpwmdGDMy4jIAxDt4FI3LEhcVkQevX5AsWAN1g:1nFM1u:KJqVqemB4zpvJFasLVvx--8YJi88PL3iYPOJ6SWKvgU",
+        "expire_date": "2022-02-16T20:15:02.962Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "unseqs7ffp1reygmu5jovra1a4n4pzsa",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nFB6l:YD49X1ugJNvrTIeb9gEFN-_9--lYBZl1t7gbnimb9h8",
+        "expire_date": "2022-02-16T08:35:19.923Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "voliynavulr155dnagad8fkfy19t8mgh",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAUBO_iGlmJP8kLJT1nsNb2Mw4gW4qTCnF3iJQC2p2ZfQmHbc1ua7y4OYqzUOL0u3mEB5cdxDvKrcpQy7rMXu6KPGiT1xr5eTncv4OMlr91TwB1qScdRmsRtYJiStr6iZIPg4mDQUhGkWcDWA3SDLbEhMl0o3h_APIgOGg:1nExb9:T1mDfoxleRD-hq16ckESQO7_QKh7y3OvBe4-t4KCKFI",
+        "expire_date": "2022-02-15T18:09:47.307Z"
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 1,
+    "fields": {
+        "name": "Magdalena",
+        "surname": "Inglot",
+        "id_unit": 2,
+        "id_employeetype": 4,
+        "auth_user": 3
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 4,
+    "fields": {
+        "name": "Piotr",
+        "surname": "W*****k",
+        "id_unit": 2,
+        "id_employeetype": 1,
+        "auth_user": 6
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 1,
+    "fields": {
+        "name": "ADMIN"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 2,
+    "fields": {
+        "name": "USER"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 3,
+    "fields": {
+        "name": "MANAGER"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 4,
+    "fields": {
+        "name": "PROCESS MANAGER"
+    }
+},
+{
+    "model": "smupapp.timerange",
+    "pk": 1,
+    "fields": {
+        "name": "Dzieñ"
+    }
+},
+{
+    "model": "smupapp.timerange",
+    "pk": 2,
+    "fields": {
+        "name": "Tydzieñ"
+    }
+},
+{
+    "model": "smupapp.timerange",
+    "pk": 3,
+    "fields": {
+        "name": "Miesi¹c"
+    }
+},
+{
+    "model": "smupapp.unit",
+    "pk": 2,
+    "fields": {
+        "name": "Developerzy",
+        "is_active": 0
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2022-01-22T23:48:16.768Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "timerange"
+        ],
+        "object_id": "3",
+        "object_repr": "TimeRange object (3)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2022-01-22T23:48:23.169Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "timerange"
+        ],
+        "object_id": "2",
+        "object_repr": "TimeRange object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2022-01-22T23:48:28.680Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "timerange"
+        ],
+        "object_id": "1",
+        "object_repr": "TimeRange object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2022-01-22T23:48:36.361Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "datatype"
+        ],
+        "object_id": "2",
+        "object_repr": "DataType object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2022-01-22T23:48:43.743Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "datatype"
+        ],
+        "object_id": "1",
+        "object_repr": "DataType object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2022-02-10T20:25:09.506Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "employee"
+        ],
+        "object_id": "4",
+        "object_repr": "Employee object (4)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id employeetype\"]}}]"
+    }
+}
+]

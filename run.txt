@@ -42,7 +42,7 @@ exit()
 
 python manage.py loaddata newsmup.json
 
-python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > data.json
+python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > dataEmpty.json
 #init
 
 ##
