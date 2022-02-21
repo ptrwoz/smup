@@ -167,6 +167,8 @@ class Process(models.Model):
     number = models.CharField(max_length=256, default='')
     class Meta:
         db_table = '{}_process'.format(appName)
+    def __str__(self):
+        return str(self.id_process) + " " + self.name
 
 
 class Rule(models.Model):

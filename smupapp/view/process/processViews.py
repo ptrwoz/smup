@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from smupapp.models import Process
 from smupapp.view.auth.auth import authUser
@@ -118,7 +119,7 @@ def saveProcess(request, context):
     processes = Process.objects.all()
     processData = initChapterNo(processes)
     #prs, prs_ids = sortDataByChapterNo(processData)
-    existId = list(repeat(0, len(processData)))
+    existId = []#list(repeat(0, len(processData)))
     for i in range(0, len(prs)):
         partner = None
         changeFlag = False
@@ -132,10 +133,10 @@ def saveProcess(request, context):
                 pp.number = prs[i].number
                 pp.save()
                 changeFlag = True
-                existId[ii] = 1
+                existId.append(pp.id_process)
                 break
-            elif len(prs[i].number) > 2 and pno == getPrevChapterNo(prs[i].number):
-                partner = pp
+            #elif len(prs[i].number) > 2 and pno == getPrevChapterNo(prs[i].number):
+            #    partner = pp
             ii = ii + 1
         if not changeFlag:
             np = Process()
@@ -144,14 +145,21 @@ def saveProcess(request, context):
             np.name = prs[i].name
             np.order = i
             np.number = prs[i].number
-            np.id_mainprocess = partner
+            parent = Process.objects.filter(number = getPrevChapterNo(prs[i].number))
+            if parent.exists():
+                np.id_mainprocess = parent[0]
+            else:
+                np.id_mainprocess = None
             np.save()
+            existId.append(np.id_process)
             processes = Process.objects.all()
         i = i + 1
-    processes = processes.order_by('-order')
-    for i in range(len(existId)):
-        if not existId[i]:
-            processes[i].delete()
+    processes = Process.objects.filter(~Q(id_process__in=existId))
+    #for i in range(len(existId)):
+    #    if not existId[i]:
+    #        processes[i].delete()
+    for dp in processes:
+        dp.delete()
     messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
     return redirect('process')
 

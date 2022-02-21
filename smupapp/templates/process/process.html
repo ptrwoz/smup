@@ -128,7 +128,7 @@
         function refreshNextIds(cProcess) {
             idArray = cProcess[0].children[0].children[0].value.split('.');
             lastId = parseInt(idArray[idArray.length - 2]);
-            while(cProcess.next().length > 0 && idArray.length <= cProcess.next()[0].children[0].children[0].value.length) {
+            while(cProcess.next().length > 0 && idArray.length <= cProcess.next()[0].children[0].children[0].value.split('.').length) {
                 cProcess = cProcess.next()
                 subIdArray = cProcess[0].children[0].children[0].value.split('.')
                 newId = '';
