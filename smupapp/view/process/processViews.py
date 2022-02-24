@@ -154,7 +154,7 @@ def saveProcess(request, context):
             existId.append(np.id_process)
             processes = Process.objects.all()
         i = i + 1
-    processes = Process.objects.filter(~Q(id_process__in=existId))
+    processes = Process.objects.filter(~Q(id_process__in=existId)).order_by('-order')
     #for i in range(len(existId)):
     #    if not existId[i]:
     #        processes[i].delete()
