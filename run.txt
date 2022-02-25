@@ -52,3 +52,6 @@ python manage.py migrate
 
 # heroku
 git push heroku master
+##
+git remote -v
+git remote add smupstrzelin https://git.heroku.com/smupstrzelin.git

@@ -74,7 +74,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'system_project.wsgi.application'
 
+#DatabaseId = 'localhost'
+#DatabaseId = ''
+#------------------------------------
+#https://smupstrzelin.herokuapp.com/
+#DatabaseId = 'smupstrzelin'
+DATABASES = {
 
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd8kgkoknm8ka0o',
+        'USER': 'mhlrrfmbxxmnmb',
+        'PASSWORD': '5e288b0a87dd6876cf66d40128286813ea1ad9fff7126d63ce83c4e41dcba9c4',
+        'HOST': 'ec2-99-81-177-233.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+#------------------------------
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 '''DATABASES = {
@@ -97,7 +113,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
-}'''
+}
 DATABASES = {
     #smup2
     'default': {
@@ -109,7 +125,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',

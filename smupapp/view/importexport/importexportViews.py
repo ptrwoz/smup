@@ -284,7 +284,7 @@ def checkExportData(formData):
 
 def importexportView(request):
     context = authUser(request)
-    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
+    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER' or context['account'] == 'USER':
         context['timeRange'] = TimeRange.objects.all()
         rules = Rule.objects.all().order_by('name')
         rules = formatRulesMax(rules)
@@ -309,7 +309,7 @@ def importexportView(request):
 
 def importexportManager(request, id = '', operation = ''):
     context = authUser(request)
-    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
+    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER' or context['account'] == 'USER':
         if request.method == 'POST':
             if len(id) > 0 and operation == '':
                 print()

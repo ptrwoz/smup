@@ -75,7 +75,11 @@
                     </p>
                 {% endif %}
                 <p>
-                    <a href="importExport" class="btn btn-secondary btn-lg btn-block block">Export/Import danych</a>
+                    {% if account == "USER" %}
+                        <a href="importExport" class="btn btn-secondary btn-lg btn-block block">Import danych</a>
+                    {% else %}
+                        <a href="importExport" class="btn btn-secondary btn-lg btn-block block">Export/Import danych</a>
+                    {% endif %}
                 <p/>
             {% endif %}
         </div>
