@@ -40,9 +40,9 @@ newdata.write(data.decode('cp1252'))
 newdata.close()
 exit()
 
-python manage.py loaddata newsmup.json
+python manage.py loaddata dataEmpty.json
 
-python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > dataEmpty.json
+python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > dataEmptyver2.json
 #init
 
 ##
@@ -52,6 +52,8 @@ python manage.py migrate
 
 # heroku
 git push heroku master
+git push smupstrzelin master
+git push smupwejherowo master
 ##
 git remote -v
 git remote add smupstrzelin https://git.heroku.com/smupstrzelin.git

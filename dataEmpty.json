@@ -3,8 +3,8 @@
     "model": "auth.user",
     "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$320000$SR9fWv0zX1WDoztpl0MH3W$+K1NO5HFBRIlB+gQah5radKqJeWH5pcfhmPSBQndPkU=",
-        "last_login": "2022-02-17T22:22:04.526Z",
+        "password": "pbkdf2_sha256$260000$9aJ1cmeoF59C01CdvcBu0C$x2UoAH8VoFJJ2rYfE9UoZnyDJ85e9ik7FmSxrMuI/OE=",
+        "last_login": "2022-02-25T20:38:32.080Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -22,7 +22,7 @@
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$320000$zGMlKU2zkKBqovK2ljtK4O$MAlBJG+bQ4zo3ER697pMA8xo8rlQ5HqvnjBX3AEpNVA=",
-        "last_login": "2022-02-17T08:24:29.085Z",
+        "last_login": "2022-02-20T21:01:42.465Z",
         "is_superuser": false,
         "username": "mInglot",
         "first_name": "",
@@ -39,8 +39,8 @@
     "model": "auth.user",
     "pk": 6,
     "fields": {
-        "password": "pbkdf2_sha256$320000$j3lUWfhoFpxj01XKy1oY56$134rBDwrMK5pH3SQzFXnOkpioFCHBK3Dt2W9K+bUF7M=",
-        "last_login": "2022-02-17T15:39:39.072Z",
+        "password": "pbkdf2_sha256$260000$MZ2WYMFcCRFhqB4t3kIHPN$5Flb23ze/lbh9uGJ3BVqNwHXAVT7Whf/dVcSCME7wNU=",
+        "last_login": "2022-02-20T11:07:48.441Z",
         "is_superuser": false,
         "username": "pwozniak",
         "first_name": "",
@@ -87,18 +87,18 @@
 },
 {
     "model": "sessions.session",
-    "pk": "bh3h3oecw3mumplmidhcpiymxdotp57q",
+    "pk": "9le6q825wzw2yr4ls0xwynobw35o88i5",
     "fields": {
-        "session_data": ".eJxVjEEOwiAQRe_C2hBIgQGX7j0DGYZBqgaS0q6Md9cmXej2v_f-S0Tc1hq3wUucszgLJ06_W0J6cNtBvmO7dUm9rcuc5K7Igw557Zmfl8P9O6g46rcGrcvkciBkxWzJJsJkvFYmTAZAA1vvPeTEQM6rQBZL0cWTUjYxO_H-AO71OEk:1nIG0N:r4wmPi8LC8CMe3sRG8cOATZ5Zkyp198LW4J2oJh06sQ",
-        "expire_date": "2022-02-24T20:25:27.428Z"
+        "session_data": ".eJxVjEsOwjAMBe-SNYqapE4xS_Y9Q2THDimgVupnhbg7VOoCtm9m3ssk2taatkXnNIi5GG9OvxtTfui4A7nTeJtsnsZ1Htjuij3oYvtJ9Hk93L-DSkv91uSb4KiwtNCoUylQnGBUQEaH2kGJ1AIG32EAyEVD9JyFm8h4duTM-wPwmTgJ:1nNhMG:8dgOZe4mntWZuRm7yPCSHpraZl-L1l5nPOdiX-_YrOk",
+        "expire_date": "2022-03-11T20:38:32.333Z"
     }
 },
 {
     "model": "sessions.session",
-    "pk": "enskznlieqx9u6qo99pgrn4cssrgkoy8",
+    "pk": "fo2ckxaagb9cbeu9tpwd8ykgpyu3upox",
     "fields": {
-        "session_data": ".eJxVjEEOwiAQRe_C2hCGwgAu3XsGMpRRqgaS0q6Md7dNutDtf-_9t4i0LiWunec4ZXEWWpx-t0Tjk-sO8oPqvcmx1WWektwVedAury3z63K4fweFetlqb5w35JwPbBktJhgHE1RWTueE3oCCYLRVCmFzwGHG4RbAMDAmCiQ-X6CKNjo:1nKpA4:sGd87TUuuz79J4Rcsu6GrWCvhV507diYK7Zth7YQmIc",
-        "expire_date": "2022-03-03T22:22:04.545Z"
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nLtKw:ov4hrNgxfq3QaxC_D3hAmqZEWIbuQYZGMeZC6UDHi5g",
+        "expire_date": "2022-03-06T21:01:42.485Z"
     }
 },
 {
@@ -151,6 +151,14 @@
 },
 {
     "model": "sessions.session",
+    "pk": "ravta1u9mskpoa80gu6dkbobb7chievt",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlmLf2so6TmDtf4sDiBbipMKcXeIlALaNzPvJQKtSw3rKHOYsjgLJQ6_W6T0KG0D-U7t1mXqbZmnKDdF7nTIa8_ledndv4NKo35rBLIetUpAOVrwjpVjoBQRsmENhg2n4rJBb2NCZKtPFsn4Es2RvBLvD-FiN9Y:1nNUxw:LLd0JWEIBb8RVC1-vnL8Ls0Jv9TB1ykf03HFIIRlsL0",
+        "expire_date": "2022-03-11T07:24:36.202Z"
+    }
+},
+{
+    "model": "sessions.session",
     "pk": "s0k179n51635zuyk9x6st3fdkms2lxns",
     "fields": {
         "session_data": ".eJxVjEEOwiAQRe_C2hBmWiy4dO8ZyAwMUjU0Ke3KeHfbpAvdvvf-f6tA61LC2mQOY1IXher0y5jiU-ou0oPqfdJxqss8st4Tfdimb1OS1_Vo_w4KtbKtPbCxEBmEIqD19mxBsEfPGTpwmdGDMy4jIAxDt4FI3LEhcVkQevX5AsWAN1g:1nFM1u:KJqVqemB4zpvJFasLVvx--8YJi88PL3iYPOJ6SWKvgU",
@@ -167,10 +175,34 @@
 },
 {
     "model": "sessions.session",
+    "pk": "uukvn6vzqhdo6eaqdot52mwsealzinm9",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlnGWf8o6XMGa-1dcADZUpxUiLuTSCmgfTPz3iLiupS4dp7jROIirDj9bgnzk-sO6IH13mRudZmnJHdFHrTLsRG_rof7d1Cwl61O2lsMEDQM4AZlrDdK3dgERu8NJJeZwsZthmwzG-1osASaknN81iA-X7l9Nwk:1nLk4C:KqFB7R7gLEcfRatWQ77MRPR9avGUpTgTb7I_YxjkA20",
+        "expire_date": "2022-03-06T11:07:48.563Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "vo19kevdfh6q3n9ematykjh4l8ksnxvi",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlle__BS0ucM1tpecAA5UpxUiLuTSCmgnZn33iLSutS4dp7jWMRFaHH6ZYnyk9suyoPafZJ5ass8Jrkn8rBdDlPh1_Vo_w4q9bqtUWk2N-uRLTAXdMadCSloREMbcKAsJkMBQGvtGABVhpAAvAHnrfh8AcfVNn8:1nNIXC:6oH_9rTtntwuPs73srHLP8IsA-qq63qZr4UxL7Wmisg",
+        "expire_date": "2022-03-10T18:08:10.888Z"
+    }
+},
+{
+    "model": "sessions.session",
     "pk": "voliynavulr155dnagad8fkfy19t8mgh",
     "fields": {
         "session_data": ".eJxVjDsOwjAUBO_iGlmJP8kLJT1nsNb2Mw4gW4qTCnF3iJQC2p2ZfQmHbc1ua7y4OYqzUOL0u3mEB5cdxDvKrcpQy7rMXu6KPGiT1xr5eTncv4OMlr91TwB1qScdRmsRtYJiStr6iZIPg4mDQUhGkWcDWA3SDLbEhMl0o3h_APIgOGg:1nExb9:T1mDfoxleRD-hq16ckESQO7_QKh7y3OvBe4-t4KCKFI",
         "expire_date": "2022-02-15T18:09:47.307Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ypmdu8mu7xx902s6hn3cg6os3qepetmd",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlmLf2so6TmDtf4sDiBbipMKcXeIlALaNzPvJQKtSw3rKHOYsjgLJQ6_W6T0KG0D-U7t1mXqbZmnKDdF7nTIa8_ledndv4NKo35rBLIetUpAOVrwjpVjoBQRsmENhg2n4rJBb2NCZKtPFsn4Es2RvBLvD-FiN9Y:1nNIc9:X4VOkJ9UEv5nRq1i0lZU2LUEYP6GKma-KkZj4m7-QpI",
+        "expire_date": "2022-03-10T18:13:17.370Z"
     }
 },
 {
@@ -1113,8 +1145,8 @@
     "model": "smupapp.authuser",
     "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$320000$SR9fWv0zX1WDoztpl0MH3W$+K1NO5HFBRIlB+gQah5radKqJeWH5pcfhmPSBQndPkU=",
-        "last_login": "2022-02-17T22:22:04.526Z",
+        "password": "pbkdf2_sha256$260000$9aJ1cmeoF59C01CdvcBu0C$x2UoAH8VoFJJ2rYfE9UoZnyDJ85e9ik7FmSxrMuI/OE=",
+        "last_login": "2022-02-25T20:38:32.080Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -1130,7 +1162,7 @@
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$320000$zGMlKU2zkKBqovK2ljtK4O$MAlBJG+bQ4zo3ER697pMA8xo8rlQ5HqvnjBX3AEpNVA=",
-        "last_login": "2022-02-17T08:24:29.085Z",
+        "last_login": "2022-02-20T21:01:42.465Z",
         "is_superuser": false,
         "username": "mInglot",
         "first_name": "",
@@ -1145,8 +1177,8 @@
     "model": "smupapp.authuser",
     "pk": 6,
     "fields": {
-        "password": "pbkdf2_sha256$320000$j3lUWfhoFpxj01XKy1oY56$134rBDwrMK5pH3SQzFXnOkpioFCHBK3Dt2W9K+bUF7M=",
-        "last_login": "2022-02-17T15:39:39.072Z",
+        "password": "pbkdf2_sha256$260000$MZ2WYMFcCRFhqB4t3kIHPN$5Flb23ze/lbh9uGJ3BVqNwHXAVT7Whf/dVcSCME7wNU=",
+        "last_login": "2022-02-20T11:07:48.441Z",
         "is_superuser": false,
         "username": "pwozniak",
         "first_name": "",
@@ -1689,18 +1721,18 @@
 },
 {
     "model": "smupapp.djangosession",
-    "pk": "bh3h3oecw3mumplmidhcpiymxdotp57q",
+    "pk": "9le6q825wzw2yr4ls0xwynobw35o88i5",
     "fields": {
-        "session_data": ".eJxVjEEOwiAQRe_C2hBIgQGX7j0DGYZBqgaS0q6Md9cmXej2v_f-S0Tc1hq3wUucszgLJ06_W0J6cNtBvmO7dUm9rcuc5K7Igw557Zmfl8P9O6g46rcGrcvkciBkxWzJJsJkvFYmTAZAA1vvPeTEQM6rQBZL0cWTUjYxO_H-AO71OEk:1nIG0N:r4wmPi8LC8CMe3sRG8cOATZ5Zkyp198LW4J2oJh06sQ",
-        "expire_date": "2022-02-24T20:25:27.428Z"
+        "session_data": ".eJxVjEsOwjAMBe-SNYqapE4xS_Y9Q2THDimgVupnhbg7VOoCtm9m3ssk2taatkXnNIi5GG9OvxtTfui4A7nTeJtsnsZ1Htjuij3oYvtJ9Hk93L-DSkv91uSb4KiwtNCoUylQnGBUQEaH2kGJ1AIG32EAyEVD9JyFm8h4duTM-wPwmTgJ:1nNhMG:8dgOZe4mntWZuRm7yPCSHpraZl-L1l5nPOdiX-_YrOk",
+        "expire_date": "2022-03-11T20:38:32.333Z"
     }
 },
 {
     "model": "smupapp.djangosession",
-    "pk": "enskznlieqx9u6qo99pgrn4cssrgkoy8",
+    "pk": "fo2ckxaagb9cbeu9tpwd8ykgpyu3upox",
     "fields": {
-        "session_data": ".eJxVjEEOwiAQRe_C2hCGwgAu3XsGMpRRqgaS0q6Md7dNutDtf-_9t4i0LiWunec4ZXEWWpx-t0Tjk-sO8oPqvcmx1WWektwVedAury3z63K4fweFetlqb5w35JwPbBktJhgHE1RWTueE3oCCYLRVCmFzwGHG4RbAMDAmCiQ-X6CKNjo:1nKpA4:sGd87TUuuz79J4Rcsu6GrWCvhV507diYK7Zth7YQmIc",
-        "expire_date": "2022-03-03T22:22:04.545Z"
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nLtKw:ov4hrNgxfq3QaxC_D3hAmqZEWIbuQYZGMeZC6UDHi5g",
+        "expire_date": "2022-03-06T21:01:42.485Z"
     }
 },
 {
@@ -1753,6 +1785,14 @@
 },
 {
     "model": "smupapp.djangosession",
+    "pk": "ravta1u9mskpoa80gu6dkbobb7chievt",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlmLf2so6TmDtf4sDiBbipMKcXeIlALaNzPvJQKtSw3rKHOYsjgLJQ6_W6T0KG0D-U7t1mXqbZmnKDdF7nTIa8_ledndv4NKo35rBLIetUpAOVrwjpVjoBQRsmENhg2n4rJBb2NCZKtPFsn4Es2RvBLvD-FiN9Y:1nNUxw:LLd0JWEIBb8RVC1-vnL8Ls0Jv9TB1ykf03HFIIRlsL0",
+        "expire_date": "2022-03-11T07:24:36.202Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
     "pk": "s0k179n51635zuyk9x6st3fdkms2lxns",
     "fields": {
         "session_data": ".eJxVjEEOwiAQRe_C2hBmWiy4dO8ZyAwMUjU0Ke3KeHfbpAvdvvf-f6tA61LC2mQOY1IXher0y5jiU-ou0oPqfdJxqss8st4Tfdimb1OS1_Vo_w4KtbKtPbCxEBmEIqD19mxBsEfPGTpwmdGDMy4jIAxDt4FI3LEhcVkQevX5AsWAN1g:1nFM1u:KJqVqemB4zpvJFasLVvx--8YJi88PL3iYPOJ6SWKvgU",
@@ -1769,10 +1809,34 @@
 },
 {
     "model": "smupapp.djangosession",
+    "pk": "uukvn6vzqhdo6eaqdot52mwsealzinm9",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlnGWf8o6XMGa-1dcADZUpxUiLuTSCmgfTPz3iLiupS4dp7jROIirDj9bgnzk-sO6IH13mRudZmnJHdFHrTLsRG_rof7d1Cwl61O2lsMEDQM4AZlrDdK3dgERu8NJJeZwsZthmwzG-1osASaknN81iA-X7l9Nwk:1nLk4C:KqFB7R7gLEcfRatWQ77MRPR9avGUpTgTb7I_YxjkA20",
+        "expire_date": "2022-03-06T11:07:48.563Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "vo19kevdfh6q3n9ematykjh4l8ksnxvi",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlle__BS0ucM1tpecAA5UpxUiLuTSCmgnZn33iLSutS4dp7jWMRFaHH6ZYnyk9suyoPafZJ5ass8Jrkn8rBdDlPh1_Vo_w4q9bqtUWk2N-uRLTAXdMadCSloREMbcKAsJkMBQGvtGABVhpAAvAHnrfh8AcfVNn8:1nNIXC:6oH_9rTtntwuPs73srHLP8IsA-qq63qZr4UxL7Wmisg",
+        "expire_date": "2022-03-10T18:08:10.888Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
     "pk": "voliynavulr155dnagad8fkfy19t8mgh",
     "fields": {
         "session_data": ".eJxVjDsOwjAUBO_iGlmJP8kLJT1nsNb2Mw4gW4qTCnF3iJQC2p2ZfQmHbc1ua7y4OYqzUOL0u3mEB5cdxDvKrcpQy7rMXu6KPGiT1xr5eTncv4OMlr91TwB1qScdRmsRtYJiStr6iZIPg4mDQUhGkWcDWA3SDLbEhMl0o3h_APIgOGg:1nExb9:T1mDfoxleRD-hq16ckESQO7_QKh7y3OvBe4-t4KCKFI",
         "expire_date": "2022-02-15T18:09:47.307Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ypmdu8mu7xx902s6hn3cg6os3qepetmd",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlmLf2so6TmDtf4sDiBbipMKcXeIlALaNzPvJQKtSw3rKHOYsjgLJQ6_W6T0KG0D-U7t1mXqbZmnKDdF7nTIa8_ledndv4NKo35rBLIetUpAOVrwjpVjoBQRsmENhg2n4rJBb2NCZKtPFsn4Es2RvBLvD-FiN9Y:1nNIc9:X4VOkJ9UEv5nRq1i0lZU2LUEYP6GKma-KkZj4m7-QpI",
+        "expire_date": "2022-03-10T18:13:17.370Z"
     }
 },
 {
@@ -1823,6 +1887,114 @@
     "pk": 4,
     "fields": {
         "name": "PROCESS MANAGER"
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 98,
+    "fields": {
+        "name": "Zarz¹dzanie i obs³uga w jednostce",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": null,
+        "order": 0,
+        "number": "1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 99,
+    "fields": {
+        "name": "Us³ugi",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": null,
+        "order": 1,
+        "number": "2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 100,
+    "fields": {
+        "name": "Inwestycje i budownictwo",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": null,
+        "order": 2,
+        "number": "2.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 101,
+    "fields": {
+        "name": "Wydanie decyzji dot. pozwolenia na budowê i zg³oszenia budowy",
+        "tip": "Zadania:\r\n1. wydanie decyzji o pozwoleniu na budowê – dla robót, co do których wymagane jest pozwolenie na budowê; \r\n2. przyjêcie zg³oszenia budowy z projektem budowlanym (do którego nie wniesiono sprzeciwu) – dla robót, co do których nie jest wymagane pozwolenie, a jedynie zg³oszenie z projektem budowlanym. \r\nProdukty:\r\n1. decyzja administracyjna o pozwoleniu na budowê lub przyjêcie zg³oszenia (na zasadzie milcz¹cej zgody) budowy z projektem budowlanym, \r\n2. w przypadku, gdy uprawniony organ nie zezwala na rozpoczêcie robót, odpowiednio: decyzja o odmowie pozwolenia na budowê, decyzja o sprzeciwie do zg³oszenia budowy z projektem budowlanym.",
+        "id_number": 1,
+        "id_mainprocess": null,
+        "order": 3,
+        "number": "2.1.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 102,
+    "fields": {
+        "name": "Produkt 1",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": null,
+        "order": 4,
+        "number": "2.1.1.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 103,
+    "fields": {
+        "name": "Produkt 2",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": null,
+        "order": 5,
+        "number": "2.1.1.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 104,
+    "fields": {
+        "name": "Produkt 3",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": null,
+        "order": 6,
+        "number": "2.1.1.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 105,
+    "fields": {
+        "name": "Inne",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": null,
+        "order": 7,
+        "number": "3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 106,
+    "fields": {
+        "name": "Przerwa w pracy",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": null,
+        "order": 8,
+        "number": "4."
     }
 },
 {

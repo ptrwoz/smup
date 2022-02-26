@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'system_project.wsgi.application'
 #------------------------------------
 #https://smupstrzelin.herokuapp.com/
 #DatabaseId = 'smupstrzelin'
-DATABASES = {
+'''DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -89,8 +89,34 @@ DATABASES = {
         'HOST': 'ec2-99-81-177-233.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
-}
+}'''
 #------------------------------
+#https://smupstrzelin.herokuapp.com/
+#DatabaseId = 'smupwejherowo'
+DATABASES = {
+
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd3o6s66v0kqjn4',
+        'USER': 'wqfeebtiyswzlb',
+        'PASSWORD': '7a5b5f6623ad4bbff6cd0012dea695ba465e73ea261b7b11742cdffa831b52cb',
+        'HOST': 'ec2-52-211-158-144.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+#DatasetId = ''
+'''DATABASES = {
+    #smup2
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd2g470lle501a8',
+        'USER': 'gkaobjfvultoop',
+        'PASSWORD': '586109f04b7f47fb70879a8302854b0ae9881332297959aae7a624e48b11cdac',
+        'HOST': 'ec2-34-230-167-186.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}'''
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 '''DATABASES = {
@@ -114,17 +140,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-DATABASES = {
-    #smup2
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd2g470lle501a8',
-        'USER': 'gkaobjfvultoop',
-        'PASSWORD': '586109f04b7f47fb70879a8302854b0ae9881332297959aae7a624e48b11cdac',
-        'HOST': 'ec2-34-230-167-186.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
