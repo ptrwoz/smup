@@ -103,18 +103,30 @@ WSGI_APPLICATION = 'system_project.wsgi.application'
         'HOST': 'ec2-52-211-158-144.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
-}'''
+}
 #------------------------------
 #https://smupwarszawa.herokuapp.com/
 #DatabaseId = 'smupwarszawa'
 DATABASES = {
-
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'df7jj3knc3s4vd',
         'USER': 'sgiyzpotvsmkbw',
         'PASSWORD': '8ba96cfc6eb40a914c1613da4601b6a5665b57e5665220705af79f4e2e6df846',
         'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
+    }
+}'''
+#------------------------------
+#https://smuplublin.herokuapp.com/
+#DatabaseId = 'smuplublin'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd2sqe7gchhcjrg',
+        'USER': 'cbdqzbbhqlepsf',
+        'PASSWORD': '43c3ac5b01a070932a0550e25b5d73236f084fcad59bd3f3413ae8148ae6d923',
+        'HOST': 'ec2-52-31-219-113.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
