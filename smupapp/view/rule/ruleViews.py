@@ -6,7 +6,7 @@ from smupapp.view.static.dataModels import RuleData
 from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, \
     MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, MESSAGES_ACTIVITY_IN_RULE_ERROR, MESSAGES_RULE_NAME_ERROR, \
     MESSAGES_RULE_DATATYPE_ERROR, MESSAGES_RULE_TIMERANGE_ERROR, MESSAGES_RULE_USERS_ERROR, MESSAGES_RULE_PROCESS_ERROR, \
-    MESSAGES_RULE_MAX_ERROR
+    MESSAGES_RULE_MAX_ERROR, MESSAGES_RULE_DATA_CLEAR_ERROR
 from smupapp.view.static.staticValues import PAGEINATION_SIZE
 from smupapp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
 from django.db.models import Q
@@ -100,6 +100,9 @@ def clearDate(request, context, id=''):
     rules = Rule.objects.filter(id_rule=id)
     if rules.exists():
         rule = rules[0]
+        if rule.name != request.POST['confirmName']:
+            messages.info(request, MESSAGES_RULE_DATA_CLEAR_ERROR, extra_tags='error')
+            return redirect(REDIRECT_RULES_URL)
         rulehasprocess = rule.rulehasprocess_set.all()
         for rulehasproces in rulehasprocess:
             activites = Activity.objects.filter(rule_has_process_id_rule_has_process = rulehasproces)
@@ -180,6 +183,7 @@ def checkRuleFromForm(request, rule = Rule()):
     timeFrom = request.POST.get('timeFrom')
     timeTo = request.POST.get('timeTo')
 
+    rule.rule_id = None
     rule.name = name
     if len(maxValue) > 0:
         maxValue = maxValue.replace(':', '.')
@@ -387,6 +391,8 @@ def ruleManager(request, id = '', operation = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if request.method == 'POST':
+            if operation == 'clear':
+                return clearDate(request, context, id)
             if len(id) > 0 and operation == '':
                 return updateRule(request, context, id)
             else:
@@ -399,8 +405,8 @@ def ruleManager(request, id = '', operation = ''):
                 return deleteRule(request, context, id)
             if operation == 'view':
                 return viewRule(request, context, id, True)
-            if operation == 'clear':
-                return clearDate(request, context, id)
+            #if operation == 'clear':
+            #    return clearDate(request, context, id)
             else:
                 return viewRule(request, context, id)
 

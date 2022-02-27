@@ -50,10 +50,11 @@ python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=
 python manage.py makemigrations smupapp
 python manage.py migrate
 
-# heroku
+#heroku
 git push heroku master
 git push smupstrzelin master
 git push smupwejherowo master
+git push smupstrzelin master
 ##
 git remote -v
 git remote add smupstrzelin https://git.heroku.com/smupstrzelin.git
