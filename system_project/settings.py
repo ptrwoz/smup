@@ -116,7 +116,7 @@ DATABASES = {
         'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
-}'''
+}
 #------------------------------
 #https://smuplublin.herokuapp.com/
 #DatabaseId = 'smuplublin'
@@ -127,6 +127,19 @@ DATABASES = {
         'USER': 'cbdqzbbhqlepsf',
         'PASSWORD': '43c3ac5b01a070932a0550e25b5d73236f084fcad59bd3f3413ae8148ae6d923',
         'HOST': 'ec2-52-31-219-113.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
+    }
+}'''
+#------------------------------
+#https://smupboguchwala.herokuapp.com/
+#DatabaseId = 'smupboguchwala'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dblcnvhe0mjrci',
+        'USER': 'jawzgfjkdyrcll',
+        'PASSWORD': '53e380a17ceb2932d2d7de17f2ebc477af0e8419c0127a5f99c20e50cb4ebde7',
+        'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }

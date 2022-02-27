@@ -40,6 +40,7 @@ newdata.write(data.decode('cp1252'))
 newdata.close()
 exit()
 
+python manage.py loaddata newsmup.json
 python manage.py loaddata dataEmpty.json
 
 python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > dataEmptyver2.json
@@ -56,8 +57,11 @@ git push smupstrzelin master
 git push smupwejherowo master
 git push smupwarszawa master
 git push smuplublin master
+git push smupboguchwala master
 ##
 git remote -v
 git remote add smupstrzelin https://git.heroku.com/smupwarszawa.git
+
+git remote add smupboguchwala https://git.heroku.com/smupboguchwala.git
 
 git remote add smuplublin https://git.heroku.com/smuplublin.git
