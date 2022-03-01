@@ -10,7 +10,103 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+import socket
 from pathlib import Path
+
+def selectDataBase(host):
+    db = None
+    if host == 'https://smupapp.herokuapp.com/':
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'db7f8peirgo711',
+                'USER': 'dojfavlpqinplf',
+                'PASSWORD': 'af010523befcf60d3a0156d836973a89bac5c1fc3f2dabfca88c0ba316775a22',
+                'HOST': 'ec2-3-227-15-75.compute-1.amazonaws.com',
+                'PORT': '5432',
+            }
+        }
+    elif host == 'https://smupkrosno.herokuapp.com/':
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'd2g470lle501a8',
+                'USER': 'gkaobjfvultoop',
+                'PASSWORD': '586109f04b7f47fb70879a8302854b0ae9881332297959aae7a624e48b11cdac',
+                'HOST': 'ec2-34-230-167-186.compute-1.amazonaws.com',
+                'PORT': '5432',
+            }
+        }
+    elif host == 'https://smupwejherowo.herokuapp.com/':
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'd3o6s66v0kqjn4',
+                'USER': 'wqfeebtiyswzlb',
+                'PASSWORD': '7a5b5f6623ad4bbff6cd0012dea695ba465e73ea261b7b11742cdffa831b52cb',
+                'HOST': 'ec2-52-211-158-144.eu-west-1.compute.amazonaws.com',
+                'PORT': '5432',
+            }
+        }
+    elif host == 'https://smupboguchwala.herokuapp.com/':
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'dblcnvhe0mjrci',
+                'USER': 'jawzgfjkdyrcll',
+                'PASSWORD': '53e380a17ceb2932d2d7de17f2ebc477af0e8419c0127a5f99c20e50cb4ebde7',
+                'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
+                'PORT': '5432',
+            }
+        }
+    elif host == 'https://smupwarszawa.herokuapp.com/':
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'df7jj3knc3s4vd',
+                'USER': 'sgiyzpotvsmkbw',
+                'PASSWORD': '8ba96cfc6eb40a914c1613da4601b6a5665b57e5665220705af79f4e2e6df846',
+                'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
+                'PORT': '5432',
+            }
+        }
+    elif host == 'https://smuplublin.herokuapp.com/':
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'd2sqe7gchhcjrg',
+                'USER': 'cbdqzbbhqlepsf',
+                'PASSWORD': '43c3ac5b01a070932a0550e25b5d73236f084fcad59bd3f3413ae8148ae6d923',
+                'HOST': 'ec2-52-31-219-113.eu-west-1.compute.amazonaws.com',
+                'PORT': '5432',
+            }
+        }
+    elif host == 'https://smupstrzelin.herokuapp.com/':
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'd8kgkoknm8ka0o',
+                'USER': 'mhlrrfmbxxmnmb',
+                'PASSWORD': '5e288b0a87dd6876cf66d40128286813ea1ad9fff7126d63ce83c4e41dcba9c4',
+                'HOST': 'ec2-99-81-177-233.eu-west-1.compute.amazonaws.com',
+                'PORT': '5432',
+            }
+        }
+    else:
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'postgres',
+                'USER': 'postgres',
+                'PASSWORD': 'admin',
+                'HOST': 'localhost',
+                'PORT': '5432',
+            }
+        }
+    return db
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -72,125 +168,12 @@ TEMPLATES = [
     },
 ]
 
+print(socket.gethostbyname_ex(socket.gethostname())[2])
+
 WSGI_APPLICATION = 'system_project.wsgi.application'
-print(ALLOWED_HOSTS[1])
-print(ALLOWED_HOSTS[2])
-#DatabaseId = 'localhost'
-#DatabaseId = ''
-#------------------------------------
-#https://smupstrzelin.herokuapp.com/
-#DatabaseId = 'smupstrzelin'
-'''DATABASES = {
 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd8kgkoknm8ka0o',
-        'USER': 'mhlrrfmbxxmnmb',
-        'PASSWORD': '5e288b0a87dd6876cf66d40128286813ea1ad9fff7126d63ce83c4e41dcba9c4',
-        'HOST': 'ec2-99-81-177-233.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-}'''
-#------------------------------
-#https://smupstrzelin.herokuapp.com/
-#DatabaseId = 'smupwejherowo'
-'''DATABASES = {
+DATABASES = selectDataBase('https://smupstrzelin.herokuapp.com/')
 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd3o6s66v0kqjn4',
-        'USER': 'wqfeebtiyswzlb',
-        'PASSWORD': '7a5b5f6623ad4bbff6cd0012dea695ba465e73ea261b7b11742cdffa831b52cb',
-        'HOST': 'ec2-52-211-158-144.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-#------------------------------
-#https://smupwarszawa.herokuapp.com/
-#DatabaseId = 'smupwarszawa'
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'df7jj3knc3s4vd',
-        'USER': 'sgiyzpotvsmkbw',
-        'PASSWORD': '8ba96cfc6eb40a914c1613da4601b6a5665b57e5665220705af79f4e2e6df846',
-        'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-}'''
-''''#------------------------------
-#https://smuplublin.herokuapp.com/
-#DatabaseId = 'smuplublin'
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd2sqe7gchhcjrg',
-        'USER': 'cbdqzbbhqlepsf',
-        'PASSWORD': '43c3ac5b01a070932a0550e25b5d73236f084fcad59bd3f3413ae8148ae6d923',
-        'HOST': 'ec2-52-31-219-113.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-#------------------------------
-#https://smupboguchwala.herokuapp.com/
-#DatabaseId = 'smupboguchwala'
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dblcnvhe0mjrci',
-        'USER': 'jawzgfjkdyrcll',
-        'PASSWORD': '53e380a17ceb2932d2d7de17f2ebc477af0e8419c0127a5f99c20e50cb4ebde7',
-        'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-#DatasetId = ''
-DATABASES = {
-    #smup2
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd2g470lle501a8',
-        'USER': 'gkaobjfvultoop',
-        'PASSWORD': '586109f04b7f47fb70879a8302854b0ae9881332297959aae7a624e48b11cdac',
-        'HOST': 'ec2-34-230-167-186.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}'''
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DATABASES = {
-
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db7f8peirgo711',
-        'USER': 'dojfavlpqinplf',
-        'PASSWORD': 'af010523befcf60d3a0156d836973a89bac5c1fc3f2dabfca88c0ba316775a22',
-        'HOST': 'ec2-3-227-15-75.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'system1',
-        'USER': 'admin',
-        'PASSWORD': 'Qwerty123!',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-    }
-}
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}'''
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

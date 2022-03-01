@@ -54,6 +54,7 @@ python manage.py makemigrations smupapp
 python manage.py migrate
 
 #heroku
+git push origin master
 git push heroku master
 git push smupstrzelin master
 git push smupwejherowo master
@@ -62,6 +63,8 @@ git push smuplublin master
 git push smupboguchwala master
 ##
 git remote -v
+
+
 git remote add smupstrzelin https://git.heroku.com/smupwarszawa.git
 
 git remote add smupboguchwala https://git.heroku.com/smupboguchwala.git
