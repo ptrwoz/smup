@@ -81,7 +81,7 @@ def selectDataBase(host):
                 'PORT': '5432',
             }
         }
-    elif host == 'https://smupstrzelin.herokuapp.com/':
+    elif host == '52350c1c-e112-4f44-ad8c-43da99a66442':
         db = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -172,7 +172,7 @@ print(socket.gethostbyname_ex(socket.gethostname())[2])
 
 WSGI_APPLICATION = 'system_project.wsgi.application'
 print(socket.gethostname())
-DATABASES = selectDataBase('https://smupstrzelin.herokuapp.com/')
+DATABASES = selectDataBase('52350c1c-e112-4f44-ad8c-43da99a66442')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
