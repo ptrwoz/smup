@@ -338,16 +338,31 @@ def employeesPasswordReduce(employeesData):
 #   get employeesByRole
 #
 def getEmployeesByRole(user):
-    if (user.role == 'ADMIN'):
-        employeesData = Employee.objects.filter(~Q(id_employee=user.id)).order_by('surname', 'name')
-    elif (user.role == 'PROCESS MANAGER'):
+    #if (user.role == 'ADMIN'):
+    employeesData = Employee.objects.filter(~Q(id_employee=user.id)).order_by('surname', 'name')
+    for employees in employeesData:
+        if (user.role == 'ADMIN' and \
+                (employees.id_employeetype.name == 'PROCESS MANAGER' or\
+                employees.id_employeetype.name == 'MANAGER' or \
+                employees.id_employeetype.name == 'USER')):
+            employees.editable = True
+        elif (user.role == 'PROCESS MANAGER' and \
+              (employees.id_employeetype.name == 'MANAGER' or \
+                employees.id_employeetype.name == 'USER')):
+            employees.editable = True
+        elif (user.role == 'MANAGER' and \
+              (employees.id_employeetype.name == 'USER')):
+            employees.editable = True
+        else:
+            employees.editable = False
+    '''elif (user.role == 'PROCESS MANAGER'):
         employeesData = Employee.objects.filter(
             ~Q(id_employee=user.id) & Q(id_employeetype__name='USER') | Q(
                 id_employeetype__name='MANAGER')).order_by('surname', 'name')
     elif (user.role == 'MANAGER'):
         employeesData = Employee.objects.filter(
             ~Q(id_employee=user.id) & Q(id_employeetype__name='USER')).order_by('surname', 'name')
-    employeesData = employeesPasswordReduce(employeesData)
+    employeesData = employeesPasswordReduce(employeesData)'''
     return employeesData
 
 #

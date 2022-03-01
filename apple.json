@@ -3,8 +3,8 @@
     "model": "auth.user",
     "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$320000$LPP8i5Xw3lwSTIV8omC1Ab$MOOH2Gd/NY+aWJUfXKcgW38RUXgBRJJVTmfbjLCg0/8=",
-        "last_login": "2022-02-25T21:07:13.129Z",
+        "password": "pbkdf2_sha256$260000$qASL4eDRgELBS2NKa6b06j$lCOWEsNQSvI7fmnX9bkdO4lPnP3oSntk2CTX149pW3Y=",
+        "last_login": "2022-02-28T17:14:24.779Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -173,6 +173,14 @@
     "fields": {
         "session_data": ".eJxVjDsOwjAQBe_iGlmLf2so6TmDtf4sDiBbipMKcXeIlALaNzPvJQKtSw3rKHOYsjgLJQ6_W6T0KG0D-U7t1mXqbZmnKDdF7nTIa8_ledndv4NKo35rBLIetUpAOVrwjpVjoBQRsmENhg2n4rJBb2NCZKtPFsn4Es2RvBLvD-FiN9Y:1nNUxw:LLd0JWEIBb8RVC1-vnL8Ls0Jv9TB1ykf03HFIIRlsL0",
         "expire_date": "2022-03-11T07:24:36.202Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "rq1wv6cf93c1cc5keaj9u4j82vtmk7n2",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6dKC4dO8ZCMyAVA0kpV0Z765NutDtf-_9l_BhW4vfelr8zOIsQJx-txjokeoO-B7qrUlqdV3mKHdFHrTLa-P0vBzu30EJvXzr7JDJqOwM0KQsI4BN5LQJOWZjwcakjIKMA2pySeOo0DJMbGkgHEG8P9v1N1I:1nOjbM:7UcWQ5sPZ_gDcZQsD1ahzOEc4YAQnqfoqC8fVTBayzs",
+        "expire_date": "2022-03-14T17:14:24.789Z"
     }
 },
 {
@@ -1171,8 +1179,8 @@
     "model": "smupapp.authuser",
     "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$320000$LPP8i5Xw3lwSTIV8omC1Ab$MOOH2Gd/NY+aWJUfXKcgW38RUXgBRJJVTmfbjLCg0/8=",
-        "last_login": "2022-02-25T21:07:13.129Z",
+        "password": "pbkdf2_sha256$260000$qASL4eDRgELBS2NKa6b06j$lCOWEsNQSvI7fmnX9bkdO4lPnP3oSntk2CTX149pW3Y=",
+        "last_login": "2022-02-28T17:14:24.779Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -1320,6 +1328,71 @@
         "action_flag": 2,
         "change_message": "[{\"changed\": {\"fields\": [\"Id employeetype\"]}}]",
         "content_type": 18,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 7,
+    "fields": {
+        "action_time": "2022-02-28T17:14:37.213Z",
+        "object_id": "2",
+        "object_repr": "DataType object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 8,
+    "fields": {
+        "action_time": "2022-02-28T17:14:40.580Z",
+        "object_id": "1",
+        "object_repr": "DataType object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 9,
+    "fields": {
+        "action_time": "2022-02-28T17:14:45.299Z",
+        "object_id": "3",
+        "object_repr": "TimeRange object (3)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 10,
+    "fields": {
+        "action_time": "2022-02-28T17:14:48.893Z",
+        "object_id": "2",
+        "object_repr": "TimeRange object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 11,
+    "fields": {
+        "action_time": "2022-02-28T17:14:52.130Z",
+        "object_id": "1",
+        "object_repr": "TimeRange object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
         "user": 2
     }
 },
@@ -1835,6 +1908,14 @@
 },
 {
     "model": "smupapp.djangosession",
+    "pk": "rq1wv6cf93c1cc5keaj9u4j82vtmk7n2",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6dKC4dO8ZCMyAVA0kpV0Z765NutDtf-_9l_BhW4vfelr8zOIsQJx-txjokeoO-B7qrUlqdV3mKHdFHrTLa-P0vBzu30EJvXzr7JDJqOwM0KQsI4BN5LQJOWZjwcakjIKMA2pySeOo0DJMbGkgHEG8P9v1N1I:1nOjbM:7UcWQ5sPZ_gDcZQsD1ahzOEc4YAQnqfoqC8fVTBayzs",
+        "expire_date": "2022-03-14T17:14:24.789Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
     "pk": "s0k179n51635zuyk9x6st3fdkms2lxns",
     "fields": {
         "session_data": ".eJxVjEEOwiAQRe_C2hBmWiy4dO8ZyAwMUjU0Ke3KeHfbpAvdvvf-f6tA61LC2mQOY1IXher0y5jiU-ou0oPqfdJxqss8st4Tfdimb1OS1_Vo_w4KtbKtPbCxEBmEIqD19mxBsEfPGTpwmdGDMy4jIAxDt4FI3LEhcVkQevX5AsWAN1g:1nFM1u:KJqVqemB4zpvJFasLVvx--8YJi88PL3iYPOJ6SWKvgU",
@@ -2086,5 +2167,96 @@
         "action_flag": 2,
         "change_message": "[{\"changed\": {\"fields\": [\"Id employeetype\"]}}]"
     }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2022-02-28T17:14:37.213Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "datatype"
+        ],
+        "object_id": "2",
+        "object_repr": "DataType object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2022-02-28T17:14:40.580Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "datatype"
+        ],
+        "object_id": "1",
+        "object_repr": "DataType object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2022-02-28T17:14:45.299Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "timerange"
+        ],
+        "object_id": "3",
+        "object_repr": "TimeRange object (3)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2022-02-28T17:14:48.893Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "timerange"
+        ],
+        "object_id": "2",
+        "object_repr": "TimeRange object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2022-02-28T17:14:52.130Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "smupapp",
+            "timerange"
+        ],
+        "object_id": "1",
+        "object_repr": "TimeRange object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
 }
 ]
+[0m

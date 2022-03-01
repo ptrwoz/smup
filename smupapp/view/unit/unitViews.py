@@ -42,6 +42,7 @@ def checkUnitFromForm(request):
     else:
         unit = Unit()
         unit.name = unitName
+        unit.is_active = 1
         return unit, None
 #
 #   update Unit
@@ -63,6 +64,7 @@ def updateUnit(request, context, id=''):
             return render(request, RENDER_UNIT_URL, context)
         try:
             unit.name = newUnit.name
+            unit.is_active = 1
             unit.save()
             messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
             return redirect('../'+REDIRECT_UNITS_URL)
@@ -150,12 +152,20 @@ def countUnitEmployees(units):
     return units
 
 def getUnitsToEdit(userRole):
-    if userRole == 'ADMIN':
+    units = Unit.objects.all().order_by('name')
+    for unit in units:
+        if unit.is_active:
+            unit.editable = True
+        elif userRole == 'ADMIN':
+            unit.editable = True
+        else:
+            unit.editable = False
+    '''if userRole == 'ADMIN':
         units = Unit.objects.all().order_by('name')
     elif userRole == 'PROCESS MANAGER' or userRole == 'MANAGER':
         units = Unit.objects.filter(Q(is_active = 1)).order_by('name')
     else:
-        units = None
+        units = None'''
     return units
 #
 #   view units

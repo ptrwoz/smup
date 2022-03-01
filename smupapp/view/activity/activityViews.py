@@ -215,6 +215,8 @@ def viewActivity(request, context, id=''):
             if todayId == -1 or paginator.num_pages == 1:
                 currentPage = 1
             else:
+                if todayId == 0:
+                    todayId = 1
                 i = (todayId)
 
                 currentPage = math.ceil((i / len(segments)) * paginator.num_pages)
@@ -222,7 +224,7 @@ def viewActivity(request, context, id=''):
                     currentPage = 1
             page = request.GET.get('page', currentPage)
             try:
-                activityData = paginator.page(page)
+                activityData = paginator.page(int(page))
             except PageNotAnInteger:
                 activityData = paginator.page(currentPage)
             except EmptyPage:

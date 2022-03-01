@@ -109,13 +109,15 @@
                                     </div>
                                 </div>
                             </div>
-                            {% if employee.auth_user.is_active == 0 %}
-                            <a href="../user/{{employee.id_employee}}/active?page={{employeesData.number}}" class="btn btn-success">Atywuj</a>
-                            {% else %}
-                            <a href="../user/{{employee.id_employee}}/active?page={{employeesData.number}}" class="btn btn-danger" >Deaktywuj</a>
+                            {% if employee.editable %}
+                                {% if employee.auth_user.is_active == 0 %}
+                                <a href="../user/{{employee.id_employee}}/active?page={{employeesData.number}}" class="btn btn-success">Atywuj</a>
+                                {% else %}
+                                <a href="../user/{{employee.id_employee}}/active?page={{employeesData.number}}" class="btn btn-danger" >Deaktywuj</a>
+                                {% endif %}
+                                <a class="btn btn-primary" href="../user/{{employee.id_employee}}">Edytuj</a>
+                                <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#exampleModal{{employee.id_employee}}">Usuń</a>
                             {% endif %}
-                            <a class="btn btn-primary" href="../user/{{employee.id_employee}}">Edytuj</a>
-                            <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#exampleModal{{employee.id_employee}}">Usuń</a>
                         </td>
                     </tr>
                     {% endfor %}

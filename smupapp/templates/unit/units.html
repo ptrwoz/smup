@@ -98,13 +98,15 @@
                                 </div>
                             </div>
                         </div>
-                        {% if unit.is_active == 0 %}
-                            <a href="../unit/{{unit.id_unit}}/active" class="btn btn-success">Atywuj</a>
-                        {% else %}
-                            <a href="../unit/{{unit.id_unit}}/active" class="btn btn-danger" >Deaktywuj</a>
+                        {% if unit.editable %}
+                            {% if unit.is_active == 0 %}
+                                <a href="../unit/{{unit.id_unit}}/active" class="btn btn-success">Atywuj</a>
+                            {% else %}
+                                <a href="../unit/{{unit.id_unit}}/active" class="btn btn-danger" >Deaktywuj</a>
+                            {% endif %}
+                            <a class="btn btn-primary" href="../unit/{{unit.id_unit}}">Edytuj</a>
+                            <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#modal{{unit.id_unit}}">Usuń</a>
                         {% endif %}
-                        <a class="btn btn-primary" href="../unit/{{unit.id_unit}}">Edytuj</a>
-                        <a class="btn btn-danger" value="Delete exercise" data-bs-toggle="modal" data-bs-target="#modal{{unit.id_unit}}">Usuń</a>
                     </td>
                 </tr>
                 {% endfor %}

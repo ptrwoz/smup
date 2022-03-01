@@ -307,6 +307,36 @@ def importexportView(request):
     else:
         return redirect(REDIRECT_HOME_URL)
 
+from cryptography.fernet import Fernet
+
+def backup(request):
+    now = datetime.now()
+    current_time = now.strftime("%m_%d_%Y_%H_%M_%S_%f")
+    path = 'backup/{}.json.'.format(current_time)
+    os.system("python -Xutf8 manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > {}".format(path))
+    if os.path.exists(path):
+        if os.path.exists(path):
+            with open('key.key', 'rb') as keyFile:
+                key = keyFile.read()
+            with open(path, 'rb') as f:
+                data = f.read()
+            fernet = Fernet(key)
+            encrypted = fernet.encrypt(data)
+            with open(path, 'wb') as f:
+                f.write(encrypted)
+            f.close()
+            keyFile.close()
+            with open(path, 'rb') as f:
+                data = f.read()
+            response = HttpResponse(data,
+                                content_type='application/txt')
+            response['Content-Disposition'] = 'attachment; filename=backup_{}.json'.format(current_time)
+
+            return response
+    else:
+        redirect(REDIRECT_IMPORT_EXPORT_URL)
+
+
 def importexportManager(request, id = '', operation = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER' or context['account'] == 'USER':

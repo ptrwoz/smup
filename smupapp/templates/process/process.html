@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <style>
-        .achievements-wrapper { height: 700px; overflow: auto; margin-bottom:20px; }
+        .achievements-wrapper { height: 90%; overflow: auto; margin-bottom:20px; }
     </style>
     <script type="text/javascript">
         function styleRows(elements) {
@@ -219,7 +219,7 @@
                 <p class="lead text-muted"></p>
                 {% if account == "ADMIN" or "PROCESS MANAGER"%}
                 <div class="table-responsive span3 achievements-wrapper">
-                <table id="mainProcessTabel" class="table" style="min-width: 1000px;">
+                <table id="mainProcessTabel" class="table">
                     <thead>
                     <tr>
                         <th style="width: 15%" scope="col">Numer</th>

@@ -73,7 +73,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'system_project.wsgi.application'
-
+print(ALLOWED_HOSTS[1])
+print(ALLOWED_HOSTS[2])
 #DatabaseId = 'localhost'
 #DatabaseId = ''
 #------------------------------------
@@ -116,8 +117,8 @@ DATABASES = {
         'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
-}
-#------------------------------
+}'''
+''''#------------------------------
 #https://smuplublin.herokuapp.com/
 #DatabaseId = 'smuplublin'
 DATABASES = {
@@ -129,7 +130,7 @@ DATABASES = {
         'HOST': 'ec2-52-31-219-113.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
-}'''
+}
 #------------------------------
 #https://smupboguchwala.herokuapp.com/
 #DatabaseId = 'smupboguchwala'
@@ -144,7 +145,7 @@ DATABASES = {
     }
 }
 #DatasetId = ''
-'''DATABASES = {
+DATABASES = {
     #smup2
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -158,7 +159,7 @@ DATABASES = {
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-'''DATABASES = {
+DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -169,7 +170,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'system1',

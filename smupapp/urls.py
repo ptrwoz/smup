@@ -44,7 +44,7 @@ urlpatterns = [
     path('export', importexportViews.exportFile, name='export'),
     path('import', importexportViews.importFile, name='import'),
     path('importExport', importexportViews.importexportManager, name='importExport'),
-
+    path('backup', importexportViews.backup, name='backup'),
     path('', mainViews.home, name='home'),
 ]
 urlpatterns += staticfiles_urlpatterns()
