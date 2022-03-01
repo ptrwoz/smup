@@ -171,7 +171,7 @@ TEMPLATES = [
 print(socket.gethostbyname_ex(socket.gethostname())[2])
 
 WSGI_APPLICATION = 'system_project.wsgi.application'
-
+print(socket.gethostname())
 DATABASES = selectDataBase('https://smupstrzelin.herokuapp.com/')
 
 # Password validation
