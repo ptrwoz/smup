@@ -75,7 +75,7 @@ def initProcessData(processData, static, id = ''):
         else:
             p.check = 0
     if static:
-        checkedProcessData = list({p.name: p for p in checkedProcessData}.values())
+        checkedProcessData = list({p.number: p for p in checkedProcessData}.values())
         checkedProcessData = initChapterNo(checkedProcessData)
         checkedProcessData, prs = sortDataByChapterNo(checkedProcessData)
         return checkedProcessData

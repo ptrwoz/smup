@@ -16,7 +16,8 @@ from smupapp.view.auth.auth import authUser
 from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo
 from smupapp.view.rule.ruleViews import formatRulesMax
 from smupapp.view.static.dataModels import ExcelData
-from smupapp.view.static.messagesTexts import MESSAGES_IMPORT_NOFILE_ERROR, MESSAGES_IMPORT_SUCCESS
+from smupapp.view.static.messagesTexts import MESSAGES_IMPORT_NOFILE_ERROR, MESSAGES_IMPORT_SUCCESS, \
+    MESSAGES_TIME_RANGE_EXPORT_ERROR
 from smupapp.view.static.staticValues import USER_GUEST, PAGEINATION_SIZE, TIMERANGE_DAY, TIMERANGE_WEEK, \
     TIMERANGE_MONTH
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_IMPORT_EXPORT_URL, REDIRECT_IMPORT_EXPORT_URL
@@ -31,8 +32,11 @@ def createSumSheet(employee):
 def createEmployeeSheet(employee, segments):
     process = Process.objects.all()
     processData = []
+    processData.append('')
     processNo = []
+    processNo.append('')
     tasksRange = []
+    tasksRange.append('')
     process = initChapterNo(process)
     process, idx2 = sortDataByChapterNo(process)
     for p in process:
@@ -159,27 +163,57 @@ def getExcelEmployees(formData = None):
     #    order_by('id_unit__name')
     return userQuery
 
+def timeRangeToNumber(timeRange):
+    if timeRange == TIMERANGE_DAY:
+        return 1
+    elif timeRange == TIMERANGE_WEEK:
+        return 7
+    elif timeRange == TIMERANGE_MONTH:
+        return 31
 
+def isDivedTimeRange(tr1, tr2):
+    if timeRangeToNumber(tr1) <= timeRangeToNumber(tr2):
+        return True
+    else:
+        return False
+def getMinTimeRange(rules):
+    minTimeRange = rules[0].time_range.name
+    #for rule in rules:
+    #    rule
+    return minTimeRange
+
+def checkExportTimeRange(rules, timeRange):
+    if len(timeRange) == 0:
+        return True
+    for rule in rules:
+        if not isDivedTimeRange(rule.time_range.name,timeRange):
+            return False
+    return True
 #
 #   generate excel document
 #
 def exportDataBase(id, formData):
     path = './temp/temp_out/data_%s.xlsx' % id
-    employees = Employee.objects.all()
+    #employees = Employee.objects.all()
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
     no = 1
 
     timeFrom =  datetime.strptime(formData.timeFrom, "%Y-%m-%d").date()
     timeTo = datetime.strptime(formData.timeTo, "%Y-%m-%d").date()
 
+    employeesHasRule = getExcelEmployees(formData)
+
+    employees = Employee.objects.filter(id_employee__in = employeesHasRule.values('employee_id_employee'))
+
+    if len(formData.rules) == 0:
+        return None
+    if len(formData.timeRange) == 0:
+        formData.timeRange = getMinTimeRange(formData.rules)
+    if not checkExportTimeRange(formData.rules, formData.timeRange):
+        return None
     segments, todayId, isWeekends = getSegments(timeFrom, timeTo, getRelativedeltaFromDateType(formData.timeRange))
 
-    employees = getExcelEmployees(formData)
     for employee in employees:
-
-        ruleHasEmployees = RuleHasEmployee.objects.filter(Q(employee_id_employee=employee) & \
-                                       Q(rule_id_rule=formData.rules))
-
         sheet_name = ""
         if formData.anonymizationParam:
             sheet_name = 'Employee_' + str(no)
@@ -215,6 +249,9 @@ def exportFile(request):
         current_time = now.strftime("%m_%d_%Y_%H_%M_%S_%f")
         path = exportDataBase(str(current_time), formData)
 
+        if path == None:
+            messages.info(request, MESSAGES_TIME_RANGE_EXPORT_ERROR, extra_tags='error')
+            return redirect(REDIRECT_IMPORT_EXPORT_URL)
         if os.path.exists(path):
             if os.path.exists(path):
                 file = open(path, "rb")
@@ -263,7 +300,7 @@ def getDataFromForm(request):
                  timeFrom, \
                  timeTo, \
                  timeRange, \
-                 rules)
+                 checkedRules)
 
 def getTimeRangeNumber(timeRangeName):
     if timeRangeName == TIMERANGE_DAY:
@@ -362,7 +399,7 @@ def importexportManager(request, id = '', operation = ''):
                 print()
                 #return clearDate(request, context, id)
             else:
-                return importexportView(request)
+                 return importexportView(request)
                 #return viewRule(request, context, id)
 
     else:

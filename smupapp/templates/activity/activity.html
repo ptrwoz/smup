@@ -295,7 +295,7 @@
                             <th scope="col">Nazwa</th>
                             <th scope="col">Info.</th>
                             {% for i in activityData.currentActivityData %}
-                            <th {% if today == i|first %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center;width: 100%" name="col" value="{{i|first }}"></input></th>
+                            <th {% if today == i|first %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center;width: 100%; min-width: 240px;" name="col" value="{{i|first }}"></input></th>
                             {% endfor %}
                         </tr>
                         {{ activityData.increment }}
@@ -322,12 +322,18 @@
                             {% for i in activityData.currentActivityData %}
                             <td {% if today == i.date %} class="table-primary" {% endif %} scope="col">
                                 <div class="btn-row">
-                                    <div class="btn-group w-100" data-toggle="buttons">
+                                        <div class="input-group">
+                                            <input style="text-align:center;width: 50%; min-width: 50px;" class="form-control" value='{{i.firstValue}}' name="row" {% if process.editable == 0%}  disabled {% endif %} style="text-align:center; width: 100px;" class="form-control" type="number" min="0" max="999" {% if ruleData.data_type.id_data_type == 1 %} placeholder="godz." placeholder="godz." {% else %} placeholder="ilość" {% endif %}>
+                                            {% if ruleData.data_type.id_data_type == 1 %}
+                                                <input style="text-align:center;width: 50%; min-width: 50px;" class="form-control" value='{{i.secondValue}}' step=1 name="row" name="row" type="number" {% if process.editable == 0%}  disabled {% endif %} style="text-align:center; width: 50px;" class="form-control"  type="number" min="0" max="59" placeholder="min.">
+                                            {% endif %}
+                                        </div>
+                                    <!--<div class="input-group">
                                         <input style="text-align:center;width: 50%; min-width: 100px;" value='{{i.firstValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center; width: 100px;" class="form-control" type="number" min="0" max="999" placeholder="--">
-                                        {% if ruleData.data_type.id_data_type == 1 %} :
+                                        {% if ruleData.data_type.id_data_type == 1 %}
                                         <input style="text-align:center;width: 50%; min-width: 100px;" value='{{i.secondValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center; width: 100px;" class="form-control"  type="number" min="0" max="59" placeholder="--">
                                         {% endif %}
-                                    </div>
+                                    </div>-->
                                 </div>
                             </td>
                             {% endfor %}
@@ -343,13 +349,13 @@
                             {% for i in activityData.currentActivityData %}
                             {% if process.editable == 1%}
                             <th {% if today == i %} class="table-primary" {% endif %} scope="col">
-                                <input name="row" style="text-align:center" {% if ruleData.data_type.id_data_type == 1 %} placeholder="--:--" type="text"{% else %} type="text" min="00" max=10 {% endif %} class="form-control" name="sum_row" placeholder="-" >
+                                <input name="row" style="text-align:center" {% if ruleData.data_type.id_data_type == 1 %} type="text"{% else %} type="text" min="00" max=10 {% endif %} class="form-control" name="sum_row" >
                             </th>
                             {% else %}
                             <th {% if today == i %} class="table-primary" {% endif %} scope="col">
                                 <div class="btn-row">
                                     <div class="btn-group" data-toggle="buttons">
-                                        <input name="row" style="text-align:center"  readonly type="text" class="form-control" name="sum_row" {% if ruleData.data_type.id_data_type == 1 %} placeholder="--:--" type="text"{% else %} type="text" placeholder="-" {% endif %} >
+                                        <input name="row" style="text-align:center"  readonly type="text" class="form-control" name="sum_row" {% if ruleData.data_type.id_data_type == 1 %} type="text"{% else %} type="text" {% endif %} >
                                     </div>
                                 </div>
                             </th>

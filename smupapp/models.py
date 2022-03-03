@@ -130,7 +130,7 @@ class DjangoSession(models.Model):
 
 class Activity(models.Model):
     id_activity = models.AutoField(primary_key=True)
-    value = models.FloatField(blank=True, null=True)
+    value = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)
     time_add = models.DateTimeField(blank=True, null=True)
     time_from = models.DateField(blank=True, null=True)
     time_to = models.CharField(max_length=45, blank=True, null=True)

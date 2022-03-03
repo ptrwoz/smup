@@ -23,6 +23,7 @@ MESSAGES_DATA_LOGINEXIST_ERROR = 'Błędny login (istnieje już taki użytkownik
 MESSAGES_DIFFPASSWORD_ERROR = 'Podane hasła nie są różne'
 MESSAGES_PASSWORD_ERROR = 'Niepoprawne hasło (sprawdź warunki poprawnego hasła)'
 MESSAGES_UNIT_ERROR = 'Błędna jednostka'
+MESSAGES_TIME_RANGE_EXPORT_ERROR = 'Błędna jednostka minimalna czasu'
 
 MESSAGES_IMPORT_NOFILE_ERROR = 'Nie wybrano odpowiedniego pliku'
 MESSAGES_IMPORT_SUCCESS = 'Sukces importu danych'

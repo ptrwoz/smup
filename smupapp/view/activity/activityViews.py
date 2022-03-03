@@ -1,4 +1,6 @@
 import datetime
+from decimal import Decimal
+
 import numpy as np
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -73,13 +75,16 @@ def saveActivity(request, rule, ruleHasProcess, value, activityDate):
                 activity = Activity()
                 activity.time_from = dateParts[0]
                 activity.time_to = dateParts[1] if len(dateParts) > 1 else dateParts[0]
-                activity.value = value
+                activity.value = float(value)
                 activity.time_add = date.today()
                 activity.employee_id_employee = employees[0]
                 activity.rule_has_process_id_rule_has_process = ruleHasProcess
                 activity.save()
             if exist and len(value) > 0:
-                activity.value = value
+                v1 = str(value).split('.')
+                if len(v1[1]) == 1:
+                    v1[1] = '0' + v1[1]
+                activity.value = Decimal(v1[0] + '.' + v1[1])
                 activity.save()
             if exist and len(value) == 0:
                 activity.delete()
@@ -114,7 +119,7 @@ def updateActivities(request, context, rule_id):
         if rule[0].data_type.id_data_type == 1:
             rows = formatFormData(rows)
             #& ~Q(process_id_process__id_mainprocess=None)
-        ruleHasProcess = RuleHasProcess.objects.filter(Q(rule_id_rule=rule_id) ).order_by("process_id_process__order")
+        ruleHasProcess = RuleHasProcess.objects.filter(Q(rule_id_rule=rule_id) ).order_by("process_id_process_id__order")
 
         colSize = int(len(rows) / (len(cols)))
         rows = np.array(rows)
@@ -180,10 +185,11 @@ def initActivityData(userActivities, processData, activityDatas, data_type):
             if len(splitedActivityData) == 1:
                 activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[0]))
             else:
-                activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) &Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[1]))
+                activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[1]))
             if activity.exists():
                 if data_type.id_data_type == 1:
-                    hmData = str(activity[0].value).split('.')
+                    v1 = format(activity[0].value, '.2f')
+                    hmData = str(v1).split('.')
                     cNewActivityData.append(DateInformation(hmData[0],hmData[1],activityData[0], activityData[1]))
                 else:
                     cNewActivityData.append(DateInformation(int(activity[0].value), "",activityData[0], activityData[1]))
@@ -246,7 +252,7 @@ def viewActivity(request, context, id=''):
                     #    break
                     p.editable = 0
                     processData.append(p)
-            processData = list({p.name: p for p in processData}.values())
+            processData = list({p.number: p for p in processData}.values())
             #processData.order_by('order')
             #processData = initChapterNo(processData)
             processData, prs = sortDataByOrder(processData)
