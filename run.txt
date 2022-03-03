@@ -56,6 +56,7 @@ python manage.py migrate
 #heroku
 git push origin master
 git push heroku master
+git push smupkrosno master
 git push smupstrzelin master
 git push smupwejherowo master
 git push smupwarszawa master
