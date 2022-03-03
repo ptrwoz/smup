@@ -41,10 +41,10 @@ def selectDataBase(host):
         db = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'd3o6s66v0kqjn4',
-                'USER': 'wqfeebtiyswzlb',
-                'PASSWORD': '7a5b5f6623ad4bbff6cd0012dea695ba465e73ea261b7b11742cdffa831b52cb',
-                'HOST': 'ec2-52-211-158-144.eu-west-1.compute.amazonaws.com',
+                'NAME': 'deinvn30ckocbf',
+                'USER': 'crxnbvutjcoksw',
+                'PASSWORD': '9a8c95211e3d96c8b5e55edd83cfc3e0422aaec1229a4e76428840c1c5e28e4a',
+                'HOST': 'ec2-54-73-178-126.eu-west-1.compute.amazonaws.com',
                 'PORT': '5432',
             }
         }
