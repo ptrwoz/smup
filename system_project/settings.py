@@ -52,10 +52,10 @@ def selectDataBase(host):
         db = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'dblcnvhe0mjrci',
-                'USER': 'jawzgfjkdyrcll',
-                'PASSWORD': '53e380a17ceb2932d2d7de17f2ebc477af0e8419c0127a5f99c20e50cb4ebde7',
-                'HOST': 'ec2-52-213-119-221.eu-west-1.compute.amazonaws.com',
+                'NAME': 'dboad1ttjhhm6f',
+                'USER': 'ktngofpkjkojar',
+                'PASSWORD': '8bccf1a21ba2a872ce90ccbe985c99a6db52842803bc6ab255a5674558f6932b',
+                'HOST': 'ec2-54-228-97-176.eu-west-1.compute.amazonaws.com',
                 'PORT': '5432',
             }
         }
@@ -172,7 +172,7 @@ TEMPLATES = [
 
 #WSGI_APPLICATION = 'system_project.wsgi.application'
 #print(socket.gethostname())
-DATABASES = selectDataBase('https://smupkrosno.herokuapp.com/')
+DATABASES = selectDataBase('https://smupboguchwala.herokuapp.com/')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
