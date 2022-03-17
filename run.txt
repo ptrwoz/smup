@@ -41,9 +41,13 @@ newdata.close()
 exit()
 
 python manage.py loaddata newsmup.json
-python manage.py loaddata dataEmpty.json
+python manage.py loaddata data.json
 python manage.py loaddata apple.json
 
+python manage.py loaddata  02_28_2022_21_20_41_271903.json
+
+
+python -Xutf8 manage.py dumpdata > data.json
 
 python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > dataEmptyver2.json
 #init
@@ -62,9 +66,12 @@ git push smupwejherowo master
 git push smupwarszawa master
 git push smuplublin master
 git push smupboguchwala master
+git push smupzmp master
+git push smuptychy master
 ##
 git remote -v
 
+git remote add smuptychy https://git.heroku.com/smuptychy.git
 
 git remote add smupstrzelin https://git.heroku.com/smupwarszawa.git
 

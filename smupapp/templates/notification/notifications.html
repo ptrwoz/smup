@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/fontsgoogleapisLato.css.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/fontsgoogleapisMontserrat.css.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+    <meta charset="utf-8">
+    <title>{% block title %}System login page{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Piotr Wozniak">
+    <meta name="theme-color" content="#7952b3">
+    <meta name="theme-color" content="#7952b3">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/fontsgoogleapisLato.css.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/fontsgoogleapisMontserrat.css.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/rulePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
+
+    <script src="{% static 'js/jquery.slim.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.5.0.js' %}"></script>
+    <style>
+
+    </style>
+    <script>
+        $(function() {
+          var $datepickerFrom = $("#fromperiod").datepicker({
+            //changeMonth: true,
+            dateFormat: "yy-mm-dd",
+            //numberOfMonths: 1,
+            //defaultDate: null,
+            onClose: function(selectedDate) {
+              $("#toperiod").datepicker("option", "minDate", selectedDate);
+            }
+          });
+          /*fromperiod = $('#fromperiod').val()
+          if (fromperiod.length == 0) {
+            $datepickerFrom.datepicker('setDate', new Date());
+          }*/
+
+          var $datepickerTo = $("#toperiod").datepicker({
+            //defaultDate: "+1w",
+            //changeMonth: true,
+            dateFormat: "yy-mm-dd",
+            //numberOfMonths: 1,
+            onClose: function(selectedDate) {
+              $("#fromperiod").datepicker("option", "maxDate", selectedDate);
+            }
+          });
+          /*toperiod = $('#toperiod').val()
+          if (toperiod.length == 0) {
+            $datepickerTo.datepicker('setDate', new Date());
+          }*/
+        });
+    </script>
+        <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+</head>
+<body class="text-center">
+<main class="form-signin">
+    {% csrf_token %}
+    {% block content %}
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <span class="fs-4">System SMUP</span>
+        </a>
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            {% if account == "GUEST" %}
+            <div>
+                <a class="btn btn-success " href="login">Zaloguj się</a>
+            </div>
+            {% else %}
+            <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
+            <a class="me-3 py-2 text-success text-decoration-none" href="profil">{{userLabel}}</a>
+            <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
+            <a class="btn  btn-success" href="logout">Wyloguj</a>
+            {% endif %}
+        </nav>
+    </div>
+    <section class="text-center form-control">
+        <div class="d-grid gap-2">
+            {% if account == "GUEST" %}
+            <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
+            {% else %}
+            <h1 class="fw-light">Powiadomienia:</h1>
+            <p class="lead text-muted"></p>
+            {% for message in messages %}
+            {% if 'error' in message.extra_tags %}
+            <div class="alert alert-danger">
+                <strong>{{message}}</strong>
+            </div>
+            {% elif 'info' in message.extra_tags %}
+            <div class="alert alert-success">
+                <strong>{{message}}</strong>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% if account == "ADMIN" or "PROCESS MANAGER"%}
+
+            <div class="table-responsive">
+                <!--<div class="form-group row">
+                    <div class="col-sm-2">
+                        <label class="col-sm-2 col-form-label">Jednostka czasu:</label>
+                    </div>
+                    <div class="col-sm-8">
+                            <select class="form-select" name="timeRange" aria-label="Default select example">
+                                {% for t in timeRange %}
+                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="{{t.id_time_range}}">{{t.name}}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
+                </div>-->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <!--<th scope="col">#</th>-->
+                        <th scope="col">Reguła</th>
+                        <th scope="col">Użytkownik</th>
+                        <th scope="col">Okres</th>
+                        <th scope="col">Jednostka czasu</th>
+                        <th scope="col">Typ informacji</th>
+                        <th scope="col">Opóźnienie (ilość jednostek)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="text"  class="form-control" type="text" name='ruleName' placeholder="Nazwa reguły" id="ruleName"></td>
+                        <td><input type="text"  class="form-control" type="text" name='userName' placeholder="Nazwa użytkownika" id="userName"></td>
+                        <td>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td style="text-align:center;width: 50%; min-width: 50px;">
+                                        <div class="form-control" class='picker'>
+                                            <label for="fromperiod">Od: </label>
+                                            <input type="text" id="fromperiod" placeholder="Data początkowa" name="timeFrom" value="">
+                                            <label for="toperiod"> Do: </label>
+                                            <input type="text" id="toperiod" placeholder="Data końcowa" name="timeTo" value="">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <select class="form-select" name="timeRange" aria-label="Default select example">
+                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="">Dowolna</option>
+
+                                {% for t in timeRange %}
+                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="{{t.id_time_range}}">{{t.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-select" name="timeRange" aria-label="Default select example">
+                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="">Dowolna</option>
+
+                                {% for t in timeRange %}
+                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="{{t.id_time_range}}">{{t.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>{{rule.time_range.name}}</td>
+                        <td><a class="btn btn-success" href="../../activity/{{notification.rule_id_rule.id_rule}}/{{notification.employee_id_employee.id_employee}}">Filtruj</a></td>
+                    </tr>
+                    {% for notification in notifications%}
+                    <tr>
+                        <td>{{notification.rule_id_rule.name}}</td>
+                        <td>{{notification.employee_id_employee.name}} {{notification.employee_id_employee.surname}}</td>
+                        <td>
+                            <div>{{notification.rule_id_rule.time_from|date:'d-m-Y'}} -
+                            {{notification.rule_id_rule.time_to|date:'d-m-Y'}}</div>
+                        </td>
+                        <td><div>({{notification.rule_id_rule.time_range.name}})</div></td>
+                        <td>{{notification.rule_id_rule.data_type.name}}</td>
+
+                        <td>{{rule.time_range.name}}</td>
+                        <td><a class="btn btn-primary" href="../../activity/{{notification.rule_id_rule.id_rule}}/{{notification.employee_id_employee.id_employee}}">Wyświetl</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <form>
+                {% if rules.has_other_pages %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if rules.has_previous %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.previous_page_number }}">Poprzednia</a></li>
+                        {% else %}
+                        <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
+                        {% endif %}
+                        {% for i in rules.paginator.page_range %}
+                        {% if rules.number == i %}
+                        <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if rules.has_next %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.next_page_number }}">Następna</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="btn btn-light">Następna</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+                <a class="btn btn-secondary btn-lg" href="../">Wróć</a>
+            </form>
+            {% endif %}
+            {% endif %}
+        </div>
+    </section>
+    {% endblock %}
+</main>
+</body>
+</html>

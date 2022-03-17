@@ -1,6 +1,8 @@
 import os
 import re
 from datetime import datetime
+
+import numpy
 import pandas as pd
 from django.contrib import messages
 from django.core.files.base import ContentFile
@@ -29,25 +31,65 @@ def color(row):
 
 def createSumSheet(employee):
     print()
-def createEmployeeSheet(employee, segments):
-    process = Process.objects.all()
+def createEmployeeSheet(employee, segments, dataTypes, timeRange, rules):
+    process = Process.objects.all().order_by('-order')
     processData = []
-    processData.append('')
+    #processData.append('')
     processNo = []
-    processNo.append('')
+    #processNo.append('')
     tasksRange = []
-    tasksRange.append('')
+    #tasksRange.append('')
     process = initChapterNo(process)
     process, idx2 = sortDataByChapterNo(process)
     for p in process:
         processData.append(p.name)
         processNo.append(p.number)
         tasksRange.append('')
-    df1 = pd.DataFrame({'Numer': processNo, 'Processy': processData, 'Zakres zadan': tasksRange})
 
-    #df1.set_index('Process', inplace=True)
-    #df1.style.apply(color, axis=1)
-    return df1
+    activityMultiCol = numpy.array(list(zip(processData, tasksRange)))
+    ndf = pd.DataFrame(index=processNo, columns=['Processy', 'Zakres zadan'],
+                       data=activityMultiCol)
+    d1 = {}
+    d1[''] = ndf
+    dfs = pd.concat(d1, axis=1)
+
+    #dfs = pd.DataFrame()
+    for s in segments:
+        activityMultiCol = []
+        for dt in dataTypes:
+            activitySingleCol = []
+            for p in process:
+                if timeRangeToNumber(timeRange) == 1:
+                    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule__in = rules)
+                    act = Activity.objects.filter(rule_has_process_id_rule_has_process__in = ruleHasProcess, \
+                                                  rule_has_process_id_rule_has_process__process_id_process = p.id_process,time_from=s, time_to=s, employee_id_employee=employee.id_employee)
+                    if len(act) > 0:
+                        activitySingleCol.append(act[0].value)
+                    elif len(act) == 0:
+                        activitySingleCol.append(0)
+                else:
+                    x = s.split(' - ')
+                    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule__in = rules,process_id_process=p.id_process)
+                    act = Activity.objects.filter(rule_has_process_id_rule_has_process__in=ruleHasProcess, \
+                                                  rule_has_process_id_rule_has_process__process_id_process=p.id_process,
+                                                  time_from=x[0], time_to=x[1], employee_id_employee=employee.id_employee)
+                    if len(act) > 0:
+                        print()
+                    elif len(act) == 0:
+                        activitySingleCol.append(0)
+
+            activityMultiCol.append(activitySingleCol)
+        activityMultiCol = numpy.array(activityMultiCol)
+        activityMultiCol = numpy.rot90(activityMultiCol)
+
+        ndf = pd.DataFrame(index = processNo, columns=list(dataTypes),
+                              data=activityMultiCol)
+        d1 = {}
+        d1[s] = ndf
+        d1 = pd.concat(d1, axis=1)
+
+        dfs = pd.concat([dfs, d1], axis=1)
+    return dfs
 
 '''def getEmployerActivities(employee,  ,formData):
 
@@ -61,93 +103,6 @@ def createEmployeeSheet(employee, segments):
 #
 #   get unique employees from rules
 #
-def getExcelEmployees(formData = None):
-    userQuery = None
-    for rule in formData.rules:
-        ruleHasEmployee = RuleHasEmployee.objects.filter(rule_id_rule = rule.id_rule)
-        if userQuery == None:
-            userQuery = ruleHasEmployee
-        else:
-            userQuery = userQuery | ruleHasEmployee
-    userQuery = userQuery.distinct().order_by('id_unit__name')
-    return userQuery
-
-def getExcelEmployees(formData = None):
-    userQuery = None
-    for rule in formData.rules:
-        ruleHasEmployee = RuleHasEmployee.objects.filter(rule_id_rule = rule.id_rule)
-        if userQuery == None:
-            userQuery = ruleHasEmployee
-        else:
-            userQuery = userQuery | ruleHasEmployee
-    userQuery = userQuery.distinct().order_by('id_unit__name')
-    return userQuery
-
-def getExcelEmployees(formData = None):
-    userQuery = None
-    for rule in formData.rules:
-        ruleHasEmployee = RuleHasEmployee.objects.filter(rule_id_rule = rule.id_rule)
-        if userQuery == None:
-            userQuery = ruleHasEmployee
-        else:
-            userQuery = userQuery | ruleHasEmployee
-    userQuery = userQuery.distinct().order_by('id_unit__name')
-    return userQuery
-
-def getExcelEmployees(formData = None):
-    userQuery = None
-    for rule in formData.rules:
-        ruleHasEmployee = RuleHasEmployee.objects.filter(rule_id_rule = rule.id_rule)
-        if userQuery == None:
-            userQuery = ruleHasEmployee
-        else:
-            userQuery = userQuery | ruleHasEmployee
-    userQuery = userQuery.distinct().order_by('id_unit__name')
-    return userQuery
-
-def getExcelEmployees(formData = None):
-    userQuery = None
-    for rule in formData.rules:
-        ruleHasEmployee = RuleHasEmployee.objects.filter(rule_id_rule = rule.id_rule)
-        if userQuery == None:
-            userQuery = ruleHasEmployee
-        else:
-            userQuery = userQuery | ruleHasEmployee
-    userQuery = userQuery.distinct().order_by('id_unit__name')
-    return userQuery
-
-def getExcelEmployees(formData = None):
-    userQuery = None
-    for rule in formData.rules:
-        ruleHasEmployee = RuleHasEmployee.objects.filter(rule_id_rule = rule.id_rule)
-        if userQuery == None:
-            userQuery = ruleHasEmployee
-        else:
-            userQuery = userQuery | ruleHasEmployee
-    userQuery = userQuery.distinct().order_by('id_unit__name')
-    return userQuery
-
-def getExcelEmployees(formData = None):
-    userQuery = None
-    for rule in formData.rules:
-        ruleHasEmployee = RuleHasEmployee.objects.filter(rule_id_rule = rule.id_rule)
-        if userQuery == None:
-            userQuery = ruleHasEmployee
-        else:
-            userQuery = userQuery | ruleHasEmployee
-    userQuery = userQuery.distinct().order_by('id_unit__name')
-    return userQuery
-
-def getExcelEmployees(formData = None):
-    userQuery = None
-    for rule in formData.rules:
-        ruleHasEmployee = RuleHasEmployee.objects.filter(rule_id_rule = rule.id_rule)
-        if userQuery == None:
-            userQuery = ruleHasEmployee
-        else:
-            userQuery = userQuery | ruleHasEmployee
-    userQuery = userQuery.distinct().order_by('id_unit__name')
-    return userQuery
 
 def getExcelEmployees(formData = None):
     userQuery = None
@@ -176,6 +131,7 @@ def isDivedTimeRange(tr1, tr2):
         return True
     else:
         return False
+
 def getMinTimeRange(rules):
     minTimeRange = rules[0].time_range.name
     #for rule in rules:
@@ -186,7 +142,7 @@ def checkExportTimeRange(rules, timeRange):
     if len(timeRange) == 0:
         return True
     for rule in rules:
-        if not isDivedTimeRange(rule.time_range.name,timeRange):
+        if not timeRangeToNumber(rule.time_range.name) <= timeRangeToNumber(timeRange): #not isDivedTimeRange(rule.time_range.name,timeRange):
             return False
     return True
 #
@@ -211,6 +167,13 @@ def exportDataBase(id, formData):
         formData.timeRange = getMinTimeRange(formData.rules)
     if not checkExportTimeRange(formData.rules, formData.timeRange):
         return None
+
+    dataRules = formData.rules.values_list('data_type__name').distinct()
+
+    nDataRules = []
+    for dr in dataRules:
+        nDataRules.append(dr[0])
+
     segments, todayId, isWeekends = getSegments(timeFrom, timeTo, getRelativedeltaFromDateType(formData.timeRange))
 
     for employee in employees:
@@ -220,9 +183,12 @@ def exportDataBase(id, formData):
         else:
             sheet_name = '({}) {}'.format(employee.id_unit.name, employee.name, employee.surname)
             sheet_name = re.sub(INVALID_TITLE_REGEX, '_', sheet_name)
-        df1 = createEmployeeSheet(employee, segments)
+
+        df1 = createEmployeeSheet(employee, segments, nDataRules, formData.timeRange, formData.rules)
         df1.to_excel(writer, sheet_name=sheet_name)
+        writer.sheets[sheet_name].set_row(2, None, None, {'hidden': True})
         no = no + 1
+    #writer.delete_rows(row[0].row, 1)
     writer.save()
     return path
 
@@ -282,7 +248,8 @@ def getDataFromForm(request):
         for rule in rules:
             checkedRule = request.POST.get('id_' + str(rule.id_rule))
             if checkedRule == 'on':
-                checkedRules.append(rule)
+                checkedRules.append(rule.id_rule)
+        rules1 = rules.filter(id_rule__in = checkedRules)
     else:
         return None
     return ExcelData(docType, \
@@ -300,7 +267,7 @@ def getDataFromForm(request):
                  timeFrom, \
                  timeTo, \
                  timeRange, \
-                 checkedRules)
+                 rules1)
 
 def getTimeRangeNumber(timeRangeName):
     if timeRangeName == TIMERANGE_DAY:

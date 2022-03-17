@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <title>{% block title %}System login page{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Piotr Wozniak">
+    <meta name="theme-color" content="#7952b3">
+    <meta name="theme-color" content="#7952b3">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/homePage.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/rulePage.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/processPage.css' %}" />
+    <style>
+        .innerPanel {
+            height: auto;
+            overflow: auto;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          $('[data-toggle="popover"]').popover(
+          {
+            html:true,
+           });
+        });
+
+        $(document).ready(function(){
+            $('input').on("input", function(self){
+                sumCols()
+                sumSubCols()
+            });
+        });
+
+        function timeToMins(time) {
+          var b = time.split(':');
+          return b[0]*60 + +b[1];
+        }
+
+        function timeFromMins(mins) {
+          function z(n){return (n<10? '0':'') + n;}
+          var h = (mins/60 |0);
+          var m = mins % 60;
+          return z(h) + ':' + z(m);
+        }
+
+        function addTimes(t0, t1) {
+          return timeFromMins(timeToMins(t0) + timeToMins(t1));
+        }
+        function sumCols() {
+            mainRows = $('#mainProcessTabel tr')
+            sumRow = mainRows[mainRows.length - 1]
+            i = 3
+            dataType = 0
+            while(i < sumRow.cells.length) {
+                ch = mainRows[1].cells[i].children[0].children[0].children
+                if (ch.length > 1) {
+                    dataType = 1
+                    sum = "00:00"
+                }
+                else {
+                    dataType = 0
+                    sum = 0
+                }
+                for (var j = 1; j<mainRows.length - 1; j++) {
+
+                   if (dataType == 1) {
+                        c1 = mainRows[j].cells[i].children[0].children[0].children[0]
+                        c2 = mainRows[j].cells[i].children[0].children[0].children[1]
+                        if (c1.disabled)
+                            continue
+                        if (parseInt(c1.value) < 0) {
+                            var c1v = '0'
+                            c1.value = c1v
+                        }
+                        if (parseInt(c2.value) >= 60) {
+                            var c2v = '59'
+                            c2.value = c2v
+                        }
+                        if (parseInt(c2.value) < 0) {
+                            var c2v = '0'
+                            c2.value = c2v
+                        }
+                        if ((parseInt(c2.value) <= 0) && (parseInt(c1.value) <= 0)) {
+                            var c1v = '--'
+                            c1.value = c1v
+                            var c2v = '--'
+                            c2.value = c2v
+                        }
+                        if (c1.value.length > 0 && c2.value.length) {
+                            sum = addTimes(sum, c1.value + ':' + c2.value)
+                        }
+                   }
+                   else {
+                        c1 = mainRows[j].cells[i].children[0].children[0].children[0]
+                        if (parseInt(c1.value) <= 0) {
+                            var c1v = '--'
+                            c1.value = c1v
+                        }
+                        if (c1.disabled)
+                            continue
+                        v = c1.value
+                        if (v.length > 0)
+                            sum = parseInt(v) + sum
+                   }
+                }
+                 sumRow.cells[i].children[0].children[0].children[0].value = sum.toString()
+
+                i = i + 1
+            }
+
+        }
+        function sumSubCols() {
+            mainRows = $('#mainProcessTabel tr')
+            sumRow = mainRows[mainRows.length - 1]
+            i = 3
+            dataType = 0
+            while(i < sumRow.cells.length) {
+                for (var j = 1; j<mainRows.length - 1; j++)
+                {
+                    ch = mainRows[j].cells[i].children[0].children[0].children
+                    if (ch.length > 1) {
+                        dataType = 1
+                        sum = "00:00"
+                    }
+                    else {
+                        dataType = 0
+                        sum = 0
+                    }
+                    id1 = mainRows[j].cells[0].children[0].value
+                    if (!ch[0].disabled) {
+                        continue
+                    }
+                    for (var k = j + 1; k<mainRows.length - 1; k++)
+                    {
+                         id2 = mainRows[k].cells[0].children[0].value
+                         if (id2.indexOf(id1) == 0) {
+                             if (dataType == 1)
+                             {
+                                c1 = mainRows[k].cells[i].children[0].children[0].children[0]
+                                c2 = mainRows[k].cells[i].children[0].children[0].children[1]
+                                if (c1.disabled) {
+                                    continue
+                                }
+                                if (parseInt(c1.value) < 0) {
+                                    var c1v = '0'
+                                    c1.value = c1v
+                                }
+                                if (parseInt(c2.value) >= 60) {
+                                    var c2v = '59'
+                                    c2.value = c2v
+                                }
+                                if (parseInt(c2.value) < 0) {
+                                    var c2v = '0'
+                                    c2.value = c2v
+                                }
+                                if (c1.value.length > 0 && c2.value.length) {
+                                    sum = addTimes(sum, c1.value + ':' + c2.value)
+                                }
+                            }
+                            else {
+                                c1 = mainRows[k].cells[i].children[0].children[0].children[0]
+                                if (c1.disabled) {
+                                    continue
+                                }
+                                v = c1.value
+                                if (v.length > 0) {
+                                    sum = parseInt(v) + sum
+                                }
+                            }
+                         }
+                         else {
+                            break
+                         }
+                    }
+                    if (dataType == 1) {
+                        splitSum = sum.split(':')
+                        c1 = mainRows[j].cells[i].children[0].children[0].children[0].value = splitSum[0]
+                        c2 = mainRows[j].cells[i].children[0].children[0].children[1].value = splitSum[1]
+                    } else {
+                        c1 = mainRows[j].cells[i].children[0].children[0].children[0].value = sum
+                    }
+                }
+                i = i + 1
+            }
+
+        }
+
+        function getLastId() {
+            var newElementId = $("#mainProcessTabel tr");
+            var idArray = new Array(newElementId.length - 1)
+            for (var i = 1; i < newElementId.length; i++) {
+               idArray[i - 1] = parseInt(newElementId[i].id);
+            }
+            return Math.max.apply(Math,idArray);
+        }
+
+        function styleRows(elements) {
+            sumCols()
+            sumSubCols()
+            for (var i = 1; i < elements.length - 1; i++) {
+                ii = elements[i].children[0].children[0].value.split('.').length
+                if (ii == 2) {
+                    elements[i].className = "firstRow";
+                }
+                else if (ii == 3) {
+                    elements[i].className = "secondRow";
+                }
+                else if (ii == 4) {
+                    elements[i].className = "thirdRow";
+                }
+                else {
+                    elements[i].className = "subRow";
+                }
+                elements[i].children[0].children[0].style.float = 'right'
+                elements[i].children[0].children[0].style.width = (100 - ((ii - 2) * 9))  + '%'
+                if (ii == 2)
+                    elements[i].children[0].children[0].style.fontWeight = 'bold'
+            }
+        }
+    </script>
+    <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+</head>
+<body class="text-center" onload="styleRows($('#mainProcessTabel tr'))">
+<main class="form-signin">
+    {% csrf_token %}
+    {% block content %}
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <span class="fs-4">System SMUP</span>
+        </a>
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            {% if account == "GUEST" %}
+            <div>
+                <a class="btn btn-success " href="login">Zaloguj się</a>
+            </div>
+            {% else %}
+            <a class="me-3 py-2 text-dark text-decoration-none">Witaj:</a>
+            <a class="me-3 py-2 text-success text-decoration-none" href="../profil">{{userLabel}}</a>
+            <a class="me-3 py-2 text-dark text-decoration-none">[{{account}}]</a>
+            <a class="btn  btn-success" href="../logout">logout</a>
+            {% endif %}
+        </nav>
+    </div>
+    <section class="text-center form-control">
+        <div>
+            {% if account == "GUEST" %}
+            <h1 class="fw-light">Zaloguj się, aby rozpocząć</h1>
+            {% else %}
+            <h1 class="fw-light">Aktywności:</h1>
+            <p>Wprowadź dane dotyczące <b>{{ruleData.data_type.name}}</b> do formularzu z okresu <b>od {{ruleData.time_from|date:'Y-m-d'}} do {{ruleData.time_to|date:'Y-m-d'}}</b> (interwał: {{ruleData.time_range.name}})</p>
+            {% if ruleData.max != None and ruleData.max != 0 %} <p>Pamiętaj o poprawnym typie danych oraz limicie <b style="color : red;">{{ruleData.max}} na <a name="valueLimit">{{ruleData.time_range.name}}</a></b></p>{% endif %}
+            <p class="lead text-muted"></p>
+            {% if account == "ADMIN" or "PROCESS MANAGER"%}
+            <form method="post">
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Zapis</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Czy na pewno chcesz wykonać operację?
+                            </div>
+                            {% csrf_token %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</button>
+                                <button type="submit" class="btn btn-success">Tak</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive span3 achievements-wrapper">
+                <table id="mainProcessTabel" class="table" style="min-width: 1000px;">
+                        <thead>
+                        <tr>
+                            <th scope="col">Numer</th>
+                            <th scope="col">Nazwa</th>
+                            <th scope="col">Info.</th>
+                            {% for i in activityData.currentActivityData %}
+                            <th {% if today == i|first %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center;width: 100%; min-width: 240px;" name="col" value="{{i|first }}"></input></th>
+                            {% endfor %}
+                        </tr>
+                        {{ activityData.increment }}
+                        </thead>
+                        <tbody>
+                        {% autoescape off %}
+                        {% for process in processData%}
+                        <tr id="{{process.id}}">
+                            <td>
+                                <input style="width:auto; min-width: 100px;" disable name="id_{{process.id}}" readonly="readonly" class="form-control"  name="row" value="{{process.number}}">
+                            </td>
+                            <td>
+                                <input style="width:auto; min-width: 350px;" disable name='name_{{process.id}}' type="text" class="form-control" name='row' readonly="readonly" placeholder="Nazwa" value="{{process.name}}"></td>
+                            <td>
+                                {%if process.tip != ""%}
+                                <button type="button" class="btn btn-primary" data-toggle="popover"  data-toggle="tooltip" data-placement="bottom" title="{{process.tip|linebreaksbr}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                                    </svg>
+                                </button>
+                                {% endif %}
+                            </td>
+                            {% for i in activityData.currentActivityData %}
+                            <td {% if today == i.date %} class="table-primary" {% endif %} scope="col">
+                                <div class="btn-row">
+                                        <div class="input-group">
+                                            <input readonly="readonly" style="text-align:center;width: 50%; min-width: 50px;" class="form-control" value='{{i.firstValue}}' name="row" {% if process.editable == 0%}  disabled {% endif %} style="text-align:center; width: 100px;" class="form-control" type="text" min="0" max="999" {% if ruleData.data_type.id_data_type == 1 %} placeholder="godz." placeholder="godz." {% else %} placeholder="ilość" {% endif %}>
+                                            {% if ruleData.data_type.id_data_type == 1 %}
+                                                <input readonly="readonly" style="text-align:center;width: 50%; min-width: 50px;" class="form-control" value='{{i.secondValue}}' step=1 name="row" name="row" type="text" {% if process.editable == 0%}  disabled {% endif %} style="text-align:center; width: 50px;" class="form-control"  type="number" min="0" max="59" placeholder="min.">
+                                            {% endif %}
+                                        </div>
+                                    <!--<div class="input-group">
+                                        <input style="text-align:center;width: 50%; min-width: 100px;" value='{{i.firstValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center; width: 100px;" class="form-control" type="number" min="0" max="999" placeholder="--">
+                                        {% if ruleData.data_type.id_data_type == 1 %}
+                                        <input style="text-align:center;width: 50%; min-width: 100px;" value='{{i.secondValue}}' step=1 name="row" {% if process.editable == 0%}  disabled {% endif %}  style="text-align:center; width: 100px;" class="form-control"  type="number" min="0" max="59" placeholder="--">
+                                        {% endif %}
+                                    </div>-->
+                                </div>
+                            </td>
+                            {% endfor %}
+                            {{ activityData.increment }}
+                        </tr>
+                        {% endfor %}
+                        <tr id="sum">
+                            <td>
+                            </td>
+                            <td><a>Suma:</a></td>
+                            <td>
+                            </td>
+                            {% for i in activityData.currentActivityData %}
+                            {% if process.editable == 1%}
+                            <th {% if today == i %} class="table-primary" {% endif %} scope="col">
+                                <input name="row" style="text-align:center" {% if ruleData.data_type.id_data_type == 1 %} type="text"{% else %} type="text" min="00" max=10 {% endif %} class="form-control" name="sum_row" >
+                            </th>
+                            {% else %}
+                            <th {% if today == i %} class="table-primary" {% endif %} scope="col">
+                                <div class="btn-row">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <input name="row" style="text-align:center"  readonly type="text" class="form-control" name="sum_row" {% if ruleData.data_type.id_data_type == 1 %} type="text"{% else %} type="text" {% endif %} >
+                                    </div>
+                                </div>
+                            </th>
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                        {% endautoescape %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if activityPaginator.has_other_pages %}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if activityPaginator.has_previous %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ activityPaginator.previous_page_number }}">Poprzednia</a></li>
+                        {% else %}
+                        <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
+                        {% endif %}
+                        {% if activityPaginator.number > 1 %}
+                        <li><a class="btn btn-primary" href="?page={{ 1 }}">&hellip;</a></li>
+                        {% endif %}
+                        {% for i in activityPaginator.paginator.page_range %}
+                        {% if activityPaginator.number == i %}
+                        <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
+                        {% elif  activityPaginator.number > i|add:"-5" and activityPaginator.number < i|add:"5"%}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if activityPaginator.number < activityPaginator.paginator.num_pages %}
+                        <li><a class="btn btn-primary" href="?page={{ activityPaginator.paginator.page_range.stop }}">&hellip;</a></li>
+                        {% endif %}
+
+                        {% if activityPaginator.has_next %}
+                        <li class="page-item"><a class="btn btn-primary" href="?page={{ activityPaginator.next_page_number }}">Następna</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="btn btn-light">Następna</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+                <a class="btn btn-secondary btn-lg" href="../rules">Wróć</a>
+            </form>
+            {% endif %}
+            {% endif %}
+        </div>
+    </section>
+    {% endblock %}
+</main>
+</body>
+</html>

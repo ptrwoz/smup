@@ -96,7 +96,7 @@ def initEmployeesData(employeesData, static, id = ''):
     else:
         return employeesData
 
-def clearDate(request, context, id=''):
+def clearDate(request, context, id='', userid=''):
     rules = Rule.objects.filter(id_rule=id)
     if rules.exists():
         rule = rules[0]
@@ -387,12 +387,12 @@ def updateRule(request, context, id=''):
                 rule.delete()
     return redirect(REDIRECT_RULES_URL)
 
-def ruleManager(request, id = '', operation = ''):
+def ruleManager(request, id = '', operation = '', userid = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if request.method == 'POST':
             if operation == 'clear':
-                return clearDate(request, context, id)
+                return clearDate(request, context, id, userid)
             if len(id) > 0 and operation == '':
                 return updateRule(request, context, id)
             else:
@@ -423,6 +423,7 @@ def formatRulesMax(rules):
                 timeMax = str(timeStr)#datetime.strptime(timeStr, '%H:%M')
                 r.max_value = timeMax#timeMax.strftime('%H:%M')
     return rules
+
 def rulesView(request):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':

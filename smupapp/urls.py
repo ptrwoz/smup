@@ -3,6 +3,8 @@ from smupapp.view.auth import authViews
 from smupapp.view.importexport import importexportViews
 from smupapp.view.main import mainViews
 from django.urls import path
+
+from smupapp.view.notification import notificationView
 from smupapp.view.process import processViews
 from smupapp.view.rule import ruleViews
 from smupapp.view.unit import unitViews
@@ -11,12 +13,17 @@ from smupapp.view.user import userViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
+
 urlpatterns = [
+
+    #
     path('login', authViews.loginPage, name='login'), #ok
     path('logout', authViews.logoutUser, name='logout'), #ok
     path('profil', authViews.profilUserView, name='profil'), #ok
     path('profil/password', authViews.changePasswordView, name='password'), #ok
 
+
+    path('notifications/', notificationView.notificationsView, name='notifications'),
     #
     path('users', userViews.usersView, name='users'),
     path('user/<str:id>', userViews.userManager, name='user'),
@@ -36,6 +43,7 @@ urlpatterns = [
 
     path('activities', activityViews.activitiesView, name='activities'),
     path('activity/<str:id>', activityViews.activitiesManager, name='activities'),
+    path('activity/<str:id>/<str:userid>', activityViews.viewActivity, name='activities'),
 
     path('process', processViews.processView, name='process'),
     path('processes', processViews.processView, name='processes'),

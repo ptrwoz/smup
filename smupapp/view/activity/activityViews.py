@@ -10,7 +10,8 @@ from smupapp.view.auth.auth import authUser
 from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo, sortDataByOrder
 from smupapp.view.static.dataModels import DateInformation
 from smupapp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
-from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, RENDER_ACTIVITIES_URL, RENDER_RULE_URL
+from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, \
+    RENDER_ACTIVITIES_URL, RENDER_RULE_URL, RENDER_VIEW_ACTIVITY_URL
 from django import template
 import math
 from datetime import date
@@ -54,7 +55,7 @@ def getSegments(start_date, end_date, interval_delta):
         start_date = curr_date
         curr_date = start_date + interval_delta
         ii = ii + 1
-    return segments, todayId, isWeekends
+    return segments, todayId - 1, isWeekends
 
 def activityExist(user, ruleHasProcess, timeFrom, timeTo):
     activities = Activity.objects.filter(Q(rule_has_process_id_rule_has_process_id = ruleHasProcess.id_rule_has_process) & Q(employee_id_employee__id_employee = user.id) & Q(time_from = timeFrom) & Q(time_to = timeTo))
@@ -129,7 +130,7 @@ def updateActivities(request, context, rule_id):
             for y in range(0,colSize):
                 #if len(rows[y,x]) > 0:
                 saveActivity(request, rule, ruleHasProcess[y], rows[y, x], cols[x])
-        return viewActivity(request, context, id=str(rule_id))
+        return updateActivities(request, id=str(rule_id))
         #return render(request, RENDER_ACTIVITY_URL, context)
     else:
         return viewActivity(request, context, id=str(rule_id))
@@ -198,7 +199,82 @@ def initActivityData(userActivities, processData, activityDatas, data_type):
         newActivityDatas.append(cNewActivityData)
     return newActivityDatas
 
-def viewActivity(request, context, id=''):
+def viewActivity(request, id='', userid=''):
+    context = authUser(request)
+    intUserId = int(userid)
+    if id == '':
+        return redirect(REDIRECT_ACTIVITIES_URL)
+    elif id.isnumeric():
+        rules = Rule.objects.filter(id_rule=int(id))
+        if rules.exists():
+            rule = rules[0]
+            start_date = rule.time_from
+            end_date = rule.time_to
+            if rule.max_value != None:
+                rule.max = int(rule.max_value)
+            context['ruleData'] = rule
+
+            segments, todayId, isWeekends = getSegments(start_date, end_date,
+                                                        getRelativedeltaFromDateType(rule.time_range.name))
+            if todayId == -1:
+                context['today'] = ''
+            else:
+                context['today'] = segments[todayId]
+            paginator = Paginator(list(zip(segments, isWeekends)), getPagesFromDateType(rule.time_range))
+            if todayId == -1 or paginator.num_pages == 1:
+                currentPage = 1
+            else:
+                if todayId == 0:
+                    todayId = 1
+                i = (todayId)
+
+                currentPage = math.ceil((i / len(segments)) * paginator.num_pages)
+                if currentPage == 1:
+                    currentPage = 1
+            page = request.GET.get('page', currentPage)
+            try:
+                activityData = paginator.page(int(page))
+            except PageNotAnInteger:
+                activityData = paginator.page(currentPage)
+            except EmptyPage:
+                activityData = paginator.page(paginator.num_pages)
+
+            activityDatas = []
+            activityDatas.append(activityData.object_list)
+            processData = []
+            ruleHasProcess = RuleHasProcess.objects.filter(Q(rule_id_rule=rule.id_rule)).order_by(
+                'process_id_process__order')
+
+            for r in ruleHasProcess:
+                p = r.process_id_process
+                p.editable = 1
+                processData.append(p)
+                while p.id_mainprocess != None:
+                    # and (not processData[-1].number.find(p.number) == 0)
+                    p = p.id_mainprocess
+                    # if processData[-1].number.find(p.number) == 0:
+                    #    break
+                    p.editable = 0
+                    processData.append(p)
+            processData = list({p.number: p for p in processData}.values())
+            # processData.order_by('order')
+            # processData = initChapterNo(processData)
+            processData, prs = sortDataByOrder(processData)
+            context['processData'] = processData
+
+            userActivities = Activity.objects.filter(Q(employee_id_employee__id_employee=intUserId) & Q(
+                rule_has_process_id_rule_has_process__rule_id_rule=rule.id_rule))
+            activityDatas = initActivityData(userActivities, processData, activityData, rule.data_type)
+            formActivityDatas = ActivityDataCounter(activityDatas)
+            context['activityPaginator'] = activityData
+            context['activityData'] = formActivityDatas
+
+        else:
+            return redirect(REDIRECT_ACTIVITIES_URL)
+
+    return render(request, RENDER_VIEW_ACTIVITY_URL, context)
+
+def editActivity(request, context, id=''):
     context = authUser(request)
     if id == '':
         return redirect(REDIRECT_ACTIVITIES_URL)
@@ -279,7 +355,7 @@ def activitiesManager(request, id='', operation=''):
             if len(id) > 0 and operation == '':
                 return updateActivities(request, context, int(id))
         else:
-            return viewActivity(request, context, id)
+            return editActivity(request, context, id)
     else:
         return redirect(REDIRECT_HOME_URL)
 

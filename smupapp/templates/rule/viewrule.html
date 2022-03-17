@@ -134,9 +134,9 @@
                                 <td>
                                     <div class="form-control-plaintext" class='picker'>
                                         <label for="fromperiod">Od: </label>
-                                        <input disabled type="text" id="fromperiod" name="timeFrom" value="{{rule.timefrom}}">
+                                        <input disabled type="text" id="fromperiod" name="timeFrom" value="{{rule.time_from}}">
                                         <label for="toperiod"> Do: </label>
-                                        <input disabled type="text" id="toperiod" name="timeTo" value="{{rule.timeto}}">
+                                        <input disabled type="text" id="toperiod" name="timeTo" value="{{rule.time_to}}">
                                     </div>
                                 </td>
                             </tr>
@@ -165,27 +165,58 @@
                     <div>
                         <h4>Pracownicy:</h4>
                         <div class="scrollTable">
-                        <table id="mainEmployeeTabel" class="table table-striped">
-                            <thead>
-                            <tr>
-                                <!--<th style="width:  4.33%" scope="col">
-                                    <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" value="" ></th>-->
-                                <th scope="col">Imię</th>
-                                <th scope="col">Nazwisko</th>
-                                <th scope="col">Jednostka</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for employee in employeesData %}
-                            <tr>
-                                <!--<td>
-                                    <input class="form-check-input" name="check_employee_{{employee.id_employee}}" type="checkbox" value="" {% if employee.check %} checked {% endif %}></td>-->
-                                <td>{{employee.name}}</td>
-                                <td>{{employee.surname}}</td>
-                                <td>{{employee.id_unit.name}}</td>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                            <table id="mainEmployeeTabel" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <!--<th style="width:  4.33%" scope="col">
+                                        <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" value="" ></th>-->
+                                    <th scope="col">Imię</th>
+                                    <th scope="col">Nazwisko</th>
+                                    <th scope="col">Jednostka</th>
+                                    <th scope="col">Wyświetl</th>
+                                    <th scope="col">Wyczyść dane</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for employee in employeesData %}
+                                <div class="modal fade" id="clearModal{{rule.id_rule}}" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
+                                    <form action="../rule/{{rule.id_rule}}/{{employee.id_employee}}/clear" method="post">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="clearModalLabel">Wyczyść</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div>
+                                                        Czy na pewno chcesz wykonać operację?
+                                                        <p>(Operacja usunie wszyskie dane użytkownika dotyczace reguły)</p>
+                                                    </div>
+                                                    <div>
+                                                        W ramach potwierdzenia wpisz nazwę reguły:
+                                                        <input type="text"  class="form-control" type="text" name='confirmName' placeholder="Nazwa reguły" id="confirmName">
+                                                    </div>
+                                                </div>
+                                                {% csrf_token %}
+                                                <div class="modal-footer">
+                                                    <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nie</a>
+                                                    <button type="submit" class="btn btn-success">Tak</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <tr>
+                                    <!--<td>
+                                        <input class="form-check-input" name="check_employee_{{employee.id_employee}}" type="checkbox" value="" {% if employee.check %} checked {% endif %}></td>-->
+                                    <td>{{employee.name}}</td>
+                                    <td>{{employee.surname}}</td>
+                                    <td>{{employee.id_unit.name}}</td>
+                                    <td><a class="btn btn-primary" href="../../activity/{{rule.id_rule}}/{{employee.id_employee}}">Wyświetl</a></td>
+                                    <td><a class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#clearModal{{rule.id_rule}}">Wyczyść dane</a></td>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div>
@@ -216,6 +247,7 @@
 
                                 </tr>
                                 {% endfor %}
+
                                 </tbody>
                             </table>
                         </div>
@@ -224,6 +256,7 @@
                 <div>
                     <p></p>
                 </div>
+                <a class="btn btn-secondary btn-lg" href="../../rules">Wróć</a>
                 {% endif %}
                 {% endif %}
             </form>
