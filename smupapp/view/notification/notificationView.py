@@ -16,9 +16,9 @@ def getFilterData(request):
                                   request.POST['timeRange'],\
                                   request.POST['dataType'])
 
-def getRuleHasEmployeeDelay(ruleHasEmployees):
+'''def getRuleHasEmployeeDelay(ruleHasEmployees):
     for ruleHasEmployee in ruleHasEmployees:
-        Activity.
+        Activity.'''
 
 def notificationsView(request):
     context = authUser(request)
