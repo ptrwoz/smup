@@ -16,6 +16,10 @@ def getFilterData(request):
                                   request.POST['timeRange'],\
                                   request.POST['dataType'])
 
+def getRuleHasEmployeeDelay(ruleHasEmployees):
+    for ruleHasEmployee in ruleHasEmployees:
+        Activity.
+
 def notificationsView(request):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
