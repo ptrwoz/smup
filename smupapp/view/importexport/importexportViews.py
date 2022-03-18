@@ -19,7 +19,7 @@ from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo
 from smupapp.view.rule.ruleViews import formatRulesMax
 from smupapp.view.static.dataModels import ExcelData
 from smupapp.view.static.messagesTexts import MESSAGES_IMPORT_NOFILE_ERROR, MESSAGES_IMPORT_SUCCESS, \
-    MESSAGES_TIME_RANGE_EXPORT_ERROR
+    MESSAGES_TIME_RANGE_EXPORT_ERROR, MESSAGES_NO_RULE_SELECT_ERROR, MESSAGES_NO_EXPORT_FILE_ERROR
 from smupapp.view.static.staticValues import USER_GUEST, PAGEINATION_SIZE, TIMERANGE_DAY, TIMERANGE_WEEK, \
     TIMERANGE_MONTH
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_IMPORT_EXPORT_URL, REDIRECT_IMPORT_EXPORT_URL
@@ -150,7 +150,7 @@ def checkExportTimeRange(rules, timeRange):
 #
 #   generate excel document
 #
-def exportDataBase(id, formData):
+def exportDataBase(request, id, formData):
     path = './temp/temp_out/data_%s.xlsx' % id
     #employees = Employee.objects.all()
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
@@ -159,16 +159,18 @@ def exportDataBase(id, formData):
     timeFrom =  datetime.strptime(formData.timeFrom, "%Y-%m-%d").date()
     timeTo = datetime.strptime(formData.timeTo, "%Y-%m-%d").date()
 
+    if len(formData.rules) == 0:
+        return MESSAGES_NO_RULE_SELECT_ERROR, False
+    if not checkExportTimeRange(formData.rules, formData.timeRange):
+        return MESSAGES_TIME_RANGE_EXPORT_ERROR, False
+
     employeesHasRule = getExcelEmployees(formData)
 
     employees = Employee.objects.filter(id_employee__in = employeesHasRule.values('employee_id_employee'))
 
-    if len(formData.rules) == 0:
-        return None
     if len(formData.timeRange) == 0:
         formData.timeRange = getMinTimeRange(formData.rules)
-    if not checkExportTimeRange(formData.rules, formData.timeRange):
-        return None
+
 
     dataRules = formData.rules.values_list('data_type__name').distinct()
 
@@ -192,7 +194,7 @@ def exportDataBase(id, formData):
         no = no + 1
     #writer.delete_rows(row[0].row, 1)
     writer.save()
-    return path
+    return path, True
 
 def importFile(request):
     if len(request.FILES) > 0:
@@ -215,17 +217,18 @@ def exportFile(request):
     if checkExportData(formData):
         now = datetime.now()
         current_time = now.strftime("%m_%d_%Y_%H_%M_%S_%f")
-        path = exportDataBase(str(current_time), formData)
-
-        if path == None:
-            messages.info(request, MESSAGES_TIME_RANGE_EXPORT_ERROR, extra_tags='error')
+        result, success = exportDataBase(request, str(current_time), formData)
+        if not success:
+            messages.info(request, result, extra_tags='error')
             return redirect(REDIRECT_IMPORT_EXPORT_URL)
-        if os.path.exists(path):
-            if os.path.exists(path):
-                file = open(path, "rb")
-                response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-                response['Content-Disposition'] = 'attachment; filename=data.xlsx'
-                return response
+        if os.path.exists(result):
+            file = open(result, "rb")
+            response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+            return response
+        else:
+            messages.info(request, MESSAGES_NO_EXPORT_FILE_ERROR, extra_tags='error')
+            return redirect(REDIRECT_IMPORT_EXPORT_URL)
     else:
         redirect(REDIRECT_IMPORT_EXPORT_URL)
 
