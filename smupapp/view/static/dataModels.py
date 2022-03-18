@@ -69,6 +69,24 @@ class ExcelData():
         self.id_time_range = id_time_range
         self.rules = rules
         self.anonymizationParam = anonymizationParam
+
 class ActivityColData():
 
+    pass
+
+class NotificationFilterData():
+    ruleName = ""
+    userName = ""
+    dateFrom = ""
+    dateTo = ""
+    timeRange = ""
+    dataType = ""
+    def __init__(self,ruleName = '',userName = '', \
+                 timeFrom = '', timeTo = '', timeRange = 'Dowolna', dataType= 'Dowolna'):
+        self.ruleName = ruleName
+        self.userName = userName
+        self.timeFrom = timeFrom
+        self.timeTo = timeTo
+        self.timeRange = timeRange
+        self.dataType = dataType
     pass

@@ -36,10 +36,10 @@ def initContext(context):
     if (context['account'] == 'ADMIN'):
         employeesData = Employee.objects.all().order_by('surname', 'name')
     elif (context['account'] == 'PROCESS MANAGER'):
-        employeesData = Employee.objects.filter(Q(id_employee=context['userData'].id) |
-                                                Q(id_employeetype__name='USER') | Q(id_employeetype__name='MANAGER')).order_by('surname', 'name')
+        employeesData = Employee.objects.filter(Q(id_employee=context['userData'].id) \
+                                                | Q(id_employeetype__name='PROCESS MANAGER') | Q(id_employeetype__name='USER') | Q(id_employeetype__name='MANAGER')).order_by('surname', 'name')
     elif (context['account'] == 'MANAGER'):
-        employeesData = Employee.objects.filter(Q(id_employee=context['userData'].id) | Q(id_employeetype__name='USER')).order_by('surname', 'name')
+        employeesData = Employee.objects.filter(Q(id_employee=context['userData'].id) | Q(id_employeetype__name='MANAGER') | Q(id_employeetype__name='USER')).order_by('surname', 'name')
     context['employeesData'] = employeesData
     context['dataType'] = DataType.objects.all()
     context['timeRange'] = TimeRange.objects.all()

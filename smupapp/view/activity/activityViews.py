@@ -1,5 +1,6 @@
 import datetime
 from decimal import Decimal
+from django.contrib import messages
 
 import numpy as np
 from dateutil.relativedelta import relativedelta
@@ -9,6 +10,7 @@ from smupapp.models import Employee, Rule, AuthUser, RuleHasEmployee, Activity, 
 from smupapp.view.auth.auth import authUser
 from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo, sortDataByOrder
 from smupapp.view.static.dataModels import DateInformation
+from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_SUCCESS
 from smupapp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, \
     RENDER_ACTIVITIES_URL, RENDER_RULE_URL, RENDER_VIEW_ACTIVITY_URL
@@ -55,7 +57,7 @@ def getSegments(start_date, end_date, interval_delta):
         start_date = curr_date
         curr_date = start_date + interval_delta
         ii = ii + 1
-    return segments, todayId - 1, isWeekends
+    return segments, todayId, isWeekends
 
 def activityExist(user, ruleHasProcess, timeFrom, timeTo):
     activities = Activity.objects.filter(Q(rule_has_process_id_rule_has_process_id = ruleHasProcess.id_rule_has_process) & Q(employee_id_employee__id_employee = user.id) & Q(time_from = timeFrom) & Q(time_to = timeTo))
@@ -83,9 +85,12 @@ def saveActivity(request, rule, ruleHasProcess, value, activityDate):
                 activity.save()
             if exist and len(value) > 0:
                 v1 = str(value).split('.')
-                if len(v1[1]) == 1:
-                    v1[1] = '0' + v1[1]
-                activity.value = Decimal(v1[0] + '.' + v1[1])
+                if len(v1) == 2 :
+                    if len(v1[1]) == 1:
+                        v1[1] = '0' + v1[1]
+                    activity.value = Decimal(v1[0] + '.' + v1[1])
+                else:
+                    activity.value = value#Decimal(v1[0] + '.' + v1[1])
                 activity.save()
             if exist and len(value) == 0:
                 activity.delete()
@@ -130,7 +135,11 @@ def updateActivities(request, context, rule_id):
             for y in range(0,colSize):
                 #if len(rows[y,x]) > 0:
                 saveActivity(request, rule, ruleHasProcess[y], rows[y, x], cols[x])
-        return updateActivities(request, id=str(rule_id))
+
+        messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
+
+        return editActivity(request, context, id=str(rule_id))
+        #return viewActivity(request, id=str(rule_id), userid=context['userData'].id)
         #return render(request, RENDER_ACTIVITY_URL, context)
     else:
         return viewActivity(request, context, id=str(rule_id))
@@ -275,6 +284,7 @@ def viewActivity(request, id='', userid=''):
     return render(request, RENDER_VIEW_ACTIVITY_URL, context)
 
 def editActivity(request, context, id=''):
+
     context = authUser(request)
     if id == '':
         return redirect(REDIRECT_ACTIVITIES_URL)

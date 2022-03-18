@@ -54,15 +54,17 @@ def createEmployeeSheet(employee, segments, dataTypes, timeRange, rules):
     dfs = pd.concat(d1, axis=1)
 
     #dfs = pd.DataFrame()
+    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule__in=rules)
+    allActivity = Activity.objects.filter(rule_has_process_id_rule_has_process__in=ruleHasProcess)
     for s in segments:
         activityMultiCol = []
         for dt in dataTypes:
             activitySingleCol = []
             for p in process:
                 if timeRangeToNumber(timeRange) == 1:
-                    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule__in = rules)
-                    act = Activity.objects.filter(rule_has_process_id_rule_has_process__in = ruleHasProcess, \
-                                                  rule_has_process_id_rule_has_process__process_id_process = p.id_process,time_from=s, time_to=s, employee_id_employee=employee.id_employee)
+
+                    act = allActivity.filter(rule_has_process_id_rule_has_process__rule_id_rule__data_type__name = dt, \
+                                             rule_has_process_id_rule_has_process__process_id_process = p.id_process,time_from=s, time_to=s, employee_id_employee=employee.id_employee)
                     if len(act) > 0:
                         activitySingleCol.append(act[0].value)
                     elif len(act) == 0:

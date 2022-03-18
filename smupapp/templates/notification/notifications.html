@@ -109,7 +109,7 @@
             {% endif %}
             {% endfor %}
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
-
+            <form method="post">
             <div class="table-responsive">
                 <!--<div class="form-group row">
                     <div class="col-sm-2">
@@ -132,13 +132,13 @@
                         <th scope="col">Okres</th>
                         <th scope="col">Jednostka czasu</th>
                         <th scope="col">Typ informacji</th>
-                        <th scope="col">Opóźnienie (ilość jednostek)</th>
+                        <th scope="col">Opóźnienie</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td><input type="text"  class="form-control" type="text" name='ruleName' placeholder="Nazwa reguły" id="ruleName"></td>
-                        <td><input type="text"  class="form-control" type="text" name='userName' placeholder="Nazwa użytkownika" id="userName"></td>
+                        <td><input type="text"  class="form-control" type="text" name='ruleName' placeholder="Nazwa reguły" value='{{filterData.ruleName}}' id="ruleName"></td>
+                        <td><input type="text"  class="form-control" type="text" name='userName' placeholder="Nazwa użytkownika" value='{{filterData.userName}}' id="userName"></td>
                         <td>
                             <table>
                                 <tbody>
@@ -146,9 +146,9 @@
                                     <td style="text-align:center;width: 50%; min-width: 50px;">
                                         <div class="form-control" class='picker'>
                                             <label for="fromperiod">Od: </label>
-                                            <input type="text" id="fromperiod" placeholder="Data początkowa" name="timeFrom" value="">
+                                            <input style="text-align:center;min-width: 50px;" type="text" id="fromperiod" placeholder="Data początkowa" name="timeFrom" value='{{filterData.timeFrom}}'>
                                             <label for="toperiod"> Do: </label>
-                                            <input type="text" id="toperiod" placeholder="Data końcowa" name="timeTo" value="">
+                                            <input style="text-align:center;min-width: 50px;" type="text" id="toperiod" placeholder="Data końcowa" name="timeTo" value='{{filterData.timeTo}}'>
                                         </div>
                                     </td>
                                 </tr>
@@ -157,24 +157,28 @@
                         </td>
                         <td>
                             <select class="form-select" name="timeRange" aria-label="Default select example">
-                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="">Dowolna</option>
-
+                                <option value="" selected>Dowolna</option>
                                 {% for t in timeRange %}
-                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="{{t.id_time_range}}">{{t.name}}</option>
+                                <option {% if t.name == filterData.timeRange %} selected{% endif %} value="{{t.name}}">{{t.name}}</option>
                                 {% endfor %}
                             </select>
                         </td>
                         <td>
-                            <select class="form-select" name="timeRange" aria-label="Default select example">
-                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="">Dowolna</option>
-
-                                {% for t in timeRange %}
-                                <option {% if t.id_time_range == rule.time_range.id_time_range %} selected{% endif %} value="{{t.id_time_range}}">{{t.name}}</option>
+                            <select class="form-select" name="dataType" aria-label="Default select example">
+                                <option value="" selected>Dowolna</option>
+                                {% for d in dataType %}
+                                <option {% if d.name == filterData.dataType %} selected{% endif %} value="{{d.name}}">{{d.name}}</option>
                                 {% endfor %}
                             </select>
                         </td>
-                        <td>{{rule.time_range.name}}</td>
-                        <td><a class="btn btn-success" href="../../activity/{{notification.rule_id_rule.id_rule}}/{{notification.employee_id_employee.id_employee}}">Filtruj</a></td>
+                        <td>
+                             <input class="form-control" value='{{i.firstValue}}' name="row" type="number" min="0" max="999" placeholder='Ilość jednostek'>
+                        </td>
+                        {% csrf_token %}
+                        <td>
+                            <button type="submit" class="btn btn-success" href="/notifications/">Filtruj</button>
+                            <a class="btn btn-secondary" href="/notifications/">Wyczyść</a>
+                        </td>
                     </tr>
                     {% for notification in notifications%}
                     <tr>
@@ -184,7 +188,7 @@
                             <div>{{notification.rule_id_rule.time_from|date:'d-m-Y'}} -
                             {{notification.rule_id_rule.time_to|date:'d-m-Y'}}</div>
                         </td>
-                        <td><div>({{notification.rule_id_rule.time_range.name}})</div></td>
+                        <td><div>{{notification.rule_id_rule.time_range.name}}</div></td>
                         <td>{{notification.rule_id_rule.data_type.name}}</td>
 
                         <td>{{rule.time_range.name}}</td>
@@ -222,6 +226,7 @@
             </form>
             {% endif %}
             {% endif %}
+            </form>
         </div>
     </section>
     {% endblock %}

@@ -266,6 +266,17 @@
             <p>Wprowadź dane dotyczące <b>{{ruleData.data_type.name}}</b> do formularzu z okresu <b>od {{ruleData.time_from|date:'Y-m-d'}} do {{ruleData.time_to|date:'Y-m-d'}}</b> (interwał: {{ruleData.time_range.name}})</p>
             {% if ruleData.max != None and ruleData.max != 0 %} <p>Pamiętaj o poprawnym typie danych oraz limicie <b style="color : red;">{{ruleData.max}} na <a name="valueLimit">{{ruleData.time_range.name}}</a></b></p>{% endif %}
             <p class="lead text-muted"></p>
+            {% for message in messages %}
+            {% if 'error' in message.extra_tags %}
+            <div class="alert alert-danger">
+                <strong>{{message}}</strong>
+            </div>
+            {% elif 'info' in message.extra_tags %}
+            <div class="alert alert-success">
+                <strong>{{message}}</strong>
+            </div>
+            {% endif %}
+            {% endfor %}
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
             <form method="post">
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
