@@ -78,7 +78,14 @@ def saveActivity(request, rule, ruleHasProcess, value, activityDate):
                 activity = Activity()
                 activity.time_from = dateParts[0]
                 activity.time_to = dateParts[1] if len(dateParts) > 1 else dateParts[0]
-                activity.value = float(value)
+                v1 = str(value).split('.')
+                if len(v1) == 2:
+                    if len(v1[1]) == 1:
+                        v1[1] = '0' + v1[1]
+                    activity.value = Decimal(v1[0] + '.' + v1[1])
+                else:
+                    activity.value = value
+                #activity.value = float(value)
                 activity.time_add = date.today()
                 activity.employee_id_employee = employees[0]
                 activity.rule_has_process_id_rule_has_process = ruleHasProcess
