@@ -23,6 +23,7 @@ urlpatterns = [
     path('profil/password', authViews.changePasswordView, name='password'), #ok
 
 
+
     path('notifications/', notificationView.notificationsView, name='notifications'),
     #
     path('users', userViews.usersView, name='users'),
