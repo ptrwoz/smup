@@ -29,7 +29,7 @@ class UserData:
 class RuleData():
     id_rule = None
     name = ""
-    max = ""
+    max_value = ""
     pass
 
 class ExcelData():
@@ -52,7 +52,8 @@ class ExcelData():
                  timeFrom = None, \
                  timeTo = None, \
                  id_time_range = 1, \
-                 rules = None):
+                 rules = None,
+                 unitStatistic = None):
         self.docType = docType
         self.averageParam = averageParam
         self.dominantParam = dominantParam
@@ -69,6 +70,7 @@ class ExcelData():
         self.id_time_range = id_time_range
         self.rules = rules
         self.anonymizationParam = anonymizationParam
+        self.unitStatistic = unitStatistic
 
 class ActivityColData():
 

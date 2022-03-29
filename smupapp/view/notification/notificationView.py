@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -14,18 +16,30 @@ def getFilterData(request):
                                   request.POST['timeFrom'], \
                                   request.POST['timeTo'],\
                                   request.POST['timeRange'],\
-                                  request.POST['dataType'])
+                                  request.POST['dataType'], \
+                                  request.POST['delay'])
 
-'''def getRuleHasEmployeeDelay(ruleHasEmployees):
+#def getEmployeeDelay(ruleHasEmployee):
+
+def addDelay(ruleHasEmployees):
+    today = date.today()
     for ruleHasEmployee in ruleHasEmployees:
-        Activity.'''
+        if today > ruleHasEmployee.rule_id_rule.time_to:
+            ruleHasEmployee.delay = 'ZAKONCZONE'
+        else:
+            ruleHasEmployee.delay = 0
+    return ruleHasEmployees
 
 def notificationsView(request):
     context = authUser(request)
-    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
+    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER' or context['account'] == 'USER':
+
         if len(request.POST) > 0:
             notificationsFilterData = getFilterData(request)
-            ruleHasEmployee = RuleHasEmployee.objects.all()
+            if context['account'] == 'USER':
+                ruleHasEmployee = RuleHasEmployee.objects.filter(employee_id_employee = context['userData'].id)
+            else:
+                ruleHasEmployee = RuleHasEmployee.objects.all()
             if len(notificationsFilterData.userName) > 0:
                 ruleHasEmployee = ruleHasEmployee.filter(Q(employee_id_employee__name__contains = notificationsFilterData.userName) or\
                                                               Q(employee_id_employee__surname__contains = notificationsFilterData.userName))
@@ -46,10 +60,15 @@ def notificationsView(request):
                 ruleHasEmployee = ruleHasEmployee.filter(
                     Q(rule_id_rule__data_type__name__contains=notificationsFilterData.dataType))
 
-
+            ruleHasEmployee = addDelay(ruleHasEmployee)
             context['filterData'] = notificationsFilterData
+
         else:
-            ruleHasEmployee = RuleHasEmployee.objects.all()
+            if context['account'] == 'USER':
+                ruleHasEmployee = RuleHasEmployee.objects.filter(employee_id_employee = context['userData'].id)
+            else:
+                ruleHasEmployee = RuleHasEmployee.objects.all()
+            ruleHasEmployee = addDelay(ruleHasEmployee)
         page = request.GET.get('page', 1)
         paginator = Paginator(ruleHasEmployee, PAGEINATION_SIZE)
         context['timeRange'] = TimeRange.objects.all()

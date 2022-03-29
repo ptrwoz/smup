@@ -1,4 +1,5 @@
 from smupapp.view.activity import activityViews
+from smupapp.view.administration import administrationViews
 from smupapp.view.auth import authViews
 from smupapp.view.importexport import importexportViews
 from smupapp.view.main import mainViews
@@ -22,8 +23,6 @@ urlpatterns = [
     path('profil', authViews.profilUserView, name='profil'), #ok
     path('profil/password', authViews.changePasswordView, name='password'), #ok
 
-
-
     path('notifications/', notificationView.notificationsView, name='notifications'),
     #
     path('users', userViews.usersView, name='users'),
@@ -41,6 +40,7 @@ urlpatterns = [
     path('rule', ruleViews.ruleManager, name='rule'), #view new rule
     path('rule/<str:id>', ruleViews.ruleManager, name='rule'), #view existed rule
     path('rule/<str:id>/<str:operation>', ruleViews.ruleManager, name='rule'), #update, delete rule by operation
+    path('rule/<str:id>/<str:userid>/<str:operation>', ruleViews.ruleManager, name='rule'), #update, delete rule by operation
 
     path('activities', activityViews.activitiesView, name='activities'),
     path('activity/<str:id>', activityViews.activitiesManager, name='activities'),
@@ -49,10 +49,11 @@ urlpatterns = [
     path('process', processViews.processView, name='process'),
     path('processes', processViews.processView, name='processes'),
 
-    #path('importexport', eporter.xlsxViewUnits, name='importexport'),
     path('export', importexportViews.exportFile, name='export'),
     path('import', importexportViews.importFile, name='import'),
     path('importExport', importexportViews.importexportManager, name='importExport'),
+
+    path('administration', administrationViews.administrationView, name='administration'),
     path('backup', importexportViews.backup, name='backup'),
     path('', mainViews.home, name='home'),
 ]

@@ -29,6 +29,65 @@
 
     </style>
     <script>
+         function initDatTypeSelect() {
+            dataTypeSelect = $('#dataTypeSelect')
+
+            if (dataTypeSelect.val() == 'Standard') {
+               statisticVal = $('#statistic')
+               statisticVal.show()
+               functionsVal = $('#functions')
+               functionsVal.show()
+               dateTypeVal = $('#dateType')
+               dateTypeVal.show()
+
+            }
+            else if (dataTypeSelect.val() == 'Standard-2') {
+               statisticVal = $('#statistic')
+               statisticVal.show()
+               functionsVal = $('#functions')
+               functionsVal.show()
+               dateTypeVal = $('#dateType')
+               dateTypeVal.show()
+            }
+            else if (dataTypeSelect.val() == 'Raport') {
+               statisticVal = $('#statistic')
+               statisticVal.hide()
+               functionsVal = $('#functions')
+               functionsVal.hide()
+               dateTypeVal = $('#dateType')
+               dateTypeVal.hide()
+            }
+        }
+        function initForm() {
+            styleRows()
+            dataTypeSelect = $('#dataTypeSelect')
+            dataTypeSelect.on('change', function() {
+              initDatTypeSelect()
+            });
+            initDatTypeSelect()
+        }
+        function styleRows() {
+            elements = $('#mainProcessTabel tr')
+            for (var i = 1; i < elements.length; i++) {
+                ii = elements[i].children[1].children[0].value.split('.').length
+                if (ii == 2) {
+                    elements[i].className = "firstRow";
+                }
+                else if (ii == 3) {
+                    elements[i].className = "secondRow";
+                }
+                else if (ii == 4) {
+                    elements[i].className = "thirdRow";
+                }
+                else {
+                    elements[i].className = "subRow";
+                }
+                elements[i].children[1].children[0].style.float = 'right'
+                elements[i].children[1].children[0].style.width = (100 - ((ii - 2) * 9))  + '%'
+                if (ii == 2)
+                    elements[i].children[1].children[0].style.fontWeight = 'bold'
+            }
+        }
         $(function() {
           var $datepickerFrom = $("#fromperiod").datepicker({
             //changeMonth: true,
@@ -64,7 +123,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 </head>
-<body class="text-center">
+<body class="text-center" onload="initForm()">
 <main class="form-signin">
     {% csrf_token %}
     {% block content %}
@@ -126,6 +185,7 @@
                 </p>
                 <div id="accordionExample">
                     <div>
+
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                             <div class="card-body">
                                 <div class="form-group row">
@@ -133,14 +193,27 @@
                                         <label class="col-sm-2 col-form-label">Typ arkusza:</label>
                                     </div>
                                     <div class="col-sm-8">
-                                        <select name="docType" class="form-select" aria-label="Default select example">
+                                        <select id="dataTypeSelect" name="docType" class="form-select" aria-label="Default select example">
                                             <option>Standard</option>
                                             <option>Standard-2</option>
                                             <option>Raport</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div id="unitFunction" class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="col-sm-2 col-form-label">Opcje jednostek:</label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="form-check">
+                                            <input name="unitStatistic" class="form-check-input" type="checkbox" value="{{excelData.timeMinParam}}" >
+                                            <label class="form-check-label">
+                                                Wyznacz statystyki dla jednostek
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="statistic" class="form-group row">
                                     <div class="col-sm-2">
                                         <label class="col-sm-2 col-form-label">Statystyki:</label>
                                     </div>
@@ -201,7 +274,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div id="functions" class="form-group row">
                                     <div class="col-sm-2">
                                         <label class="col-sm-2 col-form-label">Dodatkowe opcje:</label>
                                     </div>
@@ -236,7 +309,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div id="dateType" class="form-group row">
                                     <div class="col-sm-2">
                                         <label class="col-form-label">Jednosta czasu:</label>
                                     </div>
@@ -270,7 +343,7 @@
                                         {% for rule in rules%}
                                         <tr>
                                             <td>
-                                                <input name="id_{{rule.id_rule}}" class="form-check-input" name="check_rule_{{rule.id_rule}}" type="checkbox">
+                                                <input name="rule_id_{{rule.id_rule}}" class="form-check-input" name="check_rule_{{rule.id_rule}}" type="checkbox">
                                             </td>
                                             <td>{{rule.name}}</td>
                                             <td>{{rule.data_type.name}}</td>
@@ -278,6 +351,53 @@
                                             <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>
                                             <td>
                                             </td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h4>Procesy:</h4>
+                                <p></p>
+
+                                <div id="123" class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label">Agreguj procesy to poziomu:</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div>
+                                            <select id="" name="nesting" class="form-select" aria-label="Default select example">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="scrollTable">
+                                    <table id="mainProcessTabel" class="table">
+                                        <thead>
+                                        <tr>
+                                            <!--<th scope="col">#</th>-->
+                                            <th style="width:  9.33%" scope="col">
+                                                <input onclick="checkAllProcess()" class="form-check-input" type="checkbox" value="" >
+                                            </th>
+                                            <th style="width: 16.66%" scope="col">Numer</th>
+                                            <th scope="col">Nazwa</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for process in processData%}
+                                        <tr id="{{process.id}}">
+                                            <td>
+                                                <input class="form-check-input" name="check_process_{{process.id_process}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
+                                            </td>
+                                            <td>
+                                                <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.number}}"></input>
+                                            </td>
+                                            <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
+
                                         </tr>
                                         {% endfor %}
                                         </tbody>

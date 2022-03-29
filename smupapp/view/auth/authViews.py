@@ -63,7 +63,7 @@ def changePassword(request):
 def changePasswordView(request):
     context = authUser(request)
     formUser = Employee()
-    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
+    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER' or context['account'] == 'USER':
         employees = Employee.objects.filter(id_employee=int(context['userData'].id))
         if employees.exists():
             if len(request.POST):

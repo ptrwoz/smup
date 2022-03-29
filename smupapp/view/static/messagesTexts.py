@@ -2,6 +2,8 @@ MESSAGES_ADD_ERROR = 'Błąd dodania'
 MESSAGES_ADD_SUCCESS = ''
 MESSAGES_LOGIN_ERROR = 'Błędne logowanie!'
 
+
+MESSAGES_PROCESS_EDIT_CONFICT = 'Istnieją już aktywności (dane) powiązane z procesami. Zmiana struktury drzewa niemożliwa'
 MESSAGES_OPERATION_SUCCESS = 'Sukces operacji'
 MESSAGES_OPERATION_USER_HAS_RULE_SUCCESS = 'Błąd operacji (użytkownik jest przypisany do zadania)'
 MESSAGES_OPERATION_USER_DELETE_ERROR = 'Błąd operacji usuwania (użytkownik może mieć przydzielone zadania lub aktywności)'

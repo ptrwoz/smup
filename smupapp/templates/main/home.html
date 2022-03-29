@@ -58,28 +58,31 @@
                         <a href="users" class="btn btn-warning btn-lg btn-block block">Użytkownicy</a>
                     </p>
                     <p>
-                        <a href="rules" class="btn btn btn btn-dark btn-lg btn-block block">Reguły aktywności pracowników</a>
-                    </p>
-                    <p>
-                        <a href="notifications/" class="btn btn btn btn-success btn-lg btn-block block">Powiadomienia</a>
+                        <a href="rules" class="btn btn btn btn-primary btn-lg btn-block block">Reguły aktywności pracowników</a>
                     </p>
                 {% endif %}
                 {% if account == "PROCESS MANAGER" or account == "ADMIN"%}
                     <p>
-                        <a href="processes" class="btn btn-primary btn-lg btn-block block">Procesy</a>
+                        <a href="processes" class="btn btn-info btn-lg btn-block block">Procesy</a>
                     </p>
                     <p>
                         <a href="units" class="btn btn-primary btn-lg btn-block block">Jednostki</a>
                     </p>
                 {% endif %}
                 {% if account == "ADMIN" %}
+                    <!--<p>
+                        <a href="administration" class="btn btn btn btn-danger btn-lg btn-block block">Administracja</a>
+                    </p>-->
                     <p>
-                        <a href="admin/" class="btn btn btn btn-danger btn-lg btn-block block">Administracja</a>
+                        <a href="admin/" class="btn btn btn btn-dark btn-lg btn-block block">Administracja (baza danych)</a>
                     </p>
                 {% endif %}
+                    <p>
+                        <a href="notifications/" class="btn btn btn btn-success btn-lg btn-block block">Powiadomienia</a>
+                    </p>
                 <p>
                     {% if account == "USER" %}
-                        <a href="importExport" class="btn btn-secondary btn-lg btn-block block">Import danych</a>
+                        <a href="importExport" class="btn btn-secondary btn-lg btn-block block">Export danych</a>
                     {% else %}
                         <a href="importExport" class="btn btn-secondary btn-lg btn-block block">Export/Import danych</a>
                     {% endif %}

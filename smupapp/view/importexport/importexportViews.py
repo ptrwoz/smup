@@ -15,8 +15,8 @@ from openpyxl import load_workbook
 from smupapp.models import *
 from smupapp.view.activity.activityViews import getSegments, getRelativedeltaFromDateType
 from smupapp.view.auth.auth import authUser
-from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo
-from smupapp.view.rule.ruleViews import formatRulesMax
+from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo, initAvailableProcess
+from smupapp.view.rule.ruleViews import formatRulesMax, initProcessData, initContext
 from smupapp.view.static.dataModels import ExcelData
 from smupapp.view.static.messagesTexts import MESSAGES_IMPORT_NOFILE_ERROR, MESSAGES_IMPORT_SUCCESS, \
     MESSAGES_TIME_RANGE_EXPORT_ERROR, MESSAGES_NO_RULE_SELECT_ERROR, MESSAGES_NO_EXPORT_FILE_ERROR
@@ -31,14 +31,65 @@ def color(row):
 
 def createSumSheet(employee):
     print()
+def sumActivity(activities):
+    sum = 0
+    for activity in activities:
+        sum = sum + activity.value
+    return sum
+def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules):
+    process = Process.objects.all().order_by('-order')
+    processData = []
+    processNo = []
+    tasksRange = []
+    process = initChapterNo(process)
+    process, idx2 = sortDataByChapterNo(process)
+    for p in process:
+        processData.append(p.name)
+        processNo.append(p.number)
+        tasksRange.append('')
+    processData.append('')
+    tasksRange.append('')
+    activityMultiCol = numpy.array(list(zip(processData, tasksRange)))
+    ndf = pd.DataFrame(index=processNo, columns=['Processy', 'Zakres zadan'],
+                       data=activityMultiCol)
+    d1 = {}
+    d1[''] = ndf
+    dfs = pd.concat(d1, axis=1)
+    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule__in=rules)
+    allActivity = Activity.objects.filter(rule_has_process_id_rule_has_process__in=ruleHasProcess)
+    #for s in segments:
+    activityMultiCol = []
+    for dt in dataTypes:
+        activitySingleCol = []
+        for p in process:
+            if timeRangeToNumber(timeRange) == 1:
+                act = allActivity.filter(rule_has_process_id_rule_has_process__rule_id_rule__data_type__name=dt, \
+                                             rule_has_process_id_rule_has_process__process_id_process=p.id_process,
+                                             time_from__gte=dateFrom, time_to__lte=dateTo)
+                if len(act) > 0:
+                    activitySingleCol.append(sumActivity(act))
+                elif len(act) == 0:
+                    activitySingleCol.append(0)
+
+        activityMultiCol.append(activitySingleCol)
+        activityMultiCol = numpy.array(activityMultiCol)
+        activityMultiCol = numpy.rot90(activityMultiCol)
+        activityMultiCol = numpy.flip(activityMultiCol)
+        activityMultiCol.append(numpy.sum(activityMultiCol))
+        ndf = pd.DataFrame(index=processNo, columns=list(dataTypes),
+                           data=activityMultiCol)
+        d1 = {}
+        d1['SUM'] = ndf
+        d1 = pd.concat(d1, axis=1)
+
+        dfs = pd.concat([dfs, d1], axis=1)
+    return dfs
+
 def createEmployeeSheet(employee, segments, dataTypes, timeRange, rules):
     process = Process.objects.all().order_by('-order')
     processData = []
-    #processData.append('')
     processNo = []
-    #processNo.append('')
     tasksRange = []
-    #tasksRange.append('')
     process = initChapterNo(process)
     process, idx2 = sortDataByChapterNo(process)
     for p in process:
@@ -93,14 +144,6 @@ def createEmployeeSheet(employee, segments, dataTypes, timeRange, rules):
         dfs = pd.concat([dfs, d1], axis=1)
     return dfs
 
-'''def getEmployerActivities(employee,  ,formData):
-
-    Unit.objects.filter(Q(is_active=1))
-
-    Activity.objects.filter(Q(time_from=[formData.timeFrom, formData.timeTo]) | \
-                            Q(employee_id_employee = employee.id_employee) | \
-                            )'''
-
 
 #
 #   get unique employees from rules
@@ -146,31 +189,15 @@ def checkExportTimeRange(rules, timeRange):
     for rule in rules:
         if not timeRangeToNumber(rule.time_range.name) <= timeRangeToNumber(timeRange): #not isDivedTimeRange(rule.time_range.name,timeRange):
             return False
+
     return True
 #
-#   generate excel document
+#   sum raport
 #
-def exportDataBase(request, id, formData):
-    path = './temp/temp_out/data_%s.xlsx' % id
-    #employees = Employee.objects.all()
-    writer = pd.ExcelWriter(path, engine='xlsxwriter')
-    no = 1
 
-    timeFrom =  datetime.strptime(formData.timeFrom, "%Y-%m-%d").date()
-    timeTo = datetime.strptime(formData.timeTo, "%Y-%m-%d").date()
-
-    if len(formData.rules) == 0:
-        return MESSAGES_NO_RULE_SELECT_ERROR, False
-    if not checkExportTimeRange(formData.rules, formData.timeRange):
-        return MESSAGES_TIME_RANGE_EXPORT_ERROR, False
-
-    employeesHasRule = getExcelEmployees(formData)
-
-    employees = Employee.objects.filter(id_employee__in = employeesHasRule.values('employee_id_employee'))
-
+def exportStatisticRaport(formData, employees, writer):
     if len(formData.timeRange) == 0:
         formData.timeRange = getMinTimeRange(formData.rules)
-
 
     dataRules = formData.rules.values_list('data_type__name').distinct()
 
@@ -178,7 +205,7 @@ def exportDataBase(request, id, formData):
     for dr in dataRules:
         nDataRules.append(dr[0])
 
-    segments, todayId, isWeekends = getSegments(timeFrom, timeTo, getRelativedeltaFromDateType(formData.timeRange))
+    segments, todayId, isWeekends = getSegments(formData.timeFrom, formData.timeTo, getRelativedeltaFromDateType(formData.timeRange))
 
     for employee in employees:
         sheet_name = ""
@@ -192,8 +219,50 @@ def exportDataBase(request, id, formData):
         df1.to_excel(writer, sheet_name=sheet_name)
         writer.sheets[sheet_name].set_row(2, None, None, {'hidden': True})
         no = no + 1
-    #writer.delete_rows(row[0].row, 1)
     writer.save()
+
+def exportRaport(formData, employees, writer):
+    if len(formData.timeRange) == 0:
+        formData.timeRange = getMinTimeRange(formData.rules)
+
+    dataRules = formData.rules.values_list('data_type__name').distinct()
+
+    nDataRules = []
+    for dr in dataRules:
+        nDataRules.append(dr[0])
+
+    df1 = createSumEmployeeSheet(formData.timeFrom, formData.timeTo, nDataRules, formData.timeRange, formData.rules)
+
+    df1.to_excel(writer, sheet_name='sum')
+    writer.sheets['sum'].set_row(2, None, None, {'hidden': True})
+    writer.save()
+#
+#   generate excel document
+#
+def exportDataBase(request, id, formData):
+    path = './temp/temp_out/data_{}_{}.xlsx'.format(id, formData.docType)
+    writer = pd.ExcelWriter(path, engine='xlsxwriter')
+    no = 1
+
+    timeFrom =  datetime.strptime(formData.timeFrom, "%Y-%m-%d").date()
+    timeTo = datetime.strptime(formData.timeTo, "%Y-%m-%d").date()
+    formData.timeFrom = timeFrom
+    formData.timeTo = timeTo
+
+    if len(formData.rules) == 0:
+        return MESSAGES_NO_RULE_SELECT_ERROR, False
+    if not checkExportTimeRange(formData.rules, formData.timeRange):
+        return MESSAGES_TIME_RANGE_EXPORT_ERROR, False
+
+    employeesHasRule = getExcelEmployees(formData)
+
+    employees = Employee.objects.filter(id_employee__in = employeesHasRule.values('employee_id_employee'))
+
+    if formData.docType == 'Raport':
+        exportRaport(formData, employees, writer)
+    else:
+        exportStatisticRaport(formData, employeesHasRule, writer)
+
     return path, True
 
 def importFile(request):
@@ -243,15 +312,28 @@ def getDataFromForm(request):
     typicalRangeOfVolatilityParam = request.POST.get('typicalRangeOfVolatilityParam')
     timeMinParam = request.POST.get('timeMinParam')
     timeRange = request.POST.get('timeRange')
+    unitStatistic = request.POST.get('unitStatistic')
     anonymizationParam = request.POST.get('anonymizationParam')
     timeMin = request.POST.get('timeMin')
     timeFrom = request.POST.get('timeFrom')
     timeTo = request.POST.get('timeTo')
     checkedRules = []
+    processes = Process.objects.all().order_by('order')
+    processData = initChapterNo(processes)
+
+    processData = initAvailableProcess(processData)
+    #processData = initProcessData(processData, False, id)
+    for p in processData:
+        value = request.POST.get('check_process_' + str(p.id_process))
+        if value is not None:
+            p.check = 1
+        else:
+            p.check = 0
+
     rules = Rule.objects.all()
     if rules.exists():
         for rule in rules:
-            checkedRule = request.POST.get('id_' + str(rule.id_rule))
+            checkedRule = request.POST.get('rule_id_' + str(rule.id_rule))
             if checkedRule == 'on':
                 checkedRules.append(rule.id_rule)
         rules1 = rules.filter(id_rule__in = checkedRules)
@@ -272,7 +354,8 @@ def getDataFromForm(request):
                  timeFrom, \
                  timeTo, \
                  timeRange, \
-                 rules1)
+                 rules1, \
+                 unitStatistic)
 
 def getTimeRangeNumber(timeRangeName):
     if timeRangeName == TIMERANGE_DAY:
@@ -289,7 +372,29 @@ def checkExportData(formData):
 
 #def initExport():
 
-
+def initProcessData(processData, static, id = ''):
+    checkedProcessData = []
+    for p in processData:
+        if id == '':
+            r = RuleHasProcess.objects.filter(process_id_process=p.id_process)
+        else:
+            r = RuleHasProcess.objects.filter(rule_id_rule=int(id), process_id_process=p.id_process)
+        if r.exists():
+            if static:
+                checkedProcessData.append(p)
+                p1 = p
+                while p1.id_mainprocess != None:
+                    p1 = p1.id_mainprocess
+                    checkedProcessData.append(p1)
+            p.check = 1
+        else:
+            p.check = 0
+    if static:
+        checkedProcessData = list({p.number: p for p in checkedProcessData}.values())
+        checkedProcessData = initChapterNo(checkedProcessData)
+        checkedProcessData, prs = sortDataByChapterNo(checkedProcessData)
+        return checkedProcessData
+    return processData
 
 def importexportView(request):
     context = authUser(request)
@@ -305,6 +410,10 @@ def importexportView(request):
         context['excelData'] = ExcelData(timeFrom = str(starting_day_of_current_year), \
                                          timeTo = str(ending_day_of_current_year))
         paginator = Paginator(rules, PAGEINATION_SIZE)
+
+        context, processData, processes, prs, employeesData = initContext(context)
+        checkedProcessData = initProcessData(processData, False)
+        context['processData'] = processData
         try:
             rules = paginator.page(page)
         except PageNotAnInteger:

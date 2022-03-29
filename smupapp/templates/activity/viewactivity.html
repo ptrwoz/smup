@@ -206,10 +206,44 @@
             }
             return Math.max.apply(Math,idArray);
         }
-
+        function isInLimit(limit, value) {
+            if(!isNaN(limit) && !isNaN(value)) {
+                  if (parseInt(limit) < parseInt(value)) {
+                    return 1
+                  } else {
+                    return 0
+                  }
+            } else {
+                nlimit = limit.replace(':','.')
+                nValue = value.replace(':','.')
+                if (parseFloat(nlimit) < parseFloat(nValue)) {
+                    return 1
+                } else {
+                    return 0
+                }
+                return 0
+            }
+            return 0
+        }
+        function styleLimit() {
+            maxLimitValue = $('#valueLimit').val()
+            if (maxLimitValue !== undefined) {
+                sumInputs = $('#sum input')
+                for (i = 0; i < sumInputs.length; i++) {
+                    val1 = sumInputs[i].value
+                    if (isInLimit(maxLimitValue, val1)) {
+                        sumInputs[i].style.backgroundColor = "Salmon";
+                    }
+                    else {
+                        sumInputs[i].style.backgroundColor = "";
+                    }
+                }
+            }
+        }
         function styleRows(elements) {
             sumCols()
             sumSubCols()
+            styleLimit()
             for (var i = 1; i < elements.length - 1; i++) {
                 ii = elements[i].children[0].children[0].value.split('.').length
                 if (ii == 2) {
@@ -264,7 +298,7 @@
             {% else %}
             <h1 class="fw-light">Aktywności:</h1>
             <p>Wprowadź dane dotyczące <b>{{ruleData.data_type.name}}</b> do formularzu z okresu <b>od {{ruleData.time_from|date:'Y-m-d'}} do {{ruleData.time_to|date:'Y-m-d'}}</b> (interwał: {{ruleData.time_range.name}})</p>
-            {% if ruleData.max != None and ruleData.max != 0 %} <p>Pamiętaj o poprawnym typie danych oraz limicie <b style="color : red;">{{ruleData.max}} na <a name="valueLimit">{{ruleData.time_range.name}}</a></b></p>{% endif %}
+            {% if ruleData.max_value != '' %}<h3>Pamiętaj o poprawnym typie danych oraz limicie:<input disabled style="width: 70px;color: red; text-align: center; " id="valueLimit" value="{{ruleData.max_value}}"><a style="color: red;">na {{ruleData.time_range.name}}</a></h3>{% endif %}
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
             <form method="post">
@@ -397,7 +431,7 @@
                     </ul>
                 </nav>
                 {% endif %}
-                <a class="btn btn-secondary btn-lg" href="../rules">Wróć</a>
+                <a class="btn btn-secondary btn-lg" href="../../rules">Wróć</a>
             </form>
             {% endif %}
             {% endif %}

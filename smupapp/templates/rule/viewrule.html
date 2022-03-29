@@ -92,7 +92,7 @@
             </div>
             {% endif %}
             {% endfor %}
-            <form id="rulePage" id="submit" method="post"> {% csrf_token %}
+            <div id="rulePage"> {% csrf_token %}
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nazwa:</label>
                     <div class="col-sm-10">
@@ -180,7 +180,7 @@
                                 <tbody>
                                 {% for employee in employeesData %}
                                 <div class="modal fade" id="clearModal{{rule.id_rule}}" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
-                                    <form action="../rule/{{rule.id_rule}}/{{employee.id_employee}}/clear" method="post">
+                                    <form action="{{employee.id_employee}}/clear" method="post">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -259,7 +259,7 @@
                 <a class="btn btn-secondary btn-lg" href="../../rules">Wróć</a>
                 {% endif %}
                 {% endif %}
-            </form>
+            </div>
         </div>
     </section>
 

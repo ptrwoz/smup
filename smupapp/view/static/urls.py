@@ -17,6 +17,7 @@ RENDER_RULES_URL = 'rule/rules.html'
 RENDER_USER_URL = 'user/user.html'
 RENDER_USERS_URL = 'user/users.html'
 RENDER_NOTIFICATIONS_URL = 'notification/notifications.html'
+RENDER_ADMINSTRATION_URL = 'administration/administration.html'
 #
 REDIRECT_ACTIVITIES_URL = 'activities'
 REDIRECT_HOME_URL = 'home'

@@ -49,9 +49,9 @@
             maxVal = maxInput = $('#maxInput')
             if (dataTypeSelect.val() == '1') {
                 maxInput.attr('type','text')
-                maxInput.attr('placeholder','--:--')
+                maxInput.attr('placeholder','-- : --')
                 maxInput.val('')
-            } else {
+            } else if (dataTypeSelect.val() == '2')  {
                 maxInput.attr('type','number')
                 maxInput.attr('placeholder','--')
                 maxInput.val('')
@@ -63,7 +63,15 @@
             dataTypeSelect.on('change', function() {
               initDatTypeSelect()
             });
-            initDatTypeSelect()
+            maxVal = maxInput = $('#maxInput')
+            if (dataTypeSelect.val() == '1' && maxInput.val() =='') {
+                maxInput.attr('type','text')
+                maxInput.attr('placeholder','-- : --')
+            } else if (dataTypeSelect.val() == '2' && maxInput.val() =='') {
+                maxInput.attr('type','number' )
+                maxInput.attr('placeholder','--')
+                maxInput.val('')
+            }
         }
         function checkAllEmployee() {
           value = false;
@@ -216,7 +224,7 @@
                                     </svg>
                                 </div>
                             </div>
-                            <input id="maxInput" {% if rule.data_type.id_data_type == 1 %} placeholder="-- : --" type="text"{% else %} type="number" min="1" step="1" {% endif %}  class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax" value="{{rule.max}}">
+                            <input value="{{rule.max_value}}" id="maxInput" {% if rule.data_type.id_data_type == 1 %} placeholder="-- : --" type="text"{% else %} type="number" min="1" step="1" {% endif %}  class="form-control" name='maxValue' placeholder="Wartość maksymalna" id="ruleMax">
                         </div>
                     </div>
                 </div>

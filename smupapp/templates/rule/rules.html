@@ -89,7 +89,7 @@
                     {% for rule in rules%}
                     <tr>
                         <td>{{rule.name}}</td>
-                        <td>{% if rule.max != None %} {{rule.max}} {% else %} - {% endif %}</td><!--|floatformat:2-->
+                        <td>{% if rule.max_value != '' %} {{rule.max_value}} {% else %} - {% endif %}</td><!--|floatformat:2-->
                         <td>{{rule.data_type.name}}</td>
                         <td>{{rule.time_range.name}}</td>
                         <td>{{rule.time_from|date:'d-m-Y'}} - {{rule.time_to|date:'d-m-Y'}}</td>

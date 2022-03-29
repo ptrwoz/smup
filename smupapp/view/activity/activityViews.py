@@ -1,23 +1,22 @@
 import datetime
+import numpy as np
 from decimal import Decimal
 from django.contrib import messages
-
-import numpy as np
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.shortcuts import render, redirect
-from smupapp.models import Employee, Rule, AuthUser, RuleHasEmployee, Activity, RuleHasProcess
+from smupapp.models import Employee, Rule, RuleHasEmployee, Activity, RuleHasProcess
 from smupapp.view.auth.auth import authUser
 from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo, sortDataByOrder
+from smupapp.view.rule.ruleViews import formatRulesMax
 from smupapp.view.static.dataModels import DateInformation
 from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_SUCCESS
 from smupapp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, \
-    RENDER_ACTIVITIES_URL, RENDER_RULE_URL, RENDER_VIEW_ACTIVITY_URL
-from django import template
+    RENDER_ACTIVITIES_URL, RENDER_VIEW_ACTIVITY_URL
 import math
 from datetime import date
-from django.db.models import Q
 
 class Segment:
     def __init__(self, start_date, end_date):
@@ -222,12 +221,14 @@ def viewActivity(request, id='', userid=''):
         return redirect(REDIRECT_ACTIVITIES_URL)
     elif id.isnumeric():
         rules = Rule.objects.filter(id_rule=int(id))
+        rules = formatRulesMax(rules)
         if rules.exists():
             rule = rules[0]
             start_date = rule.time_from
             end_date = rule.time_to
-            if rule.max_value != None:
-                rule.max = int(rule.max_value)
+            #if rule.max_value != None:
+            #    rule.max = int(rule.max_value)
+
             context['ruleData'] = rule
 
             segments, todayId, isWeekends = getSegments(start_date, end_date,
@@ -297,12 +298,14 @@ def editActivity(request, context, id=''):
         return redirect(REDIRECT_ACTIVITIES_URL)
     elif id.isnumeric():
         rules = Rule.objects.filter(id_rule=int(id))
+        rules = formatRulesMax(rules)
         if rules.exists():
             rule = rules[0]
             start_date = rule.time_from
             end_date = rule.time_to
-            if rule.max_value != None:
-                rule.max = int(rule.max_value)
+
+            #if rule.max_value != None:
+            #    rule.max = int(rule.max_value)
             context['ruleData'] = rule
 
             segments, todayId, isWeekends = getSegments(start_date, end_date, getRelativedeltaFromDateType(rule.time_range.name))

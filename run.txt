@@ -42,6 +42,7 @@ exit()
 
 python manage.py loaddata newsmup.json
 python manage.py loaddata data.json
+python manage.py loaddata  dataEmptyver2.json
 python manage.py loaddata apple.json
 
 python manage.py loaddata  02_28_2022_21_20_41_271903.json

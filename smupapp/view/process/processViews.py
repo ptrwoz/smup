@@ -1,12 +1,13 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from smupapp.models import Process
+from smupapp.models import Process, Activity
 from smupapp.view.auth.auth import authUser
 from natsort import natsort
 from itertools import repeat
 from django.contrib import messages
 
-from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS
+from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, MESSAGES_OPERATION_SUCCESS, \
+    MESSAGES_PROCESS_EDIT_CONFICT
 
 
 class ProcessData:
@@ -101,13 +102,25 @@ def checkChaptersNo(idx):
         return True
     except:
         return False
+
 def getPrevChapterNo(idx):
     arr = len(idx.split('.')[-2])
     return idx[0:len(idx) - (arr + 1)]
 
+
+def checkProcessActivityConflict(procceses):
+    activities = Activity.objects.all()
+    if activities.exists():
+        return True
+    else:
+        return False
 def saveProcess(request, context):
     prs, result = getRawProcceses(request)
     prs, idx2 = sortDataByChapterNo(prs)
+    if checkProcessActivityConflict(prs):
+        messages.info(request, MESSAGES_PROCESS_EDIT_CONFICT, extra_tags='error')
+        context['processData'] = prs
+        return render(request, 'process/process.html', context)
     if checkChaptersNo(idx2) == False:
         messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
         context['processData'] = prs
@@ -118,8 +131,7 @@ def saveProcess(request, context):
         return render(request, 'process/process.html', context)
     processes = Process.objects.all()
     processData = initChapterNo(processes)
-    #prs, prs_ids = sortDataByChapterNo(processData)
-    existId = []#list(repeat(0, len(processData)))
+    existId = []
     for i in range(0, len(prs)):
         partner = None
         changeFlag = False
@@ -135,8 +147,6 @@ def saveProcess(request, context):
                 changeFlag = True
                 existId.append(pp.id_process)
                 break
-            #elif len(prs[i].number) > 2 and pno == getPrevChapterNo(prs[i].number):
-            #    partner = pp
             ii = ii + 1
         if not changeFlag:
             np = Process()
@@ -155,9 +165,6 @@ def saveProcess(request, context):
             processes = Process.objects.all()
         i = i + 1
     processes = Process.objects.filter(~Q(id_process__in=existId)).order_by('-order')
-    #for i in range(len(existId)):
-    #    if not existId[i]:
-    #        processes[i].delete()
     for dp in processes:
         dp.delete()
     messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
