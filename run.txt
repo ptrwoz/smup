@@ -72,6 +72,8 @@ git push smuptychy master
 ##
 git remote -v
 
+git remote add smupkrosno https://git.heroku.com/smupkrosno.git
+
 git remote add smuptychy https://git.heroku.com/smuptychy.git
 
 git remote add smupstrzelin https://git.heroku.com/smupwarszawa.git

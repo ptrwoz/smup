@@ -49,6 +49,7 @@ def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules):
         tasksRange.append('')
     processData.append('')
     tasksRange.append('')
+    processNo.append('')
     activityMultiCol = numpy.array(list(zip(processData, tasksRange)))
     ndf = pd.DataFrame(index=processNo, columns=['Processy', 'Zakres zadan'],
                        data=activityMultiCol)
@@ -63,7 +64,7 @@ def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules):
         activitySingleCol = []
         for p in process:
             if timeRangeToNumber(timeRange) == 1:
-                act = allActivity.filter(rule_has_process_id_rule_has_process__rule_id_rule__data_type__name=dt, \
+                act = allActivity.filter(rule_has_process_id_rule_has_process__rule_id_rule__data_type__name=dt.name, \
                                              rule_has_process_id_rule_has_process__process_id_process=p.id_process,
                                              time_from__gte=dateFrom, time_to__lte=dateTo)
                 if len(act) > 0:
@@ -71,13 +72,23 @@ def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules):
                 elif len(act) == 0:
                     activitySingleCol.append(0)
 
-        activityMultiCol.append(activitySingleCol)
-        activityMultiCol = numpy.array(activityMultiCol)
-        activityMultiCol = numpy.rot90(activityMultiCol)
-        activityMultiCol = numpy.flip(activityMultiCol)
-        activityMultiCol.append(numpy.sum(activityMultiCol))
-        ndf = pd.DataFrame(index=processNo, columns=list(dataTypes),
-                           data=activityMultiCol)
+        #activityMultiCol.append(activitySingleCol)
+        activitySingleCol = numpy.array(activitySingleCol)
+        activitySingleCol = numpy.flip(activitySingleCol)
+
+        sumActivityValue = ''
+        if dt.id_data_type == 2:
+            sumActivityValue = numpy.sum(activitySingleCol)
+        else:
+            sumActivityValue = numpy.sum(activitySingleCol)
+        activitySingleCol = numpy.append(activitySingleCol, sumActivityValue)
+
+        activitySingleCol = numpy.array(activitySingleCol)
+        #activitySingleCol = numpy.append(activitySingleCol)
+        activitySingleCol = numpy.rot90([activitySingleCol])
+
+        ndf = pd.DataFrame(index=processNo, columns=list(dt.name),
+                           data=[activitySingleCol])
         d1 = {}
         d1['SUM'] = ndf
         d1 = pd.concat(d1, axis=1)
@@ -221,21 +232,25 @@ def exportStatisticRaport(formData, employees, writer):
         no = no + 1
     writer.save()
 
-def exportRaport(formData, employees, writer):
+def exportRaport(formData, writer):
     if len(formData.timeRange) == 0:
         formData.timeRange = getMinTimeRange(formData.rules)
 
-    dataRules = formData.rules.values_list('data_type__name').distinct()
+    dataRules = formData.rules.values_list('data_type__id_data_type').distinct()
 
     nDataRules = []
     for dr in dataRules:
         nDataRules.append(dr[0])
-
-    df1 = createSumEmployeeSheet(formData.timeFrom, formData.timeTo, nDataRules, formData.timeRange, formData.rules)
+    vDataRules = DataType.objects.filter(id_data_type__in = nDataRules)
+    df1 = createSumEmployeeSheet(formData.timeFrom, formData.timeTo, vDataRules, formData.timeRange, formData.rules)
 
     df1.to_excel(writer, sheet_name='sum')
     writer.sheets['sum'].set_row(2, None, None, {'hidden': True})
     writer.save()
+
+#def ruleCollisionDetection(rules):
+
+
 #
 #   generate excel document
 #
@@ -251,16 +266,15 @@ def exportDataBase(request, id, formData):
 
     if len(formData.rules) == 0:
         return MESSAGES_NO_RULE_SELECT_ERROR, False
-    if not checkExportTimeRange(formData.rules, formData.timeRange):
-        return MESSAGES_TIME_RANGE_EXPORT_ERROR, False
 
-    employeesHasRule = getExcelEmployees(formData)
-
-    employees = Employee.objects.filter(id_employee__in = employeesHasRule.values('employee_id_employee'))
 
     if formData.docType == 'Raport':
-        exportRaport(formData, employees, writer)
+        exportRaport(formData, writer)
     else:
+        if not checkExportTimeRange(formData.rules, formData.timeRange):
+            return MESSAGES_TIME_RANGE_EXPORT_ERROR, False
+        employeesHasRule = getExcelEmployees(formData)
+        employees = Employee.objects.filter(id_employee__in=employeesHasRule.values('employee_id_employee'))
         exportStatisticRaport(formData, employeesHasRule, writer)
 
     return path, True
