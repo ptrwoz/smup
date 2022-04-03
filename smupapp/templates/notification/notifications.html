@@ -63,13 +63,27 @@
             $datepickerTo.datepicker('setDate', new Date());
           }*/
         });
+        function formatDelays()
+        {
+            delaysElements = $('td[name="delayStatus"]')
+            delaysElements.each(function(index, obj) {
+                if (obj.textContent == "BRAK DANYCH")
+                {
+                    obj.setAttribute("style", "color:red");
+                }
+
+                else if (obj.textContent == "ZAKONCZONE") {
+                    obj.setAttribute("style", "color:gray");
+                }
+            });
+        }
     </script>
         <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 </head>
-<body class="text-center">
+<body class="text-center" onload="formatDelays()">
 <main class="form-signin">
     {% csrf_token %}
     {% block content %}
@@ -191,7 +205,11 @@
                         <td><div>{{notification.rule_id_rule.time_range.name}}</div></td>
                         <td>{{notification.rule_id_rule.data_type.name}}</td>
 
-                        <td>{{notification.delay}}</td>
+                        <td name="delayStatus">
+                            <div>
+                                {{notification.delay.status}} {{notification.delay.intervals}} {{notification.delay.days}}
+                            </div>
+                            </td>
                         <td><a class="btn btn-primary" href="../../activity/{{notification.rule_id_rule.id_rule}}/{{notification.employee_id_employee.id_employee}}">Wyświetl</a></td>
                     </tr>
                     {% endfor %}

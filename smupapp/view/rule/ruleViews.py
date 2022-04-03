@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from smupapp.models import Rule, TimeRange, DataType, Employee, Process, RuleHasProcess, Activity, RuleHasEmployee
 from smupapp.view.auth.auth import authUser
 from smupapp.view.process.processViews import initChapterNo, initAvailableProcess, checkChaptersNo, sortDataByChapterNo
@@ -6,8 +6,8 @@ from smupapp.view.static.dataModels import RuleData
 from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, \
     MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, MESSAGES_ACTIVITY_IN_RULE_ERROR, MESSAGES_RULE_NAME_ERROR, \
     MESSAGES_RULE_DATATYPE_ERROR, MESSAGES_RULE_TIMERANGE_ERROR, MESSAGES_RULE_USERS_ERROR, MESSAGES_RULE_PROCESS_ERROR, \
-    MESSAGES_RULE_MAX_ERROR, MESSAGES_RULE_DATA_CLEAR_ERROR
-from smupapp.view.static.staticValues import PAGEINATION_SIZE
+    MESSAGES_RULE_MAX_ERROR, MESSAGES_RULE_DATA_CLEAR_ERROR, MESSAGES_RULE_TIMERANGE_TOO_BIG
+from smupapp.view.static.staticValues import PAGEINATION_SIZE, TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
 from smupapp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
 from django.db.models import Q
 from django.contrib import messages
@@ -186,6 +186,14 @@ def deleteRule(request, context, id=''):
             messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
             return redirect(REDIRECT_RULES_URL)
 
+def getNumberFromDateType(timeRange):
+    if timeRange.name == TIMERANGE_DAY:
+        return 1
+    elif timeRange.name == TIMERANGE_WEEK:
+        return 7
+    elif timeRange.name == TIMERANGE_MONTH:
+        return 27
+
 def checkRuleFromForm(request, rule = Rule()):
     name = request.POST.get('ruleName')
     maxValue = request.POST.get('maxValue')
@@ -209,9 +217,17 @@ def checkRuleFromForm(request, rule = Rule()):
         rule.max_value = None
     rule.time_from = timeFrom
     rule.time_to = timeTo
+
     rule.is_active = True
     rule.data_type_id = int(dataType)#DataType.objects.filter(id_data_type = int(dataType))[0]
     rule.time_range_id = int(timeRange)#TimeRange.objects.filter(id_time_range = int(timeRange))[0]
+
+    intervalDate = date.fromisoformat(timeTo) - date.fromisoformat(timeFrom)
+    timeRangeObject = TimeRange.objects.filter(id_time_range=timeRange)
+    if timeRangeObject.exists():
+        dayNo = getNumberFromDateType(timeRangeObject[0])
+        if (intervalDate.days - dayNo <= 0):
+            return rule, MESSAGES_RULE_TIMERANGE_TOO_BIG
 
     if len(name) <= 2:
         return rule, MESSAGES_RULE_NAME_ERROR
@@ -258,8 +274,11 @@ def initPrevForm(request, context, rule):
     context['employeesData'] = employeesData
     context['processData'] = processData
     context['rule'] = rule
+    if rule.max_value == None:
+        rule.max_value = ''
     if rule.data_type.id_data_type == 1:
         rule.max_value = str(rule.max_value).replace('.',':')
+
     return context
 
 def saveRule(request, context, id =''):
@@ -284,6 +303,7 @@ def saveRule(request, context, id =''):
                 messages.info(request, MESSAGES_RULE_USERS_ERROR, extra_tags='error')
                 return render(request, RENDER_RULE_URL, context)
             if flag1 and flag2:
+                rule.rule_id = None
                 rule.save()
                 for p in processes:
                     value = request.POST.get('check_process_'+ str(p.id_process))

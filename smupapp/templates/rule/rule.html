@@ -93,6 +93,34 @@
              }
           });
         }
+        function checkAllSubProcess(clicked_id) {
+          value = false;
+          element = $('#' + clicked_id)
+          processNumber = $('#mainProcessTabel input[type=number_text]')
+          processCheck = $('#mainProcessTabel input[type=checkbox]')
+          searchValue = 0
+          for (var i = 0; i < processNumber.length; i++) {
+
+            if (processCheck[i + 1] == element[0]) {
+                searchValue = processNumber[i].attributes.value.nodeValue
+            }
+            if (processNumber[i].attributes.value.nodeValue.substring(0, searchValue.toString().length) == searchValue &&
+                processNumber[i].attributes.value.nodeValue.length > searchValue.length) {
+                processCheck[i + 1].checked = element[0].checked
+            }
+          }
+
+          /*$('#mainProcessTabel input[type=checkbox]').each(function (i, ob) {
+              processNameElement = 'nameProcess_id_' + i
+              element = $('#' + clicked_id)
+
+              if (i == 0)
+                value = $(this).prop("checked");
+              else {
+                $(this).prop("checked", value);
+             }
+          });*/
+        }
         function styleRows() {
             elements = $('#mainProcessTabel tr')
             for (var i = 1; i < elements.length; i++) {
@@ -329,7 +357,9 @@
                                     <thead>
                                     <tr>
                                         <th style="width:  4.33%" scope="col">
-                                            <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" value="" ></th>
+                                            <div class="form-switch">
+                                                  <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            </div>
                                         <th scope="col">Imię</th>
                                         <th scope="col">Nazwisko</th>
                                         <th scope="col">Jednostka</th>
@@ -357,7 +387,9 @@
                                     <tr>
                                         <!--<th scope="col">#</th>-->
                                         <th style="width:  4.33%" scope="col">
-                                            <input onclick="checkAllProcess()" class="form-check-input" type="checkbox" value="" ></th>
+                                            <div class="form-switch">
+                                                  <input onclick="checkAllProcess()" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault2">
+                                            </div>
                                         <th style="width: 16.66%" scope="col">Numer</th>
                                         <th scope="col">Nazwa</th>
                                     </tr>
@@ -368,12 +400,18 @@
                                         <td>
                                             {% if process.available %}
                                             <input class="form-check-input" name="check_process_{{process.id_process}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
+                                            {% else %}
+                                                <div class="form-switch">
+                                                  <input onclick="checkAllSubProcess(this.id)" class="form-check-input" type="checkbox" id="checkSubProcess_id_{{process.id}}">
+                                                </div>
                                             {% endif %}
                                         </td>
                                         <td>
-                                            <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.number}}"></input>
+                                            <input name="id_{{process.id}}" class="form-control" readonly="readonly" type="number_text" value="{{process.number}}"></input>
                                         </td>
-                                        <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
+                                        <td>
+                                            <input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}" id="nameProcess_id_{{process.id}}">
+                                        </td>
 
                                     </tr>
                                     {% endfor %}

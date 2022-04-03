@@ -108,7 +108,7 @@ class DjangoContentType(models.Model):
         unique_together = (('app_label', 'model'),)
 
 
-class DjangoMigrations(models.Model):
+class DjangoMigr1ions(models.Model):
     id = models.BigAutoField(primary_key=True)
     app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -133,7 +133,7 @@ class Activity(models.Model):
     value = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)
     time_add = models.DateTimeField(blank=True, null=True)
     time_from = models.DateField(blank=True, null=True)
-    time_to = models.CharField(max_length=45, blank=True, null=True)
+    time_to = models.DateField(max_length=45, blank=True, null=True)
     rule_has_process_id_rule_has_process = models.ForeignKey('RuleHasProcess', models.DO_NOTHING, db_column='rule_has_process_id_rule_has_process')
     employee_id_employee = models.ForeignKey('Employee', models.DO_NOTHING, db_column='employee_id_employee')
     class Meta:

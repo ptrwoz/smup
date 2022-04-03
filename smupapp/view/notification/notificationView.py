@@ -1,12 +1,13 @@
-from datetime import date
+from datetime import date, datetime
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
-from smupapp.models import RuleHasEmployee, TimeRange, DataType
+from smupapp.models import RuleHasEmployee, TimeRange, DataType, Activity, RuleHasProcess
 from smupapp.view.auth.auth import authUser
 from smupapp.view.static.dataModels import NotificationFilterData
+from smupapp.view.static.messagesTexts import MESSAGES_ACTIVITY_END, MESSAGES_NO_ACTIVITY, MESSAGES_DELAY
 from smupapp.view.static.staticValues import PAGEINATION_SIZE
 from smupapp.view.static.urls import RENDER_NOTIFICATIONS_URL, REDIRECT_HOME_URL
 
@@ -21,13 +22,52 @@ def getFilterData(request):
 
 #def getEmployeeDelay(ruleHasEmployee):
 
+def getActivitiesDelay(today, ruleHasEmployee):
+    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule = ruleHasEmployee.rule_id_rule)
+    #ruleHasEmployee.rule_id_rule
+    employee = ruleHasEmployee.employee_id_employee
+    today = date.today()
+    activities = Activity.objects.filter(Q(employee_id_employee = employee) & \
+             Q(rule_has_process_id_rule_has_process__in = ruleHasProcess))
+    delays = []
+    for activity in activities:
+        d = activity.time_to - today
+        delays.append(d)
+    return delays
+
+class NotificationData:
+
+    def __init__(self):
+        self.status = None
+        self.intervals = None
+        self.days = None
+    def __int__(self, status = None, intervals = None, days = None):
+        self.status = status
+        self.intervals = intervals
+        self.days = days
+
+#def isDelay():
+
 def addDelay(ruleHasEmployees):
     today = date.today()
-    for ruleHasEmployee in ruleHasEmployees:
-        if today > ruleHasEmployee.rule_id_rule.time_to:
-            ruleHasEmployee.delay = 'ZAKONCZONE'
+    messageData = NotificationData()
+    for idx in range(len(ruleHasEmployees)):
+        if today > ruleHasEmployees[idx].rule_id_rule.time_to:
+            messageData.status = MESSAGES_ACTIVITY_END
+            messageData.intervals = ''
+            messageData.days = ''
         else:
-            ruleHasEmployee.delay = 0
+            no = getActivitiesDelay(today, ruleHasEmployees[idx])
+            if len(no) <= 0:
+                messageData.status = MESSAGES_NO_ACTIVITY
+                messageData.intervals = ''
+                messageData.days = ''
+            else:
+                minDate = min(no)
+                messageData.status = MESSAGES_DELAY
+                messageData.intervals = ''
+                messageData.days = abs(minDate.days)
+        ruleHasEmployees[idx].delay = messageData
     return ruleHasEmployees
 
 def notificationsView(request):
