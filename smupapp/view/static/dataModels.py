@@ -84,11 +84,12 @@ class NotificationFilterData():
     timeRange = ""
     dataType = ""
     def __init__(self,ruleName = '',userName = '', \
-                 timeFrom = '', timeTo = '', timeRange = 'Dowolna', dataType= 'Dowolna'):
+                 timeFrom = '', timeTo = '', timeRange = 'Dowolna', dataType= 'Dowolna', delay=''):
         self.ruleName = ruleName
         self.userName = userName
         self.timeFrom = timeFrom
         self.timeTo = timeTo
         self.timeRange = timeRange
-        self.dataType = dataType
+        self.dataType = dataType,
+        self.delay = delay
     pass
