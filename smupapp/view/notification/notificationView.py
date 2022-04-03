@@ -1,7 +1,8 @@
 from datetime import date, datetime
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
+from django.db.models import Q, Value, CharField
+from django.db.models.functions import Concat
 from django.shortcuts import render, redirect
 
 from smupapp.models import RuleHasEmployee, TimeRange, DataType, Activity, RuleHasProcess
@@ -46,7 +47,9 @@ class NotificationData:
         self.intervals = intervals
         self.days = days
 
-#def isDelay():
+#def isDelay(today, rule):
+
+
 
 def addDelay(ruleHasEmployees):
     today = date.today()
@@ -81,9 +84,10 @@ def notificationsView(request):
             else:
                 ruleHasEmployee = RuleHasEmployee.objects.all()
             if len(notificationsFilterData.userName) > 0:
-                ruleHasEmployee = ruleHasEmployee.filter(
+                query = ruleHasEmployee.annotate(nameAndSurname=Concat('employee_id_employee__name', Value(' '), 'employee_id_employee__surname', output_field=CharField()))
+                ruleHasEmployee = query.filter(Q(nameAndSurname__contains = notificationsFilterData.userName) or\
                                   Q(employee_id_employee__name__contains = notificationsFilterData.userName) or\
-                                                              Q(employee_id_employee__surname__contains = notificationsFilterData.userName))
+                                                              Q(employee_id_employee__surname__contains = notificationsFilterData.userSurname))
             if len(notificationsFilterData.ruleName) > 0:
                     ruleHasEmployee = ruleHasEmployee.filter(Q(rule_id_rule__name__contains = notificationsFilterData.ruleName))
 
