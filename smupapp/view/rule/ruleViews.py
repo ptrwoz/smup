@@ -202,7 +202,7 @@ def checkRuleFromForm(request, rule = Rule()):
     timeFrom = request.POST.get('timeFrom')
     timeTo = request.POST.get('timeTo')
 
-    rule.rule_id = None
+    rule.id_rule = None
     rule.name = name
     if len(maxValue) > 0:
         maxValue = maxValue.replace(':', '.')
@@ -303,7 +303,6 @@ def saveRule(request, context, id =''):
                 messages.info(request, MESSAGES_RULE_USERS_ERROR, extra_tags='error')
                 return render(request, RENDER_RULE_URL, context)
             if flag1 and flag2:
-                rule.rule_id = None
                 rule.save()
                 for p in processes:
                     value = request.POST.get('check_process_'+ str(p.id_process))

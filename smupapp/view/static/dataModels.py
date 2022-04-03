@@ -90,6 +90,6 @@ class NotificationFilterData():
         self.timeFrom = timeFrom
         self.timeTo = timeTo
         self.timeRange = timeRange
-        self.dataType = dataType,
+        self.dataType = dataType
         self.delay = delay
     pass

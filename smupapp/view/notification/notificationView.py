@@ -81,7 +81,8 @@ def notificationsView(request):
             else:
                 ruleHasEmployee = RuleHasEmployee.objects.all()
             if len(notificationsFilterData.userName) > 0:
-                ruleHasEmployee = ruleHasEmployee.filter(Q(employee_id_employee__name__contains = notificationsFilterData.userName) or\
+                ruleHasEmployee = ruleHasEmployee.filter(
+                                  Q(employee_id_employee__name__contains = notificationsFilterData.userName) or\
                                                               Q(employee_id_employee__surname__contains = notificationsFilterData.userName))
             if len(notificationsFilterData.ruleName) > 0:
                     ruleHasEmployee = ruleHasEmployee.filter(Q(rule_id_rule__name__contains = notificationsFilterData.ruleName))
