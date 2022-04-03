@@ -201,11 +201,11 @@ def initActivityData(userActivities, processData, activityDatas, data_type):
         for activityData in activityDatas.object_list:
             splitedActivityData = activityData[0].split(' - ')
             if len(splitedActivityData) == 1:
-                splitedActivityData[0] = datetime.datetime.strptime(splitedActivityData[0], '%Y-%m-%d')
+                splitedActivityData[0] = datetime.datetime.strptime(splitedActivityData[0], '%Y-%m-%d').date()
                 activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[0]))
             else:
-                splitedActivityData[0] = datetime.datetime.strptime(splitedActivityData[0], '%Y-%m-%d')
-                splitedActivityData[1] = datetime.datetime.strptime(splitedActivityData[1], '%Y-%m-%d')
+                splitedActivityData[0] = datetime.datetime.strptime(splitedActivityData[0], '%Y-%m-%d').date()
+                splitedActivityData[1] = datetime.datetime.strptime(splitedActivityData[1], '%Y-%m-%d').date()
                 activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[1]))
             if activity.exists():
                 if data_type.id_data_type == 1:
