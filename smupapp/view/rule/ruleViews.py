@@ -202,17 +202,17 @@ def checkRuleFromForm(request, rule = Rule()):
     timeFrom = request.POST.get('timeFrom')
     timeTo = request.POST.get('timeTo')
 
-    rule.id_rule = None
+    mss = None
     rule.name = name
     if len(maxValue) > 0:
         maxValue = maxValue.replace(':', '.')
         try:
             if  float(maxValue) - int(float(maxValue)) >= 60:
-                return rule, MESSAGES_RULE_MAX_ERROR
+                mss =  MESSAGES_RULE_MAX_ERROR
             else:
                 rule.max_value = float(maxValue)
         except ValueError:
-                return rule, MESSAGES_RULE_MAX_ERROR
+                mss =  MESSAGES_RULE_MAX_ERROR
     else:
         rule.max_value = None
     rule.time_from = timeFrom
@@ -227,34 +227,33 @@ def checkRuleFromForm(request, rule = Rule()):
     if timeRangeObject.exists():
         dayNo = getNumberFromDateType(timeRangeObject[0])
         if (intervalDate.days - dayNo <= 0):
-            return rule, MESSAGES_RULE_TIMERANGE_TOO_BIG
+            mss =  MESSAGES_RULE_TIMERANGE_TOO_BIG
 
     if len(name) <= 2:
-        return rule, MESSAGES_RULE_NAME_ERROR
+        mss = MESSAGES_RULE_NAME_ERROR
     if len(dataType) == 0:
-        return rule, MESSAGES_RULE_DATATYPE_ERROR
+        mss = MESSAGES_RULE_DATATYPE_ERROR
     if len(timeRange) == 0:
-        return rule, MESSAGES_RULE_TIMERANGE_ERROR
+        mss = MESSAGES_RULE_TIMERANGE_ERROR
     #    or len(timeFrom) < 10 or len(timeTo) < 10:
     if len(maxValue)>0:
         try:
             float(maxValue)
             if float(maxValue) < 0:
-                return rule, MESSAGES_DATA_ERROR
-            else:
-                return rule, None
+                mss = MESSAGES_DATA_ERROR
+            #else:
+                #return rule, None
         except ValueError:
-            return rule, MESSAGES_DATA_ERROR
+            mss = MESSAGES_DATA_ERROR
 
-        if maxValue.isdigit():
+        '''if maxValue.isdigit():
             if int(maxValue) < 0:
-                return rule, MESSAGES_DATA_ERROR
+                mss = MESSAGES_DATA_ERROR
             else:
-                return rule, None
+                mss = MESSAGES_DATA_ERROR
         else:
-            return rule, MESSAGES_DATA_ERROR
-    else:
-        return rule, None
+            mss = MESSAGES_DATA_ERROR'''
+    return rule, mss
 
 def initPrevForm(request, context, rule):
     context, processData, processes, prs, employeesData = initContext(context)
@@ -283,6 +282,7 @@ def initPrevForm(request, context, rule):
 
 def saveRule(request, context, id =''):
     rule, me = checkRuleFromForm(request)
+    rule.id_rule = None
     if me != None:
         context = initPrevForm(request, context, rule)
         messages.info(request, me, extra_tags='error')
