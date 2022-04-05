@@ -16,20 +16,26 @@ body {
 }
 
 .firstRow {
-    background-color: #b4c1c6
+    background-color: #b4c1c6;
 }
 
 .secondRow {
-    background-color: #d4d6d5
+    background-color: #d4d6d5;
 }
 
 .thirdRow {
-    background-color: #ffffff
+    background-color: #f0f0f0;
+}
+
+.fourthRow {
+    background-color: #ffffff;
 }
 
 .subRow {
-    background-color: #ffffff
+    background-color: #ffffff;
 }
+
+
 .newRow {
     background-color:  #ffffff
 }

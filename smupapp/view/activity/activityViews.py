@@ -41,10 +41,11 @@ def getSegments(start_date, end_date, interval_delta):
     todayId = -1
     ii = 0
     isWeekends = []
-    while (curr_date <= end_date):
+    while (curr_date - interval_delta <= end_date):
         curr_date = start_date + interval_delta
         curr_end_data = curr_date - datetime.timedelta(days=1)
-        segment = Segment(start_date, curr_end_data)
+
+        segment = Segment(start_date, min(curr_end_data,end_date))
         if today >= start_date and today <= curr_end_data:
             todayId = ii
         if segment.start_date.weekday() and segment.isDay:
