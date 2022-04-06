@@ -81,3 +81,5 @@ git remote add smupstrzelin https://git.heroku.com/smupwarszawa.git
 git remote add smupboguchwala https://git.heroku.com/smupboguchwala.git
 
 git remote add smuplublin https://git.heroku.com/smuplublin.git
+
+git remote add smup https://bitbucket.org/pwozniakPRZ/smup/src/master/
