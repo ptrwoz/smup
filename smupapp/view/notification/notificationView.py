@@ -8,7 +8,8 @@ from django.shortcuts import render, redirect
 from smupapp.models import RuleHasEmployee, TimeRange, DataType, Activity, RuleHasProcess
 from smupapp.view.auth.auth import authUser
 from smupapp.view.static.dataModels import NotificationFilterData
-from smupapp.view.static.messagesTexts import MESSAGES_ACTIVITY_END, MESSAGES_NO_ACTIVITY, MESSAGES_DELAY
+from smupapp.view.static.messagesTexts import MESSAGES_ACTIVITY_END, MESSAGES_NO_ACTIVITY, MESSAGES_DELAY, \
+    MESSAGES_NO_DELAY
 from smupapp.view.static.staticValues import PAGEINATION_SIZE
 from smupapp.view.static.urls import RENDER_NOTIFICATIONS_URL, REDIRECT_HOME_URL
 
@@ -53,8 +54,9 @@ class NotificationData:
 
 def addDelay(ruleHasEmployees):
     today = date.today()
-    messageData = NotificationData()
+
     for idx in range(len(ruleHasEmployees)):
+        messageData = NotificationData()
         if today > ruleHasEmployees[idx].rule_id_rule.time_to:
             messageData.status = MESSAGES_ACTIVITY_END
             messageData.intervals = ''
@@ -67,9 +69,14 @@ def addDelay(ruleHasEmployees):
                 messageData.days = ''
             else:
                 minDate = min(no)
-                messageData.status = MESSAGES_DELAY
-                messageData.intervals = ''
-                messageData.days = abs(minDate.days)
+                if abs(minDate.days) == 0:
+                    messageData.status = MESSAGES_NO_DELAY
+                    messageData.intervals = ''
+                    messageData.days = ''
+                else:
+                    messageData.status = MESSAGES_DELAY
+                    messageData.intervals = ''
+                    messageData.days = abs(minDate.days)
         ruleHasEmployees[idx].delay = messageData
     return ruleHasEmployees
 
@@ -105,7 +112,7 @@ def notificationsView(request):
                 ruleHasEmployee = ruleHasEmployee.filter(
                     Q(rule_id_rule__data_type__name__contains=notificationsFilterData.dataType))
 
-            ruleHasEmployee = addDelay(ruleHasEmployee)
+            ruleHasEmployee = addDelay(ruleHasEmployee.distinct())
             context['filterData'] = notificationsFilterData
 
         else:

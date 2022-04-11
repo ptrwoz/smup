@@ -303,7 +303,7 @@
             {% else %}
             <h1 class="fw-light">Aktywności:</h1>
             <p>Wprowadź dane dotyczące <b>{{ruleData.data_type.name}}</b> do formularzu z okresu <b>od {{ruleData.time_from|date:'Y-m-d'}} do {{ruleData.time_to|date:'Y-m-d'}}</b> (interwał: {{ruleData.time_range.name}})</p>
-            {% if ruleData.max_value != '' %}<h3>Pamiętaj o poprawnym typie danych oraz limicie:<input disabled style="width: 70px;color: red; text-align: center; " id="valueLimit" value="{{ruleData.max_value}}"><a style="color: red;">na {{ruleData.time_range.name}}</a></h3>{% endif %}
+            {% if ruleData.max_value != '' %}<h3>Pamiętaj o poprawnym typie danych oraz limicie:<input disabled style="width: 80px;color: red; text-align: center; " id="valueLimit" value="{{ruleData.max_value}}"><a style="color: red;">na {{ruleData.time_range.name}}</a></h3>{% endif %}
             <p class="lead text-muted"></p>
             {% for message in messages %}
             {% if 'error' in message.extra_tags %}
@@ -345,7 +345,9 @@
                             <th scope="col">Nazwa</th>
                             <th scope="col">Info.</th>
                             {% for i in activityData.currentActivityData %}
-                            <th {% if today == i|first %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center;width: 100%; min-width: 240px;" name="col" value="{{i|first }}"></input></th>
+                            <th {% if today == i|first %} class="table-primary" {% endif %} scope="col">
+                                <input {% if i.2 == False %} disabled {% endif %} style="text-align:center;width: 100%; min-width: 240px;" name="col" value="{{i|first }}"></input>
+                            </th>
                             {% endfor %}
                             <th></th>
                         </tr>
@@ -374,9 +376,9 @@
                             <td style="width:50px" {% if today == i.date %} class="table-primary" {% endif %} scope="col">
                                 <div class="btn-row">
                                         <div class="input-group">
-                                            <input style="text-align:center;width: 50%; min-width: 50px;" class="form-control" value='{{i.firstValue}}' name="row" {% if process.editable == 0%}  disabled {% endif %} style="text-align:center; width: 100px;" class="form-control" type="number" min="0" max="999" {% if ruleData.data_type.id_data_type == 1 %} placeholder="godz." placeholder="godz." {% else %} placeholder="ilość" {% endif %}>
+                                            <input {% if i.disable == False %} disabled {% else %} name="row" {% endif %}   style="text-align:center;width: 50%; min-width: 50px;" class="form-control" value='{{i.firstValue}}' {% if process.editable == 0%}  disabled {% endif %} style="text-align:center; width: 100px;" class="form-control" type="number" min="0" max="999" {% if ruleData.data_type.id_data_type == 1 %} placeholder="godz." placeholder="godz." {% else %} placeholder="ilość" {% endif %}>
                                             {% if ruleData.data_type.id_data_type == 1 %}
-                                                <input style="text-align:center;width: 50%; min-width: 50px;" class="form-control" value='{{i.secondValue}}' step=1 name="row" name="row" type="number" {% if process.editable == 0%}  disabled {% endif %} style="text-align:center; width: 50px;" class="form-control"  type="number" min="0" max="59" placeholder="min.">
+                                                <input {% if i.disable == False %} disabled {% else %} name="row" {% endif %}   style="text-align:center;width: 50%; min-width: 50px;" class="form-control" value='{{i.secondValue}}' step=1 type="number" {% if process.editable == 0%}  disabled {% endif %} style="text-align:center; width: 50px;" class="form-control"  type="number" min="0" max="59" placeholder="min.">
                                             {% endif %}
                                         </div>
                                     <!--<div class="input-group">
@@ -400,13 +402,13 @@
                             {% for i in activityData.currentActivityData %}
                             {% if process.editable == 1%}
                             <th {% if today == i %} class="table-primary" {% endif %} scope="col">
-                                <input name="row" style="text-align:center" {% if ruleData.data_type.id_data_type == 1 %} type="text"{% else %} type="text" min="00" max=10 {% endif %} class="form-control" name="sum_row" >
+                                <input {% if i.disable == False %} disabled {% else %} name="row" {% endif %} style="text-align:center" {% if ruleData.data_type.id_data_type == 1 %} type="text"{% else %} type="text" min="00" max=10 {% endif %} class="form-control" name="sum_row" >
                             </th>
                             {% else %}
                             <th {% if today == i %} class="table-primary" {% endif %} scope="col">
                                 <div class="btn-row">
                                     <div class="btn-group" data-toggle="buttons">
-                                        <input name="row" style="text-align:center"  readonly type="text" class="form-control" name="sum_row" {% if ruleData.data_type.id_data_type == 1 %} type="text"{% else %} type="text" {% endif %} >
+                                        <input {% if i.disable == False %} disabled {% else %} name="row" {% endif %} style="text-align:center"  readonly type="text" class="form-control" name="sum_row" {% if ruleData.data_type.id_data_type == 1 %} type="text"{% else %} type="text" {% endif %} >
                                     </div>
                                 </div>
                             </th>

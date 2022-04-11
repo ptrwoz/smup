@@ -4,7 +4,7 @@ from decimal import Decimal
 from django.contrib import messages
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
+from django.db.models import Q, QuerySet
 from django.shortcuts import render, redirect
 from smupapp.models import Employee, Rule, RuleHasEmployee, Activity, RuleHasProcess
 from smupapp.view.auth.auth import authUser
@@ -41,6 +41,7 @@ def getSegments(start_date, end_date, interval_delta):
     todayId = -1
     ii = 0
     isWeekends = []
+    enable = []
     while (curr_date - interval_delta <= end_date):
         curr_date = start_date + interval_delta
         curr_end_data = curr_date - datetime.timedelta(days=1)
@@ -52,12 +53,13 @@ def getSegments(start_date, end_date, interval_delta):
             isWeekends.append(True)
         else:
             isWeekends.append(False)
+        enable.append(True)
         segments.append(segment.getLabel())
         #
         start_date = curr_date
         curr_date = start_date + interval_delta
         ii = ii + 1
-    return segments, todayId, isWeekends
+    return segments, todayId, isWeekends, enable
 
 def activityExist(user, ruleHasProcess, timeFrom, timeTo):
     activities = Activity.objects.filter(Q(rule_has_process_id_rule_has_process_id = ruleHasProcess.id_rule_has_process) & Q(employee_id_employee__id_employee = user.id) & Q(time_from = timeFrom) & Q(time_to = timeTo))
@@ -202,23 +204,40 @@ def initActivityData(userActivities, processData, activityDatas, data_type):
         for activityData in activityDatas.object_list:
             splitedActivityData = activityData[0].split(' - ')
             if len(splitedActivityData) == 1:
-                splitedActivityData[0] = datetime.datetime.strptime(splitedActivityData[0], '%Y-%m-%d').date()
-                activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[0]))
+                if len(splitedActivityData[0]) > 0:
+                    splitedActivityData[0] = datetime.datetime.strptime(splitedActivityData[0], '%Y-%m-%d').date()
+                    activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[0]))
+                else:
+                    splitedActivityData[0] = ''
+                    activity = []
             else:
                 splitedActivityData[0] = datetime.datetime.strptime(splitedActivityData[0], '%Y-%m-%d').date()
                 splitedActivityData[1] = datetime.datetime.strptime(splitedActivityData[1], '%Y-%m-%d').date()
                 activity = userActivities.filter(Q(rule_has_process_id_rule_has_process__process_id_process = p.id_process) & Q(time_from = splitedActivityData[0]) & Q(time_to = splitedActivityData[1]))
-            if activity.exists():
+            if len(activity) > 0:
                 if data_type.id_data_type == 1:
                     v1 = format(activity[0].value, '.2f')
                     hmData = str(v1).split('.')
-                    cNewActivityData.append(DateInformation(hmData[0],hmData[1],activityData[0], activityData[1]))
+                    cNewActivityData.append(DateInformation(hmData[0],hmData[1],activityData[0], activityData[1],activityData[2]))
                 else:
-                    cNewActivityData.append(DateInformation(int(activity[0].value), "",activityData[0], activityData[1]))
+                    cNewActivityData.append(DateInformation(int(activity[0].value), "",activityData[0], activityData[1],activityData[2]))
             else:
-                cNewActivityData.append(DateInformation("", "", activityData[0], activityData[1]))
+                cNewActivityData.append(DateInformation("", "", activityData[0], activityData[1],activityData[2]))
         newActivityDatas.append(cNewActivityData)
     return newActivityDatas
+
+
+def addEmptyInterval(dayToBack, segments, isWeekends, enable):
+    firstDay = datetime.datetime.strptime(segments[0], '%Y-%m-%d').date()
+    day = relativedelta(days=1, months=0, weeks=0)
+    noDisable = 0
+    while firstDay.strftime('%A') != dayToBack:
+        firstDay = firstDay - day
+        enable.insert(0, False)
+        segments.insert(0, str(firstDay))
+        isWeekends.insert(0, True)
+        noDisable = noDisable + 1
+    return segments, isWeekends, enable, noDisable
 
 def viewActivity(request, id='', userid=''):
     context = authUser(request)
@@ -237,13 +256,17 @@ def viewActivity(request, id='', userid=''):
 
             context['ruleData'] = rule
 
-            segments, todayId, isWeekends = getSegments(start_date, end_date,
+            segments, todayId, isWeekends, enable = getSegments(start_date, end_date,
                                                         getRelativedeltaFromDateType(rule.time_range.name))
             if todayId == -1:
                 context['today'] = ''
             else:
                 context['today'] = segments[todayId]
-            paginator = Paginator(list(zip(segments, isWeekends)), getPagesFromDateType(rule.time_range))
+
+            if (rule.time_range.name == TIMERANGE_DAY):
+                segments, isWeekends, enable, noDisable = addEmptyInterval('Monday', segments, isWeekends, enable)
+                todayId = todayId + noDisable
+            paginator = Paginator(list(zip(segments, isWeekends, enable)), getPagesFromDateType(rule.time_range))
             if todayId == -1 or paginator.num_pages == 1:
                 currentPage = 1
             else:
@@ -314,12 +337,17 @@ def editActivity(request, context, id=''):
             #    rule.max = int(rule.max_value)
             context['ruleData'] = rule
 
-            segments, todayId, isWeekends = getSegments(start_date, end_date, getRelativedeltaFromDateType(rule.time_range.name))
+            segments, todayId, isWeekends, enable = getSegments(start_date, end_date, getRelativedeltaFromDateType(rule.time_range.name))
+
+            if (rule.time_range.name == TIMERANGE_DAY):
+                segments, isWeekends, enable, noDisable = addEmptyInterval('Monday', segments, isWeekends, enable)
+                todayId = todayId + noDisable
+
             if todayId == -1:
                 context['today'] = ''
             else:
                 context['today'] = segments[todayId]
-            paginator = Paginator(list(zip(segments, isWeekends)), getPagesFromDateType(rule.time_range))
+            paginator = Paginator(list(zip(segments, isWeekends, enable)), getPagesFromDateType(rule.time_range))
             if todayId == -1 or paginator.num_pages == 1:
                 currentPage = 1
             else:
@@ -356,6 +384,7 @@ def editActivity(request, context, id=''):
                     processData.append(p)
             processData = list({p.number: p for p in processData}.values())
             #processData.order_by('order')
+            #processData = initChapterNo(processData)
             #processData = initChapterNo(processData)
             processData, prs = sortDataByOrder(processData)
             context['processData'] = processData

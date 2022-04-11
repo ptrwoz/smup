@@ -50,7 +50,7 @@ python manage.py loaddata  02_28_2022_21_20_41_271903.json
 
 python -Xutf8 manage.py dumpdata > data.json
 
-python manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > dataEmptyver2.json
+python -Xutf8  manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > krosnoData.json
 #init
 
 ##
@@ -69,8 +69,13 @@ git push smuplublin master
 git push smupboguchwala master
 git push smupzmp master
 git push smuptychy master
+git push smup master
+
+git push smupgit master
 ##
 git remote -v
+
+
 
 git remote add smupkrosno https://git.heroku.com/smupkrosno.git
 
@@ -83,3 +88,4 @@ git remote add smupboguchwala https://git.heroku.com/smupboguchwala.git
 git remote add smuplublin https://git.heroku.com/smuplublin.git
 
 git remote add smup https://bitbucket.org/pwozniakPRZ/smup/src/master/
+git remote add smupgit https://github.com/ptrwoz/smup.git

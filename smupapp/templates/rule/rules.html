@@ -164,13 +164,19 @@
                         {% else %}
                         <li disable class="page-item"><a class="btn btn-light">Poprzednia</a></li>
                         {% endif %}
+                        {% if rules.number > 1 %}
+                        <li><a class="btn btn-primary" href="?page={{ 1 }}">&hellip;</a></li>
+                        {% endif %}
                         {% for i in rules.paginator.page_range %}
                         {% if rules.number == i %}
                         <li class="page-item"><a class="btn btn-success">{{ i }} <span class="sr-only">(current)</span></a></li>
-                        {% else %}
+                        {% elif  rules.number > i|add:"-5" and rules.number < i|add:"5"%}
                         <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                         {% endif %}
                         {% endfor %}
+                        {% if rules.number < rules.paginator.num_pages %}
+                         <li><a class="btn btn-primary" href="?page={{ rules.paginator.page_range.stop }}">&hellip;</a></li>
+                        {% endif %}
                         {% if rules.has_next %}
                         <li class="page-item"><a class="btn btn-primary" href="?page={{ rules.next_page_number }}">Następna</a></li>
                         {% else %}
@@ -178,6 +184,7 @@
                         {% endif %}
                     </ul>
                 </nav>
+
                 {% endif %}
                 <a class="btn btn-success btn-lg" href="../rule">Dodaj</a>
                 <a class="btn btn-secondary btn-lg" href="../">Wróć</a>

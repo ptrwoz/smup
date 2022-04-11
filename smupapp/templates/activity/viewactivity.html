@@ -44,6 +44,11 @@
             });
         });
 
+        function formatDate() {
+            dateRows = $('#input[name="dateInput"]')
+            a = 10
+        }
+
         function timeToMins(time) {
           var b = time.split(':');
           return b[0]*60 + +b[1];
@@ -241,6 +246,7 @@
             }
         }
         function styleRows(elements) {
+            formatDate()
             sumCols()
             sumSubCols()
             styleLimit()
@@ -298,7 +304,7 @@
             {% else %}
             <h1 class="fw-light">Aktywności:</h1>
             <p>Wprowadź dane dotyczące <b>{{ruleData.data_type.name}}</b> do formularzu z okresu <b>od {{ruleData.time_from|date:'Y-m-d'}} do {{ruleData.time_to|date:'Y-m-d'}}</b> (interwał: {{ruleData.time_range.name}})</p>
-            {% if ruleData.max_value != '' %}<h3>Pamiętaj o poprawnym typie danych oraz limicie:<input disabled style="width: 70px;color: red; text-align: center; " id="valueLimit" value="{{ruleData.max_value}}"><a style="color: red;">na {{ruleData.time_range.name}}</a></h3>{% endif %}
+            {% if ruleData.max_value != '' %}<h3>Pamiętaj o poprawnym typie danych oraz limicie:<input disabled style="width: 80px;color: red; text-align: center; " id="valueLimit" value="{{ruleData.max_value}}"><a style="color: red;">na {{ruleData.time_range.name}}</a></h3>{% endif %}
             <p class="lead text-muted"></p>
             {% if account == "ADMIN" or "PROCESS MANAGER"%}
             <form method="post">
@@ -329,7 +335,7 @@
                             <th scope="col">Nazwa</th>
                             <th scope="col">Info.</th>
                             {% for i in activityData.currentActivityData %}
-                            <th {% if today == i|first %} class="table-primary" {% endif %} scope="col"> <input style="text-align:center;width: 100%; min-width: 240px;" name="col" value="{{i|first }}"></input></th>
+                            <th {% if today == i|first %} class="table-primary" {% endif %} scope="col"> <input name="dateInput" style="text-align:center;width: 100%; min-width: 240px;" name="col" value="{{i|first }}"></input></th>
                             {% endfor %}
                             <th></th>
                         </tr>

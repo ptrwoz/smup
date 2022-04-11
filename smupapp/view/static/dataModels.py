@@ -9,11 +9,12 @@ class DateInformation:
     secondValue = ""
     date = ""
     isWeekend = False
-    def __init__(self,firstValue = "",secondValue = "", activityData = "", isWeekend = False):
+    def __init__(self,firstValue = "",secondValue = "", activityData = "", isWeekend = False, disable = False):
         self.firstValue = firstValue
         self.secondValue = secondValue
         self.date = activityData
         self.isWeekend = isWeekend
+        self.disable = disable
     pass
 
 class UserData:
@@ -53,6 +54,7 @@ class ExcelData():
                  timeTo = None, \
                  id_time_range = 1, \
                  rules = None,
+                 processData = None,
                  unitStatistic = None):
         self.docType = docType
         self.averageParam = averageParam
@@ -71,7 +73,7 @@ class ExcelData():
         self.rules = rules
         self.anonymizationParam = anonymizationParam
         self.unitStatistic = unitStatistic
-
+        self.processData = processData
 class ActivityColData():
 
     pass

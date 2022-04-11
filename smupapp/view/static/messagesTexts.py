@@ -29,6 +29,7 @@ MESSAGES_PASSWORD_ERROR = 'Niepoprawne hasło (sprawdź warunki poprawnego hasł
 MESSAGES_UNIT_ERROR = 'Błędna jednostka'
 MESSAGES_TIME_RANGE_EXPORT_ERROR = 'Błędna jednostka minimalna czasu'
 MESSAGES_NO_RULE_SELECT_ERROR = 'Nie wybrano reguły'
+MESSAGES_RULES_CONFLICT_ERROR = 'Reguły {} oraz {} są w konfikcie'
 MESSAGES_NO_EXPORT_FILE_ERROR = 'Błąd zapisu pliku'
 
 MESSAGES_IMPORT_NOFILE_ERROR = 'Nie wybrano odpowiedniego pliku'
@@ -39,3 +40,4 @@ MESSAGES_ROLE_ERROR = 'Błędna rola'
 MESSAGES_ACTIVITY_END = 'ZAKONCZONE'
 MESSAGES_NO_ACTIVITY = 'BRAK DANYCH'
 MESSAGES_DELAY = 'ZALEGLOSC'
+MESSAGES_NO_DELAY = 'BRAK ZALEGLOSCI'

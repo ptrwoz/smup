@@ -1,7 +1,7 @@
 import os
 import re
 from datetime import datetime
-
+from cryptography.fernet import Fernet
 import numpy
 import pandas as pd
 from django.contrib import messages
@@ -19,7 +19,8 @@ from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo
 from smupapp.view.rule.ruleViews import formatRulesMax, initProcessData, initContext
 from smupapp.view.static.dataModels import ExcelData
 from smupapp.view.static.messagesTexts import MESSAGES_IMPORT_NOFILE_ERROR, MESSAGES_IMPORT_SUCCESS, \
-    MESSAGES_TIME_RANGE_EXPORT_ERROR, MESSAGES_NO_RULE_SELECT_ERROR, MESSAGES_NO_EXPORT_FILE_ERROR
+    MESSAGES_TIME_RANGE_EXPORT_ERROR, MESSAGES_NO_RULE_SELECT_ERROR, MESSAGES_NO_EXPORT_FILE_ERROR, \
+    MESSAGES_RULES_CONFLICT_ERROR
 from smupapp.view.static.staticValues import USER_GUEST, PAGEINATION_SIZE, TIMERANGE_DAY, TIMERANGE_WEEK, \
     TIMERANGE_MONTH
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_IMPORT_EXPORT_URL, REDIRECT_IMPORT_EXPORT_URL
@@ -29,14 +30,24 @@ from datetime import datetime
 def color(row):
     return ['background-color: red'] * len(row)
 
-def createSumSheet(employee):
-    print()
+
 def sumActivity(activities):
     sum = 0
     for activity in activities:
         sum = sum + activity.value
     return sum
-def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules):
+
+def formatDataFrame(dataFrame):
+    indexes = dataFrame.index
+    data = dataFrame.T.head(1).T.to_numpy()
+    for idx in range(len(data) - 1):
+        sum = 0
+        for idx2 in range(idx,len(data) - 1):
+            if indexes[idx] == indexes[idx2][0:len(indexes[idx])]:
+                sum = sum + data[idx2]
+        data[idx] = sum
+    return pd.DataFrame(index=indexes, data=data, columns=dataFrame.columns)
+def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, processData):
     process = Process.objects.all().order_by('-order')
     processData = []
     processNo = []
@@ -57,6 +68,79 @@ def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules):
     d1[''] = ndf
     dfs = pd.concat(d1, axis=1)
     ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule__in=rules)
+
+    ruleHasEmployees = RuleHasEmployee.objects.filter(rule_id_rule__in = rules)
+    #employees = ruleHasEmployees.employee_id_employee
+    employee_id_employee = ruleHasEmployees.values_list('employee_id_employee').distinct()
+    employees = Employee.objects.filter(id_employee__in=employee_id_employee)
+    if len(unit) == 1:
+        employees = employees.filter(id_unit = unit[0].id_unit)
+    else:
+        employees = employees.filter(id_unit__in=unit.id_unit)
+
+    employee_id_employee = employees.values_list('id_employee').distinct()
+    Activity.objects.all()
+    allActivity = Activity.objects.filter(Q(rule_has_process_id_rule_has_process__in=ruleHasProcess) & Q(employee_id_employee__in=employee_id_employee))
+    # for s in segments:
+    activityMultiCol = []
+    for dt in dataTypes:
+        activitySingleCol = []
+        for p in process:
+            if timeRangeToNumber(timeRange) == 1:
+                act = allActivity.filter(rule_has_process_id_rule_has_process__rule_id_rule__data_type__name=dt.name, \
+                                         rule_has_process_id_rule_has_process__process_id_process=p.id_process,
+                                         time_from__gte=dateFrom, time_to__lte=dateTo)
+                if len(act) > 0:
+                    activitySingleCol.append(sumActivity(act))
+                elif len(act) == 0:
+                    activitySingleCol.append(0)
+
+        # activityMultiCol.append(activitySingleCol)
+        activitySingleCol = numpy.array(activitySingleCol)
+        #activitySingleCol = numpy.flip(activitySingleCol)
+
+        sumActivityValue = ''
+        if dt.id_data_type == 2:
+            sumActivityValue = numpy.sum(activitySingleCol)
+        else:
+            sumActivityValue = numpy.sum(activitySingleCol)
+        activitySingleCol = numpy.append(activitySingleCol, sumActivityValue)
+
+        activitySingleCol = numpy.array(activitySingleCol)
+        # activitySingleCol = numpy.append(activitySingleCol)
+        #activitySingleCol = numpy.rot90([activitySingleCol])
+
+        ndf = pd.DataFrame(index=processNo, data=activitySingleCol, columns=[dt.name])
+        ndf = formatDataFrame(ndf)
+        d1 = {}
+        d1['SUM'] = ndf
+        d1 = pd.concat(d1, axis=1)
+
+        dfs = pd.concat([dfs, d1], axis=1)
+    return dfs
+
+def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unitStatistic):
+    process = Process.objects.all().order_by('-order')
+    processData = []
+    processNo = []
+    tasksRange = []
+    process = initChapterNo(process)
+    process, idx2 = sortDataByChapterNo(process)
+    for p in process:
+        processData.append(p.name)
+        processNo.append(p.number)
+        tasksRange.append('')
+    processData.append('')
+    tasksRange.append('')
+    processNo.append('')
+    activityMultiCol = numpy.array(list(zip(processData, tasksRange)))
+    ndf = pd.DataFrame(index=processNo, columns=['Processy', 'Zakres zadan'],
+                       data=activityMultiCol)
+    d1 = {}
+    d1[''] = ndf
+    dfs = pd.concat(d1, axis=1)
+    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule__in=rules)
+
     allActivity = Activity.objects.filter(rule_has_process_id_rule_has_process__in=ruleHasProcess)
     #for s in segments:
     activityMultiCol = []
@@ -202,10 +286,10 @@ def checkExportTimeRange(rules, timeRange):
             return False
 
     return True
+
 #
 #   sum raport
 #
-
 def exportStatisticRaport(formData, employees, writer):
     if len(formData.timeRange) == 0:
         formData.timeRange = getMinTimeRange(formData.rules)
@@ -216,7 +300,7 @@ def exportStatisticRaport(formData, employees, writer):
     for dr in dataRules:
         nDataRules.append(dr[0])
 
-    segments, todayId, isWeekends = getSegments(formData.timeFrom, formData.timeTo, getRelativedeltaFromDateType(formData.timeRange))
+    segments, todayId, isWeekends, enables = getSegments(formData.timeFrom, formData.timeTo, getRelativedeltaFromDateType(formData.timeRange))
 
     for employee in employees:
         sheet_name = ""
@@ -242,15 +326,30 @@ def exportRaport(formData, writer):
     for dr in dataRules:
         nDataRules.append(dr[0])
     vDataRules = DataType.objects.filter(id_data_type__in = nDataRules)
-    df1 = createSumEmployeeSheet(formData.timeFrom, formData.timeTo, vDataRules, formData.timeRange, formData.rules)
-
-    df1.to_excel(writer, sheet_name='sum')
-    writer.sheets['sum'].set_row(2, None, None, {'hidden': True})
+    units = Unit.objects.all()
+    if formData.unitStatistic == None:
+        df1 = createSumUnitSheet(formData.timeFrom, formData.timeTo, vDataRules, formData.timeRange, formData.rules, \
+                             units, formData.processData)
+        sheetName = 'sum'
+        df1.to_excel(writer, sheet_name=sheetName)
+        writer.sheets[sheetName].set_row(2, None, None, {'hidden': True})
+    else:
+        for unit in units:
+            df1 = createSumUnitSheet(formData.timeFrom, formData.timeTo, vDataRules, formData.timeRange, formData.rules,\
+                             [unit], formData.processData)
+        sheetName = '{} sum'.format(unit.name)
+        df1.to_excel(writer, sheet_name=sheetName)
+        writer.sheets[sheetName].set_row(2, None, None, {'hidden': True})
     writer.save()
 
-#def ruleCollisionDetection(rules):
 
-
+def checkRulesCollision(rules):
+    for r1 in rules:
+        for r2 in rules:
+            if r1 != r2:
+                if r1.time_from <= r2.time_to and r2.time_from <= r1.time_to and r1.data_type == r2.data_type:
+                    return r1, r2, True
+    return None, None, False
 #
 #   generate excel document
 #
@@ -259,14 +358,15 @@ def exportDataBase(request, id, formData):
     writer = pd.ExcelWriter(path, engine='xlsxwriter')
     no = 1
 
-    timeFrom =  datetime.strptime(formData.timeFrom, "%Y-%m-%d").date()
+    timeFrom = datetime.strptime(formData.timeFrom, "%Y-%m-%d").date()
     timeTo = datetime.strptime(formData.timeTo, "%Y-%m-%d").date()
     formData.timeFrom = timeFrom
     formData.timeTo = timeTo
-
+    r1, r2, result = checkRulesCollision(formData.rules)
+    if result:
+        return MESSAGES_RULES_CONFLICT_ERROR.format(r1.name,r2.name), False
     if len(formData.rules) == 0:
         return MESSAGES_NO_RULE_SELECT_ERROR, False
-
 
     if formData.docType == 'Raport':
         exportRaport(formData, writer)
@@ -336,13 +436,14 @@ def getDataFromForm(request):
     processData = initChapterNo(processes)
 
     processData = initAvailableProcess(processData)
+    checkedProcess = []
     #processData = initProcessData(processData, False, id)
     for p in processData:
         value = request.POST.get('check_process_' + str(p.id_process))
         if value is not None:
-            p.check = 1
-        else:
-            p.check = 0
+            checkedProcess.append(p.id_process)
+
+    processData1 = processData.filter(id_process__in = checkedProcess)
 
     rules = Rule.objects.all()
     if rules.exists():
@@ -368,7 +469,8 @@ def getDataFromForm(request):
                  timeFrom, \
                  timeTo, \
                  timeRange, \
-                 rules1, \
+                 rules1,
+                 processData1,\
                  unitStatistic)
 
 def getTimeRangeNumber(timeRangeName):
@@ -439,7 +541,7 @@ def importexportView(request):
     else:
         return redirect(REDIRECT_HOME_URL)
 
-from cryptography.fernet import Fernet
+
 
 def backup(request):
     now = datetime.now()
@@ -480,22 +582,7 @@ def importexportManager(request, id = '', operation = ''):
                 print()
                 #return saveRule(request, context, id)
         else:
-            # active
-            if operation == 'active':
-                print()
-                #return ruleActive(request, id)
-            if operation == 'delete':
-                print()
-                #return deleteRule(request, context, id)
-            if operation == 'view':
-                print()
-                #return viewRule(request, context, id, True)
-            if operation == 'clear':
-                print()
-                #return clearDate(request, context, id)
-            else:
-                 return importexportView(request)
-                #return viewRule(request, context, id)
+            return importexportView(request)
 
     else:
         return redirect('home')

@@ -29,7 +29,8 @@
 
     </style>
     <script>
-         function initDatTypeSelect() {
+
+         function initDataTypeSelect() {
             dataTypeSelect = $('#dataTypeSelect')
 
             if (dataTypeSelect.val() == 'Standard') {
@@ -58,13 +59,24 @@
                dateTypeVal.hide()
             }
         }
+
+        $("#nesting").change(function(){
+          var selectedCountry = $(this).children("option:selected").val();
+          alert("You have selected the country - " + selectedCountry);
+        });
+        function initNestingSelect(){
+            dataTypeSelect = $('#nesting')
+
+        }
         function initForm() {
+
             styleRows()
             dataTypeSelect = $('#dataTypeSelect')
             dataTypeSelect.on('change', function() {
-              initDatTypeSelect()
+              initDataTypeSelect()
             });
-            initDatTypeSelect()
+            initDataTypeSelect()
+            initNestingSelect()
         }
         function styleRows() {
             elements = $('#mainProcessTabel tr')
@@ -365,11 +377,12 @@
                                     </div>
                                     <div class="col-sm-8">
                                         <div>
-                                            <select id="" name="nesting" class="form-select" aria-label="Default select example">
+                                            <select id="nesting" name="nesting" onload="nestingRefresh()"class="form-select" aria-label="Default select example">
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
                                                 <option>4</option>
+                                                <option>Wszystkie</option>
                                             </select>
                                         </div>
                                     </div>

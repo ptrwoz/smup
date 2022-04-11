@@ -40,6 +40,9 @@ def initContext(context):
                                                 | Q(id_employeetype__name='PROCESS MANAGER') | Q(id_employeetype__name='USER') | Q(id_employeetype__name='MANAGER')).order_by('surname', 'name')
     elif (context['account'] == 'MANAGER'):
         employeesData = Employee.objects.filter(Q(id_employee=context['userData'].id) | Q(id_employeetype__name='MANAGER') | Q(id_employeetype__name='USER')).order_by('surname', 'name')
+    elif (context['account'] == 'USER'):
+        employeesData = Employee.objects.filter(Q(id_employee=context['userData'].id) | Q(id_employeetype__name='USER')).order_by('surname', 'name')
+
     context['employeesData'] = employeesData
     context['dataType'] = DataType.objects.all()
     context['timeRange'] = TimeRange.objects.all()
@@ -385,7 +388,7 @@ def updateRule(request, context, id=''):
                         ruleHasProcess.process_id_process = p
                         ruleHasProcess.rule_id_rule = rule
                         ruleHasProcess.save()
-
+                    elif value is None and ruleHasProcessArray.exists():
                         ruleHasProcessArray.delete()
                 for e in employeesData:
                     value = request.POST.get('check_employee_' + str(e.id_employee))
