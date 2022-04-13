@@ -158,6 +158,7 @@ ALLOWED_HOSTS = [
     '*',
     'https://smupapp.herokuapp.com/',
     '127.0.0.1',
+    '192.168.12.2'
 ]
 
 # Application definition
@@ -205,7 +206,7 @@ TEMPLATES = [
 
 #WSGI_APPLICATION = 'system_project.wsgi.application'
 #print(socket.gethostname())
-DATABASES = selectDataBase('https://smuptychy.herokuapp.com/')
+DATABASES = selectDataBase('https://smupkrosno.herokuapp.com/')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
