@@ -125,6 +125,18 @@ def selectDataBase(host):
                 'PORT': '5432',
             }
         }
+    elif host == 'https://smupwodzislawslaski.herokuapp.com/':
+        db = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'de2868kf4tm751',
+                'USER': 'xohngoatffiabj',
+                'PASSWORD': '540f9acd66e95c9faea616723d359d1ccafb1bc6368cb63514b87d54f3e1108b',
+                'HOST': 'ec2-63-32-248-14.eu-west-1.compute.amazonaws.com',
+                'PORT': '5432',
+            }
+        }
+
     else:
         db = {
             'default': {
@@ -206,7 +218,7 @@ TEMPLATES = [
 
 #WSGI_APPLICATION = 'system_project.wsgi.application'
 #print(socket.gethostname())
-DATABASES = selectDataBase('https://smupkrosno.herokuapp.com/')
+DATABASES = selectDataBase('https://smupwodzislawslaski.herokuapp.com/')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

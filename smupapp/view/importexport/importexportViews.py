@@ -37,16 +37,51 @@ def sumActivity(activities):
         sum = sum + activity.value
     return sum
 
-def formatDataFrame(dataFrame):
+def formatDataFrame(dataFrame, dataType):
     indexes = dataFrame.index
     data = dataFrame.T.head(1).T.to_numpy()
+    #data = data.astype(str)
     for idx in range(len(data) - 1):
         sum = 0
         for idx2 in range(idx,len(data) - 1):
             if indexes[idx] == indexes[idx2][0:len(indexes[idx])]:
-                sum = sum + data[idx2]
+                if dataType.id_data_type == 2:
+                    sum = sum + data[idx2]
+                else:
+                    sum = datesSum([sum, data[idx2][0]])
         data[idx] = sum
+        '''if dataType.id_data_type == 2:
+        else:
+            data[idx] = [floatArrayToDate(sum)]'''
+    data = data.astype(str)
+    if dataType.id_data_type == 1:
+        data = floatArrayToDate(data)
     return pd.DataFrame(index=indexes, data=data, columns=dataFrame.columns)
+
+def dateSum(date1, date2):
+    val1a = int(date1)
+    val1b = round(date1 - int(date1),2)
+    #
+    val2a = int(date2)
+    val2b = round(date2 - int(date2),2)
+    sumVal = val1a + val2a
+    sumVal2 = val1b + val2b
+    if sumVal2 > 0.6:
+        sumVal = sumVal + 1
+        sumVal2 = round(sumVal2 - 0.6,2)
+    return sumVal + sumVal2
+def datesSum(dateArray):
+    sum = 0
+    for value in dateArray:
+        sum = dateSum(sum, value)
+    return sum
+def floatArrayToDate(values):
+    for idx in range(len(values)):
+        strVal = str(values[idx][0])
+        values[idx][0] = strVal.replace('.',':')
+        if strVal.find(':') == -1:
+            values[idx][0] = strVal + ':00'
+    return values
 def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, processData):
     process = Process.objects.all().order_by('-order')
     processData = []
@@ -103,7 +138,8 @@ def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, proc
         if dt.id_data_type == 2:
             sumActivityValue = numpy.sum(activitySingleCol)
         else:
-            sumActivityValue = numpy.sum(activitySingleCol)
+            sumActivityValue = datesSum(activitySingleCol)
+            #sumActivityValue = numpy.sum(activitySingleCol)
         activitySingleCol = numpy.append(activitySingleCol, sumActivityValue)
 
         activitySingleCol = numpy.array(activitySingleCol)
@@ -111,7 +147,7 @@ def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, proc
         #activitySingleCol = numpy.rot90([activitySingleCol])
 
         ndf = pd.DataFrame(index=processNo, data=activitySingleCol, columns=[dt.name])
-        ndf = formatDataFrame(ndf)
+        ndf = formatDataFrame(ndf, dt)
         d1 = {}
         d1['SUM'] = ndf
         d1 = pd.concat(d1, axis=1)
@@ -367,7 +403,6 @@ def exportDataBase(request, id, formData):
         return MESSAGES_RULES_CONFLICT_ERROR.format(r1.name,r2.name), False
     if len(formData.rules) == 0:
         return MESSAGES_NO_RULE_SELECT_ERROR, False
-
     if formData.docType == 'Raport':
         exportRaport(formData, writer)
     else:
@@ -415,6 +450,11 @@ def exportFile(request):
     else:
         redirect(REDIRECT_IMPORT_EXPORT_URL)
 
+def inicheckedProcess(request, processData):
+    for p in processData:
+        value = request.POST.get('check_process_' + str(p.id_process))
+
+    return None
 def getDataFromForm(request):
     docType = request.POST.get('docType')
     averageParam = request.POST.get('averageParam')
@@ -436,6 +476,8 @@ def getDataFromForm(request):
     processData = initChapterNo(processes)
 
     processData = initAvailableProcess(processData)
+    processData = inicheckedProcess(request, processData)
+
     checkedProcess = []
     #processData = initProcessData(processData, False, id)
     for p in processData:

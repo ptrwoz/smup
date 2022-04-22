@@ -1,3 +1,11 @@
+DO $$ DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = current_schema()) LOOP
+        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+END $$;
+
 # to run app
 python manage.py runserver 8080
 #
@@ -47,10 +55,12 @@ python manage.py loaddata apple.json
 
 python manage.py loaddata  02_28_2022_21_20_41_271903.json
 
+python manage.py loaddata --exclude=contenttypes --exclude=sessions.Session --exclude=south.Migrationhistory krosnoData.json
+
 
 python -Xutf8 manage.py dumpdata > data.json
 
-python -Xutf8  manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > krosnoData.json
+python -Xutf8  manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > krosnoData_26_04_22.json
 #init
 
 ##
@@ -71,11 +81,13 @@ git push smupzmp master
 git push smuptychy master
 git push smup master
 
+git
+
 git push smupgit master
 ##
 git remote -v
 
-
+git remote add smupwodzislawslaski https://git.heroku.com/smupwodzislawslaski.git
 
 git remote add smupkrosno https://git.heroku.com/smupkrosno.git
 

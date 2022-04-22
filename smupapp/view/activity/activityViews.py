@@ -12,7 +12,7 @@ from smupapp.view.process.processViews import initChapterNo, sortDataByChapterNo
 from smupapp.view.rule.ruleViews import formatRulesMax
 from smupapp.view.static.dataModels import DateInformation
 from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_SUCCESS
-from smupapp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
+from smupapp.view.static.staticValues import TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH, PAGEINATION_SIZE
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_ACTIVITY_URL, REDIRECT_ACTIVITIES_URL, \
     RENDER_ACTIVITIES_URL, RENDER_VIEW_ACTIVITY_URL
 import math
@@ -424,7 +424,17 @@ def activitiesView(request, field='name', sort='0'):
             rule = ruleHasEmployee.rule_id_rule
             if rule.is_active:
                 rules.append(rule)
-        context['rules'] = rules
+        page = request.GET.get('page', 1)
+        paginator = Paginator(rules, PAGEINATION_SIZE)
+        try:
+            rulesData = paginator.page(page)
+        except PageNotAnInteger:
+            rulesData = paginator.page(1)
+        except EmptyPage:
+            rulesData = paginator.page(paginator.num_pages)
+
+        context['rules'] = rulesData
+
         return render(request, RENDER_ACTIVITIES_URL, context)
     else:
         return redirect(REDIRECT_HOME_URL)

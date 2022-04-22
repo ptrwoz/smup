@@ -28,6 +28,27 @@
             height: auto;
             overflow: auto;
         }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .staticHeader
+        {
+          background-color:white;
+          position:sticky;
+          left:0px;
+          z-index: 999;
+        }
+
+        .staticHeader2
+        {
+          background-color:white;
+          position:sticky;
+          left:160px;
+          z-index: 999;
+        }
+
     </style>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -330,9 +351,9 @@
                 <div class="table-responsive span3 achievements-wrapper">
                 <table id="mainProcessTabel" class="table" style="min-width: 1000px;">
                         <thead>
-                        <tr>
-                            <th scope="col">Numer</th>
-                            <th scope="col">Nazwa</th>
+                        <tr style="background-color:white;">
+                            <th style="background-color:white;" class="staticHeader" scope="col">Numer</th>
+                            <th style="background-color:white;" class="staticHeader2" scope="col">Nazwa</th>
                             <th scope="col">Info.</th>
                             {% for i in activityData.currentActivityData %}
                             <th {% if today == i|first %} class="table-primary" {% endif %} scope="col"> <input name="dateInput" style="text-align:center;width: 100%; min-width: 240px;" name="col" value="{{i|first }}"></input></th>
@@ -345,10 +366,10 @@
                         {% autoescape off %}
                         {% for process in processData%}
                         <tr id="{{process.id}}" >
-                            <td style="min-width: 150px; width: 150px;">
+                            <td class="staticHeader" style="min-width: 150px; width: 150px;">
                                 <input style="min-width: 150px; width: 150px" disable name="id_{{process.id}}" readonly="readonly" class="form-control" name="row" value="{{process.number}}">
                             </td>
-                            <td style="width:300px; width:300px">
+                            <td class="staticHeader2" style="width:300px; width:300px">
                                 <input style="min-width:300px; width:300px" disable name='name_{{process.id}}' type="text" class="form-control" name='row' readonly="readonly" placeholder="Nazwa" value="{{process.name}}"></td>
                             <td style="min-width: 50px; width: 50px">
                                 {%if process.tip != ""%}
@@ -381,10 +402,10 @@
                             {{ activityData.increment }}
                         </tr>
                         {% endfor %}
-                        <tr id="sum">
-                            <td>
+                        <tr style="background-color:white;" id="sum" name="sum">
+                            <td style="background-color:white;" class="staticHeader">
                             </td>
-                            <td><a>Suma:</a></td>
+                            <td style="background-color:white;" class="staticHeader2">Suma:</td>
                             <td>
                             </td>
                             {% for i in activityData.currentActivityData %}
