@@ -36,7 +36,14 @@ def sumActivity(activities):
     for activity in activities:
         sum = sum + activity.value
     return sum
-
+def processFormatDataFrame(dataFrame,processData):
+    removeIdx = []
+    for idx in range(len(processData)):
+        if not processData[idx].check:
+            removeIdx.append(idx)
+    #for nindx in reversed(range(len(removeIdx))):
+    dataFrame = dataFrame.drop(dataFrame.index[removeIdx])
+    return dataFrame
 def formatDataFrame(dataFrame, dataType):
     indexes = dataFrame.index
     data = dataFrame.T.head(1).T.to_numpy()
@@ -82,7 +89,7 @@ def floatArrayToDate(values):
         if strVal.find(':') == -1:
             values[idx][0] = strVal + ':00'
     return values
-def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, processData):
+def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, rawProcessData):
     process = Process.objects.all().order_by('-order')
     processData = []
     processNo = []
@@ -99,6 +106,7 @@ def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, proc
     activityMultiCol = numpy.array(list(zip(processData, tasksRange)))
     ndf = pd.DataFrame(index=processNo, columns=['Processy', 'Zakres zadan'],
                        data=activityMultiCol)
+    ndf = processFormatDataFrame(ndf, rawProcessData)
     d1 = {}
     d1[''] = ndf
     dfs = pd.concat(d1, axis=1)
@@ -111,7 +119,7 @@ def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, proc
     if len(unit) == 1:
         employees = employees.filter(id_unit = unit[0].id_unit)
     else:
-        employees = employees.filter(id_unit__in=unit.id_unit)
+        employees = employees.filter(id_unit__in=unit.values_list('id_unit'))
 
     employee_id_employee = employees.values_list('id_employee').distinct()
     Activity.objects.all()
@@ -147,12 +155,17 @@ def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, proc
         #activitySingleCol = numpy.rot90([activitySingleCol])
 
         ndf = pd.DataFrame(index=processNo, data=activitySingleCol, columns=[dt.name])
+
         ndf = formatDataFrame(ndf, dt)
+        ndf = processFormatDataFrame(ndf, rawProcessData)
         d1 = {}
         d1['SUM'] = ndf
+
         d1 = pd.concat(d1, axis=1)
 
+
         dfs = pd.concat([dfs, d1], axis=1)
+
     return dfs
 
 def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unitStatistic):
@@ -212,7 +225,6 @@ def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unitSt
         d1 = {}
         d1['SUM'] = ndf
         d1 = pd.concat(d1, axis=1)
-
         dfs = pd.concat([dfs, d1], axis=1)
     return dfs
 
@@ -453,8 +465,11 @@ def exportFile(request):
 def inicheckedProcess(request, processData):
     for p in processData:
         value = request.POST.get('check_process_' + str(p.id_process))
-
-    return None
+        if value != None:
+            p.check = True
+        else:
+            p.check = False
+    return processData
 def getDataFromForm(request):
     docType = request.POST.get('docType')
     averageParam = request.POST.get('averageParam')
@@ -511,7 +526,8 @@ def getDataFromForm(request):
                  timeFrom, \
                  timeTo, \
                  timeRange, \
-                 rules1,
+                 rules1,\
+                 processData,\
                  processData1,\
                  unitStatistic)
 

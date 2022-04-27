@@ -55,6 +55,7 @@ class ExcelData():
                  id_time_range = 1, \
                  rules = None,
                  processData = None,
+                 checkedProcessData=None,
                  unitStatistic = None):
         self.docType = docType
         self.averageParam = averageParam
@@ -74,6 +75,7 @@ class ExcelData():
         self.anonymizationParam = anonymizationParam
         self.unitStatistic = unitStatistic
         self.processData = processData
+        self.checkedProcessData = checkedProcessData
 class ActivityColData():
 
     pass

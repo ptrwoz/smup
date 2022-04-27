@@ -218,8 +218,8 @@ TEMPLATES = [
 
 #WSGI_APPLICATION = 'system_project.wsgi.application'
 #print(socket.gethostname())
-DATABASES = selectDataBase('https://smupwodzislawslaski.herokuapp.com/')
-
+DATABASES = selectDataBase('https://smupapp.herokuapp.com/')
+#https://smupwodzislawslaski.herokuapp.com/
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
