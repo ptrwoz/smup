@@ -81,12 +81,14 @@ git push smupzmp master
 git push smuptychy master
 git push smup master
 git push smupwodzislawslaski master
-
+git push smupapp master
 git
 
 git push smupgit master
 ##
 git remote -v
+
+git remote add smupapp https://git.heroku.com/smupapp.git
 
 git remote add smupwodzislawslaski https://git.heroku.com/smupwodzislawslaski.git
 
