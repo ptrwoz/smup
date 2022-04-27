@@ -80,6 +80,7 @@ git push smupboguchwala master
 git push smupzmp master
 git push smuptychy master
 git push smup master
+git push smupwodzislawslaski master
 
 git
 
