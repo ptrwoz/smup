@@ -4,7 +4,7 @@ gunicorn
 natsort==8.0.1
 numpy==1.22.1
 openpyxl==3.0.9
-pandas==1.2.4
+pandas
 python_dateutil==2.8.2
 cryptography
 XlsxWriter
