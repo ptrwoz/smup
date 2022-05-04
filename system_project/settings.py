@@ -81,17 +81,7 @@ def selectDataBase(host):
                 'PORT': '5432',
             }
         }
-    elif host == 'https://smupapp.herokuapp.com/':
-        db = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'db7f8peirgo711',
-                'USER': 'dojfavlpqinplf',
-                'PASSWORD': 'af010523befcf60d3a0156d836973a89bac5c1fc3f2dabfca88c0ba316775a22',
-                'HOST': 'ec2-3-227-15-75.compute-1.amazonaws.com',
-                'PORT': '5432',
-            }
-        }
+
     elif host == 'https://smupstrzelin.herokuapp.com/':
         db = {
             'default': {

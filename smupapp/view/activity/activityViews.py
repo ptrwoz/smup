@@ -202,6 +202,7 @@ def initActivityData(userActivities, processData, activityDatas, data_type):
         cNewActivityData = []
 
         for activityData in activityDatas.object_list:
+            activity = []
             splitedActivityData = activityData[0].split(' - ')
             if len(splitedActivityData) == 1:
                 if len(splitedActivityData[0]) > 0:
