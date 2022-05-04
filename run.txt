@@ -84,7 +84,7 @@ git push smupwodzislawslaski master
 git push smupapp master
 git
 
-git push smupgit master
+git push smupgit1 master
 ##
 git remote -v
 
@@ -104,3 +104,5 @@ git remote add smuplublin https://git.heroku.com/smuplublin.git
 
 git remote add smup https://bitbucket.org/pwozniakPRZ/smup/src/master/
 git remote add smupgit https://github.com/ptrwoz/smup.git
+
+git remote add smupgit1 https://<ptrwoz>:<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>@github.com/ptrwoz/smup.git
