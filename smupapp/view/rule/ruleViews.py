@@ -1,18 +1,21 @@
-from datetime import datetime, date
+from datetime import date
+from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
+from django.shortcuts import render, redirect
 from smupapp.models import Rule, TimeRange, DataType, Employee, Process, RuleHasProcess, Activity, RuleHasEmployee
+from smupapp.service.ruleService import ruleActiveById, formatRulesMax, existRuleActivity, getNumberFromDateType, \
+    deleteRuleById
 from smupapp.view.auth.auth import authUser
-from smupapp.view.process.processViews import initChapterNo, initAvailableProcess, checkChaptersNo, sortDataByChapterNo
-from smupapp.view.static.dataModels import RuleData
+from smupapp.view.process.processViews import initChapterNo, initAvailableProcess, sortDataByChapterNo
 from smupapp.view.static.messagesTexts import MESSAGES_OPERATION_ERROR, \
     MESSAGES_OPERATION_SUCCESS, MESSAGES_DATA_ERROR, MESSAGES_ACTIVITY_IN_RULE_ERROR, MESSAGES_RULE_NAME_ERROR, \
     MESSAGES_RULE_DATATYPE_ERROR, MESSAGES_RULE_TIMERANGE_ERROR, MESSAGES_RULE_USERS_ERROR, MESSAGES_RULE_PROCESS_ERROR, \
     MESSAGES_RULE_MAX_ERROR, MESSAGES_RULE_DATA_CLEAR_ERROR, MESSAGES_RULE_TIMERANGE_TOO_BIG
-from smupapp.view.static.staticValues import PAGEINATION_SIZE, TIMERANGE_DAY, TIMERANGE_WEEK, TIMERANGE_MONTH
-from smupapp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, REDIRECT_RULE_URL, RENDER_UNIT_URL, RENDER_VIEWRULE_URL
-from django.db.models import Q
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from smupapp.view.static.staticValues import PAGEINATION_SIZE
+from smupapp.view.static.urls import RENDER_RULE_URL, RENDER_RULES_URL, REDIRECT_HOME_URL, REDIRECT_RULES_URL, \
+    REDIRECT_RULE_URL, RENDER_VIEWRULE_URL
+
 
 def checkProcessInputs(request, processes, tag = 'check_process_'):
     flag = False
@@ -52,17 +55,6 @@ def initContext(context):
     #processData, prs = sortDataByChapterNo(processData)
     context['processData'] = processData
     return context, processData, processes, processData, employeesData
-
-'''def showRule(request, context, id=''):
-    context['rule'] = RuleData()
-    if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
-        context, processData, processes, prs, employeesData = initContext(context)
-        checkedProcessData = initProcessData(processData, True, id)
-        context['processData'] = checkedProcessData
-        #if not checkChaptersNo(prs):
-        return viewRule(request, context, id)
-        #if id == '':
-        #    return render(request, RENDER_RULE_URL, context)'''
 
 def initProcessData(processData, static, id = ''):
     checkedProcessData = []
@@ -127,11 +119,8 @@ def clearDate(request, context, id='', userid=''):
         return redirect(REDIRECT_RULES_URL)
 
 def viewRule(request, context, id='', static=False):
-    #context['rule'] = RuleData()
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         context, processData, processes, prs, employeesData = initContext(context)
-        #if not checkChaptersNo(prs):
-        #    return viewRule(request, context, id)
         if id == '':
             return render(request, RENDER_RULE_URL, context)
         elif id.isnumeric():
@@ -153,12 +142,6 @@ def viewRule(request, context, id='', static=False):
                 rule.time_to = str(rule.time_to)
                 if rule.max_value == None:
                     rule.max_value = ''
-                '''elif rule.data_type.id_data_type == 1:
-                    timeStr = str(rule.max_value).replace('.', ':')
-                    #timeMax = datetime.strptime(timeStr, '%H:%M')
-                    rule.max_value = timeStr#timeMax.strftime('%H:%M')
-                else:
-                    rule.max_value = int(rule.max_value)'''
                 context['rule'] = rule
                 if static:
                     return render(request, RENDER_VIEWRULE_URL, context)
@@ -170,32 +153,13 @@ def viewRule(request, context, id='', static=False):
         return redirect(REDIRECT_HOME_URL)
 
 def deleteRule(request, context, id=''):
-    rules = Rule.objects.filter(id_rule=id)
-    if rules.exists():
-        try:
-            ruleHasProcessSet = RuleHasProcess.objects.filter(rule_id_rule=rules[0].id_rule)
-            if existRuleActivity(rules[0]):
-                messages.info(request, MESSAGES_ACTIVITY_IN_RULE_ERROR, extra_tags='error')
-                return redirect(REDIRECT_RULES_URL)
-            for ruleHasProcess in ruleHasProcessSet:
-                ruleHasProcess.delete()
-            ruleHasEmployeeSet = RuleHasEmployee.objects.filter(rule_id_rule=rules[0].id_rule)
-            for ruleHasEmployee in ruleHasEmployeeSet:
-                ruleHasEmployee.delete()
-            rules[0].delete()
-            messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
-            return redirect(REDIRECT_RULES_URL)
-        except:
-            messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
-            return redirect(REDIRECT_RULES_URL)
-
-def getNumberFromDateType(timeRange):
-    if timeRange.name == TIMERANGE_DAY:
-        return 1
-    elif timeRange.name == TIMERANGE_WEEK:
-        return 7
-    elif timeRange.name == TIMERANGE_MONTH:
-        return 27
+    result, message = deleteRuleById(int(id))
+    if result:
+        messages.info(request, message, extra_tags='info')
+        return redirect(REDIRECT_RULES_URL)
+    else:
+        messages.info(request, message, extra_tags='error')
+        return redirect(REDIRECT_RULES_URL)
 
 def checkRuleFromForm(request, rule = Rule()):
     name = request.POST.get('ruleName')
@@ -248,14 +212,6 @@ def checkRuleFromForm(request, rule = Rule()):
                 #return rule, None
         except ValueError:
             mss = MESSAGES_DATA_ERROR
-
-        '''if maxValue.isdigit():
-            if int(maxValue) < 0:
-                mss = MESSAGES_DATA_ERROR
-            else:
-                mss = MESSAGES_DATA_ERROR
-        else:
-            mss = MESSAGES_DATA_ERROR'''
     return rule, mss
 
 def initPrevForm(request, context, rule):
@@ -283,18 +239,16 @@ def initPrevForm(request, context, rule):
 
     return context
 
-def saveRule(request, context, id =''):
+def saveRule(request, context):
     rule, me = checkRuleFromForm(request)
     rule.id_rule = None
     if me != None:
         context = initPrevForm(request, context, rule)
         messages.info(request, me, extra_tags='error')
-        #return viewRule(request, context, id, False)
         return render(request, RENDER_RULE_URL, context)
     else:
         context, processData, processes, prs, employeesData = initContext(context)
         if True:
-        #try:
             flag1 = checkProcessInputs(request, processData)
             flag2 = checkEmployeeInputs(request, employeesData)
             if not flag1:
@@ -329,17 +283,8 @@ def saveRule(request, context, id =''):
                         ruleHasEmployee.save()
                     elif value is None and ruleHasEmployeeArray.exists():
                         ruleHasEmployeeArray.delete()
-        #except:
     messages.info(request, MESSAGES_OPERATION_SUCCESS, extra_tags='info')
     return redirect(REDIRECT_RULES_URL)
-
-def existRuleActivity(rule):
-    ruleHasProcessSet = RuleHasProcess.objects.filter(rule_id_rule=rule.id_rule)
-    for ruleHasProcess in ruleHasProcessSet:
-        activities = Activity.objects.filter(rule_has_process_id_rule_has_process=ruleHasProcess.id_rule_has_process)
-        if (len(activities) > 0):
-            return True
-    return False
 
 def updateRule(request, context, id=''):
 
@@ -347,9 +292,7 @@ def updateRule(request, context, id=''):
     if not rules.exists():
         messages.info(request, MESSAGES_OPERATION_ERROR, extra_tags='error')
         return redirect(REDIRECT_RULES_URL)
-
     rule, me = checkRuleFromForm(request, rules[0])
-
     if existRuleActivity(rule):
         messages.info(request, MESSAGES_ACTIVITY_IN_RULE_ERROR, extra_tags='error')
         context['rule'] = rule
@@ -373,7 +316,6 @@ def updateRule(request, context, id=''):
                 context = initPrevForm(request, context, rule)
                 messages.info(request, MESSAGES_RULE_USERS_ERROR, extra_tags='error')
                 return render(request, RENDER_RULE_URL, context)
-        #if True:
         try:
             flag1 = checkProcessInputs(request, processData)
             flag2 = checkEmployeeInputs(request, employeesData)
@@ -435,7 +377,7 @@ def ruleManager(request, id = '', operation = '', userid = ''):
             if len(id) > 0 and operation == '':
                 return updateRule(request, context, id)
             else:
-                return saveRule(request, context, id)
+                return saveRule(request, context)
         else:
             # active
             if operation == 'active':
@@ -444,41 +386,14 @@ def ruleManager(request, id = '', operation = '', userid = ''):
                 return deleteRule(request, context, id)
             if operation == 'view':
                 return viewRule(request, context, id, True)
-            #if operation == 'clear':
-            #    return clearDate(request, context, id)
             else:
                 return viewRule(request, context, id)
-
     else:
         return redirect('home')
 
-def formatRulesMax(rules):
-    for r in rules:
-        if r.max_value == None:
-            r.max_value = ''
-        else:
-            if r.data_type.id_data_type == 1:
-                strValue = str(r.max_value).split('.')
-                if len(strValue[1]) == 1:
-                    strValue = strValue[0] + ':0' + strValue[1]
-                else:
-                    strValue = strValue[0] + ':' + strValue[1]
-                r.max_value = strValue
-            elif r.data_type.id_data_type == 2:
-                r.max_value = int(r.max_value)
-
-    return rules
-
-'''def rulesFormatMaxValue(rules):
-    for rule in rules:
-        if rule.data_type.id_data_type == 1:
-            strValue = str(rule.max_value)
-            arr = strValue.split('.',':')
-            if len(arr[1]) == 1:
-                value = arr[0] + ':0' + arr[1]
-                rule.max_value = value
-    return rules'''
-
+#
+#   rules view
+#
 def rulesView(request):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
@@ -486,20 +401,17 @@ def rulesView(request):
         rules = formatRulesMax(rules)
         page = request.GET.get('page', 1)
         paginator = Paginator(rules, PAGEINATION_SIZE)
+        #
         try:
             rules = paginator.page(page)
         except PageNotAnInteger:
             rules = paginator.page(1)
         except EmptyPage:
             rules = paginator.page(paginator.num_pages)
-        #rules = rulesFormatMaxValue(rules)
         context['rules'] = rules
         return render(request, RENDER_RULES_URL, context)
     else:
         return redirect(REDIRECT_HOME_URL)
-
-#def ruleClearData(request, id=''):
-
 
 #
 #   user change active
@@ -508,16 +420,10 @@ def ruleActive(request, id=''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER':
         if len(id) > 0:
-            rules = Rule.objects.filter(id_rule=int(id))
-            if rules is not None:
-                r = rules[0]
-                if r.is_active == 1:
-                    r.is_active = 0
-                else:
-                    r.is_active = 1
-                r.save()
+            if not ruleActiveById(int(id)):
                 return redirect(REDIRECT_RULES_URL)
             else:
                 return redirect(REDIRECT_RULES_URL)
+            rules = Rule.objects.filter(id_rule=int(id))
     else:
         return redirect(REDIRECT_HOME_URL)

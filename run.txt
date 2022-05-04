@@ -60,7 +60,7 @@ python manage.py loaddata --exclude=contenttypes --exclude=sessions.Session --ex
 
 python -Xutf8 manage.py dumpdata > data.json
 
-python -Xutf8  manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > krosnoData_26_04_22.json
+python -Xutf8  manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > krosnoData_04_05_22.json
 #init
 
 ##

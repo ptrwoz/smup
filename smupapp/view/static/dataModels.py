@@ -97,3 +97,14 @@ class NotificationFilterData():
         self.dataType = dataType
         self.delay = delay
     pass
+
+class NotificationData:
+
+    def __init__(self):
+        self.status = None
+        self.intervals = None
+        self.days = None
+    def __int__(self, status = None, intervals = None, days = None):
+        self.status = status
+        self.intervals = intervals
+        self.days = days

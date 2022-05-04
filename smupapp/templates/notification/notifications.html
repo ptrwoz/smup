@@ -65,15 +65,21 @@
         });
         function formatDelays()
         {
-            delaysElements = $('td[name="delayStatus"]')
+            delaysElements = $('a[name="delayStatus"]')
             delaysElements.each(function(index, obj) {
                 if (obj.textContent == "BRAK DANYCH")
                 {
-                    obj.setAttribute("style", "color:red");
+                    obj.parentNode.setAttribute("style", "color:red");
                 }
-
+                 if (obj.textContent == "ZALEGLOSC")
+                {
+                    obj.parentNode.setAttribute("style", "color:red");
+                }
+                else if (obj.textContent == "BRAK ZALEGLOSCI") {
+                    obj.parentNode.setAttribute("style", "color:green");
+                }
                 else if (obj.textContent == "ZAKONCZONE") {
-                    obj.setAttribute("style", "color:gray");
+                    obj.parentNode.setAttribute("style", "color:gray");
                 }
             });
         }
@@ -186,7 +192,7 @@
                             </select>
                         </td>
                         <td>
-                             <input class="form-control" name="delay" value='{{filterData.delay}}' name="row" type="number" min="0" max="999" placeholder='Ilość jednostek'>
+                             <input class="form-control" name="delay" value='{{filterData.delay}}' name="row" type="number" min="1" max="999" placeholder='Ilość jednostek'>
                         </td>
                         {% csrf_token %}
                         <td>
@@ -205,9 +211,9 @@
                         <td><div>{{notification.rule_id_rule.time_range.name}}</div></td>
                         <td>{{notification.rule_id_rule.data_type.name}}</td>
 
-                        <td name="delayStatus">
+                        <td>
                             <div>
-                                {{notification.delay.status}} {{notification.delay.intervals}} {{notification.delay.days}}
+                                <a name="delayStatus">{{notification.delay.status}}</a> {{notification.delay.intervals}} {% if notification.delay.days != 0 %} {{notification.delay.days}} {% endif %}
                             </div>
                             </td>
                         <td><a class="btn btn-primary" href="../../activity/{{notification.rule_id_rule.id_rule}}/{{notification.employee_id_employee.id_employee}}">Wyświetl</a></td>

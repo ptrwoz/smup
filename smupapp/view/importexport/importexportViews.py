@@ -20,7 +20,7 @@ from smupapp.view.rule.ruleViews import formatRulesMax, initProcessData, initCon
 from smupapp.view.static.dataModels import ExcelData
 from smupapp.view.static.messagesTexts import MESSAGES_IMPORT_NOFILE_ERROR, MESSAGES_IMPORT_SUCCESS, \
     MESSAGES_TIME_RANGE_EXPORT_ERROR, MESSAGES_NO_RULE_SELECT_ERROR, MESSAGES_NO_EXPORT_FILE_ERROR, \
-    MESSAGES_RULES_CONFLICT_ERROR
+    MESSAGES_RULES_CONFLICT_ERROR, MESSAGES_SELECT_RULE_DETAILS
 from smupapp.view.static.staticValues import USER_GUEST, PAGEINATION_SIZE, TIMERANGE_DAY, TIMERANGE_WEEK, \
     TIMERANGE_MONTH
 from smupapp.view.static.urls import REDIRECT_HOME_URL, RENDER_IMPORT_EXPORT_URL, REDIRECT_IMPORT_EXPORT_URL
@@ -57,9 +57,6 @@ def formatDataFrame(dataFrame, dataType):
                 else:
                     sum = datesSum([sum, data[idx2][0]])
         data[idx] = sum
-        '''if dataType.id_data_type == 2:
-        else:
-            data[idx] = [floatArrayToDate(sum)]'''
     data = data.astype(str)
     if dataType.id_data_type == 1:
         data = floatArrayToDate(data)
@@ -86,8 +83,8 @@ def floatArrayToDate(values):
     for idx in range(len(values)):
         strVal = str(values[idx][0])
         values[idx][0] = strVal.replace('.',':')
-        if strVal.find(':') == -1:
-            values[idx][0] = strVal + ':00'
+        if values[idx][0].find(':') == -1:
+            values[idx][0] = values[idx][0] + ':00'
     return values
 def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, rawProcessData):
     process = Process.objects.all().order_by('-order')
@@ -137,29 +134,22 @@ def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, rawP
                     activitySingleCol.append(sumActivity(act))
                 elif len(act) == 0:
                     activitySingleCol.append(0)
-
-        # activityMultiCol.append(activitySingleCol)
         activitySingleCol = numpy.array(activitySingleCol)
-        #activitySingleCol = numpy.flip(activitySingleCol)
 
         sumActivityValue = ''
         if dt.id_data_type == 2:
             sumActivityValue = numpy.sum(activitySingleCol)
         else:
             sumActivityValue = datesSum(activitySingleCol)
-            #sumActivityValue = numpy.sum(activitySingleCol)
         activitySingleCol = numpy.append(activitySingleCol, sumActivityValue)
-
         activitySingleCol = numpy.array(activitySingleCol)
-        # activitySingleCol = numpy.append(activitySingleCol)
-        #activitySingleCol = numpy.rot90([activitySingleCol])
 
         ndf = pd.DataFrame(index=processNo, data=activitySingleCol, columns=[dt.name])
 
         ndf = formatDataFrame(ndf, dt)
         ndf = processFormatDataFrame(ndf, rawProcessData)
         d1 = {}
-        d1['SUM'] = ndf
+        d1['SUM {}'.format(str(dateFrom) + ' - ' + str(dateTo))] = ndf
 
         d1 = pd.concat(d1, axis=1)
 
@@ -223,7 +213,7 @@ def createSumEmployeeSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unitSt
         ndf = pd.DataFrame(index=processNo, columns=list(dt.name),
                            data=[activitySingleCol])
         d1 = {}
-        d1['SUM'] = ndf
+        d1['SUM {}'.format(str(dateFrom) + ' - ' + str(dateTo))] = ndf
         d1 = pd.concat(d1, axis=1)
         dfs = pd.concat([dfs, d1], axis=1)
     return dfs
@@ -447,6 +437,9 @@ def exportFile(request):
     if checkExportData(formData):
         now = datetime.now()
         current_time = now.strftime("%m_%d_%Y_%H_%M_%S_%f")
+        if formData == None:
+            messages.info(request, MESSAGES_SELECT_RULE_DETAILS, extra_tags='error')
+            return redirect(REDIRECT_IMPORT_EXPORT_URL)
         result, success = exportDataBase(request, str(current_time), formData)
         if not success:
             messages.info(request, result, extra_tags='error')
@@ -454,7 +447,8 @@ def exportFile(request):
         if os.path.exists(result):
             file = open(result, "rb")
             response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-            response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+            response['Content-Disposition'] = 'attachment; filename=data {}.xlsx'.format(str(formData.timeFrom) + \
+                                                                                        ' ' + str(formData.timeTo))
             return response
         else:
             messages.info(request, MESSAGES_NO_EXPORT_FILE_ERROR, extra_tags='error')
@@ -598,8 +592,6 @@ def importexportView(request):
         return render(request, RENDER_IMPORT_EXPORT_URL, context)
     else:
         return redirect(REDIRECT_HOME_URL)
-
-
 
 def backup(request):
     now = datetime.now()

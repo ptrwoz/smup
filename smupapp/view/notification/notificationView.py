@@ -4,8 +4,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q, Value, CharField
 from django.db.models.functions import Concat
 from django.shortcuts import render, redirect
-
 from smupapp.models import RuleHasEmployee, TimeRange, DataType, Activity, RuleHasProcess
+from smupapp.service.notificationService import addDelay, getActivitiesDelay, filterByDelay
 from smupapp.view.auth.auth import authUser
 from smupapp.view.static.dataModels import NotificationFilterData
 from smupapp.view.static.messagesTexts import MESSAGES_ACTIVITY_END, MESSAGES_NO_ACTIVITY, MESSAGES_DELAY, \
@@ -14,71 +14,20 @@ from smupapp.view.static.staticValues import PAGEINATION_SIZE
 from smupapp.view.static.urls import RENDER_NOTIFICATIONS_URL, REDIRECT_HOME_URL
 
 def getFilterData(request):
+    delay = request.POST['delay']
+    if len(delay) > 0:
+        delay = int(delay)
+    else:
+        delay = -1
     return NotificationFilterData(request.POST['ruleName'], \
                                   request.POST['userName'], \
                                   request.POST['timeFrom'], \
                                   request.POST['timeTo'],\
                                   request.POST['timeRange'],\
                                   request.POST['dataType'], \
-                                  request.POST['delay'])
-
-#def getEmployeeDelay(ruleHasEmployee):
-
-def getActivitiesDelay(today, ruleHasEmployee):
-    ruleHasProcess = RuleHasProcess.objects.filter(rule_id_rule = ruleHasEmployee.rule_id_rule)
-    #ruleHasEmployee.rule_id_rule
-    employee = ruleHasEmployee.employee_id_employee
-    today = date.today()
-    activities = Activity.objects.filter(Q(employee_id_employee = employee) & \
-             Q(rule_has_process_id_rule_has_process__in = ruleHasProcess))
-    delays = []
-    for activity in activities:
-        d = activity.time_to - today
-        delays.append(d)
-    return delays
-
-class NotificationData:
-
-    def __init__(self):
-        self.status = None
-        self.intervals = None
-        self.days = None
-    def __int__(self, status = None, intervals = None, days = None):
-        self.status = status
-        self.intervals = intervals
-        self.days = days
-
-#def isDelay(today, rule):
+                                  delay)
 
 
-
-def addDelay(ruleHasEmployees):
-    today = date.today()
-
-    for idx in range(len(ruleHasEmployees)):
-        messageData = NotificationData()
-        if today > ruleHasEmployees[idx].rule_id_rule.time_to:
-            messageData.status = MESSAGES_ACTIVITY_END
-            messageData.intervals = ''
-            messageData.days = ''
-        else:
-            no = getActivitiesDelay(today, ruleHasEmployees[idx])
-            if len(no) <= 0:
-                messageData.status = MESSAGES_NO_ACTIVITY
-                messageData.intervals = ''
-                messageData.days = ''
-            else:
-                minDate = min(no)
-                if abs(minDate.days) == 0:
-                    messageData.status = MESSAGES_NO_DELAY
-                    messageData.intervals = ''
-                    messageData.days = ''
-                else:
-                    messageData.status = MESSAGES_DELAY
-                    messageData.intervals = ''
-                    messageData.days = abs(minDate.days)
-        ruleHasEmployees[idx].delay = messageData
-    return ruleHasEmployees
 
 def notificationsView(request):
     context = authUser(request)
@@ -111,8 +60,16 @@ def notificationsView(request):
             if len(notificationsFilterData.dataType) > 0:
                 ruleHasEmployee = ruleHasEmployee.filter(
                     Q(rule_id_rule__data_type__name__contains=notificationsFilterData.dataType))
+            #if notificationsFilterData.delay != - 1:
 
-            ruleHasEmployee = addDelay(ruleHasEmployee.distinct())
+            '''if notificationsFilterData.delay > 0:
+                ruleHasEmployee = ruleHasEmployee.filter(
+                    Q(notificationsFilterData__delay__days__gt=notificationsFilterData.dataType))
+            '''
+            ruleHasEmployee = addDelay(ruleHasEmployee)
+            ruleHasEmployee = filterByDelay(ruleHasEmployee, notificationsFilterData.delay)
+            if notificationsFilterData.delay == -1:
+                notificationsFilterData.delay = ''
             context['filterData'] = notificationsFilterData
 
         else:

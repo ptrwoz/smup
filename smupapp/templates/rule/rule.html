@@ -360,6 +360,7 @@
                                             <div class="form-switch">
                                                   <input onclick="checkAllEmployee()" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                                             </div>
+                                        <th scope="col">Login</th>
                                         <th scope="col">Imię</th>
                                         <th scope="col">Nazwisko</th>
                                         <th scope="col">Jednostka</th>
@@ -370,6 +371,7 @@
                                     <tr>
                                         <td>
                                             <input class="form-check-input" name="check_employee_{{employee.id_employee}}" type="checkbox" value="" {% if employee.check %} checked {% endif %}></td>
+                                        <td>{{employee.auth_user.username}}</td>
                                         <td>{{employee.name}}</td>
                                         <td>{{employee.surname}}</td>
                                         <td>{{employee.id_unit.name}}</td>

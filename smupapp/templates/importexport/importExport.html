@@ -61,12 +61,36 @@
         }
 
         $("#nesting").change(function(){
-          var selectedCountry = $(this).children("option:selected").val();
-          alert("You have selected the country - " + selectedCountry);
+          //var selectedCountry = $(this).children("option:selected").val();
+          //alert("You have selected the country - " + selectedCountry);
+          changeProcessLevel();
         });
+        function changeProcessLevel(){
+          levelContent = $("#nesting").val();
+          if (levelContent == 'Wszystkie')
+            levelContent = 1000;
+          else
+            levelContent = parseInt(levelContent);
+          input_id = $('#mainProcessTabel input[id=id_text]')
+          check_id = $('#mainProcessTabel input[type=checkbox]')
+          for (var i = 0; i < input_id.length + 1; i++) {
+              if (i == 0)
+                a = 1;
+              else {
+                id = input_id[i-1].value.split('.')
+                id_len = id.length - 1
+                if (id_len <= levelContent)
+                    check_id[i].checked = true
+                else
+                    check_id[i].checked = false
+             }
+          }
+        };
         function initNestingSelect(){
             dataTypeSelect = $('#nesting')
-
+                        dataTypeSelect.on('change', function() {
+              changeProcessLevel()
+            });
         }
         function initForm() {
 
@@ -129,6 +153,27 @@
             $datepickerTo.datepicker('setDate', new Date());
           }
         });
+        function checkAllProcess() {
+          value = false;
+          $('#mainProcessTabel input[type=checkbox]').each(function (i, ob) {
+              if (i == 0)
+                value = $(this).prop("checked");
+              else {
+                $(this).prop("checked", value);
+             }
+          });
+        }
+        function checkLevelProcess() {
+          value = false;
+          $('#mainProcessTabel input[type=checkbox]').each(function (i, ob) {
+              if (i == 0)
+                value = $(this).prop("checked");
+              else {
+                $(this).prop("checked", value);
+             }
+          });
+        }
+
     </script>
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -407,7 +452,7 @@
                                                 <input class="form-check-input" name="check_process_{{process.id_process}}" type="checkbox" value="" id="flexCheckChecked" {% if process.check %} checked {% endif %}>
                                             </td>
                                             <td>
-                                                <input name="id_{{process.id}}" class="form-control" readonly="readonly" value="{{process.number}}"></input>
+                                                <input name="id_{{process.id}}" id="id_text" class="form-control" readonly="readonly" value="{{process.number}}"></input>
                                             </td>
                                             <td><input name='name_{{process.id}}' type="text" class="form-control" name='name' readonly="readonly" placeholder="Nazwa" id="name" value="{{process.name}}"></td>
 

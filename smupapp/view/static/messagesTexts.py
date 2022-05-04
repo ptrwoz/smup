@@ -31,6 +31,7 @@ MESSAGES_TIME_RANGE_EXPORT_ERROR = 'Błędna jednostka minimalna czasu'
 MESSAGES_NO_RULE_SELECT_ERROR = 'Nie wybrano reguły'
 MESSAGES_RULES_CONFLICT_ERROR = 'Reguły {} oraz {} są w konfikcie'
 MESSAGES_NO_EXPORT_FILE_ERROR = 'Błąd zapisu pliku'
+MESSAGES_SELECT_RULE_DETAILS = 'Podaj szczegóły exportu'
 
 MESSAGES_IMPORT_NOFILE_ERROR = 'Nie wybrano odpowiedniego pliku'
 MESSAGES_IMPORT_SUCCESS = 'Sukces importu danych'
