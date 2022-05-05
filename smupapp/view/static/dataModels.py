@@ -63,7 +63,10 @@ class ExcelData():
         self.varianceParam = varianceParam
         self.maximumParam = maximumParam
         self.minimumParam = minimumParam
-        self.timeMinParam = timeMinParam
+        if timeMinParam == None:
+            self.timeMinParam = False
+        else:
+            self.timeMinParam = True
         self.standardDeviationParam = standardDeviationParam
         self.typicalRangeOfVolatilityParam = typicalRangeOfVolatilityParam
         self.timeMin = timeMin

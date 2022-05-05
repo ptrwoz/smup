@@ -54,7 +54,7 @@
                statisticVal = $('#statistic')
                statisticVal.hide()
                functionsVal = $('#functions')
-               functionsVal.hide()
+               functionsVal.show()
                dateTypeVal = $('#dateType')
                dateTypeVal.hide()
             }
@@ -267,6 +267,12 @@
                                             <label class="form-check-label">
                                                 Wyznacz statystyki dla jednostek
                                             </label>
+                                            <div>
+                                            <select id="sumTo" name="sumTo" class="form-select" aria-label="Default select example">
+                                                <option>Jednostka</option>
+                                                <option>Uźytkownik</option>
+                                            </select>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

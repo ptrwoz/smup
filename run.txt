@@ -47,23 +47,15 @@ newdata = open('newsmup.json', 'wb')
 newdata.write(data.decode('cp1252'))
 newdata.close()
 exit()
+#
+python manage.py shell
+from django.contrib.contenttypes.models import ContentType
+ContentType.objects.all().delete()
 
-python manage.py loaddata newsmup.json
-python manage.py loaddata data.json
-python manage.py loaddata  dataEmptyver2.json
-python manage.py loaddata apple.json
-
-python manage.py loaddata  02_28_2022_21_20_41_271903.json
-
-python manage.py loaddata --exclude=contenttypes --exclude=sessions.Session --exclude=south.Migrationhistory krosnoData.json
-
-
-python -Xutf8 manage.py dumpdata > data.json
-
-python -Xutf8  manage.py dumpdata --natural-foreign --exclude=auth.permission --exclude=contenttypes --indent=4 > krosnoData_04_05_22.json
-#init
-
-##
+python manage.py loaddata  danekrosno040522.json
+python manage.py loaddata --exclude=contenttypes --exclude=django_content_type danekrosno040522.json
+#
+python -Xutf8 manage.py dumpdata --natural-foreign --exclude contenttypes --exclude auth.permission --exclude admin.logentry --exclude sessions.session --indent 4 --output danekrosno040522.json
 
 python manage.py makemigrations smupapp
 python manage.py migrate
@@ -106,3 +98,6 @@ git remote add smup https://bitbucket.org/pwozniakPRZ/smup/src/master/
 git remote add smupgit https://github.com/ptrwoz/smup.git
 
 git remote add smupgit1 https://<ptrwoz>:<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>@github.com/ptrwoz/smup.git
+
+
+python manage.py dumpdata --natural-foreign --exclude contenttypes --exclude auth.permission --exclude admin.logentry --exclude sessions.session --indent 4 --output data.json

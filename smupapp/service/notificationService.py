@@ -33,8 +33,8 @@ def addDelay(ruleHasEmployees):
                 messageData.intervals = ''
                 messageData.days = 0
             else:
-                minDate = min(no)
-                if minDate.days > 0:
+                minDate = max(no)
+                if minDate.days == 0:
                     messageData.status = MESSAGES_NO_DELAY
                     messageData.intervals = ''
                     messageData.days = 0

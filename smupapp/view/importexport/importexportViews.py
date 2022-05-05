@@ -44,7 +44,7 @@ def processFormatDataFrame(dataFrame,processData):
     #for nindx in reversed(range(len(removeIdx))):
     dataFrame = dataFrame.drop(dataFrame.index[removeIdx])
     return dataFrame
-def formatDataFrame(dataFrame, dataType):
+def formatDataFrame(dataFrame, dataType, inMinute):
     indexes = dataFrame.index
     data = dataFrame.T.head(1).T.to_numpy()
     #data = data.astype(str)
@@ -59,7 +59,7 @@ def formatDataFrame(dataFrame, dataType):
         data[idx] = sum
     data = data.astype(str)
     if dataType.id_data_type == 1:
-        data = floatArrayToDate(data)
+        data = floatArrayToDate(data, inMinute)
     return pd.DataFrame(index=indexes, data=data, columns=dataFrame.columns)
 
 def dateSum(date1, date2):
@@ -79,14 +79,24 @@ def datesSum(dateArray):
     for value in dateArray:
         sum = dateSum(sum, value)
     return sum
-def floatArrayToDate(values):
+def floatArrayToDate(values, inMinute):
     for idx in range(len(values)):
-        strVal = str(values[idx][0])
-        values[idx][0] = strVal.replace('.',':')
-        if values[idx][0].find(':') == -1:
-            values[idx][0] = values[idx][0] + ':00'
+        #if inMinute:
+            #print()
+        if inMinute:
+            val0 = float(values[idx][0])
+            val1a = int(val0)
+            val1b = int(round(val0 - int(val0), 2) * 100)
+            #
+            mint = val1a * 60 + val1b
+            values[idx][0] = mint
+        else:
+            strVal = str(values[idx][0])
+            values[idx][0] = strVal.replace('.',':')
+            if values[idx][0].find(':') == -1:
+                values[idx][0] = values[idx][0] + ':00'
     return values
-def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, rawProcessData):
+def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, rawProcessData, inMinute):
     process = Process.objects.all().order_by('-order')
     processData = []
     processNo = []
@@ -146,14 +156,12 @@ def createSumUnitSheet(dateFrom, dateTo, dataTypes, timeRange, rules, unit, rawP
 
         ndf = pd.DataFrame(index=processNo, data=activitySingleCol, columns=[dt.name])
 
-        ndf = formatDataFrame(ndf, dt)
+        ndf = formatDataFrame(ndf, dt, inMinute)
         ndf = processFormatDataFrame(ndf, rawProcessData)
         d1 = {}
         d1['SUM {}'.format(str(dateFrom) + ' - ' + str(dateTo))] = ndf
 
         d1 = pd.concat(d1, axis=1)
-
-
         dfs = pd.concat([dfs, d1], axis=1)
 
     return dfs
@@ -367,17 +375,25 @@ def exportRaport(formData, writer):
     units = Unit.objects.all()
     if formData.unitStatistic == None:
         df1 = createSumUnitSheet(formData.timeFrom, formData.timeTo, vDataRules, formData.timeRange, formData.rules, \
-                             units, formData.processData)
+                             units, formData.processData, formData.timeMinParam)
         sheetName = 'sum'
         df1.to_excel(writer, sheet_name=sheetName)
         writer.sheets[sheetName].set_row(2, None, None, {'hidden': True})
     else:
+        unitId = 1
         for unit in units:
             df1 = createSumUnitSheet(formData.timeFrom, formData.timeTo, vDataRules, formData.timeRange, formData.rules,\
-                             [unit], formData.processData)
-        sheetName = '{} sum'.format(unit.name)
-        df1.to_excel(writer, sheet_name=sheetName)
-        writer.sheets[sheetName].set_row(2, None, None, {'hidden': True})
+                             [unit], formData.processData, formData.timeMinParam)
+            sheetName = str(unit.name)
+            if formData.anonymizationParam == None:
+                if (len(sheetName) >28):
+                    sheetName = sheetName[0:28]
+                sheetName = '{}'.format(sheetName)
+            else:
+                sheetName = 'sum {}'.format(str(unitId))
+            unitId = unitId + 1
+            df1.to_excel(writer, sheet_name=sheetName)
+            writer.sheets[sheetName].set_row(2, None, None, {'hidden': True})
     writer.save()
 
 
@@ -625,11 +641,12 @@ def importexportManager(request, id = '', operation = ''):
     context = authUser(request)
     if context['account'] == 'ADMIN' or context['account'] == 'PROCESS MANAGER' or context['account'] == 'MANAGER' or context['account'] == 'USER':
         if request.method == 'POST':
-            if len(id) > 0 and operation == '':
-                print()
+            print()
+            #if len(id) > 0 and operation == '':
+                #print()
                 #return updateRule(request, context, id)
-            else:
-                print()
+            #else:
+                #print()
                 #return saveRule(request, context, id)
         else:
             return importexportView(request)
