@@ -97,7 +97,7 @@ git remote add smuplublin https://git.heroku.com/smuplublin.git
 git remote add smup https://bitbucket.org/pwozniakPRZ/smup/src/master/
 git remote add smupgit https://github.com/ptrwoz/smup.git
 
-git remote add smupgit1 https://<ptrwoz>:<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>@github.com/ptrwoz/smup.git
+git remote add smupgit1 https://<ptrwoz>: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@github.com/ptrwoz/smup.git
 
 
 python manage.py dumpdata --natural-foreign --exclude contenttypes --exclude auth.permission --exclude admin.logentry --exclude sessions.session --indent 4 --output data.json

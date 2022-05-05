@@ -1,0 +1,4529 @@
+[
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$v76QqrebVW0GgetW1mfMlT$sAnXjQcQx4DGa49LG8DNF60JQDjFjD1pQYzhwVSzEt8=",
+        "last_login": "2022-04-27T12:55:36.779Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "user@email.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-01-21T14:57:37Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$zGMlKU2zkKBqovK2ljtK4O$MAlBJG+bQ4zo3ER697pMA8xo8rlQ5HqvnjBX3AEpNVA=",
+        "last_login": "2022-04-21T10:22:49.721Z",
+        "is_superuser": false,
+        "username": "mInglot",
+        "first_name": "",
+        "last_name": "",
+        "email": "mInglot",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-21T15:28:49.833Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$dev11XT8ihBMoGORwHsqSM$yhA+Wnay8DeeXFJTUc82d6FTrjKVJ+V49/XOlUb0JEs=",
+        "last_login": "2022-05-04T11:46:51.518Z",
+        "is_superuser": false,
+        "username": "pwozniak",
+        "first_name": "",
+        "last_name": "",
+        "email": "pwozniak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-10T20:24:38.758Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$7rYQoSbrrZCXJ2gRfcXxlw$SpKCvqFqwoDfSPNOPijSEY06Zj5qZAx4oxIyWHsbw/c=",
+        "last_login": "2022-03-30T07:36:13.641Z",
+        "is_superuser": false,
+        "username": "jJamrozy",
+        "first_name": "",
+        "last_name": "",
+        "email": "jJamrozy",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-22T07:37:08.062Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$XuPSuMkAP4Gou3JG7cYPGC$zb4u/ZjGmfpmhCKs5DMlXV0kavSEjFcrvB8JrSMnQVE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mPolomski",
+        "first_name": "",
+        "last_name": "",
+        "email": "mPolomski",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-29T20:24:39.220Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$JnZ8MjSuooOl7B4431hswi$fYAvX3TlWGpgcIYXvpEyQbY/JVAJ8xZ55/jdX4F3zJw=",
+        "last_login": "2022-03-30T07:04:35.126Z",
+        "is_superuser": false,
+        "username": "aSikora",
+        "first_name": "",
+        "last_name": "",
+        "email": "aSikora",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-29T20:29:56.475Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$O9UHj7oi1AgkEwgkSHDsMV$kHyg1s82gti0EsBxfQDQo+bgisFNkRDCjKGJHKN7lVQ=",
+        "last_login": "2022-03-30T07:37:33.847Z",
+        "is_superuser": false,
+        "username": "Pracownik G 1",
+        "first_name": "",
+        "last_name": "",
+        "email": "Pracownik G 1",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-30T07:17:09.292Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add auth group",
+        "content_type": 7,
+        "codename": "add_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change auth group",
+        "content_type": 7,
+        "codename": "change_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete auth group",
+        "content_type": 7,
+        "codename": "delete_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view auth group",
+        "content_type": 7,
+        "codename": "view_authgroup"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add auth group permissions",
+        "content_type": 8,
+        "codename": "add_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change auth group permissions",
+        "content_type": 8,
+        "codename": "change_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete auth group permissions",
+        "content_type": 8,
+        "codename": "delete_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view auth group permissions",
+        "content_type": 8,
+        "codename": "view_authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add auth permission",
+        "content_type": 9,
+        "codename": "add_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change auth permission",
+        "content_type": 9,
+        "codename": "change_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete auth permission",
+        "content_type": 9,
+        "codename": "delete_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view auth permission",
+        "content_type": 9,
+        "codename": "view_authpermission"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add auth user",
+        "content_type": 10,
+        "codename": "add_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change auth user",
+        "content_type": 10,
+        "codename": "change_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete auth user",
+        "content_type": 10,
+        "codename": "delete_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view auth user",
+        "content_type": 10,
+        "codename": "view_authuser"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add auth user groups",
+        "content_type": 11,
+        "codename": "add_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change auth user groups",
+        "content_type": 11,
+        "codename": "change_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete auth user groups",
+        "content_type": 11,
+        "codename": "delete_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view auth user groups",
+        "content_type": 11,
+        "codename": "view_authusergroups"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add auth user user permissions",
+        "content_type": 12,
+        "codename": "add_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change auth user user permissions",
+        "content_type": 12,
+        "codename": "change_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete auth user user permissions",
+        "content_type": 12,
+        "codename": "delete_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view auth user user permissions",
+        "content_type": 12,
+        "codename": "view_authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add django admin log",
+        "content_type": 13,
+        "codename": "add_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change django admin log",
+        "content_type": 13,
+        "codename": "change_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete django admin log",
+        "content_type": 13,
+        "codename": "delete_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view django admin log",
+        "content_type": 13,
+        "codename": "view_djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add django content type",
+        "content_type": 14,
+        "codename": "add_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change django content type",
+        "content_type": 14,
+        "codename": "change_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete django content type",
+        "content_type": 14,
+        "codename": "delete_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view django content type",
+        "content_type": 14,
+        "codename": "view_djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add django migrations",
+        "content_type": 15,
+        "codename": "add_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change django migrations",
+        "content_type": 15,
+        "codename": "change_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete django migrations",
+        "content_type": 15,
+        "codename": "delete_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view django migrations",
+        "content_type": 15,
+        "codename": "view_djangomigrations"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add django session",
+        "content_type": 16,
+        "codename": "add_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change django session",
+        "content_type": 16,
+        "codename": "change_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete django session",
+        "content_type": 16,
+        "codename": "delete_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view django session",
+        "content_type": 16,
+        "codename": "view_djangosession"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add data type",
+        "content_type": 17,
+        "codename": "add_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change data type",
+        "content_type": 17,
+        "codename": "change_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete data type",
+        "content_type": 17,
+        "codename": "delete_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view data type",
+        "content_type": 17,
+        "codename": "view_datatype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add employee",
+        "content_type": 18,
+        "codename": "add_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change employee",
+        "content_type": 18,
+        "codename": "change_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete employee",
+        "content_type": 18,
+        "codename": "delete_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view employee",
+        "content_type": 18,
+        "codename": "view_employee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add employeetype",
+        "content_type": 19,
+        "codename": "add_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change employeetype",
+        "content_type": 19,
+        "codename": "change_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete employeetype",
+        "content_type": 19,
+        "codename": "delete_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view employeetype",
+        "content_type": 19,
+        "codename": "view_employeetype"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 77,
+    "fields": {
+        "name": "Can add process",
+        "content_type": 20,
+        "codename": "add_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 78,
+    "fields": {
+        "name": "Can change process",
+        "content_type": 20,
+        "codename": "change_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 79,
+    "fields": {
+        "name": "Can delete process",
+        "content_type": 20,
+        "codename": "delete_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 80,
+    "fields": {
+        "name": "Can view process",
+        "content_type": 20,
+        "codename": "view_process"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 81,
+    "fields": {
+        "name": "Can add rule",
+        "content_type": 21,
+        "codename": "add_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 82,
+    "fields": {
+        "name": "Can change rule",
+        "content_type": 21,
+        "codename": "change_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 83,
+    "fields": {
+        "name": "Can delete rule",
+        "content_type": 21,
+        "codename": "delete_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 84,
+    "fields": {
+        "name": "Can view rule",
+        "content_type": 21,
+        "codename": "view_rule"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 85,
+    "fields": {
+        "name": "Can add time range",
+        "content_type": 22,
+        "codename": "add_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 86,
+    "fields": {
+        "name": "Can change time range",
+        "content_type": 22,
+        "codename": "change_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 87,
+    "fields": {
+        "name": "Can delete time range",
+        "content_type": 22,
+        "codename": "delete_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 88,
+    "fields": {
+        "name": "Can view time range",
+        "content_type": 22,
+        "codename": "view_timerange"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 89,
+    "fields": {
+        "name": "Can add unit",
+        "content_type": 23,
+        "codename": "add_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 90,
+    "fields": {
+        "name": "Can change unit",
+        "content_type": 23,
+        "codename": "change_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 91,
+    "fields": {
+        "name": "Can delete unit",
+        "content_type": 23,
+        "codename": "delete_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 92,
+    "fields": {
+        "name": "Can view unit",
+        "content_type": 23,
+        "codename": "view_unit"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 93,
+    "fields": {
+        "name": "Can add rule has process",
+        "content_type": 24,
+        "codename": "add_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 94,
+    "fields": {
+        "name": "Can change rule has process",
+        "content_type": 24,
+        "codename": "change_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 95,
+    "fields": {
+        "name": "Can delete rule has process",
+        "content_type": 24,
+        "codename": "delete_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 96,
+    "fields": {
+        "name": "Can view rule has process",
+        "content_type": 24,
+        "codename": "view_rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 97,
+    "fields": {
+        "name": "Can add rule has employee",
+        "content_type": 25,
+        "codename": "add_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 98,
+    "fields": {
+        "name": "Can change rule has employee",
+        "content_type": 25,
+        "codename": "change_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 99,
+    "fields": {
+        "name": "Can delete rule has employee",
+        "content_type": 25,
+        "codename": "delete_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 100,
+    "fields": {
+        "name": "Can view rule has employee",
+        "content_type": 25,
+        "codename": "view_rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 101,
+    "fields": {
+        "name": "Can add activity",
+        "content_type": 26,
+        "codename": "add_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 102,
+    "fields": {
+        "name": "Can change activity",
+        "content_type": 26,
+        "codename": "change_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 103,
+    "fields": {
+        "name": "Can delete activity",
+        "content_type": 26,
+        "codename": "delete_activity"
+    }
+},
+{
+    "model": "smupapp.authpermission",
+    "pk": 104,
+    "fields": {
+        "name": "Can view activity",
+        "content_type": 26,
+        "codename": "view_activity"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$v76QqrebVW0GgetW1mfMlT$sAnXjQcQx4DGa49LG8DNF60JQDjFjD1pQYzhwVSzEt8=",
+        "last_login": "2022-04-27T12:55:36.779Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "user@email.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-01-21T14:57:37Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$zGMlKU2zkKBqovK2ljtK4O$MAlBJG+bQ4zo3ER697pMA8xo8rlQ5HqvnjBX3AEpNVA=",
+        "last_login": "2022-04-21T10:22:49.721Z",
+        "is_superuser": false,
+        "username": "mInglot",
+        "first_name": "",
+        "last_name": "",
+        "email": "mInglot",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-21T15:28:49.833Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$dev11XT8ihBMoGORwHsqSM$yhA+Wnay8DeeXFJTUc82d6FTrjKVJ+V49/XOlUb0JEs=",
+        "last_login": "2022-05-04T11:46:51.518Z",
+        "is_superuser": false,
+        "username": "pwozniak",
+        "first_name": "",
+        "last_name": "",
+        "email": "pwozniak",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-02-10T20:24:38.758Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$7rYQoSbrrZCXJ2gRfcXxlw$SpKCvqFqwoDfSPNOPijSEY06Zj5qZAx4oxIyWHsbw/c=",
+        "last_login": "2022-03-30T07:36:13.641Z",
+        "is_superuser": false,
+        "username": "jJamrozy",
+        "first_name": "",
+        "last_name": "",
+        "email": "jJamrozy",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-22T07:37:08.062Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$XuPSuMkAP4Gou3JG7cYPGC$zb4u/ZjGmfpmhCKs5DMlXV0kavSEjFcrvB8JrSMnQVE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mPolomski",
+        "first_name": "",
+        "last_name": "",
+        "email": "mPolomski",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-29T20:24:39.220Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$JnZ8MjSuooOl7B4431hswi$fYAvX3TlWGpgcIYXvpEyQbY/JVAJ8xZ55/jdX4F3zJw=",
+        "last_login": "2022-03-30T07:04:35.126Z",
+        "is_superuser": false,
+        "username": "aSikora",
+        "first_name": "",
+        "last_name": "",
+        "email": "aSikora",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-29T20:29:56.475Z"
+    }
+},
+{
+    "model": "smupapp.authuser",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$O9UHj7oi1AgkEwgkSHDsMV$kHyg1s82gti0EsBxfQDQo+bgisFNkRDCjKGJHKN7lVQ=",
+        "last_login": "2022-03-30T07:37:33.847Z",
+        "is_superuser": false,
+        "username": "Pracownik G 1",
+        "first_name": "",
+        "last_name": "",
+        "email": "Pracownik G 1",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-03-30T07:17:09.292Z"
+    }
+},
+{
+    "model": "smupapp.datatype",
+    "pk": 1,
+    "fields": {
+        "name": "Aktywność (godz.)"
+    }
+},
+{
+    "model": "smupapp.datatype",
+    "pk": 2,
+    "fields": {
+        "name": "Sprawa (ilość)"
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 1,
+    "fields": {
+        "action_time": "2022-01-22T23:48:16.768Z",
+        "object_id": "3",
+        "object_repr": "TimeRange object (3)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 2,
+    "fields": {
+        "action_time": "2022-01-22T23:48:23.169Z",
+        "object_id": "2",
+        "object_repr": "TimeRange object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 3,
+    "fields": {
+        "action_time": "2022-01-22T23:48:28.680Z",
+        "object_id": "1",
+        "object_repr": "TimeRange object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 4,
+    "fields": {
+        "action_time": "2022-01-22T23:48:36.361Z",
+        "object_id": "2",
+        "object_repr": "DataType object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 5,
+    "fields": {
+        "action_time": "2022-01-22T23:48:43.743Z",
+        "object_id": "1",
+        "object_repr": "DataType object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 6,
+    "fields": {
+        "action_time": "2022-02-10T20:25:09.506Z",
+        "object_id": "4",
+        "object_repr": "Employee object (4)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id employeetype\"]}}]",
+        "content_type": 18,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 7,
+    "fields": {
+        "action_time": "2022-02-28T07:07:30.066Z",
+        "object_id": "2",
+        "object_repr": "DataType object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 8,
+    "fields": {
+        "action_time": "2022-02-28T07:07:37.026Z",
+        "object_id": "1",
+        "object_repr": "DataType object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 17,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 9,
+    "fields": {
+        "action_time": "2022-02-28T07:07:53.627Z",
+        "object_id": "3",
+        "object_repr": "TimeRange object (3)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 10,
+    "fields": {
+        "action_time": "2022-02-28T07:07:59.621Z",
+        "object_id": "2",
+        "object_repr": "TimeRange object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 11,
+    "fields": {
+        "action_time": "2022-02-28T07:08:03.684Z",
+        "object_id": "1",
+        "object_repr": "TimeRange object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+        "content_type": 22,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 12,
+    "fields": {
+        "action_time": "2022-03-31T10:23:51.776Z",
+        "object_id": "5",
+        "object_repr": "Rule object (5)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Max value\"]}}]",
+        "content_type": 21,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 13,
+    "fields": {
+        "action_time": "2022-03-31T10:23:55.533Z",
+        "object_id": "4",
+        "object_repr": "Rule object (4)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Max value\"]}}]",
+        "content_type": 21,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 45,
+    "fields": {
+        "action_time": "2022-05-04T11:43:46.274Z",
+        "object_id": "2",
+        "object_repr": "Activity object (2)",
+        "action_flag": 3,
+        "change_message": "",
+        "content_type": 26,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangoadminlog",
+    "pk": 46,
+    "fields": {
+        "action_time": "2022-05-04T11:43:46.284Z",
+        "object_id": "1",
+        "object_repr": "Activity object (1)",
+        "action_flag": 3,
+        "change_message": "",
+        "content_type": 26,
+        "user": 2
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authgroup"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authgrouppermissions"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authpermission"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authuser"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authusergroups"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "authuseruserpermissions"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangoadminlog"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 14,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangocontenttype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 15,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangomigrations"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 16,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "djangosession"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 17,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "datatype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 18,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "employee"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 19,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "employeetype"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 20,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "process"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 21,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rule"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 22,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "timerange"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 23,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "unit"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 24,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rulehasprocess"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 25,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "rulehasemployee"
+    }
+},
+{
+    "model": "smupapp.djangocontenttype",
+    "pk": 26,
+    "fields": {
+        "app_label": "smupapp",
+        "model": "activity"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 1,
+    "fields": {
+        "app": "contenttypes",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:51.543Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 2,
+    "fields": {
+        "app": "auth",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:55.363Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 3,
+    "fields": {
+        "app": "admin",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:50:56.483Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 4,
+    "fields": {
+        "app": "admin",
+        "name": "0002_logentry_remove_auto_add",
+        "applied": "2022-01-22T12:50:56.844Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 5,
+    "fields": {
+        "app": "admin",
+        "name": "0003_logentry_add_action_flag_choices",
+        "applied": "2022-01-22T12:50:57.324Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 6,
+    "fields": {
+        "app": "contenttypes",
+        "name": "0002_remove_content_type_name",
+        "applied": "2022-01-22T12:50:58.044Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 7,
+    "fields": {
+        "app": "auth",
+        "name": "0002_alter_permission_name_max_length",
+        "applied": "2022-01-22T12:50:58.644Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 8,
+    "fields": {
+        "app": "auth",
+        "name": "0003_alter_user_email_max_length",
+        "applied": "2022-01-22T12:50:59.244Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 9,
+    "fields": {
+        "app": "auth",
+        "name": "0004_alter_user_username_opts",
+        "applied": "2022-01-22T12:50:59.732Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 10,
+    "fields": {
+        "app": "auth",
+        "name": "0005_alter_user_last_login_null",
+        "applied": "2022-01-22T12:51:00.338Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 11,
+    "fields": {
+        "app": "auth",
+        "name": "0006_require_contenttypes_0002",
+        "applied": "2022-01-22T12:51:00.816Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 12,
+    "fields": {
+        "app": "auth",
+        "name": "0007_alter_validators_add_error_messages",
+        "applied": "2022-01-22T12:51:01.302Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 13,
+    "fields": {
+        "app": "auth",
+        "name": "0008_alter_user_username_max_length",
+        "applied": "2022-01-22T12:51:01.909Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 14,
+    "fields": {
+        "app": "auth",
+        "name": "0009_alter_user_last_name_max_length",
+        "applied": "2022-01-22T12:51:02.515Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 15,
+    "fields": {
+        "app": "auth",
+        "name": "0010_alter_group_name_max_length",
+        "applied": "2022-01-22T12:51:03.120Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 16,
+    "fields": {
+        "app": "auth",
+        "name": "0011_update_proxy_permissions",
+        "applied": "2022-01-22T12:51:03.601Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 17,
+    "fields": {
+        "app": "auth",
+        "name": "0012_alter_user_first_name_max_length",
+        "applied": "2022-01-22T12:51:04.200Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 18,
+    "fields": {
+        "app": "sessions",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:51:05.163Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 19,
+    "fields": {
+        "app": "smupapp",
+        "name": "0001_initial",
+        "applied": "2022-01-22T12:51:10.111Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 20,
+    "fields": {
+        "app": "smupapp",
+        "name": "0002_unit_is_active",
+        "applied": "2022-02-01T18:15:56.787Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 21,
+    "fields": {
+        "app": "smupapp",
+        "name": "0003_process_order",
+        "applied": "2022-02-01T18:15:57.505Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 22,
+    "fields": {
+        "app": "smupapp",
+        "name": "0004_process_number",
+        "applied": "2022-02-01T18:15:58.217Z"
+    }
+},
+{
+    "model": "smupapp.djangomigrations",
+    "pk": 23,
+    "fields": {
+        "app": "smupapp",
+        "name": "0002_auto_20220504_1411",
+        "applied": "2022-05-04T12:14:02.578Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "0lk94fuamt65h54ghk8508im5367z04p",
+    "fields": {
+        "session_data": ".eJxVjDEOwjAMRe-SGUVNjBLDyM4ZIru2SQG1UtNOiLtDpQ6w_vfef7lC61LL2nQug7izi-7wuzH1Dx03IHcab5Pvp3GZB_ab4nfa_HUSfV529--gUqvfGgGMGDllyQGFIRBL0i6wKkKkgMZyIussiypkMYoxHg0SApoG9_4AC-g49A:1nF1bC:-129V2qVf6_Qy36xa0HAnC8od_IZzy2q9-PSTBQsn5I",
+        "expire_date": "2022-02-15T22:26:06.996Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "1t3uy9qc24d8eup9x2iz2iux18ks76sy",
+    "fields": {
+        "session_data": ".eJxVjDkOwjAUBe_iGln5XsChpOcM0d-MAyiW4qRC3B0ipYD2zcx7mQHXpQxr03kYxZyNM4ffjZAfOm1A7jjdquU6LfNIdlPsTpu9VtHnZXf_Dgq28q0DEmQvrBGj9D0GyICJtfOeT-B85MiJVDsVTxBiAkmiKYI_Zkck5v0BBMQ4sQ:1nKohV:2iI-vLoh2xxI4yChXSjaiJV3QyBnRC_RS7H88h8dn54",
+        "expire_date": "2022-03-03T21:52:33.684Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "25y0mqweu5u928kg4daq3d9yeeiqg0ro",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSHA8HTp3m8gDDBSNTQp7cr479qkC93ec859sZi2tcVt1CVOhZ2ZVOz0O2LKj9p3Uu6p32ae574uE_Jd4Qcd_DqX-rwc7t9BS6N9awrWu6LBSWURDYEEIb2ibLV1WohARmWBDggdAbgAxRs0CasoFVCy9wfeszd1:1nZStZ:uZO5ybJAoaape-i3m6QOb-pZmghIvbed4rHlDo4U94Q",
+        "expire_date": "2022-04-13T07:37:33.850Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "28loa75l1gd1t9r1h29evpxiiuyazokt",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nKc5V:qVDcu-558Chf0wvYQX8rfLURpxdu0v_3WVxVZyQazCc",
+        "expire_date": "2022-03-03T08:24:29.126Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "4t0u5ttajwlh3s0mv07khgxwz9dcogy1",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hAoIwMu3XsGwgyjVE1JSrsy3l2bdKHb_977L5XyutS0dpnTWNRJDerwu1Hmh0wbKPc83ZrmNi3zSHpT9E67vrQiz_Pu_h3U3Ou3zha9J7A-SrBXiMLOWkQwzAM6gxIZiBxHRm-GYCMSHUWgcAAMENT7A8WSNyo:1nNt51:sfrKKRE4ARDyzG8AOE5KVEArPAHvZAA9Y9cz6K-xSa8",
+        "expire_date": "2022-03-12T09:09:31.488Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "8yrdwd67nrn52qzvietsusqjqsxddr6r",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nCKA3:YceCI-CeJpAh2nSJze_A20_C9_cq0R4U5wuvmVZiGpA",
+        "expire_date": "2022-02-08T11:38:55.227Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "9le6q825wzw2yr4ls0xwynobw35o88i5",
+    "fields": {
+        "session_data": ".eJxVjEsOwjAMBe-SNYqapE4xS_Y9Q2THDimgVupnhbg7VOoCtm9m3ssk2taatkXnNIi5GG9OvxtTfui4A7nTeJtsnsZ1Htjuij3oYvtJ9Hk93L-DSkv91uSb4KiwtNCoUylQnGBUQEaH2kGJ1AIG32EAyEVD9JyFm8h4duTM-wPwmTgJ:1nNhMG:8dgOZe4mntWZuRm7yPCSHpraZl-L1l5nPOdiX-_YrOk",
+        "expire_date": "2022-03-11T20:38:32.333Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "aik29gaodqkvpf5zv0vq65rgivg4xtyx",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hAoIwMu3XsGwgyjVE1JSrsy3l2bdKHb_977L5XyutS0dpnTWNRJDerwu1Hmh0wbKPc83ZrmNi3zSHpT9E67vrQiz_Pu_h3U3Ou3zha9J7A-SrBXiMLOWkQwzAM6gxIZiBxHRm-GYCMSHUWgcAAMENT7A8WSNyo:1nP31b:j6NkqNCaqhUq3s2pKryDZy-BXZvFBgDVLrRTxdJdZBQ",
+        "expire_date": "2022-03-15T13:58:47.268Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "eo7fzjanr3qk2uan64p0deon7xobf74s",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQBf-FsyFAgQWP3v0GArsgVQNJaU_Gf9cmPej1zcx7sRC3tYZt5CXMxM4M2Ol3SxEfue2A7rHdOsfe1mVOfFf4QQe_dsrPy-H-HdQ46rd2hXLC4gE0euNRZJVUUVpai0aRdEUamixSngwYpZKYohOA3jrUEhx7fwDz6jeL:1nOZgt:hjBFm2QRLKJMmaI2KVD6sJBogV2oAkahGTmWT8m4iek",
+        "expire_date": "2022-03-14T06:39:27.189Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ffrykxli07mp6xi8if3mab20kwvqck4i",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nhTxZ:MnnWvj4_kD6tBp32GjJKGzXjvbjqG-6EjO1_JE3bHdQ",
+        "expire_date": "2022-05-05T10:22:49.753Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "fo2ckxaagb9cbeu9tpwd8ykgpyu3upox",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nLtKw:ov4hrNgxfq3QaxC_D3hAmqZEWIbuQYZGMeZC6UDHi5g",
+        "expire_date": "2022-03-06T21:01:42.485Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "gqqui3z0gnq7bddyc3nw5vwqo3l9kw0v",
+    "fields": {
+        "session_data": ".eJxVjDkOwjAUBe_iGln5XsChpOcM0d-MAyiW4qRC3B0ipYD2zcx7mQHXpQxr03kYxZyNM4ffjZAfOm1A7jjdquU6LfNIdlPsTpu9VtHnZXf_Dgq28q0DEmQvrBGj9D0GyICJtfOeT-B85MiJVDsVTxBiAkmiKYI_Zkck5v0BBMQ4sQ:1nKp67:luWgu1BJ69MdljNXy1XIXJg1xtn_X1oOBqGIRU6eYAY",
+        "expire_date": "2022-03-03T22:17:59.518Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "gtt17anv70skpd6kxivjllg9b8w5o2v0",
+    "fields": {
+        "session_data": ".eJxVjEsOwjAMBe-SNYpiV3FTluw5Q2XHDimgVupnhbg7VOoCtm9m3sv1vK213xab-0Hd2ZE7_W7C-WHjDvTO423yeRrXeRC_K_6gi79Oas_L4f4dVF7qtwYUKVCiZmsgtqyIKIEgEsdAaE0SICQDYusUOLVJlEoo1mEkI_f-AOPcN8s:1nmDT1:W5jR5hUa1xGEYN_Dnh5s3-vmNMY75vwttiYdmuynI2g",
+        "expire_date": "2022-05-18T11:46:51.696Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "gw1vvpnrqh6drpb6zc6jhdcue75fhqcu",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2pBCgRaX7nsGMswMUjWQlHZlvLtt0oVu_3vvv0WAbc1ha7yEmcRVaHH53SLgk8sB6AHlXiXWsi5zlIciT9rkVIlft9P9O8jQ8l4rzwmRtY_K0NiRsja6DhmJI2uIhtg58sB9b0d2u0YqsQckb82QBvH5AhwuOWA:1nZI1H:KjbndUFl7KxorNTjJMgU3M1FRbrrqMFAsQ9AUf6zoY0",
+        "expire_date": "2022-04-12T20:00:47.984Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "hp2qd3xg8wh3wvt433rux6m5mrfr0x98",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQAP_C2RAoUIpH730DWXa3UjWQlPZk_Lsh6UGvM5N5iwjHnuPReIsriatw4vLLEuCTSxf0gHKvEmvZtzXJnsjTNjlX4tftbP8GGVruWzsSWcbEC1lNk0sjDzokcBgsB3Ca0JNRDIpZoVrCwN75NFljiC2KzxcTmDj2:1nEzZD:ptElAhaWPt8yodtgl0BVbV0ydMkfUxiLR6y0SntYnfg",
+        "expire_date": "2022-02-15T20:15:55.282Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ijdgoijtrb2fwtl6ekzk8g0g166f91b2",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nBFum:-cQc0prztzq9i7wj73yduHl_whU64u98BvV001jaEds",
+        "expire_date": "2022-02-05T12:54:44.226Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ldwjl0hmqx5i3fkei0gi3no7kuk3u1ta",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hA6SJm6dN8zNAMzSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmlldFKjT7xYoPqTsgO9UblXHWtZlDnpX9EGbHivL83q4fweZWv7WBGcPzB7AdwbJWyDiATFJ73zfsbODSU4QGA0bScZCCDEhWmfIcVTvD8vKN6I:1nCMlS:NQCj5WEVM3D_MwiO1r-0JTs-rUxMObYLAkv9p2O2yi8",
+        "expire_date": "2022-02-08T14:25:42.946Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "mn0jqucgeozcck8rmqm3f1da4pe5oa6h",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQRP-FsyEt4Mp69N5vIAu7laqBpLQn47_bJj1o5jbvzbxVoHXJYW0yh4nVVYE6_XaR0lPKDvhB5V51qmWZp6h3RR-06aGyvG6H-3eQqeVtPRJwdD05uXD0gAidRcbOuC1nYulJyLCId2A9WvA42sTegE9C4NTnC-zcN_A:1nKisd:UdfaUuRrM-xM4SlLM1JmyABbgTh9l3pGq29UE-aY4fU",
+        "expire_date": "2022-03-03T15:39:39.074Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "pv81zkcqzalfw45oj7tt1xs89mf8ebix",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hCg0EGX7nsGMjCDVA0kpV0Z765NutDtf-_9lwi4rSVsnZcwk7gII06_W8T04LoDumO9NZlaXZc5yl2RB-1yasTP6-H-HRTs5VuzpuRJQ6YUB-ujMjhk65CYnbc0AowMis5WQWYFKYM22rFhBJW1BfH-AAOeODc:1nX6LR:dNF1Mhts-gpidiD2Se4QWVp0Qg5gFDUu18xraYpxAxU",
+        "expire_date": "2022-04-06T19:08:33.726Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "qxv4g287ui0n3uu06y1gwezdhmlybcet",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2pBhoAVcuvcMBIZBqoYmpV0Z765NutDtf-_9lwhxW2vYOi9hyuIsUJx-txTpwW0H-R7bbZY0t3WZktwVedAur3Pm5-Vw_w5q7PVbO8TIPIzFeQJOWSudvUVvDBjrC3FEzZacZUYAPQCS9VaPhpSGYpR4fwDavjcY:1nF1Za:2IaIhpiD0nY-ZcTvnZEBYhOkJiaGaF0oZTKe3bqvdD4",
+        "expire_date": "2022-02-15T22:24:26.834Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ravta1u9mskpoa80gu6dkbobb7chievt",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlmLf2so6TmDtf4sDiBbipMKcXeIlALaNzPvJQKtSw3rKHOYsjgLJQ6_W6T0KG0D-U7t1mXqbZmnKDdF7nTIa8_ledndv4NKo35rBLIetUpAOVrwjpVjoBQRsmENhg2n4rJBb2NCZKtPFsn4Es2RvBLvD-FiN9Y:1nNUxw:LLd0JWEIBb8RVC1-vnL8Ls0Jv9TB1ykf03HFIIRlsL0",
+        "expire_date": "2022-03-11T07:24:36.202Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "s0k179n51635zuyk9x6st3fdkms2lxns",
+    "fields": {
+        "session_data": ".eJxVjEEOwiAQRe_C2hBmWiy4dO8ZyAwMUjU0Ke3KeHfbpAvdvvf-f6tA61LC2mQOY1IXher0y5jiU-ou0oPqfdJxqss8st4Tfdimb1OS1_Vo_w4KtbKtPbCxEBmEIqD19mxBsEfPGTpwmdGDMy4jIAxDt4FI3LEhcVkQevX5AsWAN1g:1nFM1u:KJqVqemB4zpvJFasLVvx--8YJi88PL3iYPOJ6SWKvgU",
+        "expire_date": "2022-02-16T20:15:02.962Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "s6kwqnmd3bspqofeqzf9g0iolhfhyof4",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQBf-FsyFAgQWP3v0GArsgVQNJaU_Gf9cmPej1zcx7sRC3tYZt5CXMxM4M2Ol3SxEfue2A7rHdOsfe1mVOfFf4QQe_dsrPy-H-HdQ46rd2hXLC4gE0euNRZJVUUVpai0aRdEUamixSngwYpZKYohOA3jrUEhx7fwDz6jeL:1nPkkw:FFLhT3fHC261UmZYqJvtoDIgbek1fY-Rv6jYkt7vcRI",
+        "expire_date": "2022-03-17T12:40:30.988Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "u2oo4c39ce5h0t7nosh7tuvloc0x4dhf",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQBf-FsyFAgQWP3v0GArsgVQNJaU_Gf9cmPej1zcx7sRC3tYZt5CXMxM4M2Ol3SxEfue2A7rHdOsfe1mVOfFf4QQe_dsrPy-H-HdQ46rd2hXLC4gE0euNRZJVUUVpai0aRdEUamixSngwYpZKYohOA3jrUEhx7fwDz6jeL:1nOzyc:pben-lCnpf8aLCWupKeKYSiQs_npoiehqMDR09tUPJk",
+        "expire_date": "2022-03-15T10:43:30.668Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "unseqs7ffp1reygmu5jovra1a4n4pzsa",
+    "fields": {
+        "session_data": ".eJxVjMsKwjAQAP8lZwnb5u3Re78hZHeDqUoCTXsS_10CPeh1Zpi3iOnYSzx63uLK4iqUuPwyTPTMdQh-pHpvklrdtxXlSORpu1wa59ftbP8GJfUytpN3xBMaDcGD5pQ9o_YBwWSfgRwqS5aCIk6AOAMaAw7BBkdWuVl8vt_wN5s:1nFB6l:YD49X1ugJNvrTIeb9gEFN-_9--lYBZl1t7gbnimb9h8",
+        "expire_date": "2022-02-16T08:35:19.923Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "uukvn6vzqhdo6eaqdot52mwsealzinm9",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlnGWf8o6XMGa-1dcADZUpxUiLuTSCmgfTPz3iLiupS4dp7jROIirDj9bgnzk-sO6IH13mRudZmnJHdFHrTLsRG_rof7d1Cwl61O2lsMEDQM4AZlrDdK3dgERu8NJJeZwsZthmwzG-1osASaknN81iA-X7l9Nwk:1nLk4C:KqFB7R7gLEcfRatWQ77MRPR9avGUpTgTb7I_YxjkA20",
+        "expire_date": "2022-03-06T11:07:48.563Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "vo19kevdfh6q3n9ematykjh4l8ksnxvi",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlle__BS0ucM1tpecAA5UpxUiLuTSCmgnZn33iLSutS4dp7jWMRFaHH6ZYnyk9suyoPafZJ5ass8Jrkn8rBdDlPh1_Vo_w4q9bqtUWk2N-uRLTAXdMadCSloREMbcKAsJkMBQGvtGABVhpAAvAHnrfh8AcfVNn8:1nNIXC:6oH_9rTtntwuPs73srHLP8IsA-qq63qZr4UxL7Wmisg",
+        "expire_date": "2022-03-10T18:08:10.888Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "voliynavulr155dnagad8fkfy19t8mgh",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAUBO_iGlmJP8kLJT1nsNb2Mw4gW4qTCnF3iJQC2p2ZfQmHbc1ua7y4OYqzUOL0u3mEB5cdxDvKrcpQy7rMXu6KPGiT1xr5eTncv4OMlr91TwB1qScdRmsRtYJiStr6iZIPg4mDQUhGkWcDWA3SDLbEhMl0o3h_APIgOGg:1nExb9:T1mDfoxleRD-hq16ckESQO7_QKh7y3OvBe4-t4KCKFI",
+        "expire_date": "2022-02-15T18:09:47.307Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "w0psc9kkyvwc87pvehjdybr8jnbtxb7b",
+    "fields": {
+        "session_data": ".eJxVjDEOgzAMAP-SuYochwTSsTtvQI5tCm0FEoGp6t-rSAztene6txno2KfhKLoNs5iriebyyzLxU5cq5EHLfbW8Lvs2Z1sTe9pi-1X0dTvbv8FEZapbQvQiOTAEwgZan1Vil0AdtRQ4OvSEgZE1NTFBAAGGxnNyI7puNJ8v2mc3VQ:1nZs2j:zgjGfRDPF4sr86LxJjJaLhlR4z8TL7KTPOYPVjDA3hY",
+        "expire_date": "2022-04-14T10:28:41.580Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "ypmdu8mu7xx902s6hn3cg6os3qepetmd",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGlmLf2so6TmDtf4sDiBbipMKcXeIlALaNzPvJQKtSw3rKHOYsjgLJQ6_W6T0KG0D-U7t1mXqbZmnKDdF7nTIa8_ledndv4NKo35rBLIetUpAOVrwjpVjoBQRsmENhg2n4rJBb2NCZKtPFsn4Es2RvBLvD-FiN9Y:1nNIc9:X4VOkJ9UEv5nRq1i0lZU2LUEYP6GKma-KkZj4m7-QpI",
+        "expire_date": "2022-03-10T18:13:17.370Z"
+    }
+},
+{
+    "model": "smupapp.djangosession",
+    "pk": "zl3o6z3fd0x4u56c51rbvmnflbqv8c9t",
+    "fields": {
+        "session_data": ".eJxVjDEOgzAMAP-SuYochwTSsTtvQI5tCm0FEoGp6t-rSAztene6txno2KfhKLoNs5iriebyyzLxU5cq5EHLfbW8Lvs2Z1sTe9pi-1X0dTvbv8FEZapbQvQiOTAEwgZan1Vil0AdtRQ4OvSEgZE1NTFBAAGGxnNyI7puNJ8v2mc3VQ:1nZwEm:QqQntmyKsQMrYmkR_5MUIOYRukJweYbhD0KBoUc6kZA",
+        "expire_date": "2022-04-14T14:57:24.792Z"
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 1,
+    "fields": {
+        "name": "Magdalena",
+        "surname": "Inglot",
+        "id_unit": 2,
+        "id_employeetype": 4,
+        "auth_user": 3
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 4,
+    "fields": {
+        "name": "Piotr",
+        "surname": "W*****k",
+        "id_unit": 2,
+        "id_employeetype": 1,
+        "auth_user": 6
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 6,
+    "fields": {
+        "name": "Jolanta",
+        "surname": "Jamroży",
+        "id_unit": 3,
+        "id_employeetype": 4,
+        "auth_user": 8
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 8,
+    "fields": {
+        "name": "Marcin",
+        "surname": "Połomski",
+        "id_unit": 3,
+        "id_employeetype": 4,
+        "auth_user": 10
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 9,
+    "fields": {
+        "name": "Angelika",
+        "surname": "Sikora",
+        "id_unit": 3,
+        "id_employeetype": 4,
+        "auth_user": 11
+    }
+},
+{
+    "model": "smupapp.employee",
+    "pk": 10,
+    "fields": {
+        "name": "Pracownik",
+        "surname": "G 1",
+        "id_unit": 5,
+        "id_employeetype": 3,
+        "auth_user": 12
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 1,
+    "fields": {
+        "name": "ADMIN"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 2,
+    "fields": {
+        "name": "USER"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 3,
+    "fields": {
+        "name": "MANAGER"
+    }
+},
+{
+    "model": "smupapp.employeetype",
+    "pk": 4,
+    "fields": {
+        "name": "PROCESS MANAGER"
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 145,
+    "fields": {
+        "name": "Procesy zarządcze ",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": null,
+        "order": 0,
+        "number": "1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 146,
+    "fields": {
+        "name": "Zarządzanie komórką organizacyjną urzędu lub jednostki podległej",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 145,
+        "order": 1,
+        "number": "1.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 147,
+    "fields": {
+        "name": "Zarządzanie projektem",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 145,
+        "order": 2,
+        "number": "1.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 148,
+    "fields": {
+        "name": "Procesy obsługowe",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": null,
+        "order": 3,
+        "number": "2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 149,
+    "fields": {
+        "name": "Obsługa kadrowo-płacowa",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 148,
+        "order": 4,
+        "number": "2.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 150,
+    "fields": {
+        "name": "Obsługa finansowa",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 148,
+        "order": 5,
+        "number": "2.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 151,
+    "fields": {
+        "name": "Planowanie i aktualizacja budżetu",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 148,
+        "order": 6,
+        "number": "2.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 152,
+    "fields": {
+        "name": "Logistyka i zamówienia publiczne",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 148,
+        "order": 7,
+        "number": "2.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 153,
+    "fields": {
+        "name": "Promocja",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 148,
+        "order": 8,
+        "number": "2.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 154,
+    "fields": {
+        "name": "Obsługa kancelaryjna i biurowa",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 148,
+        "order": 9,
+        "number": "2.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 155,
+    "fields": {
+        "name": "Obsługa informatyczna",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 148,
+        "order": 10,
+        "number": "2.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 156,
+    "fields": {
+        "name": "Obsługa prawna",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 148,
+        "order": 11,
+        "number": "2.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 157,
+    "fields": {
+        "name": "Szkolenia i rozwój kompetencji",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 148,
+        "order": 12,
+        "number": "2.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 158,
+    "fields": {
+        "name": "Przemieszczenia między budynkami",
+        "tip": "",
+        "id_number": 10,
+        "id_mainprocess": 148,
+        "order": 13,
+        "number": "2.10."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 159,
+    "fields": {
+        "name": "Inne procesy",
+        "tip": "",
+        "id_number": 11,
+        "id_mainprocess": 148,
+        "order": 14,
+        "number": "2.11."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 160,
+    "fields": {
+        "name": "Usługi publiczne",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": null,
+        "order": 15,
+        "number": "3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 161,
+    "fields": {
+        "name": "Podatki i opłaty lokalne",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 160,
+        "order": 16,
+        "number": "3.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 162,
+    "fields": {
+        "name": "Wymiar i pobór podatku od nieruchomości ",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 161,
+        "order": 17,
+        "number": "3.1.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 163,
+    "fields": {
+        "name": "Wymiar i pobór podatku rolnego ",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 161,
+        "order": 18,
+        "number": "3.1.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 164,
+    "fields": {
+        "name": "Wymiar i pobór podatku leśnego ",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 161,
+        "order": 19,
+        "number": "3.1.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 165,
+    "fields": {
+        "name": "Wymiar i pobór podatku od środków transportowych",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 161,
+        "order": 20,
+        "number": "3.1.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 166,
+    "fields": {
+        "name": "Wymiar i pobór opłaty od posiadania psów ",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 161,
+        "order": 21,
+        "number": "3.1.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 167,
+    "fields": {
+        "name": "Wymiar i pobór opłaty targowej ",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 161,
+        "order": 22,
+        "number": "3.1.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 168,
+    "fields": {
+        "name": "Wymiar i pobór opłaty reklamowej ",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 161,
+        "order": 23,
+        "number": "3.1.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 169,
+    "fields": {
+        "name": "Wymiar i pobór opłaty uzdrowiskowej",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 161,
+        "order": 24,
+        "number": "3.1.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 170,
+    "fields": {
+        "name": "Wymiar i pobór opłaty miejscowej",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 161,
+        "order": 25,
+        "number": "3.1.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 171,
+    "fields": {
+        "name": "Windykacja należności ",
+        "tip": "",
+        "id_number": 10,
+        "id_mainprocess": 161,
+        "order": 26,
+        "number": "3.1.10."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 172,
+    "fields": {
+        "name": "Gospodarowanie nieruchomościami",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 160,
+        "order": 27,
+        "number": "3.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 173,
+    "fields": {
+        "name": "Wynajmowanie mieszkań przez JST",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 172,
+        "order": 28,
+        "number": "3.2.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 174,
+    "fields": {
+        "name": "Gospodarowanie nieruchomościami JST",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 172,
+        "order": 29,
+        "number": "3.2.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 175,
+    "fields": {
+        "name": "Gospodarowanie nieruchomościami Skarbu Państwa ",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 172,
+        "order": 30,
+        "number": "3.2.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 176,
+    "fields": {
+        "name": "Drogownictwo i transport",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 160,
+        "order": 31,
+        "number": "3.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 177,
+    "fields": {
+        "name": "Udostępnianie sieci drogowej",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 176,
+        "order": 32,
+        "number": "3.3.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 178,
+    "fields": {
+        "name": "Udostępnianie dworców i przystanków",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 176,
+        "order": 33,
+        "number": "3.3.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 179,
+    "fields": {
+        "name": "Publiczny transport zbiorowy",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 176,
+        "order": 34,
+        "number": "3.3.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 180,
+    "fields": {
+        "name": "Dowozy szkolne i przedszkolne",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 176,
+        "order": 35,
+        "number": "3.3.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 181,
+    "fields": {
+        "name": "Udostępnianie rowerów publicznych ",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 176,
+        "order": 36,
+        "number": "3.3.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 182,
+    "fields": {
+        "name": "Ochrona środowiska",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 160,
+        "order": 37,
+        "number": "3.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 183,
+    "fields": {
+        "name": "Zaopatrzenie w wodę",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 182,
+        "order": 38,
+        "number": "3.4.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 184,
+    "fields": {
+        "name": "Odprowadzanie i oczyszczanie ścieków",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 182,
+        "order": 39,
+        "number": "3.4.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 185,
+    "fields": {
+        "name": "Gospodarowanie odpadami komunalnymi ",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 182,
+        "order": 40,
+        "number": "3.4.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 186,
+    "fields": {
+        "name": "Utrzymanie czystości i porządku terenów gminy",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 182,
+        "order": 41,
+        "number": "3.4.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 187,
+    "fields": {
+        "name": "Ochrona przyrody leżąca w gestii gminy",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 182,
+        "order": 42,
+        "number": "3.4.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 188,
+    "fields": {
+        "name": "Inwestycje i budownictwo",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 160,
+        "order": 43,
+        "number": "3.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 189,
+    "fields": {
+        "name": "Opracowanie miejscowego planu zagospodarowania przestrzennego",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 188,
+        "order": 44,
+        "number": "3.5.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 190,
+    "fields": {
+        "name": "Wydanie decyzji o warunkach zabudowy oraz o ustaleniu lokalizacji inwestycji celu publicznego",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 188,
+        "order": 45,
+        "number": "3.5.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 191,
+    "fields": {
+        "name": "Wydanie decyzji dot. pozwolenia na budowę i zgłoszenia budowy",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 188,
+        "order": 46,
+        "number": "3.5.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 192,
+    "fields": {
+        "name": "Wydanie decyzji o zezwoleniu na realizację inwestycji drogowej (ZRID)",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 188,
+        "order": 47,
+        "number": "3.5.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 193,
+    "fields": {
+        "name": "Realizacja inwestycji budowlanych przez JST",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 188,
+        "order": 48,
+        "number": "3.5.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 194,
+    "fields": {
+        "name": "Geodezja i Kartografia",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 160,
+        "order": 49,
+        "number": "3.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 195,
+    "fields": {
+        "name": "Prowadzenie i udostępnianie danych z ewidencji gruntów i budynków",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 194,
+        "order": 50,
+        "number": "3.6.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 196,
+    "fields": {
+        "name": "Prowadzenie i udostępnianie danych z ewidencji miejscowości, ulic i adresów",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 194,
+        "order": 56,
+        "number": "3.6.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 197,
+    "fields": {
+        "name": "Prowadzenie i udostępnianie danych z rejestru cen nieruchomości",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 194,
+        "order": 63,
+        "number": "3.6.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 198,
+    "fields": {
+        "name": "Prowadzenie i udostępnianie standardowych opracowań kartograficznych: map ewidencyjnych oraz map zasadniczych",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 194,
+        "order": 65,
+        "number": "3.6.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 199,
+    "fields": {
+        "name": "Obsługa zgłoszonych prac geodezyjnych",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 194,
+        "order": 75,
+        "number": "3.6.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 200,
+    "fields": {
+        "name": "Edukacja",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 160,
+        "order": 78,
+        "number": "3.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 201,
+    "fields": {
+        "name": "Edukacja dzieci i młodzieży w szkołach podstawowych",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 200,
+        "order": 79,
+        "number": "3.7.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 202,
+    "fields": {
+        "name": "Edukacja młodzieży w branżowych szkołach I stopnia",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 200,
+        "order": 80,
+        "number": "3.7.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 203,
+    "fields": {
+        "name": "Edukacja młodzieży w liceach ogólnokształcących",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 200,
+        "order": 81,
+        "number": "3.7.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 204,
+    "fields": {
+        "name": "Edukacja młodzieży w technikach",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 200,
+        "order": 82,
+        "number": "3.7.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 205,
+    "fields": {
+        "name": "Edukacja przedszkolna",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 200,
+        "order": 83,
+        "number": "3.7.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 206,
+    "fields": {
+        "name": "Edukacja specjalna",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 200,
+        "order": 84,
+        "number": "3.7.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 207,
+    "fields": {
+        "name": "Edukacja w szkołach dla dorosłych",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 200,
+        "order": 85,
+        "number": "3.7.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 208,
+    "fields": {
+        "name": "Wsparcie przez poradnie psychologiczno-pedagogiczne",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 200,
+        "order": 86,
+        "number": "3.7.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 209,
+    "fields": {
+        "name": "Lokalna polityka społeczna",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 160,
+        "order": 87,
+        "number": "3.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 210,
+    "fields": {
+        "name": "Zapewnienie opieki nad dzieckiem do lat 3",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 209,
+        "order": 88,
+        "number": "3.8.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 211,
+    "fields": {
+        "name": "Obsługa świadczeń wychowawczych ",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 209,
+        "order": 89,
+        "number": "3.8.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 212,
+    "fields": {
+        "name": "Świadczenia rodzinne kierowane do rodzin z dziećmi",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 209,
+        "order": 90,
+        "number": "3.8.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 213,
+    "fields": {
+        "name": "Obsługa świadczeń rodzinnych o charakterze opiekuńczym ",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 209,
+        "order": 91,
+        "number": "3.8.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 214,
+    "fields": {
+        "name": "Pomoc osobom uprawnionym do alimentów",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 209,
+        "order": 92,
+        "number": "3.8.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 215,
+    "fields": {
+        "name": "Wsparcie rodziny przeżywającej trudności opiekuńczo-wychowawcze",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 209,
+        "order": 93,
+        "number": "3.8.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 216,
+    "fields": {
+        "name": "Zapewnienie rodzinnej pieczy zastępczej",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 209,
+        "order": 94,
+        "number": "3.8.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 217,
+    "fields": {
+        "name": "Zapewnienie instytucjonalnej pieczy zastępczej",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 209,
+        "order": 95,
+        "number": "3.8.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 218,
+    "fields": {
+        "name": "Wsparcie osób usamodzielnianych",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 209,
+        "order": 96,
+        "number": "3.8.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 219,
+    "fields": {
+        "name": "Udzielanie świadczeń z pomocy społecznej",
+        "tip": "",
+        "id_number": 10,
+        "id_mainprocess": 209,
+        "order": 97,
+        "number": "3.8.10."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 220,
+    "fields": {
+        "name": "Świadczenie niepieniężne: Zapewnienie schronienia osobom bezdomnym",
+        "tip": "",
+        "id_number": 11,
+        "id_mainprocess": 209,
+        "order": 98,
+        "number": "3.8.11."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 221,
+    "fields": {
+        "name": "Pomoc dla cudzoziemców",
+        "tip": "",
+        "id_number": 12,
+        "id_mainprocess": 209,
+        "order": 99,
+        "number": "3.8.12."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 222,
+    "fields": {
+        "name": "Świadczenie niepieniężne: Poradnictwo specjalistyczne i interwencja kryzysowa",
+        "tip": "",
+        "id_number": 13,
+        "id_mainprocess": 209,
+        "order": 100,
+        "number": "3.8.13."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 223,
+    "fields": {
+        "name": "Praca socjalna",
+        "tip": "",
+        "id_number": 14,
+        "id_mainprocess": 209,
+        "order": 101,
+        "number": "3.8.14."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 224,
+    "fields": {
+        "name": "Zapewnienie usług opiekuńczych",
+        "tip": "",
+        "id_number": 15,
+        "id_mainprocess": 209,
+        "order": 102,
+        "number": "3.8.15."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 225,
+    "fields": {
+        "name": "Zapewnienie opieki w domach pomocy społecznej",
+        "tip": "",
+        "id_number": 16,
+        "id_mainprocess": 209,
+        "order": 103,
+        "number": "3.8.16."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 226,
+    "fields": {
+        "name": "Mieszkania chronione",
+        "tip": "",
+        "id_number": 17,
+        "id_mainprocess": 209,
+        "order": 104,
+        "number": "3.8.17."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 227,
+    "fields": {
+        "name": "Zapewnienie usług w ośrodkach wsparcia w tym w ośrodkach wsparcia dla osób z zaburzeniami psychicznymi",
+        "tip": "",
+        "id_number": 18,
+        "id_mainprocess": 209,
+        "order": 105,
+        "number": "3.8.18."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 228,
+    "fields": {
+        "name": "Rehabilitacja społeczna osób niepełnosprawnych",
+        "tip": "",
+        "id_number": 19,
+        "id_mainprocess": 209,
+        "order": 106,
+        "number": "3.8.19."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 229,
+    "fields": {
+        "name": "Obsługa procesu orzeczniczego w ramach zespołów ds. orzekania o niepełnosprawności",
+        "tip": "",
+        "id_number": 20,
+        "id_mainprocess": 209,
+        "order": 107,
+        "number": "3.8.20."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 230,
+    "fields": {
+        "name": "Działania profilaktyczne z zakresu zdrowia publicznego",
+        "tip": "",
+        "id_number": 21,
+        "id_mainprocess": 209,
+        "order": 108,
+        "number": "3.8.21."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 231,
+    "fields": {
+        "name": "Zabezpieczenie świadczeń opieki zdrowotnej w ramach samorządowych podmiotów leczniczych",
+        "tip": "",
+        "id_number": 22,
+        "id_mainprocess": 209,
+        "order": 109,
+        "number": "3.8.22."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 232,
+    "fields": {
+        "name": "Regulacja lokalnego rynku sprzedaży alkoholu i profilaktyka uzależnień",
+        "tip": "",
+        "id_number": 23,
+        "id_mainprocess": 209,
+        "order": 110,
+        "number": "3.8.23."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 233,
+    "fields": {
+        "name": "Zabezpieczenie państwa z tytułu bezrobocia",
+        "tip": "",
+        "id_number": 24,
+        "id_mainprocess": 209,
+        "order": 111,
+        "number": "3.8.24."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 234,
+    "fields": {
+        "name": "Świadczenie usług w zakresie pośrednictwa pracy i poradnictwa zawodowego",
+        "tip": "",
+        "id_number": 25,
+        "id_mainprocess": 209,
+        "order": 112,
+        "number": "3.8.25."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 235,
+    "fields": {
+        "name": "Wsparcie tworzenia miejsc pracy i rozwoju przedsiębiorczości",
+        "tip": "",
+        "id_number": 26,
+        "id_mainprocess": 209,
+        "order": 113,
+        "number": "3.8.26."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 236,
+    "fields": {
+        "name": "Wsparcie mobilności oraz godzenia życia zawodowego i rodzinnego",
+        "tip": "",
+        "id_number": 27,
+        "id_mainprocess": 209,
+        "order": 114,
+        "number": "3.8.27."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 237,
+    "fields": {
+        "name": "Rozwój zawodowy oraz wsparcie kompetencji i kwalifikacji",
+        "tip": "",
+        "id_number": 28,
+        "id_mainprocess": 209,
+        "order": 115,
+        "number": "3.8.28."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 238,
+    "fields": {
+        "name": "Wsparcie niektórych podmiotów ekonomii społecznej",
+        "tip": "",
+        "id_number": 29,
+        "id_mainprocess": 209,
+        "order": 116,
+        "number": "3.8.29."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 239,
+    "fields": {
+        "name": "Kultura i rekreacja",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 160,
+        "order": 117,
+        "number": "3.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 240,
+    "fields": {
+        "name": "Wspieranie rozwoju czytelnictwa",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 239,
+        "order": 118,
+        "number": "3.9.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 241,
+    "fields": {
+        "name": "Organizowanie działań z zakresu animacji i edukacji kulturowej",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 239,
+        "order": 119,
+        "number": "3.9.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 242,
+    "fields": {
+        "name": "Wspieranie twórców i artystów oraz sektorów kreatywnych",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 239,
+        "order": 120,
+        "number": "3.9.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 243,
+    "fields": {
+        "name": "Organizowanie oferty wydarzeń kulturalnych",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 239,
+        "order": 121,
+        "number": "3.9.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 244,
+    "fields": {
+        "name": "Ochrona dziedzictwa kulturowego",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 239,
+        "order": 122,
+        "number": "3.9.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 245,
+    "fields": {
+        "name": "Udostępnianie materialnego dziedzictwa kulturowego",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 239,
+        "order": 123,
+        "number": "3.9.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 246,
+    "fields": {
+        "name": "Udostępnianie infrastruktury rekreacyjno-sportowej",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 239,
+        "order": 124,
+        "number": "3.9.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 247,
+    "fields": {
+        "name": "Wspieranie aktywności rekreacyjno-sportowej mieszkańców",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 239,
+        "order": 125,
+        "number": "3.9.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 248,
+    "fields": {
+        "name": "Wspieranie aktywnego stylu życia",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 239,
+        "order": 126,
+        "number": "3.9.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 249,
+    "fields": {
+        "name": "Inne",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": null,
+        "order": 127,
+        "number": "4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 250,
+    "fields": {
+        "name": "Przerwa w pracy",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": null,
+        "order": 128,
+        "number": "5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 251,
+    "fields": {
+        "name": "Przyczyna nieobecności",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": null,
+        "order": 129,
+        "number": "6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 252,
+    "fields": {
+        "name": "Urlop",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 251,
+        "order": 130,
+        "number": "6.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 253,
+    "fields": {
+        "name": "Zwolnienie lekarskie",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 251,
+        "order": 131,
+        "number": "6.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 254,
+    "fields": {
+        "name": "Delegacja",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 251,
+        "order": 132,
+        "number": "6.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 255,
+    "fields": {
+        "name": "Komisja",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 251,
+        "order": 133,
+        "number": "6.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 256,
+    "fields": {
+        "name": "Inna",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 251,
+        "order": 134,
+        "number": "6.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 257,
+    "fields": {
+        "name": "Wprowadzanie zmian w Ewidencji Gruntów i Budynków ",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 195,
+        "order": 51,
+        "number": "3.6.1.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 258,
+    "fields": {
+        "name": "Udostępnianie danych z Ewidencji Gruntów i Budynków",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 195,
+        "order": 52,
+        "number": "3.6.1.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 259,
+    "fields": {
+        "name": "Prowadzenie postępowań wyjaśniających oraz wydawanie zaświadczeń",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 195,
+        "order": 53,
+        "number": "3.6.1.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 260,
+    "fields": {
+        "name": "Nadzór merytoryczny",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 195,
+        "order": 54,
+        "number": "3.6.1.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 261,
+    "fields": {
+        "name": "Udzielanie informacji, obsługa stron (osobiście, telefonicznie, e-mail)",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 195,
+        "order": 55,
+        "number": "3.6.1.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 262,
+    "fields": {
+        "name": "Realizacja wniosku o nadanie numeru porządkowego",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 196,
+        "order": 57,
+        "number": "3.6.2.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 263,
+    "fields": {
+        "name": "Zasilenie bezy Ewidencji Miejscowości Ulic i Adresów",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 196,
+        "order": 58,
+        "number": "3.6.2.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 264,
+    "fields": {
+        "name": "Przygotowanie odpowiedzi na pisma",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 196,
+        "order": 59,
+        "number": "3.6.2.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 265,
+    "fields": {
+        "name": "Przygotowanie projektów uchwał o nadaniu nazwy ulicy",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 196,
+        "order": 60,
+        "number": "3.6.2.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 266,
+    "fields": {
+        "name": "Nadzór merytoryczny",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 196,
+        "order": 61,
+        "number": "3.6.2.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 267,
+    "fields": {
+        "name": "Udzielanie informacji, obsługa stron (osobiście, telefonicznie, e-mail)",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 196,
+        "order": 62,
+        "number": "3.6.2.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 268,
+    "fields": {
+        "name": "Aktualizacja danych w RCN",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 197,
+        "order": 64,
+        "number": "3.6.3.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 269,
+    "fields": {
+        "name": "Wprowadzanie zmian z operatów technicznych",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 198,
+        "order": 66,
+        "number": "3.6.4.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 270,
+    "fields": {
+        "name": "Udostępnianie danych (obsługa stron)",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 198,
+        "order": 67,
+        "number": "3.6.4.2."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 271,
+    "fields": {
+        "name": "Skanowanie zasobu",
+        "tip": "",
+        "id_number": 3,
+        "id_mainprocess": 198,
+        "order": 68,
+        "number": "3.6.4.3."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 272,
+    "fields": {
+        "name": "Archiwizacja zasobu",
+        "tip": "",
+        "id_number": 4,
+        "id_mainprocess": 198,
+        "order": 69,
+        "number": "3.6.4.4."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 273,
+    "fields": {
+        "name": "Przyjmowanie i obsługa wniosków ZUD",
+        "tip": "",
+        "id_number": 5,
+        "id_mainprocess": 198,
+        "order": 70,
+        "number": "3.6.4.5."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 274,
+    "fields": {
+        "name": "Opiniowanie ZUD",
+        "tip": "",
+        "id_number": 6,
+        "id_mainprocess": 198,
+        "order": 71,
+        "number": "3.6.4.6."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 275,
+    "fields": {
+        "name": "Weryfikacji opracowań geodezyjno- kartograficznych",
+        "tip": "",
+        "id_number": 7,
+        "id_mainprocess": 198,
+        "order": 72,
+        "number": "3.6.4.7."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 276,
+    "fields": {
+        "name": "Nadzór merytoryczny",
+        "tip": "",
+        "id_number": 8,
+        "id_mainprocess": 198,
+        "order": 73,
+        "number": "3.6.4.8."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 277,
+    "fields": {
+        "name": "Udzielanie informacji, obsługa stron (osobiście, telefonicznie, e-mail)",
+        "tip": "",
+        "id_number": 9,
+        "id_mainprocess": 198,
+        "order": 74,
+        "number": "3.6.4.9."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 278,
+    "fields": {
+        "name": "Udostępnianie danych do zgłoszeń prac geodezyjnych",
+        "tip": "",
+        "id_number": 1,
+        "id_mainprocess": 199,
+        "order": 76,
+        "number": "3.6.5.1."
+    }
+},
+{
+    "model": "smupapp.process",
+    "pk": 279,
+    "fields": {
+        "name": "Udzielanie informacji, obsługa stron (osobiście, telefonicznie, e-mail)",
+        "tip": "",
+        "id_number": 2,
+        "id_mainprocess": 199,
+        "order": 77,
+        "number": "3.6.5.2."
+    }
+},
+{
+    "model": "smupapp.rule",
+    "pk": 4,
+    "fields": {
+        "name": "Sprawy (G)",
+        "max_value": null,
+        "time_from": "2022-04-01",
+        "time_to": "2028-04-01",
+        "time_range": 2,
+        "data_type": 2,
+        "is_active": 1
+    }
+},
+{
+    "model": "smupapp.rule",
+    "pk": 5,
+    "fields": {
+        "name": "Czas pracy (G)",
+        "max_value": null,
+        "time_from": "2022-04-01",
+        "time_to": "2028-04-01",
+        "time_range": 1,
+        "data_type": 1,
+        "is_active": 1
+    }
+},
+{
+    "model": "smupapp.rulehasemployee",
+    "pk": 6,
+    "fields": {
+        "rule_id_rule": 4,
+        "employee_id_employee": 10
+    }
+},
+{
+    "model": "smupapp.rulehasemployee",
+    "pk": 7,
+    "fields": {
+        "rule_id_rule": 5,
+        "employee_id_employee": 10
+    }
+},
+{
+    "model": "smupapp.rulehasemployee",
+    "pk": 41,
+    "fields": {
+        "rule_id_rule": 5,
+        "employee_id_employee": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 257,
+    "fields": {
+        "process_id_process": 146,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 258,
+    "fields": {
+        "process_id_process": 147,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 259,
+    "fields": {
+        "process_id_process": 149,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 260,
+    "fields": {
+        "process_id_process": 150,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 261,
+    "fields": {
+        "process_id_process": 151,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 262,
+    "fields": {
+        "process_id_process": 152,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 263,
+    "fields": {
+        "process_id_process": 153,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 264,
+    "fields": {
+        "process_id_process": 154,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 265,
+    "fields": {
+        "process_id_process": 155,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 266,
+    "fields": {
+        "process_id_process": 156,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 267,
+    "fields": {
+        "process_id_process": 157,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 268,
+    "fields": {
+        "process_id_process": 158,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 269,
+    "fields": {
+        "process_id_process": 159,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 270,
+    "fields": {
+        "process_id_process": 174,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 271,
+    "fields": {
+        "process_id_process": 175,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 272,
+    "fields": {
+        "process_id_process": 257,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 273,
+    "fields": {
+        "process_id_process": 258,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 274,
+    "fields": {
+        "process_id_process": 259,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 275,
+    "fields": {
+        "process_id_process": 260,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 276,
+    "fields": {
+        "process_id_process": 261,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 277,
+    "fields": {
+        "process_id_process": 262,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 278,
+    "fields": {
+        "process_id_process": 263,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 279,
+    "fields": {
+        "process_id_process": 264,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 280,
+    "fields": {
+        "process_id_process": 265,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 281,
+    "fields": {
+        "process_id_process": 266,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 282,
+    "fields": {
+        "process_id_process": 267,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 283,
+    "fields": {
+        "process_id_process": 268,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 284,
+    "fields": {
+        "process_id_process": 269,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 285,
+    "fields": {
+        "process_id_process": 270,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 286,
+    "fields": {
+        "process_id_process": 271,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 287,
+    "fields": {
+        "process_id_process": 272,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 288,
+    "fields": {
+        "process_id_process": 273,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 289,
+    "fields": {
+        "process_id_process": 274,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 290,
+    "fields": {
+        "process_id_process": 275,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 291,
+    "fields": {
+        "process_id_process": 276,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 292,
+    "fields": {
+        "process_id_process": 277,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 293,
+    "fields": {
+        "process_id_process": 278,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 294,
+    "fields": {
+        "process_id_process": 279,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 295,
+    "fields": {
+        "process_id_process": 249,
+        "rule_id_rule": 4
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 302,
+    "fields": {
+        "process_id_process": 146,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 303,
+    "fields": {
+        "process_id_process": 147,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 304,
+    "fields": {
+        "process_id_process": 149,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 305,
+    "fields": {
+        "process_id_process": 150,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 306,
+    "fields": {
+        "process_id_process": 151,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 307,
+    "fields": {
+        "process_id_process": 152,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 308,
+    "fields": {
+        "process_id_process": 153,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 309,
+    "fields": {
+        "process_id_process": 154,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 310,
+    "fields": {
+        "process_id_process": 155,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 311,
+    "fields": {
+        "process_id_process": 156,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 312,
+    "fields": {
+        "process_id_process": 157,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 313,
+    "fields": {
+        "process_id_process": 158,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 314,
+    "fields": {
+        "process_id_process": 159,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 315,
+    "fields": {
+        "process_id_process": 174,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 316,
+    "fields": {
+        "process_id_process": 175,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 317,
+    "fields": {
+        "process_id_process": 257,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 318,
+    "fields": {
+        "process_id_process": 258,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 319,
+    "fields": {
+        "process_id_process": 259,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 320,
+    "fields": {
+        "process_id_process": 260,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 321,
+    "fields": {
+        "process_id_process": 261,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 322,
+    "fields": {
+        "process_id_process": 262,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 323,
+    "fields": {
+        "process_id_process": 263,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 324,
+    "fields": {
+        "process_id_process": 264,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 325,
+    "fields": {
+        "process_id_process": 265,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 326,
+    "fields": {
+        "process_id_process": 266,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 327,
+    "fields": {
+        "process_id_process": 267,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 328,
+    "fields": {
+        "process_id_process": 268,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 329,
+    "fields": {
+        "process_id_process": 269,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 330,
+    "fields": {
+        "process_id_process": 270,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 331,
+    "fields": {
+        "process_id_process": 271,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 332,
+    "fields": {
+        "process_id_process": 272,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 333,
+    "fields": {
+        "process_id_process": 273,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 334,
+    "fields": {
+        "process_id_process": 274,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 335,
+    "fields": {
+        "process_id_process": 275,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 336,
+    "fields": {
+        "process_id_process": 276,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 337,
+    "fields": {
+        "process_id_process": 277,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 338,
+    "fields": {
+        "process_id_process": 278,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 339,
+    "fields": {
+        "process_id_process": 279,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 340,
+    "fields": {
+        "process_id_process": 249,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 341,
+    "fields": {
+        "process_id_process": 250,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 342,
+    "fields": {
+        "process_id_process": 252,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 343,
+    "fields": {
+        "process_id_process": 253,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 344,
+    "fields": {
+        "process_id_process": 254,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 345,
+    "fields": {
+        "process_id_process": 255,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.rulehasprocess",
+    "pk": 346,
+    "fields": {
+        "process_id_process": 256,
+        "rule_id_rule": 5
+    }
+},
+{
+    "model": "smupapp.timerange",
+    "pk": 1,
+    "fields": {
+        "name": "Dzień"
+    }
+},
+{
+    "model": "smupapp.timerange",
+    "pk": 2,
+    "fields": {
+        "name": "Tydzień"
+    }
+},
+{
+    "model": "smupapp.timerange",
+    "pk": 3,
+    "fields": {
+        "name": "Miesiąc"
+    }
+},
+{
+    "model": "smupapp.unit",
+    "pk": 2,
+    "fields": {
+        "name": "Developerzy",
+        "is_active": 0
+    }
+},
+{
+    "model": "smupapp.unit",
+    "pk": 3,
+    "fields": {
+        "name": "Urząd Miasta",
+        "is_active": null
+    }
+},
+{
+    "model": "smupapp.unit",
+    "pk": 5,
+    "fields": {
+        "name": "Geodezja, Kartografia i Gospodarka Nieruchomościami",
+        "is_active": null
+    }
+}
+]
